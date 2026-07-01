@@ -1,0 +1,10 @@
+assignments
+backoff_transmitter.low_transmitter:[0, 1]
+backoff_transmitter.high_transmitter:[0, 1]
+backoff_transmitter.monitor:[0, 1]
+backoff_transmitter.low_transmitter:[1, 3, 1, 1]
+backoff_transmitter.high_transmitter:[1, 4, 1, 1]
+backoff_transmitter.monitor:[1, 6, 1, 1]
+backoff_transmitter.low_transmitter:[1, 3, 2, 1]
+backoff_transmitter.high_transmitter:[1, 4, 2, 1]
+backoff_transmitter.monitor:[1, 6, 2, 1]
