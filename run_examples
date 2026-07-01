@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+# Run from the top-level artifact directory
+
+run_example() {
+    name="$1"
+
+    MODEL="/app/testdata/$name/$name.ast.xml"
+    POLICY="/app/testdata/$name/$name.policy.txt"
+
+    echo "============================================================"
+    echo "Running example: $name"
+    echo "Model:  $MODEL"
+    echo "Policy: $POLICY"
+    echo "============================================================"
+
+    docker run --rm --name artifact artifact -c \
+        "java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF \
+            -jar /app/AbstractionRefinement.jar \
+            -m $MODEL \
+            -p $POLICY \
+            -s -ic"
+
+    echo
+}
+
+run_example "priorities"
+run_example "many_slots"
+run_example "arbiter"
+run_example "transmitters"

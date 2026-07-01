@@ -1,0 +1,25 @@
+
+all: 
+	./sc_ex.sh $(JAVA_OP)
+
+
+clean:
+	rm -rf tlm/nb_transport/*.xml tlm/nb_transport/*_res.cpp;
+	rm -rf fft/fft_flpt/*.xml fft/fft_flpt/*_res.cpp fft/fft_fxpt/*.xml fft/fft_fxpt/*_res.cpp;
+	rm -rf rsa/*.xml rsa/*_res.cpp;
+	rm -rf fir/*.xml fir/*_res.cpp;
+	rm -rf pipe/*.xml pipe/*_res.cpp;  
+	rm -rf pkt_switch/*.xml pkt_switch/*_res.cpp;  
+	rm -rf risc_cpu/*.xml risc_cpu/*_res.cpp;
+	rm -rf simple_bus/*.xml simple_bus/*_res.cpp;
+	rm -rf simple_fifo/*.xml simple_fifo/*_res.cpp;
+	rm -rf simple_perf/*.xml simple_perf/*_res.cpp;
+	rm -rf 2.1/dpipe/*.xml 2.1/dpipe/*_res.cpp;
+	rm -rf 2.1/forkjoin/*.xml 2.1/forkjoin/*_res.cpp;
+	rm -rf 2.1/reset_signal_is/*.xml 2.1/reset_signal_is/*_res.cpp;
+	rm -rf 2.1/sc_export/*.xml 2.1/sc_export/*_res.cpp;
+	rm -rf 2.1/sc_barrier/*.xml 2.1/sc_barrier/*_res.cpp;
+	rm -rf 2.1/sc_report/*.xml 2.1/sc_report/*_res.cpp;
+	rm -rf 2.1/scx_barrier/*.xml 2.1/scx_barrier/*_res.cpp;
+	rm -rf 2.1/scx_mutex_w_policy/*.xml 2.1/scx_mutex_w_policy/*_res.cpp;
+	rm -rf sc2ast.jar   

@@ -1,0 +1,2 @@
+forbid
+	(IN GVar[arbiter arb;.int high_in;]) -> (OUT GVar[arbiter arb;.int low_out;])

@@ -1,0 +1,1656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="reset_signal_is.cpp" idref="31" line="28" name="/*****************************************************************************&#xa;&#xa;&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;&#xa;  changes you are making here.&#xa;&#xa;&#xa;&#xa;      Name, Affiliation, Date:&#xa;&#xa;  Description of Modification:&#xa;&#xa;&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="reset_signal_is.cpp" idref="32" line="18" name="/*****************************************************************************&#xa;&#xa;&#xa;&#xa;  reset_signal_is.cpp -- This example shows the use of the method&#xa;&#xa;             sc_module::reset_signal_is() to provide reset semantics for &#xa;&#xa;             a clocked thread (SC_CTHREAD). &#xa;&#xa;&#xa;&#xa;  Original Author: Andy Goodrich, Forte Design Systems, Inc.&#xa;&#xa;&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="reset_signal_is.cpp" idref="33" line="1" name="/*****************************************************************************&#xa;&#xa;&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;&#xa;  source code Copyright (c) 1996-2005 by all Contributors.&#xa;&#xa;  All Rights reserved.&#xa;&#xa;&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;&#xa;  set forth in the SystemC Open Source License Version 2.4 (the &quot;License&quot;);&#xa;&#xa;  You may not use this file except in compliance with such restrictions and&#xa;&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;&#xa;  language governing rights and limitations under the License.&#xa;&#xa;&#xa;&#xa; *****************************************************************************/"/>
+  <external_declaration column="15" file="reset_signal_is.cpp"
+    idref="35" line="40">
+    <declaration column="15" file="reset_signal_is.cpp" idref="37" line="40">
+      <declaration_specifiers column="15" file="reset_signal_is.cpp"
+        idref="41" line="40">
+        <class_specifier column="15" extSCModule="true"
+          file="reset_signal_is.cpp" idref="43" keyword="class"
+          line="40" name="CONSUMER">
+          <base_clause column="19" file="reset_signal_is.cpp" idref="45" line="41">
+            <base_specifier column="19" file="reset_signal_is.cpp"
+              idref="47" length="0" line="41" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="19"
+                file="reset_signal_is.cpp" idref="49" line="41" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="19" file="reset_signal_is.cpp"
+            idref="51" line="41">
+            <access_specifier column="19" file="reset_signal_is.cpp"
+              idref="53" line="41" name="public"/>
+          </member_declaration>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="55" line="42"/>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="57" line="42">
+            <ctor_definition column="1" file="reset_signal_is.cpp"
+              idref="59" line="42">
+              <qualified_id column="9" file="reset_signal_is.cpp"
+                idref="61" line="42" name="CONSUMER"/>
+              <parameter_list column="18" file="reset_signal_is.cpp"
+                idref="63" line="43">
+                <parameter_declaration column="18"
+                  file="reset_signal_is.cpp" idref="65" line="43">
+                  <declaration_specifiers column="18"
+                    file="reset_signal_is.cpp" idref="67" line="43">
+                    <builtin_type_specifier column="18"
+                      file="reset_signal_is.cpp" idref="69" length="0"
+                      line="43" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="18" file="reset_signal_is.cpp"
+                    idref="71" line="43">
+                    <qualified_id column="18" file="reset_signal_is.cpp"
+                      idref="73" line="43" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="18" file="reset_signal_is.cpp"
+                idref="75" line="43">
+                <superclass_init column="18" file="reset_signal_is.cpp"
+                  idref="77" line="43">
+                  <declaration_specifiers column="18"
+                    file="reset_signal_is.cpp" idref="79" line="43">
+                    <builtin_type_specifier column="18"
+                      file="reset_signal_is.cpp" idref="81" length="0"
+                      line="43" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="18" file="reset_signal_is.cpp"
+                    idref="83" line="43">
+                    <primary_expression column="18"
+                      file="reset_signal_is.cpp" idref="85" line="43">
+                      <id_expression column="18"
+                        file="reset_signal_is.cpp" idref="87" line="43" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="18" file="reset_signal_is.cpp" idref="89" line="43">
+                <sc_cthread_block column="2" file="reset_signal_is.cpp"
+                  idref="91" line="44">
+                  <sc_cthread clock="m_clk" column="2" edge="pos"
+                    file="reset_signal_is.cpp" idref="93" line="44" name="consumer"/>
+                </sc_cthread_block>
+                <block_statement column="35" file="reset_signal_is.cpp"
+                  idref="95" line="45">
+                  <postfix_expression column="35"
+                    file="reset_signal_is.cpp" idref="97" line="45">
+                    <primary_expression column="35"
+                      file="reset_signal_is.cpp" idref="99" line="45">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="101" line="45" name="reset_signal_is"/>
+                    </primary_expression>
+                    <arguments column="3" file="reset_signal_is.cpp"
+                      idref="103" line="45">
+                      <arguments_list column="18"
+                        file="reset_signal_is.cpp" idref="105" line="45">
+                        <primary_expression column="18"
+                          file="reset_signal_is.cpp" idref="109" line="45">
+                          <id_expression column="19"
+                            file="reset_signal_is.cpp" idref="111"
+                            line="45" name="m_reset"/>
+                        </primary_expression>
+                        <primary_expression column="26"
+                          file="reset_signal_is.cpp" idref="115" line="45">
+                          <constant column="26"
+                            file="reset_signal_is.cpp" idref="117"
+                            line="45" value="false"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="119" line="47">
+            <function_definition column="2" file="reset_signal_is.cpp"
+              idref="121" line="47">
+              <declaration_specifiers column="2"
+                file="reset_signal_is.cpp" idref="123" line="47">
+                <builtin_type_specifier column="2"
+                  file="reset_signal_is.cpp" idref="125" length="0"
+                  line="47" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="reset_signal_is.cpp"
+                idref="127" line="47">
+                <qualified_id column="2" file="reset_signal_is.cpp"
+                  idref="129" line="47" name="consumer"/>
+              </function_declarator>
+              <block column="16" file="reset_signal_is.cpp" idref="131" line="48">
+                <block_statement column="2" file="reset_signal_is.cpp"
+                  idref="133" line="49">
+                  <output_stream column="2" file="reset_signal_is.cpp"
+                    idref="135" line="49" name="cout">
+                    <systemCRoutine column="8"
+                      file="reset_signal_is.cpp" idref="139" line="49" name="sc_time_stamp">
+                      <arguments column="24" file="reset_signal_is.cpp"
+                        idref="141" line="49"/>
+                    </systemCRoutine>
+                    <primary_expression column="27"
+                      file="reset_signal_is.cpp" idref="145" line="49">
+                      <constant column="27" file="reset_signal_is.cpp"
+                        idref="147" line="49" value="&quot;: reset&quot;"/>
+                    </primary_expression>
+                    <standart_manipulator column="40"
+                      file="reset_signal_is.cpp" idref="149" line="49" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="47" file="reset_signal_is.cpp"
+                  idref="151" line="50">
+                  <while_statement column="47"
+                    file="reset_signal_is.cpp" idref="153" line="50">
+                    <primary_expression column="9"
+                      file="reset_signal_is.cpp" idref="157" line="50">
+                      <constant column="9" file="reset_signal_is.cpp"
+                        idref="159" line="50" value="1"/>
+                    </primary_expression>
+                    <block column="11" file="reset_signal_is.cpp"
+                      idref="161" line="51">
+                      <block_statement column="3"
+                        file="reset_signal_is.cpp" idref="163" line="52">
+                        <assignment column="12"
+                          file="reset_signal_is.cpp" idref="173" line="52">
+                          <primary_expression column="3"
+                            file="reset_signal_is.cpp" idref="167" line="52">
+                            <id_expression column="4"
+                              file="reset_signal_is.cpp" idref="169"
+                              line="52" name="m_ready"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="reset_signal_is.cpp" idref="171" line="52"/>
+                          <primary_expression column="12"
+                            file="reset_signal_is.cpp" idref="177" line="52">
+                            <constant column="12"
+                              file="reset_signal_is.cpp" idref="179"
+                              line="52" value="true"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="18"
+                        file="reset_signal_is.cpp" idref="181" line="53">
+                        <do_statement column="18"
+                          file="reset_signal_is.cpp" idref="183" line="53">
+                          <block column="4" file="reset_signal_is.cpp"
+                            idref="185" line="53">
+                            <block_statement column="7"
+                              file="reset_signal_is.cpp" idref="187" line="53">
+                              <systemCRoutine column="7"
+                                file="reset_signal_is.cpp" idref="191"
+                                line="53" name="wait">
+                                <arguments column="9"
+                                  file="reset_signal_is.cpp" idref="193" line="53"/>
+                              </systemCRoutine>
+                            </block_statement>
+                          </block>
+                          <unary_expression column="25"
+                            file="reset_signal_is.cpp" idref="195" line="53">
+                            <unary_operator column="25"
+                              file="reset_signal_is.cpp" idref="197"
+                              line="53" operator="not"/>
+                            <primary_expression column="27"
+                              file="reset_signal_is.cpp" idref="201" line="53">
+                              <id_expression column="28"
+                                file="reset_signal_is.cpp" idref="203"
+                                line="53" name="m_valid"/>
+                            </primary_expression>
+                          </unary_expression>
+                        </do_statement>
+                      </block_statement>
+                      <block_statement column="36"
+                        file="reset_signal_is.cpp" idref="205" line="54">
+                        <output_stream column="36"
+                          file="reset_signal_is.cpp" idref="207"
+                          line="54" name="cout">
+                          <systemCRoutine column="9"
+                            file="reset_signal_is.cpp" idref="211"
+                            line="54" name="sc_time_stamp">
+                            <arguments column="25"
+                              file="reset_signal_is.cpp" idref="213" line="54"/>
+                          </systemCRoutine>
+                          <primary_expression column="28"
+                            file="reset_signal_is.cpp" idref="217" line="54">
+                            <constant column="28"
+                              file="reset_signal_is.cpp" idref="219"
+                              line="54" value="&quot;: &quot;"/>
+                          </primary_expression>
+                          <postfix_expression column="36"
+                            file="reset_signal_is.cpp" idref="221" line="54">
+                            <primary_expression column="36"
+                              file="reset_signal_is.cpp" idref="223" line="54">
+                              <id_expression column="39"
+                                file="reset_signal_is.cpp" idref="225"
+                                line="54" name="m_value"/>
+                            </primary_expression>
+                            <dereferencing_operator column="39"
+                              file="reset_signal_is.cpp" idref="227"
+                              line="54" name="&amp;"/>
+                            <id_expression column="47"
+                              file="reset_signal_is.cpp" idref="229"
+                              line="54" name="read"/>
+                            <arguments column="47"
+                              file="reset_signal_is.cpp" idref="231" line="54"/>
+                          </postfix_expression>
+                          <standart_manipulator column="54"
+                            file="reset_signal_is.cpp" idref="233"
+                            line="54" name="endl"/>
+                        </output_stream>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="235" line="57">
+            <member_declarator_list column="2"
+              file="reset_signal_is.cpp" idref="237" line="57">
+              <sc_port_specifier column="2" file="reset_signal_is.cpp"
+                idref="239" line="57" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="2"
+                  file="reset_signal_is.cpp" idref="241" line="57">
+                  <builtin_type_specifier column="2"
+                    file="reset_signal_is.cpp" idref="243" length="0"
+                    line="57" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="2" file="reset_signal_is.cpp"
+                idref="245" line="57">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="247" line="57">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="249" line="57" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="reset_signal_is.cpp"
+            idref="251" line="58">
+            <member_declarator_list column="17"
+              file="reset_signal_is.cpp" idref="253" line="58">
+              <sc_port_specifier column="17" file="reset_signal_is.cpp"
+                idref="255" line="58" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="10"
+                  file="reset_signal_is.cpp" idref="257" line="58">
+                  <builtin_type_specifier column="10"
+                    file="reset_signal_is.cpp" idref="259" length="0"
+                    line="58" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="reset_signal_is.cpp"
+                idref="261" line="58">
+                <declarator column="15" file="reset_signal_is.cpp"
+                  idref="263" line="58">
+                  <qualified_id column="15" file="reset_signal_is.cpp"
+                    idref="265" line="58" name="m_ready"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="24" file="reset_signal_is.cpp"
+            idref="267" line="59">
+            <member_declarator_list column="24"
+              file="reset_signal_is.cpp" idref="269" line="59">
+              <sc_port_specifier column="24" file="reset_signal_is.cpp"
+                idref="271" line="59" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="7"
+                  file="reset_signal_is.cpp" idref="273" line="59">
+                  <builtin_type_specifier column="7"
+                    file="reset_signal_is.cpp" idref="275" length="0"
+                    line="59" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="12" file="reset_signal_is.cpp"
+                idref="277" line="59">
+                <declarator column="12" file="reset_signal_is.cpp"
+                  idref="279" line="59">
+                  <qualified_id column="12" file="reset_signal_is.cpp"
+                    idref="281" line="59" name="m_reset"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="283" line="60">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="285" line="60">
+              <sc_port_specifier column="21" file="reset_signal_is.cpp"
+                idref="287" line="60" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="7"
+                  file="reset_signal_is.cpp" idref="289" line="60">
+                  <builtin_type_specifier column="7"
+                    file="reset_signal_is.cpp" idref="291" length="0"
+                    line="60" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="12" file="reset_signal_is.cpp"
+                idref="293" line="60">
+                <declarator column="12" file="reset_signal_is.cpp"
+                  idref="295" line="60">
+                  <qualified_id column="12" file="reset_signal_is.cpp"
+                    idref="297" line="60" name="m_valid"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="299" line="61">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="301" line="61">
+              <sc_port_specifier column="21" file="reset_signal_is.cpp"
+                idref="303" line="61" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="7"
+                  file="reset_signal_is.cpp" idref="305" line="61">
+                  <builtin_type_specifier column="7"
+                    file="reset_signal_is.cpp" idref="307" length="0"
+                    line="61" name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="11" file="reset_signal_is.cpp"
+                idref="309" line="61">
+                <declarator column="11" file="reset_signal_is.cpp"
+                  idref="311" line="61">
+                  <qualified_id column="11" file="reset_signal_is.cpp"
+                    idref="313" line="61" name="m_value"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="reset_signal_is.cpp"
+    idref="315" line="64">
+    <declaration column="2" file="reset_signal_is.cpp" idref="317" line="64">
+      <declaration_specifiers column="2" file="reset_signal_is.cpp"
+        idref="321" line="64">
+        <class_specifier column="2" extSCModule="true"
+          file="reset_signal_is.cpp" idref="323" keyword="class"
+          line="64" name="PRODUCER">
+          <base_clause column="19" file="reset_signal_is.cpp"
+            idref="325" line="65">
+            <base_specifier column="19" file="reset_signal_is.cpp"
+              idref="327" length="0" line="65" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="19"
+                file="reset_signal_is.cpp" idref="329" line="65" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="19" file="reset_signal_is.cpp"
+            idref="331" line="65">
+            <access_specifier column="19" file="reset_signal_is.cpp"
+              idref="333" line="65" name="public"/>
+          </member_declaration>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="335" line="66"/>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="337" line="66">
+            <ctor_definition column="1" file="reset_signal_is.cpp"
+              idref="339" line="66">
+              <qualified_id column="9" file="reset_signal_is.cpp"
+                idref="341" line="66" name="PRODUCER"/>
+              <parameter_list column="18" file="reset_signal_is.cpp"
+                idref="343" line="67">
+                <parameter_declaration column="18"
+                  file="reset_signal_is.cpp" idref="345" line="67">
+                  <declaration_specifiers column="18"
+                    file="reset_signal_is.cpp" idref="347" line="67">
+                    <builtin_type_specifier column="18"
+                      file="reset_signal_is.cpp" idref="349" length="0"
+                      line="67" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="18" file="reset_signal_is.cpp"
+                    idref="351" line="67">
+                    <qualified_id column="18" file="reset_signal_is.cpp"
+                      idref="353" line="67" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="18" file="reset_signal_is.cpp"
+                idref="355" line="67">
+                <superclass_init column="18" file="reset_signal_is.cpp"
+                  idref="357" line="67">
+                  <declaration_specifiers column="18"
+                    file="reset_signal_is.cpp" idref="359" line="67">
+                    <builtin_type_specifier column="18"
+                      file="reset_signal_is.cpp" idref="361" length="0"
+                      line="67" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="18" file="reset_signal_is.cpp"
+                    idref="363" line="67">
+                    <primary_expression column="18"
+                      file="reset_signal_is.cpp" idref="365" line="67">
+                      <id_expression column="18"
+                        file="reset_signal_is.cpp" idref="367" line="67" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="18" file="reset_signal_is.cpp" idref="369" line="67">
+                <sc_cthread_block column="2" file="reset_signal_is.cpp"
+                  idref="371" line="68">
+                  <sc_cthread clock="m_clk" column="2" edge="pos"
+                    file="reset_signal_is.cpp" idref="373" line="68" name="producer"/>
+                </sc_cthread_block>
+                <block_statement column="35" file="reset_signal_is.cpp"
+                  idref="375" line="69">
+                  <postfix_expression column="35"
+                    file="reset_signal_is.cpp" idref="377" line="69">
+                    <primary_expression column="35"
+                      file="reset_signal_is.cpp" idref="379" line="69">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="381" line="69" name="reset_signal_is"/>
+                    </primary_expression>
+                    <arguments column="3" file="reset_signal_is.cpp"
+                      idref="383" line="69">
+                      <arguments_list column="18"
+                        file="reset_signal_is.cpp" idref="385" line="69">
+                        <primary_expression column="18"
+                          file="reset_signal_is.cpp" idref="389" line="69">
+                          <id_expression column="19"
+                            file="reset_signal_is.cpp" idref="391"
+                            line="69" name="m_reset"/>
+                        </primary_expression>
+                        <primary_expression column="26"
+                          file="reset_signal_is.cpp" idref="395" line="69">
+                          <constant column="26"
+                            file="reset_signal_is.cpp" idref="397"
+                            line="69" value="false"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="399" line="71">
+            <function_definition column="2" file="reset_signal_is.cpp"
+              idref="401" line="71">
+              <declaration_specifiers column="2"
+                file="reset_signal_is.cpp" idref="403" line="71">
+                <builtin_type_specifier column="2"
+                  file="reset_signal_is.cpp" idref="405" length="0"
+                  line="71" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="reset_signal_is.cpp"
+                idref="407" line="71">
+                <qualified_id column="2" file="reset_signal_is.cpp"
+                  idref="409" line="71" name="producer"/>
+              </function_declarator>
+              <block column="16" file="reset_signal_is.cpp" idref="411" line="72">
+                <block_statement column="2" file="reset_signal_is.cpp"
+                  idref="413" line="73">
+                  <assignment column="11" file="reset_signal_is.cpp"
+                    idref="423" line="73">
+                    <primary_expression column="2"
+                      file="reset_signal_is.cpp" idref="417" line="73">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="419" line="73" name="m_value"/>
+                    </primary_expression>
+                    <assignment_operator column="3"
+                      file="reset_signal_is.cpp" idref="421" line="73"/>
+                    <primary_expression column="11"
+                      file="reset_signal_is.cpp" idref="427" line="73">
+                      <constant column="11" file="reset_signal_is.cpp"
+                        idref="429" line="73" value="0"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="14" file="reset_signal_is.cpp"
+                  idref="431" line="74">
+                  <while_statement column="14"
+                    file="reset_signal_is.cpp" idref="433" line="74">
+                    <primary_expression column="9"
+                      file="reset_signal_is.cpp" idref="437" line="74">
+                      <constant column="9" file="reset_signal_is.cpp"
+                        idref="439" line="74" value="1"/>
+                    </primary_expression>
+                    <block column="11" file="reset_signal_is.cpp"
+                      idref="441" line="75">
+                      <block_statement column="3"
+                        file="reset_signal_is.cpp" idref="443" line="76">
+                        <assignment column="12"
+                          file="reset_signal_is.cpp" idref="453" line="76">
+                          <primary_expression column="3"
+                            file="reset_signal_is.cpp" idref="447" line="76">
+                            <id_expression column="4"
+                              file="reset_signal_is.cpp" idref="449"
+                              line="76" name="m_valid"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="reset_signal_is.cpp" idref="451" line="76"/>
+                          <primary_expression column="12"
+                            file="reset_signal_is.cpp" idref="457" line="76">
+                            <constant column="12"
+                              file="reset_signal_is.cpp" idref="459"
+                              line="76" value="true"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="18"
+                        file="reset_signal_is.cpp" idref="461" line="77">
+                        <do_statement column="18"
+                          file="reset_signal_is.cpp" idref="463" line="77">
+                          <block column="4" file="reset_signal_is.cpp"
+                            idref="465" line="77">
+                            <block_statement column="7"
+                              file="reset_signal_is.cpp" idref="467" line="77">
+                              <systemCRoutine column="7"
+                                file="reset_signal_is.cpp" idref="471"
+                                line="77" name="wait">
+                                <arguments column="9"
+                                  file="reset_signal_is.cpp" idref="473" line="77"/>
+                              </systemCRoutine>
+                            </block_statement>
+                          </block>
+                          <unary_expression column="25"
+                            file="reset_signal_is.cpp" idref="475" line="77">
+                            <unary_operator column="25"
+                              file="reset_signal_is.cpp" idref="477"
+                              line="77" operator="not"/>
+                            <primary_expression column="26"
+                              file="reset_signal_is.cpp" idref="481" line="77">
+                              <id_expression column="27"
+                                file="reset_signal_is.cpp" idref="483"
+                                line="77" name="m_ready"/>
+                            </primary_expression>
+                          </unary_expression>
+                        </do_statement>
+                      </block_statement>
+                      <block_statement column="35"
+                        file="reset_signal_is.cpp" idref="485" line="78">
+                        <assignment column="12"
+                          file="reset_signal_is.cpp" idref="495" line="78">
+                          <primary_expression column="35"
+                            file="reset_signal_is.cpp" idref="489" line="78">
+                            <id_expression column="4"
+                              file="reset_signal_is.cpp" idref="491"
+                              line="78" name="m_value"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="reset_signal_is.cpp" idref="493" line="78"/>
+                          <add_node column="22"
+                            file="reset_signal_is.cpp" idref="503" line="78">
+                            <primary_expression column="12"
+                              file="reset_signal_is.cpp" idref="499" line="78">
+                              <id_expression column="14"
+                                file="reset_signal_is.cpp" idref="501"
+                                line="78" name="m_value"/>
+                            </primary_expression>
+                            <primary_expression column="22"
+                              file="reset_signal_is.cpp" idref="507" line="78">
+                              <constant column="22"
+                                file="reset_signal_is.cpp" idref="509"
+                                line="78" value="1"/>
+                            </primary_expression>
+                          </add_node>
+                        </assignment>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="511" line="81">
+            <member_declarator_list column="2"
+              file="reset_signal_is.cpp" idref="513" line="81">
+              <sc_port_specifier column="2" file="reset_signal_is.cpp"
+                idref="515" line="81" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="2"
+                  file="reset_signal_is.cpp" idref="517" line="81">
+                  <builtin_type_specifier column="2"
+                    file="reset_signal_is.cpp" idref="519" length="0"
+                    line="81" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="2" file="reset_signal_is.cpp"
+                idref="521" line="81">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="523" line="81">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="525" line="81" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="reset_signal_is.cpp"
+            idref="527" line="82">
+            <member_declarator_list column="17"
+              file="reset_signal_is.cpp" idref="529" line="82">
+              <sc_port_specifier column="17" file="reset_signal_is.cpp"
+                idref="531" line="82" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="7"
+                  file="reset_signal_is.cpp" idref="533" line="82">
+                  <builtin_type_specifier column="7"
+                    file="reset_signal_is.cpp" idref="535" length="0"
+                    line="82" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="12" file="reset_signal_is.cpp"
+                idref="537" line="82">
+                <declarator column="12" file="reset_signal_is.cpp"
+                  idref="539" line="82">
+                  <qualified_id column="12" file="reset_signal_is.cpp"
+                    idref="541" line="82" name="m_ready"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="543" line="83">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="545" line="83">
+              <sc_port_specifier column="21" file="reset_signal_is.cpp"
+                idref="547" line="83" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="7"
+                  file="reset_signal_is.cpp" idref="549" line="83">
+                  <builtin_type_specifier column="7"
+                    file="reset_signal_is.cpp" idref="551" length="0"
+                    line="83" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="12" file="reset_signal_is.cpp"
+                idref="553" line="83">
+                <declarator column="12" file="reset_signal_is.cpp"
+                  idref="555" line="83">
+                  <qualified_id column="12" file="reset_signal_is.cpp"
+                    idref="557" line="83" name="m_reset"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="559" line="84">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="561" line="84">
+              <sc_port_specifier column="21" file="reset_signal_is.cpp"
+                idref="563" line="84" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="10"
+                  file="reset_signal_is.cpp" idref="565" line="84">
+                  <builtin_type_specifier column="10"
+                    file="reset_signal_is.cpp" idref="567" length="0"
+                    line="84" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="reset_signal_is.cpp"
+                idref="569" line="84">
+                <declarator column="15" file="reset_signal_is.cpp"
+                  idref="571" line="84">
+                  <qualified_id column="15" file="reset_signal_is.cpp"
+                    idref="573" line="84" name="m_valid"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="24" file="reset_signal_is.cpp"
+            idref="575" line="85">
+            <member_declarator_list column="24"
+              file="reset_signal_is.cpp" idref="577" line="85">
+              <sc_port_specifier column="24" file="reset_signal_is.cpp"
+                idref="579" line="85" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="10"
+                  file="reset_signal_is.cpp" idref="581" line="85">
+                  <builtin_type_specifier column="10"
+                    file="reset_signal_is.cpp" idref="583" length="0"
+                    line="85" name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="14" file="reset_signal_is.cpp"
+                idref="585" line="85">
+                <declarator column="14" file="reset_signal_is.cpp"
+                  idref="587" line="85">
+                  <qualified_id column="14" file="reset_signal_is.cpp"
+                    idref="589" line="85" name="m_value"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="reset_signal_is.cpp"
+    idref="591" line="88">
+    <declaration column="2" file="reset_signal_is.cpp" idref="593" line="88">
+      <declaration_specifiers column="2" file="reset_signal_is.cpp"
+        idref="597" line="88">
+        <class_specifier column="2" extSCModule="true"
+          file="reset_signal_is.cpp" idref="599" keyword="class"
+          line="88" name="TESTBENCH">
+          <base_clause column="20" file="reset_signal_is.cpp"
+            idref="601" line="89">
+            <base_specifier column="20" file="reset_signal_is.cpp"
+              idref="603" length="0" line="89" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="20"
+                file="reset_signal_is.cpp" idref="605" line="89" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="20" file="reset_signal_is.cpp"
+            idref="607" line="89">
+            <access_specifier column="20" file="reset_signal_is.cpp"
+              idref="609" line="89" name="public"/>
+          </member_declaration>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="611" line="90"/>
+          <member_declaration column="1" file="reset_signal_is.cpp"
+            idref="613" line="90">
+            <ctor_definition column="1" file="reset_signal_is.cpp"
+              idref="615" line="90">
+              <qualified_id column="9" file="reset_signal_is.cpp"
+                idref="617" line="90" name="TESTBENCH"/>
+              <parameter_list column="19" file="reset_signal_is.cpp"
+                idref="619" line="90">
+                <parameter_declaration column="19"
+                  file="reset_signal_is.cpp" idref="621" line="90">
+                  <declaration_specifiers column="19"
+                    file="reset_signal_is.cpp" idref="623" line="90">
+                    <builtin_type_specifier column="19"
+                      file="reset_signal_is.cpp" idref="625" length="0"
+                      line="90" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="19" file="reset_signal_is.cpp"
+                    idref="627" line="90">
+                    <qualified_id column="19" file="reset_signal_is.cpp"
+                      idref="629" line="90" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="19" file="reset_signal_is.cpp"
+                idref="631" line="90">
+                <superclass_init column="21" file="reset_signal_is.cpp"
+                  idref="633" line="90">
+                  <qualified_id column="21" file="reset_signal_is.cpp"
+                    idref="635" line="90" name="m_consumer"/>
+                  <arguments_list column="33" file="reset_signal_is.cpp"
+                    idref="637" line="90">
+                    <primary_expression column="33"
+                      file="reset_signal_is.cpp" idref="641" line="90">
+                      <constant column="33" file="reset_signal_is.cpp"
+                        idref="643" line="90" value="&quot;consumer&quot;"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="44" file="reset_signal_is.cpp"
+                  idref="645" line="90">
+                  <declaration_specifiers column="44"
+                    file="reset_signal_is.cpp" idref="647" line="90">
+                    <builtin_type_specifier column="44"
+                      file="reset_signal_is.cpp" idref="649" length="0"
+                      line="90" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="44" file="reset_signal_is.cpp"
+                    idref="651" line="90">
+                    <primary_expression column="44"
+                      file="reset_signal_is.cpp" idref="653" line="90">
+                      <id_expression column="44"
+                        file="reset_signal_is.cpp" idref="655" line="90" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="45" file="reset_signal_is.cpp"
+                  idref="657" line="90">
+                  <qualified_id column="45" file="reset_signal_is.cpp"
+                    idref="659" line="90" name="m_producer"/>
+                  <arguments_list column="57" file="reset_signal_is.cpp"
+                    idref="661" line="90">
+                    <primary_expression column="57"
+                      file="reset_signal_is.cpp" idref="665" line="90">
+                      <constant column="57" file="reset_signal_is.cpp"
+                        idref="667" line="90" value="&quot;producer&quot;"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="68" file="reset_signal_is.cpp" idref="669" line="91">
+                <sc_cthread_block column="2" file="reset_signal_is.cpp"
+                  idref="671" line="92">
+                  <sc_cthread clock="m_clk" column="2" edge="pos"
+                    file="reset_signal_is.cpp" idref="673" line="92" name="testbench"/>
+                </sc_cthread_block>
+                <block_statement column="36" file="reset_signal_is.cpp"
+                  idref="675" line="93">
+                  <postfix_expression column="36"
+                    file="reset_signal_is.cpp" idref="677" line="93">
+                    <primary_expression column="36"
+                      file="reset_signal_is.cpp" idref="679" line="93">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="681" line="93" name="m_consumer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="683" line="93" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="685" line="93" name="m_clk"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="687" line="93">
+                      <arguments_list column="19"
+                        file="reset_signal_is.cpp" idref="689" line="93">
+                        <primary_expression column="19"
+                          file="reset_signal_is.cpp" idref="693" line="93">
+                          <id_expression column="20"
+                            file="reset_signal_is.cpp" idref="695"
+                            line="93" name="m_clk"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="26" file="reset_signal_is.cpp"
+                  idref="697" line="94">
+                  <postfix_expression column="26"
+                    file="reset_signal_is.cpp" idref="699" line="94">
+                    <primary_expression column="26"
+                      file="reset_signal_is.cpp" idref="701" line="94">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="703" line="94" name="m_consumer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="705" line="94" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="707" line="94" name="m_ready"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="709" line="94">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="711" line="94">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="715" line="94">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="717"
+                            line="94" name="m_ready"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="719" line="95">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="721" line="95">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="723" line="95">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="725" line="95" name="m_consumer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="727" line="95" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="729" line="95" name="m_reset"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="731" line="95">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="733" line="95">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="737" line="95">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="739"
+                            line="95" name="m_reset"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="741" line="96">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="743" line="96">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="745" line="96">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="747" line="96" name="m_consumer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="749" line="96" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="751" line="96" name="m_valid"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="753" line="96">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="755" line="96">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="759" line="96">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="761"
+                            line="96" name="m_valid"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="763" line="97">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="765" line="97">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="767" line="97">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="769" line="97" name="m_consumer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="771" line="97" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="773" line="97" name="m_value"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="775" line="97">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="777" line="97">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="781" line="97">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="783"
+                            line="97" name="m_value"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="785" line="98">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="787" line="98">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="789" line="98">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="791" line="98" name="m_producer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="793" line="98" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="795" line="98" name="m_clk"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="797" line="98">
+                      <arguments_list column="19"
+                        file="reset_signal_is.cpp" idref="799" line="98">
+                        <primary_expression column="19"
+                          file="reset_signal_is.cpp" idref="803" line="98">
+                          <id_expression column="20"
+                            file="reset_signal_is.cpp" idref="805"
+                            line="98" name="m_clk"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="26" file="reset_signal_is.cpp"
+                  idref="807" line="99">
+                  <postfix_expression column="26"
+                    file="reset_signal_is.cpp" idref="809" line="99">
+                    <primary_expression column="26"
+                      file="reset_signal_is.cpp" idref="811" line="99">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="813" line="99" name="m_producer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="815" line="99" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="817" line="99" name="m_ready"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="819" line="99">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="821" line="99">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="825" line="99">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="827"
+                            line="99" name="m_ready"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="829" line="100">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="831" line="100">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="833" line="100">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="835"
+                        line="100" name="m_producer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="837" line="100" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="839" line="100" name="m_reset"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="841" line="100">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="843" line="100">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="847" line="100">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="849"
+                            line="100" name="m_reset"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="851" line="101">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="853" line="101">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="855" line="101">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="857"
+                        line="101" name="m_producer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="859" line="101" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="861" line="101" name="m_valid"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="863" line="101">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="865" line="101">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="869" line="101">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="871"
+                            line="101" name="m_valid"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="30" file="reset_signal_is.cpp"
+                  idref="873" line="102">
+                  <postfix_expression column="30"
+                    file="reset_signal_is.cpp" idref="875" line="102">
+                    <primary_expression column="30"
+                      file="reset_signal_is.cpp" idref="877" line="102">
+                      <id_expression column="3"
+                        file="reset_signal_is.cpp" idref="879"
+                        line="102" name="m_producer"/>
+                    </primary_expression>
+                    <dereferencing_operator column="3"
+                      file="reset_signal_is.cpp" idref="881" line="102" name="&amp;"/>
+                    <id_expression column="14"
+                      file="reset_signal_is.cpp" idref="883" line="102" name="m_value"/>
+                    <arguments column="14" file="reset_signal_is.cpp"
+                      idref="885" line="102">
+                      <arguments_list column="21"
+                        file="reset_signal_is.cpp" idref="887" line="102">
+                        <primary_expression column="21"
+                          file="reset_signal_is.cpp" idref="891" line="102">
+                          <id_expression column="22"
+                            file="reset_signal_is.cpp" idref="893"
+                            line="102" name="m_value"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="895" line="104">
+            <function_definition column="2" file="reset_signal_is.cpp"
+              idref="897" line="104">
+              <declaration_specifiers column="2"
+                file="reset_signal_is.cpp" idref="899" line="104">
+                <builtin_type_specifier column="2"
+                  file="reset_signal_is.cpp" idref="901" length="0"
+                  line="104" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="reset_signal_is.cpp"
+                idref="903" line="104">
+                <qualified_id column="2" file="reset_signal_is.cpp"
+                  idref="905" line="104" name="testbench"/>
+              </function_declarator>
+              <block column="17" file="reset_signal_is.cpp" idref="907" line="105">
+                <block_statement column="2" file="reset_signal_is.cpp"
+                  idref="909" line="106">
+                  <for_statement column="2" file="reset_signal_is.cpp"
+                    idref="911" line="106">
+                    <for_init column="7" file="reset_signal_is.cpp"
+                      idref="913" line="106">
+                      <declaration column="7" file="reset_signal_is.cpp"
+                        idref="915" line="106">
+                        <init_declarator_list column="7"
+                          file="reset_signal_is.cpp" idref="917" line="106">
+                          <declaration_specifiers column="7"
+                            file="reset_signal_is.cpp" idref="919" line="106">
+                            <builtin_type_specifier column="7"
+                              file="reset_signal_is.cpp" idref="921"
+                              length="0" line="106" name="int" sc_dt="false"/>
+                          </declaration_specifiers>
+                          <init_declarator column="9"
+                            file="reset_signal_is.cpp" idref="923" line="106">
+                            <declarator column="9"
+                              file="reset_signal_is.cpp" idref="925" line="106">
+                              <qualified_id column="9"
+                                file="reset_signal_is.cpp" idref="927"
+                                line="106" name="state"/>
+                            </declarator>
+                            <initializer column="19"
+                              file="reset_signal_is.cpp" idref="929" line="106">
+                              <primary_expression column="19"
+                                file="reset_signal_is.cpp" idref="933" line="106">
+                                <constant column="19"
+                                  file="reset_signal_is.cpp" idref="935"
+                                  line="106" value="0"/>
+                              </primary_expression>
+                            </initializer>
+                          </init_declarator>
+                        </init_declarator_list>
+                      </declaration>
+                    </for_init>
+                    <for_condition column="22"
+                      file="reset_signal_is.cpp" idref="937" line="106">
+                      <lt_node column="30" file="reset_signal_is.cpp"
+                        idref="945" line="106">
+                        <primary_expression column="22"
+                          file="reset_signal_is.cpp" idref="941" line="106">
+                          <id_expression column="24"
+                            file="reset_signal_is.cpp" idref="943"
+                            line="106" name="state"/>
+                        </primary_expression>
+                        <primary_expression column="30"
+                          file="reset_signal_is.cpp" idref="949" line="106">
+                          <constant column="30"
+                            file="reset_signal_is.cpp" idref="951"
+                            line="106" value="100"/>
+                        </primary_expression>
+                      </lt_node>
+                    </for_condition>
+                    <for_update column="35" file="reset_signal_is.cpp"
+                      idref="953" line="106">
+                      <statement_expression_list column="35"
+                        file="reset_signal_is.cpp" idref="955" line="106">
+                        <postincrement_node column="37"
+                          file="reset_signal_is.cpp" idref="963" line="106">
+                          <primary_expression column="35"
+                            file="reset_signal_is.cpp" idref="959" line="106">
+                            <id_expression column="37"
+                              file="reset_signal_is.cpp" idref="961"
+                              line="106" name="state"/>
+                          </primary_expression>
+                        </postincrement_node>
+                      </statement_expression_list>
+                    </for_update>
+                    <for_block column="45" file="reset_signal_is.cpp"
+                      idref="965" line="107">
+                      <block column="45" file="reset_signal_is.cpp"
+                        idref="967" line="107">
+                        <block_statement column="3"
+                          file="reset_signal_is.cpp" idref="969" line="108">
+                          <assignment column="12"
+                            file="reset_signal_is.cpp" idref="979" line="108">
+                            <primary_expression column="3"
+                              file="reset_signal_is.cpp" idref="973" line="108">
+                              <id_expression column="4"
+                                file="reset_signal_is.cpp" idref="975"
+                                line="108" name="m_reset"/>
+                            </primary_expression>
+                            <assignment_operator column="4"
+                              file="reset_signal_is.cpp" idref="977" line="108"/>
+                            <questionmark_expression column="12"
+                              file="reset_signal_is.cpp" idref="981" line="108">
+                              <primary_expression column="12"
+                                file="reset_signal_is.cpp" idref="985" line="108">
+                                <eq_node column="25"
+                                  file="reset_signal_is.cpp"
+                                  idref="1001" line="108">
+                                  <mod_node column="21"
+                                    file="reset_signal_is.cpp"
+                                    idref="993" line="108">
+                                    <primary_expression column="14"
+                                    file="reset_signal_is.cpp"
+                                    idref="989" line="108">
+                                    <id_expression column="16"
+                                    file="reset_signal_is.cpp"
+                                    idref="991" line="108" name="state"/>
+                                    </primary_expression>
+                                    <primary_expression column="21"
+                                    file="reset_signal_is.cpp"
+                                    idref="997" line="108">
+                                    <constant column="21"
+                                    file="reset_signal_is.cpp"
+                                    idref="999" line="108" value="20"/>
+                                    </primary_expression>
+                                  </mod_node>
+                                  <primary_expression column="25"
+                                    file="reset_signal_is.cpp"
+                                    idref="1005" line="108">
+                                    <constant column="25"
+                                    file="reset_signal_is.cpp"
+                                    idref="1007" line="108" value="12"/>
+                                  </primary_expression>
+                                </eq_node>
+                              </primary_expression>
+                              <primary_expression column="33"
+                                file="reset_signal_is.cpp" idref="1011" line="108">
+                                <constant column="33"
+                                  file="reset_signal_is.cpp"
+                                  idref="1013" line="108" value="false"/>
+                              </primary_expression>
+                              <primary_expression column="41"
+                                file="reset_signal_is.cpp" idref="1017" line="108">
+                                <constant column="41"
+                                  file="reset_signal_is.cpp"
+                                  idref="1019" line="108" value="true"/>
+                              </primary_expression>
+                            </questionmark_expression>
+                          </assignment>
+                        </block_statement>
+                        <block_statement column="47"
+                          file="reset_signal_is.cpp" idref="1021" line="109">
+                          <systemCRoutine column="47"
+                            file="reset_signal_is.cpp" idref="1025"
+                            line="109" name="wait">
+                            <arguments column="4"
+                              file="reset_signal_is.cpp" idref="1027" line="109"/>
+                          </systemCRoutine>
+                        </block_statement>
+                      </block>
+                    </for_block>
+                  </for_statement>
+                </block_statement>
+                <block_statement column="3" file="reset_signal_is.cpp"
+                  idref="1029" line="111">
+                  <systemCRoutine column="3" file="reset_signal_is.cpp"
+                    idref="1033" line="111" name="sc_stop">
+                    <arguments column="10" file="reset_signal_is.cpp"
+                      idref="1035" line="111"/>
+                  </systemCRoutine>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="reset_signal_is.cpp"
+            idref="1037" line="113">
+            <member_declarator_list column="2"
+              file="reset_signal_is.cpp" idref="1039" line="113">
+              <sc_port_specifier column="2" file="reset_signal_is.cpp"
+                idref="1041" line="113" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="2"
+                  file="reset_signal_is.cpp" idref="1043" line="113">
+                  <builtin_type_specifier column="2"
+                    file="reset_signal_is.cpp" idref="1045" length="0"
+                    line="113" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="2" file="reset_signal_is.cpp"
+                idref="1047" line="113">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="1049" line="113">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="1051" line="113" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="reset_signal_is.cpp"
+            idref="1053" line="114">
+            <member_declarator_list column="17"
+              file="reset_signal_is.cpp" idref="1055" line="114">
+              <declaration_specifiers column="17"
+                file="reset_signal_is.cpp" idref="1057" line="114">
+                <qualified_type column="17" file="reset_signal_is.cpp"
+                  idref="1059" line="114">
+                  <qualified_id column="17" file="reset_signal_is.cpp"
+                    idref="1061" line="114" name="CONSUMER"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="2" file="reset_signal_is.cpp"
+                idref="1063" line="114">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="1065" line="114">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="1067" line="114" name="m_consumer"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="1069" line="115">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="1071" line="115">
+              <declaration_specifiers column="21"
+                file="reset_signal_is.cpp" idref="1073" line="115">
+                <qualified_type column="21" file="reset_signal_is.cpp"
+                  idref="1075" line="115">
+                  <qualified_id column="21" file="reset_signal_is.cpp"
+                    idref="1077" line="115" name="PRODUCER"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="2" file="reset_signal_is.cpp"
+                idref="1079" line="115">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="1081" line="115">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="1083" line="115" name="m_producer"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="reset_signal_is.cpp"
+            idref="1085" line="116">
+            <member_declarator_list column="21"
+              file="reset_signal_is.cpp" idref="1087" line="116">
+              <declaration_specifiers column="21"
+                file="reset_signal_is.cpp" idref="1089" line="116">
+                <builtin_type_specifier column="21"
+                  file="reset_signal_is.cpp" idref="1091" length="0"
+                  line="116" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="11"
+                    file="reset_signal_is.cpp" idref="1093" line="116">
+                    <builtin_type_specifier column="11"
+                      file="reset_signal_is.cpp" idref="1095" length="0"
+                      line="116" name="bool" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="16" file="reset_signal_is.cpp"
+                idref="1097" line="116">
+                <declarator column="16" file="reset_signal_is.cpp"
+                  idref="1099" line="116">
+                  <qualified_id column="16" file="reset_signal_is.cpp"
+                    idref="1101" line="116" name="m_ready"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="25" file="reset_signal_is.cpp"
+            idref="1103" line="117">
+            <member_declarator_list column="25"
+              file="reset_signal_is.cpp" idref="1105" line="117">
+              <declaration_specifiers column="25"
+                file="reset_signal_is.cpp" idref="1107" line="117">
+                <builtin_type_specifier column="25"
+                  file="reset_signal_is.cpp" idref="1109" length="0"
+                  line="117" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="11"
+                    file="reset_signal_is.cpp" idref="1111" line="117">
+                    <builtin_type_specifier column="11"
+                      file="reset_signal_is.cpp" idref="1113" length="0"
+                      line="117" name="bool" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="16" file="reset_signal_is.cpp"
+                idref="1115" line="117">
+                <declarator column="16" file="reset_signal_is.cpp"
+                  idref="1117" line="117">
+                  <qualified_id column="16" file="reset_signal_is.cpp"
+                    idref="1119" line="117" name="m_reset"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="25" file="reset_signal_is.cpp"
+            idref="1121" line="118">
+            <member_declarator_list column="25"
+              file="reset_signal_is.cpp" idref="1123" line="118">
+              <declaration_specifiers column="25"
+                file="reset_signal_is.cpp" idref="1125" line="118">
+                <builtin_type_specifier column="25"
+                  file="reset_signal_is.cpp" idref="1127" length="0"
+                  line="118" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="11"
+                    file="reset_signal_is.cpp" idref="1129" line="118">
+                    <builtin_type_specifier column="11"
+                      file="reset_signal_is.cpp" idref="1131" length="0"
+                      line="118" name="bool" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="16" file="reset_signal_is.cpp"
+                idref="1133" line="118">
+                <declarator column="16" file="reset_signal_is.cpp"
+                  idref="1135" line="118">
+                  <qualified_id column="16" file="reset_signal_is.cpp"
+                    idref="1137" line="118" name="m_valid"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="25" file="reset_signal_is.cpp"
+            idref="1139" line="119">
+            <member_declarator_list column="25"
+              file="reset_signal_is.cpp" idref="1141" line="119">
+              <declaration_specifiers column="25"
+                file="reset_signal_is.cpp" idref="1143" line="119">
+                <builtin_type_specifier column="25"
+                  file="reset_signal_is.cpp" idref="1145" length="0"
+                  line="119" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="11"
+                    file="reset_signal_is.cpp" idref="1147" line="119">
+                    <builtin_type_specifier column="11"
+                      file="reset_signal_is.cpp" idref="1149" length="0"
+                      line="119" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="15" file="reset_signal_is.cpp"
+                idref="1151" line="119">
+                <declarator column="15" file="reset_signal_is.cpp"
+                  idref="1153" line="119">
+                  <qualified_id column="15" file="reset_signal_is.cpp"
+                    idref="1155" line="119" name="m_value"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="reset_signal_is.cpp"
+    idref="1157" line="122">
+    <sc_main_declaration column="2" file="reset_signal_is.cpp"
+      idref="1159" line="122">
+      <declaration_specifiers column="1" file="reset_signal_is.cpp"
+        idref="1161" line="122">
+        <builtin_type_specifier column="1" file="reset_signal_is.cpp"
+          idref="1163" length="0" line="122" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="reset_signal_is.cpp"
+        idref="1165" line="122">
+        <qualified_id column="5" file="reset_signal_is.cpp" idref="1167"
+          line="122" name="sc_main"/>
+        <parameter_list column="12" file="reset_signal_is.cpp"
+          idref="1169" line="122">
+          <parameter_declaration column="12" file="reset_signal_is.cpp"
+            idref="1171" line="122">
+            <declaration_specifiers column="12"
+              file="reset_signal_is.cpp" idref="1173" line="122">
+              <builtin_type_specifier column="12"
+                file="reset_signal_is.cpp" idref="1175" length="0"
+                line="122" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="reset_signal_is.cpp"
+              idref="1177" line="122">
+              <qualified_id column="13" file="reset_signal_is.cpp"
+                idref="1179" line="122" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="reset_signal_is.cpp"
+            idref="1181" line="122">
+            <declaration_specifiers column="21"
+              file="reset_signal_is.cpp" idref="1183" line="122">
+              <builtin_type_specifier column="21"
+                file="reset_signal_is.cpp" idref="1185" length="0"
+                line="122" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="reset_signal_is.cpp"
+              idref="1187" line="122">
+              <ptr_operator column="23" file="reset_signal_is.cpp"
+                idref="1189" line="122" name="*"/>
+              <declarator column="28" file="reset_signal_is.cpp"
+                idref="1191" line="122">
+                <qualified_id column="28" file="reset_signal_is.cpp"
+                  idref="1193" line="122" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="30"
+                  file="reset_signal_is.cpp" idref="1195" line="122"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="36" file="reset_signal_is.cpp" idref="1197" line="123">
+        <block_statement column="1" file="reset_signal_is.cpp"
+          idref="1199" line="124">
+          <declaration column="1" file="reset_signal_is.cpp"
+            idref="1201" line="124">
+            <init_declarator_list column="1" file="reset_signal_is.cpp"
+              idref="1203" line="124">
+              <declaration_specifiers column="1"
+                file="reset_signal_is.cpp" idref="1205" line="124">
+                <builtin_type_specifier column="1"
+                  file="reset_signal_is.cpp" idref="1207" length="0"
+                  line="124" name="sc_clock" sc_dt="true"/>
+              </declaration_specifiers>
+              <init_declarator column="2" file="reset_signal_is.cpp"
+                idref="1209" line="124">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="1211" line="124">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="1213" line="124" name="clock"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="16" file="reset_signal_is.cpp"
+          idref="1215" line="125">
+          <declaration column="16" file="reset_signal_is.cpp"
+            idref="1217" line="125">
+            <init_declarator_list column="16" file="reset_signal_is.cpp"
+              idref="1219" line="125">
+              <declaration_specifiers column="16"
+                file="reset_signal_is.cpp" idref="1221" line="125">
+                <qualified_type column="16" file="reset_signal_is.cpp"
+                  idref="1223" line="125">
+                  <qualified_id column="16" file="reset_signal_is.cpp"
+                    idref="1225" line="125" name="TESTBENCH"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="2" file="reset_signal_is.cpp"
+                idref="1227" line="125">
+                <declarator column="2" file="reset_signal_is.cpp"
+                  idref="1229" line="125">
+                  <qualified_id column="2" file="reset_signal_is.cpp"
+                    idref="1231" line="125" name="testbench"/>
+                </declarator>
+                <arguments_list column="21" file="reset_signal_is.cpp"
+                  idref="1233" line="125">
+                  <primary_expression column="21"
+                    file="reset_signal_is.cpp" idref="1237" line="125">
+                    <constant column="21" file="reset_signal_is.cpp"
+                      idref="1239" line="125" value="&quot;testbench&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="34" file="reset_signal_is.cpp"
+          idref="1241" line="127">
+          <postfix_expression column="34" file="reset_signal_is.cpp"
+            idref="1243" line="127">
+            <primary_expression column="34" file="reset_signal_is.cpp"
+              idref="1245" line="127">
+              <id_expression column="2" file="reset_signal_is.cpp"
+                idref="1247" line="127" name="testbench"/>
+            </primary_expression>
+            <dereferencing_operator column="2"
+              file="reset_signal_is.cpp" idref="1249" line="127" name="&amp;"/>
+            <id_expression column="12" file="reset_signal_is.cpp"
+              idref="1251" line="127" name="m_clk"/>
+            <arguments column="12" file="reset_signal_is.cpp"
+              idref="1253" line="127">
+              <arguments_list column="17" file="reset_signal_is.cpp"
+                idref="1255" line="127">
+                <primary_expression column="17"
+                  file="reset_signal_is.cpp" idref="1259" line="127">
+                  <id_expression column="18" file="reset_signal_is.cpp"
+                    idref="1261" line="127" name="clock"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="24" file="reset_signal_is.cpp"
+          idref="1263" line="128">
+          <systemCRoutine column="24" file="reset_signal_is.cpp"
+            idref="1265" line="128" name="sc_start">
+            <arguments column="2" file="reset_signal_is.cpp"
+              idref="1267" line="128">
+              <arguments_list column="10" file="reset_signal_is.cpp"
+                idref="1269" line="128">
+                <primary_expression column="10"
+                  file="reset_signal_is.cpp" idref="1273" line="128">
+                  <constant column="10" file="reset_signal_is.cpp"
+                    idref="1275" line="128" value="5000"/>
+                </primary_expression>
+                <primary_expression column="15"
+                  file="reset_signal_is.cpp" idref="1279" line="128">
+                  <constant column="15" file="reset_signal_is.cpp"
+                    idref="1281" line="128" value="SC_NS"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="23" file="reset_signal_is.cpp"
+          idref="1283" line="129">
+          <output_stream column="23" file="reset_signal_is.cpp"
+            idref="1285" line="129" name="cout">
+            <primary_expression column="7" file="reset_signal_is.cpp"
+              idref="1289" line="129">
+              <constant column="7" file="reset_signal_is.cpp"
+                idref="1291" line="129" value="&quot;Done&quot;"/>
+            </primary_expression>
+            <standart_manipulator column="17" file="reset_signal_is.cpp"
+              idref="1293" line="129" name="endl"/>
+          </output_stream>
+        </block_statement>
+        <block_statement column="24" file="reset_signal_is.cpp"
+          idref="1295" line="130">
+          <return_statement column="24" file="reset_signal_is.cpp"
+            idref="1297" line="130">
+            <primary_expression column="2" file="reset_signal_is.cpp"
+              idref="1301" line="130">
+              <constant column="2" file="reset_signal_is.cpp"
+                idref="1303" line="130" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

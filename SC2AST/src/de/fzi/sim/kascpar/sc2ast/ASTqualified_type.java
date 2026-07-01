@@ -1,0 +1,70 @@
+/*****************************************************************************
+
+ Copyright (c) 2005-2007, FZI Forschungszentrum Informatik,
+ Microelectronic System Design (SIM),
+ Haid-und-Neu-Str. 10-14, 76131 Karlsruhe, Germany.
+ All rights reserved.
+
+ The contents of this file are subject to the restrictions and limitations
+ set forth in the License as specified in the file LICENSE. You may not
+ use this file except in compliance with such restrictions and limitations.
+ You may obtain instructions on how to receive a copy of the License at
+ http://www.fzi.de/kascpar.html. Software distributed by Contributors
+ under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
+ ANY KIND, either express or implied. See the License for the specific
+ language governing rights and limitations under the License.
+
+ ****************************************************************************/
+
+/*****************************************************************************
+
+ This file is part of KaSCPar - Karlsruhe SystemC Parser Suite
+ - Subproject: SC2AST - SystemC2AST
+
+ Please report any problems or bugs to: kascpar@fzi.de
+
+ Author: Pavel Parfuntseu
+
+ ****************************************************************************/
+ 
+package de.fzi.sim.kascpar.sc2ast;
+
+public class ASTqualified_type extends SimpleNode {
+  public ASTqualified_type(int id) {
+    super(id);
+    setIsKnown(false);
+    
+  }
+
+  public ASTqualified_type(SCParser p, int id) {
+    super(p, id);
+    setIsKnown(false);
+  }
+
+  /*
+    added by PPA
+    BEGIN
+  */
+
+  // variable(s)
+  boolean m_isKnown;
+
+  public void setIsKnown(boolean isKnown) {
+    m_isKnown = isKnown;
+  }
+
+  public boolean isKnown() {
+    return m_isKnown;
+  }
+
+
+  /*
+    added by PPA
+    END
+  */
+  
+  /** Accept the visitor. **/
+  public Object jjtAccept(SCParserVisitor visitor, Object data) {
+    return visitor.visit(this, data);
+  }
+}

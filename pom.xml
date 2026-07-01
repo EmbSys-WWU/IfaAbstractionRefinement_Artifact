@@ -1,0 +1,39 @@
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.tub.pes</groupId>
+  <artifactId>Refinement</artifactId>
+  <version>1.0.0</version>
+  <name>SEFM26_Contribution</name>
+  <url>https://github.com/EmbSys-WWU/SEFM26_Contribution</url>
+  <packaging>pom</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+  </properties>
+
+  <modules>
+    <module>SC2AST</module>
+    <module>IfaAbstractionRefinement</module>
+  </modules>
+  
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+          <configuration>
+            <release>21</release>
+            <encoding>${project.encoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.14.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

@@ -1,0 +1,2 @@
+forbid
+	(IN GVar[backoff_transmitter bt;.int high_in;]) -> (OUT GVar[backoff_transmitter bt;.int low_out;])

@@ -1,0 +1,11 @@
+variables
+global bt.high_in
+global bt.low_out
+GVar[backoff_transmitter bt;.int high_in;]
+GVar[backoff_transmitter bt;.int low_out;]
+LVar[backoff_transmitter.monitor.int backoff;]
+local high_transmitter/backoff
+local backoff_transmitter.low_transmitter/backoff
+LVar[backoff_transmitter.monitor:[1, 1].handle_backoff.int bo;]
+LVar[backoff_transmitter.high_transmitter:[1, 1].handle_backoff.int bo;]
+LVar[low_transmitter:[1, 1].handle_backoff.int bo;]

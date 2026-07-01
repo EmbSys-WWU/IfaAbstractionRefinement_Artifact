@@ -1,0 +1,1591 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="31" line="40" name="//  additional discussion"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="32" line="39" name="// See section 7.4, page 120 of &quot;System Design with SystemC&quot; for"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="33" line="38" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="34" line="37" name="//  since only the process that actually acquires the mutex is resumed."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="35" line="36" name="//  if there is a lot of actual contention for ownership of the mutex,"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="36" line="35" name="// This mutex is also significantly more efficient than sc_mutex"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="37" line="34" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="38" line="33" name="//  contending for the mutex"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="39" line="32" name="//  arbitration policies when more than one process is"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="40" line="31" name="// Specialization of sc_mutex to allow FIFO or true RANDOM"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="41" line="23" name="//****************************************************************************"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="42" line="22" name="//****************************************************************************"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="43" line="21" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="44" line="20" name="// entry for &quot;System Design with SystemC&quot;."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="45" line="19" name="// Look in the &quot;Products &amp; Solutions&quot; -> &quot;SystemC Books&quot;. Then look at the"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="46" line="18" name="//     www.systemc.org "/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="47" line="17" name="// To obtain the book and find additional source code downloads, etc., visit"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="48" line="16" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="49" line="15" name="// within the &quot;System Design with SystemC&quot; book."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="50" line="14" name="// For detailed discussion on this example, see the relevant section"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="51" line="13" name="// This source code is from the book &quot;System Design with SystemC&quot;."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="52" line="12" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="53" line="11" name="// of any kind, either express or implied."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="54" line="10" name="// This software is distributed on an &quot;AS IS&quot; basis, without warranty"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="55" line="9" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="56" line="8" name="// in unmodified form within the source code."/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="57" line="7" name="// code in any way as long as this entire copyright notice is retained"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="58" line="6" name="// Permission is hereby granted to use, modify, and distribute this source"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="59" line="5" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="60" line="4" name="// Copyright (c) 2002 Thorsten Groetker, Stan Liao, Grant Martin, Stuart Swan"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="61" line="3" name="//"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="62" line="2" name="//****************************************************************************"/>
+  <comment column="1" file="scx_mutex_w_policy.cpp" idref="63" line="1" name="//****************************************************************************"/>
+  <external_declaration column="15" file="scx_mutex_w_policy.cpp"
+    idref="65" line="44">
+    <declaration column="15" file="scx_mutex_w_policy.cpp" idref="67" line="44">
+      <declaration_specifiers column="15" file="scx_mutex_w_policy.cpp"
+        idref="71" line="44">
+        <class_specifier column="15" extSCModule="false"
+          file="scx_mutex_w_policy.cpp" idref="73" keyword="class"
+          line="44" name="scx_mutex_w_policy">
+          <base_clause column="7" file="scx_mutex_w_policy.cpp"
+            idref="75" line="44">
+            <base_specifier column="26" file="scx_mutex_w_policy.cpp"
+              idref="77" length="0" line="44" name="sc_mutex" sc_dt="true">
+              <base_class_access_specifier column="26"
+                file="scx_mutex_w_policy.cpp" idref="79" line="44" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="scx_mutex_w_policy.cpp"
+            idref="81" line="46">
+            <access_specifier column="1" file="scx_mutex_w_policy.cpp"
+              idref="83" line="46" name="public"/>
+          </member_declaration>
+          <member_declaration column="7" file="scx_mutex_w_policy.cpp"
+            idref="85" line="47">
+            <enum_specifier column="7" file="scx_mutex_w_policy.cpp"
+              idref="87" line="47" name="policy_type">
+              <enumerator_list column="20" file="scx_mutex_w_policy.cpp"
+                idref="89" line="47">
+                <enumerator column="20" file="scx_mutex_w_policy.cpp"
+                  idref="91" line="47" name="FIFO"/>
+                <enumerator column="26" file="scx_mutex_w_policy.cpp"
+                  idref="93" line="47" name="RANDOM"/>
+              </enumerator_list>
+            </enum_specifier>
+          </member_declaration>
+          <member_declaration column="36" file="scx_mutex_w_policy.cpp"
+            idref="95" line="49">
+            <ctor_definition column="36" file="scx_mutex_w_policy.cpp"
+              idref="97" line="49">
+              <dtor_ctor_decl_spec column="36"
+                file="scx_mutex_w_policy.cpp" idref="99" line="49" name="explicit"/>
+              <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                idref="101" line="49" name="scx_mutex_w_policy"/>
+              <parameter_list column="30" file="scx_mutex_w_policy.cpp"
+                idref="103" line="49">
+                <parameter_declaration column="30"
+                  file="scx_mutex_w_policy.cpp" idref="105" line="49">
+                  <declaration_specifiers column="30"
+                    file="scx_mutex_w_policy.cpp" idref="107" line="49">
+                    <qualified_type column="30"
+                      file="scx_mutex_w_policy.cpp" idref="109" line="49">
+                      <qualified_id column="30"
+                        file="scx_mutex_w_policy.cpp" idref="111"
+                        line="49" name="policy_type"/>
+                    </qualified_type>
+                  </declaration_specifiers>
+                  <declarator column="31" file="scx_mutex_w_policy.cpp"
+                    idref="113" line="49">
+                    <qualified_id column="31"
+                      file="scx_mutex_w_policy.cpp" idref="115"
+                      line="49" name="policy"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="49"
+                file="scx_mutex_w_policy.cpp" idref="117" line="49">
+                <superclass_init column="51"
+                  file="scx_mutex_w_policy.cpp" idref="119" line="49">
+                  <qualified_id column="51"
+                    file="scx_mutex_w_policy.cpp" idref="121" line="49" name="policy_"/>
+                  <arguments_list column="60"
+                    file="scx_mutex_w_policy.cpp" idref="123" line="49">
+                    <primary_expression column="60"
+                      file="scx_mutex_w_policy.cpp" idref="127" line="49">
+                      <id_expression column="61"
+                        file="scx_mutex_w_policy.cpp" idref="129"
+                        line="49" name="policy"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="67" file="scx_mutex_w_policy.cpp"
+                idref="131" line="49"/>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="70" file="scx_mutex_w_policy.cpp"
+            idref="133" line="51">
+            <function_definition column="70"
+              file="scx_mutex_w_policy.cpp" idref="135" line="51">
+              <declaration_specifiers column="70"
+                file="scx_mutex_w_policy.cpp" idref="137" line="51">
+                <type_modifiers column="70"
+                  file="scx_mutex_w_policy.cpp" idref="139" line="51"/>
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="141" length="0"
+                  line="51" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="11"
+                file="scx_mutex_w_policy.cpp" idref="143" line="51">
+                <qualified_id column="11" file="scx_mutex_w_policy.cpp"
+                  idref="145" line="51" name="lock"/>
+              </function_declarator>
+              <block column="20" file="scx_mutex_w_policy.cpp"
+                idref="147" line="52">
+                <block_statement column="3"
+                  file="scx_mutex_w_policy.cpp" idref="149" line="53">
+                  <if_statement column="3" file="scx_mutex_w_policy.cpp"
+                    idref="151" line="53">
+                    <postfix_expression column="8"
+                      file="scx_mutex_w_policy.cpp" idref="153" line="53">
+                      <primary_expression column="8"
+                        file="scx_mutex_w_policy.cpp" idref="155" line="53">
+                        <id_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="157"
+                          line="53" name="in_use"/>
+                      </primary_expression>
+                      <arguments column="9"
+                        file="scx_mutex_w_policy.cpp" idref="159" line="53"/>
+                    </postfix_expression>
+                    <block column="17" file="scx_mutex_w_policy.cpp"
+                      idref="161" line="53">
+                      <block_statement column="19"
+                        file="scx_mutex_w_policy.cpp" idref="163" line="54">
+                        <declaration column="19"
+                          file="scx_mutex_w_policy.cpp" idref="165" line="54">
+                          <init_declarator_list column="19"
+                            file="scx_mutex_w_policy.cpp" idref="167" line="54">
+                            <declaration_specifiers column="19"
+                              file="scx_mutex_w_policy.cpp" idref="169" line="54">
+                              <builtin_type_specifier column="19"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="171" length="0" line="54"
+                                name="sc_event" sc_dt="true"/>
+                            </declaration_specifiers>
+                            <init_declarator column="7"
+                              file="scx_mutex_w_policy.cpp" idref="173" line="54">
+                              <declarator column="7"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="175" line="54">
+                                <qualified_id column="7"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="177" line="54" name="my_event"/>
+                              </declarator>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="24"
+                        file="scx_mutex_w_policy.cpp" idref="179" line="55">
+                        <postfix_expression column="24"
+                          file="scx_mutex_w_policy.cpp" idref="181" line="55">
+                          <primary_expression column="24"
+                            file="scx_mutex_w_policy.cpp" idref="183" line="55">
+                            <id_expression column="7"
+                              file="scx_mutex_w_policy.cpp" idref="185"
+                              line="55" name="event_list"/>
+                          </primary_expression>
+                          <dereferencing_operator column="7"
+                            file="scx_mutex_w_policy.cpp" idref="187"
+                            line="55" name="&amp;"/>
+                          <id_expression column="18"
+                            file="scx_mutex_w_policy.cpp" idref="189"
+                            line="55" name="push_back"/>
+                          <arguments column="18"
+                            file="scx_mutex_w_policy.cpp" idref="191" line="55">
+                            <arguments_list column="27"
+                              file="scx_mutex_w_policy.cpp" idref="193" line="55">
+                              <unary_expression column="27"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="195" line="55">
+                                <unary_operator column="27"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="197" line="55" operator="ref"/>
+                                <primary_expression column="28"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="201" line="55">
+                                  <id_expression column="29"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="203" line="55" name="my_event"/>
+                                </primary_expression>
+                              </unary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="38"
+                        file="scx_mutex_w_policy.cpp" idref="205" line="56">
+                        <systemCRoutine column="38"
+                          file="scx_mutex_w_policy.cpp" idref="209"
+                          line="56" name="wait">
+                          <arguments column="7"
+                            file="scx_mutex_w_policy.cpp" idref="211" line="56">
+                            <arguments_list column="11"
+                              file="scx_mutex_w_policy.cpp" idref="213" line="56">
+                              <primary_expression column="11"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="217" line="56">
+                                <id_expression column="12"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="219" line="56" name="my_event"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="5"
+                  file="scx_mutex_w_policy.cpp" idref="221" line="59">
+                  <assignment column="13" file="scx_mutex_w_policy.cpp"
+                    idref="231" line="59">
+                    <primary_expression column="5"
+                      file="scx_mutex_w_policy.cpp" idref="225" line="59">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="227"
+                        line="59" name="m_owner"/>
+                    </primary_expression>
+                    <assignment_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="229" line="59"/>
+                    <systemCRoutine column="13"
+                      file="scx_mutex_w_policy.cpp" idref="235"
+                      line="59" name="sc_get_curr_process_handle">
+                      <arguments column="41"
+                        file="scx_mutex_w_policy.cpp" idref="237" line="59"/>
+                    </systemCRoutine>
+                  </assignment>
+                </block_statement>
+                <block_statement column="43"
+                  file="scx_mutex_w_policy.cpp" idref="239" line="60">
+                  <return_statement column="43"
+                    file="scx_mutex_w_policy.cpp" idref="241" line="60">
+                    <primary_expression column="5"
+                      file="scx_mutex_w_policy.cpp" idref="245" line="60">
+                      <constant column="5" file="scx_mutex_w_policy.cpp"
+                        idref="247" line="60" value="0"/>
+                    </primary_expression>
+                  </return_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="249" line="63">
+            <function_definition column="3"
+              file="scx_mutex_w_policy.cpp" idref="251" line="63">
+              <declaration_specifiers column="3"
+                file="scx_mutex_w_policy.cpp" idref="253" line="63">
+                <type_modifiers column="3" file="scx_mutex_w_policy.cpp"
+                  idref="255" line="63"/>
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="257" length="0"
+                  line="63" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="11"
+                file="scx_mutex_w_policy.cpp" idref="259" line="63">
+                <qualified_id column="11" file="scx_mutex_w_policy.cpp"
+                  idref="261" line="63" name="unlock"/>
+              </function_declarator>
+              <block column="22" file="scx_mutex_w_policy.cpp"
+                idref="263" line="64">
+                <block_statement column="3"
+                  file="scx_mutex_w_policy.cpp" idref="265" line="65">
+                  <if_statement column="3" file="scx_mutex_w_policy.cpp"
+                    idref="267" line="65">
+                    <neq_node column="17" file="scx_mutex_w_policy.cpp"
+                      idref="275" line="65">
+                      <primary_expression column="8"
+                        file="scx_mutex_w_policy.cpp" idref="271" line="65">
+                        <id_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="273"
+                          line="65" name="m_owner"/>
+                      </primary_expression>
+                      <systemCRoutine column="17"
+                        file="scx_mutex_w_policy.cpp" idref="279"
+                        line="65" name="sc_get_curr_process_handle">
+                        <arguments column="46"
+                          file="scx_mutex_w_policy.cpp" idref="281" line="65"/>
+                      </systemCRoutine>
+                    </neq_node>
+                    <block column="48" file="scx_mutex_w_policy.cpp"
+                      idref="283" line="65">
+                      <block_statement column="48"
+                        file="scx_mutex_w_policy.cpp" idref="285" line="65">
+                        <return_statement column="48"
+                          file="scx_mutex_w_policy.cpp" idref="287" line="65">
+                          <unary_expression column="50"
+                            file="scx_mutex_w_policy.cpp" idref="289" line="65">
+                            <unary_operator column="50"
+                              file="scx_mutex_w_policy.cpp" idref="291"
+                              line="65" operator="minnus"/>
+                            <primary_expression column="57"
+                              file="scx_mutex_w_policy.cpp" idref="295" line="65">
+                              <constant column="57"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="297" line="65" value="1"/>
+                            </primary_expression>
+                          </unary_expression>
+                        </return_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="59"
+                  file="scx_mutex_w_policy.cpp" idref="299" line="67">
+                  <assignment column="13" file="scx_mutex_w_policy.cpp"
+                    idref="309" line="67">
+                    <primary_expression column="59"
+                      file="scx_mutex_w_policy.cpp" idref="303" line="67">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="305"
+                        line="67" name="m_owner"/>
+                    </primary_expression>
+                    <assignment_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="307" line="67"/>
+                    <primary_expression column="13"
+                      file="scx_mutex_w_policy.cpp" idref="313" line="67">
+                      <constant column="13"
+                        file="scx_mutex_w_policy.cpp" idref="315"
+                        line="67" value="0"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="16"
+                  file="scx_mutex_w_policy.cpp" idref="317" line="68">
+                  <declaration column="16" file="scx_mutex_w_policy.cpp"
+                    idref="319" line="68">
+                    <init_declarator_list column="16"
+                      file="scx_mutex_w_policy.cpp" idref="321" line="68">
+                      <declaration_specifiers column="16"
+                        file="scx_mutex_w_policy.cpp" idref="323" line="68">
+                        <builtin_type_specifier column="16"
+                          file="scx_mutex_w_policy.cpp" idref="325"
+                          length="0" line="68" name="sc_event" sc_dt="true"/>
+                      </declaration_specifiers>
+                      <init_declarator column="5"
+                        file="scx_mutex_w_policy.cpp" idref="327" line="68">
+                        <declarator column="5"
+                          file="scx_mutex_w_policy.cpp" idref="329" line="68">
+                          <ptr_operator column="5"
+                            file="scx_mutex_w_policy.cpp" idref="331"
+                            line="68" name="*"/>
+                          <declarator column="13"
+                            file="scx_mutex_w_policy.cpp" idref="333" line="68">
+                            <qualified_id column="13"
+                              file="scx_mutex_w_policy.cpp" idref="335"
+                              line="68" name="e"/>
+                          </declarator>
+                        </declarator>
+                        <initializer column="17"
+                          file="scx_mutex_w_policy.cpp" idref="337" line="68">
+                          <postfix_expression column="17"
+                            file="scx_mutex_w_policy.cpp" idref="339" line="68">
+                            <primary_expression column="17"
+                              file="scx_mutex_w_policy.cpp" idref="341" line="68">
+                              <id_expression column="19"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="343" line="68" name="next_event"/>
+                            </primary_expression>
+                            <arguments column="19"
+                              file="scx_mutex_w_policy.cpp" idref="345" line="68"/>
+                          </postfix_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="31"
+                  file="scx_mutex_w_policy.cpp" idref="347" line="69">
+                  <if_statement column="31"
+                    file="scx_mutex_w_policy.cpp" idref="349" line="69">
+                    <primary_expression column="8"
+                      file="scx_mutex_w_policy.cpp" idref="353" line="69">
+                      <id_expression column="9"
+                        file="scx_mutex_w_policy.cpp" idref="355"
+                        line="69" name="e"/>
+                    </primary_expression>
+                    <block column="10" file="scx_mutex_w_policy.cpp"
+                      idref="357" line="69">
+                      <block_statement column="10"
+                        file="scx_mutex_w_policy.cpp" idref="359" line="69">
+                        <sc_notify column="10"
+                          file="scx_mutex_w_policy.cpp" idref="361"
+                          line="69" name="e"/>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="23"
+                  file="scx_mutex_w_policy.cpp" idref="363" line="71">
+                  <return_statement column="23"
+                    file="scx_mutex_w_policy.cpp" idref="365" line="71">
+                    <primary_expression column="5"
+                      file="scx_mutex_w_policy.cpp" idref="369" line="71">
+                      <constant column="5" file="scx_mutex_w_policy.cpp"
+                        idref="371" line="71" value="0"/>
+                    </primary_expression>
+                  </return_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="373" line="74">
+            <access_specifier column="3" file="scx_mutex_w_policy.cpp"
+              idref="375" line="74" name="private"/>
+          </member_declaration>
+          <member_declaration column="8" file="scx_mutex_w_policy.cpp"
+            idref="377" line="75">
+            <function_definition column="8"
+              file="scx_mutex_w_policy.cpp" idref="379" line="75">
+              <declaration_specifiers column="8"
+                file="scx_mutex_w_policy.cpp" idref="381" line="75">
+                <builtin_type_specifier column="8"
+                  file="scx_mutex_w_policy.cpp" idref="383" length="0"
+                  line="75" name="sc_event" sc_dt="true"/>
+              </declaration_specifiers>
+              <function_declarator column="3"
+                file="scx_mutex_w_policy.cpp" idref="385" line="75">
+                <ptr_operator column="3" file="scx_mutex_w_policy.cpp"
+                  idref="387" line="75" name="*"/>
+                <function_declarator column="11"
+                  file="scx_mutex_w_policy.cpp" idref="389" line="75">
+                  <qualified_id column="11"
+                    file="scx_mutex_w_policy.cpp" idref="391" line="75" name="next_event"/>
+                </function_declarator>
+              </function_declarator>
+              <block column="24" file="scx_mutex_w_policy.cpp"
+                idref="393" line="76">
+                <block_statement column="3"
+                  file="scx_mutex_w_policy.cpp" idref="395" line="77">
+                  <if_statement column="3" file="scx_mutex_w_policy.cpp"
+                    idref="397" line="77">
+                    <postfix_expression column="8"
+                      file="scx_mutex_w_policy.cpp" idref="399" line="77">
+                      <primary_expression column="8"
+                        file="scx_mutex_w_policy.cpp" idref="401" line="77">
+                        <id_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="403"
+                          line="77" name="event_list"/>
+                      </primary_expression>
+                      <dereferencing_operator column="9"
+                        file="scx_mutex_w_policy.cpp" idref="405"
+                        line="77" name="&amp;"/>
+                      <id_expression column="20"
+                        file="scx_mutex_w_policy.cpp" idref="407"
+                        line="77" name="empty"/>
+                      <arguments column="20"
+                        file="scx_mutex_w_policy.cpp" idref="409" line="77"/>
+                    </postfix_expression>
+                    <block column="27" file="scx_mutex_w_policy.cpp"
+                      idref="411" line="78">
+                      <block_statement column="27"
+                        file="scx_mutex_w_policy.cpp" idref="413" line="78">
+                        <return_statement column="27"
+                          file="scx_mutex_w_policy.cpp" idref="415" line="78">
+                          <primary_expression column="7"
+                            file="scx_mutex_w_policy.cpp" idref="419" line="78">
+                            <constant column="7"
+                              file="scx_mutex_w_policy.cpp" idref="421"
+                              line="78" value="0"/>
+                          </primary_expression>
+                        </return_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="15"
+                  file="scx_mutex_w_policy.cpp" idref="423" line="80">
+                  <if_statement column="15"
+                    file="scx_mutex_w_policy.cpp" idref="425" line="80">
+                    <eq_node column="17" file="scx_mutex_w_policy.cpp"
+                      idref="433" line="80">
+                      <primary_expression column="8"
+                        file="scx_mutex_w_policy.cpp" idref="429" line="80">
+                        <id_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="431"
+                          line="80" name="policy_"/>
+                      </primary_expression>
+                      <primary_expression column="17"
+                        file="scx_mutex_w_policy.cpp" idref="437" line="80">
+                        <id_expression column="20"
+                          file="scx_mutex_w_policy.cpp" idref="439"
+                          line="80" name="FIFO"/>
+                      </primary_expression>
+                    </eq_node>
+                    <block column="24" file="scx_mutex_w_policy.cpp"
+                      idref="441" line="81">
+                      <block_statement column="5"
+                        file="scx_mutex_w_policy.cpp" idref="443" line="82">
+                        <return_statement column="5"
+                          file="scx_mutex_w_policy.cpp" idref="445" line="82">
+                          <postfix_expression column="7"
+                            file="scx_mutex_w_policy.cpp" idref="447" line="82">
+                            <primary_expression column="7"
+                              file="scx_mutex_w_policy.cpp" idref="449" line="82">
+                              <id_expression column="14"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="451" line="82" name="event_list"/>
+                            </primary_expression>
+                            <dereferencing_operator column="14"
+                              file="scx_mutex_w_policy.cpp" idref="453"
+                              line="82" name="&amp;"/>
+                            <id_expression column="25"
+                              file="scx_mutex_w_policy.cpp" idref="455"
+                              line="82" name="pop_front"/>
+                            <arguments column="25"
+                              file="scx_mutex_w_policy.cpp" idref="457" line="82"/>
+                          </postfix_expression>
+                        </return_statement>
+                      </block_statement>
+                    </block>
+                    <block column="5" file="scx_mutex_w_policy.cpp"
+                      idref="459" line="85">
+                      <comment column="7" file="scx_mutex_w_policy.cpp"
+                        idref="460" line="85" name="// RANDOM"/>
+                      <block_statement column="5"
+                        file="scx_mutex_w_policy.cpp" idref="462" line="86">
+                        <declaration column="5"
+                          file="scx_mutex_w_policy.cpp" idref="464" line="86">
+                          <init_declarator_list column="5"
+                            file="scx_mutex_w_policy.cpp" idref="466" line="86">
+                            <declaration_specifiers column="5"
+                              file="scx_mutex_w_policy.cpp" idref="468" line="86">
+                              <builtin_type_specifier column="5"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="470" length="0" line="86"
+                                name="sc_plist_iter" sc_dt="true">
+                                <declaration_specifiers column="20"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="472" line="86">
+                                  <builtin_type_specifier column="20"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="474" length="0" line="86"
+                                    name="sc_event" sc_dt="true"/>
+                                </declaration_specifiers>
+                                <ptr_operator column="21"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="476" line="86" name="*"/>
+                              </builtin_type_specifier>
+                            </declaration_specifiers>
+                            <init_declarator column="30"
+                              file="scx_mutex_w_policy.cpp" idref="478" line="86">
+                              <declarator column="30"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="480" line="86">
+                                <qualified_id column="30"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="482" line="86" name="ev_itr"/>
+                              </declarator>
+                              <arguments_list column="38"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="484" line="86">
+                                <unary_expression column="38"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="486" line="86">
+                                  <unary_operator column="38"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="488" line="86" operator="ref"/>
+                                  <primary_expression column="39"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="492" line="86">
+                                    <id_expression column="40"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="494" line="86" name="event_list"/>
+                                  </primary_expression>
+                                </unary_expression>
+                              </arguments_list>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="51"
+                        file="scx_mutex_w_policy.cpp" idref="496" line="87">
+                        <declaration column="51"
+                          file="scx_mutex_w_policy.cpp" idref="498" line="87">
+                          <init_declarator_list column="51"
+                            file="scx_mutex_w_policy.cpp" idref="500" line="87">
+                            <declaration_specifiers column="51"
+                              file="scx_mutex_w_policy.cpp" idref="502" line="87">
+                              <builtin_type_specifier column="51"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="504" length="0" line="87"
+                                name="int" sc_dt="false"/>
+                            </declaration_specifiers>
+                            <init_declarator column="7"
+                              file="scx_mutex_w_policy.cpp" idref="506" line="87">
+                              <declarator column="7"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="508" line="87">
+                                <qualified_id column="7"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="510" line="87" name="index"/>
+                              </declarator>
+                              <initializer column="17"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="512" line="87">
+                                <mod_node column="26"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="522" line="87">
+                                  <postfix_expression column="17"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="514" line="87">
+                                    <primary_expression column="17"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="516" line="87">
+                                    <id_expression column="19"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="518" line="87" name="rand"/>
+                                    </primary_expression>
+                                    <arguments column="19"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="520" line="87"/>
+                                  </postfix_expression>
+                                  <postfix_expression column="26"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="524" line="87">
+                                    <primary_expression column="26"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="526" line="87">
+                                    <id_expression column="28"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="528" line="87" name="event_list"/>
+                                    </primary_expression>
+                                    <dereferencing_operator column="28"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="530" line="87" name="&amp;"/>
+                                    <id_expression column="39"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="532" line="87" name="size"/>
+                                    <arguments column="39"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="534" line="87"/>
+                                  </postfix_expression>
+                                </mod_node>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="45"
+                        file="scx_mutex_w_policy.cpp" idref="536" line="88">
+                        <for_statement column="45"
+                          file="scx_mutex_w_policy.cpp" idref="538" line="88">
+                          <for_init column="11"
+                            file="scx_mutex_w_policy.cpp" idref="540" line="88">
+                            <declaration column="11"
+                              file="scx_mutex_w_policy.cpp" idref="542" line="88">
+                              <init_declarator_list column="11"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="544" line="88">
+                                <declaration_specifiers column="11"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="546" line="88">
+                                  <builtin_type_specifier column="11"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="548" length="0" line="88"
+                                    name="int" sc_dt="false"/>
+                                </declaration_specifiers>
+                                <init_declarator column="12"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="550" line="88">
+                                  <declarator column="12"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="552" line="88">
+                                    <qualified_id column="12"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="554" line="88" name="i"/>
+                                  </declarator>
+                                  <initializer column="18"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="556" line="88">
+                                    <primary_expression column="18"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="560" line="88">
+                                    <constant column="18"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="562" line="88" value="0"/>
+                                    </primary_expression>
+                                  </initializer>
+                                </init_declarator>
+                              </init_declarator_list>
+                            </declaration>
+                          </for_init>
+                          <for_condition column="21"
+                            file="scx_mutex_w_policy.cpp" idref="564" line="88">
+                            <lt_node column="25"
+                              file="scx_mutex_w_policy.cpp" idref="572" line="88">
+                              <primary_expression column="21"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="568" line="88">
+                                <id_expression column="23"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="570" line="88" name="i"/>
+                              </primary_expression>
+                              <primary_expression column="25"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="576" line="88">
+                                <id_expression column="27"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="578" line="88" name="index"/>
+                              </primary_expression>
+                            </lt_node>
+                          </for_condition>
+                          <for_update column="32"
+                            file="scx_mutex_w_policy.cpp" idref="580" line="88">
+                            <statement_expression_list column="32"
+                              file="scx_mutex_w_policy.cpp" idref="582" line="88">
+                              <postincrement_node column="34"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="590" line="88">
+                                <primary_expression column="32"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="586" line="88">
+                                  <id_expression column="34"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="588" line="88" name="i"/>
+                                </primary_expression>
+                              </postincrement_node>
+                            </statement_expression_list>
+                          </for_update>
+                          <for_block column="37"
+                            file="scx_mutex_w_policy.cpp" idref="592" line="89">
+                            <block column="37"
+                              file="scx_mutex_w_policy.cpp" idref="594" line="89">
+                              <block_statement column="37"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="596" line="89">
+                                <postincrement_node column="9"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="604" line="89">
+                                  <primary_expression column="37"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="600" line="89">
+                                    <id_expression column="9"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="602" line="89" name="ev_itr"/>
+                                  </primary_expression>
+                                </postincrement_node>
+                              </block_statement>
+                            </block>
+                          </for_block>
+                        </for_statement>
+                      </block_statement>
+                      <block_statement column="17"
+                        file="scx_mutex_w_policy.cpp" idref="606" line="91">
+                        <declaration column="17"
+                          file="scx_mutex_w_policy.cpp" idref="608" line="91">
+                          <init_declarator_list column="17"
+                            file="scx_mutex_w_policy.cpp" idref="610" line="91">
+                            <declaration_specifiers column="17"
+                              file="scx_mutex_w_policy.cpp" idref="612" line="91">
+                              <builtin_type_specifier column="17"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="614" length="0" line="91"
+                                name="sc_event" sc_dt="true"/>
+                            </declaration_specifiers>
+                            <init_declarator column="7"
+                              file="scx_mutex_w_policy.cpp" idref="616" line="91">
+                              <declarator column="7"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="618" line="91">
+                                <ptr_operator column="7"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="620" line="91" name="*"/>
+                                <declarator column="15"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="622" line="91">
+                                  <qualified_id column="15"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="624" line="91" name="e"/>
+                                </declarator>
+                              </declarator>
+                              <initializer column="19"
+                                file="scx_mutex_w_policy.cpp"
+                                idref="626" line="91">
+                                <postfix_expression column="19"
+                                  file="scx_mutex_w_policy.cpp"
+                                  idref="628" line="91">
+                                  <primary_expression column="19"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="630" line="91">
+                                    <id_expression column="21"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="632" line="91" name="ev_itr"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="21"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="634" line="91" name="&amp;"/>
+                                  <id_expression column="28"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="636" line="91" name="get"/>
+                                  <arguments column="28"
+                                    file="scx_mutex_w_policy.cpp"
+                                    idref="638" line="91"/>
+                                </postfix_expression>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="33"
+                        file="scx_mutex_w_policy.cpp" idref="640" line="92">
+                        <postfix_expression column="33"
+                          file="scx_mutex_w_policy.cpp" idref="642" line="92">
+                          <primary_expression column="33"
+                            file="scx_mutex_w_policy.cpp" idref="644" line="92">
+                            <id_expression column="7"
+                              file="scx_mutex_w_policy.cpp" idref="646"
+                              line="92" name="ev_itr"/>
+                          </primary_expression>
+                          <dereferencing_operator column="7"
+                            file="scx_mutex_w_policy.cpp" idref="648"
+                            line="92" name="&amp;"/>
+                          <id_expression column="14"
+                            file="scx_mutex_w_policy.cpp" idref="650"
+                            line="92" name="remove"/>
+                          <arguments column="14"
+                            file="scx_mutex_w_policy.cpp" idref="652" line="92"/>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="22"
+                        file="scx_mutex_w_policy.cpp" idref="654" line="93">
+                        <return_statement column="22"
+                          file="scx_mutex_w_policy.cpp" idref="656" line="93">
+                          <primary_expression column="7"
+                            file="scx_mutex_w_policy.cpp" idref="660" line="93">
+                            <id_expression column="14"
+                              file="scx_mutex_w_policy.cpp" idref="662"
+                              line="93" name="e"/>
+                          </primary_expression>
+                        </return_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="664" line="97">
+            <member_declarator_list column="3"
+              file="scx_mutex_w_policy.cpp" idref="666" line="97">
+              <declaration_specifiers column="3"
+                file="scx_mutex_w_policy.cpp" idref="668" line="97">
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="670" length="0"
+                  line="97" name="sc_plist" sc_dt="true">
+                  <declaration_specifiers column="11"
+                    file="scx_mutex_w_policy.cpp" idref="672" line="97">
+                    <builtin_type_specifier column="11"
+                      file="scx_mutex_w_policy.cpp" idref="674"
+                      length="0" line="97" name="sc_event" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <ptr_operator column="12"
+                    file="scx_mutex_w_policy.cpp" idref="676" line="97" name="*"/>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="21"
+                file="scx_mutex_w_policy.cpp" idref="678" line="97">
+                <declarator column="21" file="scx_mutex_w_policy.cpp"
+                  idref="680" line="97">
+                  <qualified_id column="21"
+                    file="scx_mutex_w_policy.cpp" idref="682" line="97" name="event_list"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="33" file="scx_mutex_w_policy.cpp"
+            idref="684" line="98">
+            <member_declarator_list column="33"
+              file="scx_mutex_w_policy.cpp" idref="686" line="98">
+              <declaration_specifiers column="33"
+                file="scx_mutex_w_policy.cpp" idref="688" line="98">
+                <qualified_type column="33"
+                  file="scx_mutex_w_policy.cpp" idref="690" line="98">
+                  <qualified_id column="33"
+                    file="scx_mutex_w_policy.cpp" idref="692" line="98" name="policy_type"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="3"
+                file="scx_mutex_w_policy.cpp" idref="694" line="98">
+                <declarator column="3" file="scx_mutex_w_policy.cpp"
+                  idref="696" line="98">
+                  <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                    idref="698" line="98" name="policy_"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="scx_mutex_w_policy.cpp"
+    idref="700" line="101">
+    <declaration column="2" file="scx_mutex_w_policy.cpp" idref="702" line="101">
+      <declaration_specifiers column="2" file="scx_mutex_w_policy.cpp"
+        idref="706" line="101">
+        <class_specifier column="2" extSCModule="true"
+          file="scx_mutex_w_policy.cpp" idref="708" keyword="class"
+          line="101" name="top">
+          <base_clause column="7" file="scx_mutex_w_policy.cpp"
+            idref="710" line="101">
+            <base_specifier column="11" file="scx_mutex_w_policy.cpp"
+              idref="712" length="0" line="101" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="11"
+                file="scx_mutex_w_policy.cpp" idref="714" line="101" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="scx_mutex_w_policy.cpp"
+            idref="716" line="103">
+            <access_specifier column="1" file="scx_mutex_w_policy.cpp"
+              idref="718" line="103" name="public"/>
+          </member_declaration>
+          <member_declaration column="7" file="scx_mutex_w_policy.cpp"
+            idref="720" line="104"/>
+          <member_declaration column="22" file="scx_mutex_w_policy.cpp"
+            idref="722" line="106">
+            <ctor_definition column="22" file="scx_mutex_w_policy.cpp"
+              idref="724" line="106">
+              <qualified_id column="22" file="scx_mutex_w_policy.cpp"
+                idref="726" line="106" name="top"/>
+              <parameter_list column="6" file="scx_mutex_w_policy.cpp"
+                idref="728" line="106">
+                <parameter_declaration column="6"
+                  file="scx_mutex_w_policy.cpp" idref="730" line="106">
+                  <declaration_specifiers column="6"
+                    file="scx_mutex_w_policy.cpp" idref="732" line="106">
+                    <builtin_type_specifier column="6"
+                      file="scx_mutex_w_policy.cpp" idref="734"
+                      length="0" line="106" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="7" file="scx_mutex_w_policy.cpp"
+                    idref="736" line="106">
+                    <qualified_id column="7"
+                      file="scx_mutex_w_policy.cpp" idref="738"
+                      line="106" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="26"
+                file="scx_mutex_w_policy.cpp" idref="740" line="106">
+                <superclass_init column="28"
+                  file="scx_mutex_w_policy.cpp" idref="742" line="106">
+                  <qualified_id column="28"
+                    file="scx_mutex_w_policy.cpp" idref="744" line="106" name="mutex_"/>
+                  <arguments_list column="36"
+                    file="scx_mutex_w_policy.cpp" idref="746" line="106">
+                    <primary_expression column="36"
+                      file="scx_mutex_w_policy.cpp" idref="750" line="106">
+                      <scope_override column="36"
+                        file="scx_mutex_w_policy.cpp" idref="752"
+                        line="106" name="scx_mutex_w_policy"/>
+                      <id_expression column="57"
+                        file="scx_mutex_w_policy.cpp" idref="754"
+                        line="106" name="FIFO"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="61" file="scx_mutex_w_policy.cpp"
+                idref="756" line="107">
+                <sc_thread_block column="3"
+                  file="scx_mutex_w_policy.cpp" idref="758" line="108">
+                  <sc_thread column="3" file="scx_mutex_w_policy.cpp"
+                    idref="760" line="108" name="t1"/>
+                </sc_thread_block>
+                <sc_thread_block column="18"
+                  file="scx_mutex_w_policy.cpp" idref="762" line="109">
+                  <sc_thread column="18" file="scx_mutex_w_policy.cpp"
+                    idref="764" line="109" name="t2"/>
+                </sc_thread_block>
+                <sc_thread_block column="18"
+                  file="scx_mutex_w_policy.cpp" idref="766" line="110">
+                  <sc_thread column="18" file="scx_mutex_w_policy.cpp"
+                    idref="768" line="110" name="t3"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="770" line="113">
+            <function_definition column="3"
+              file="scx_mutex_w_policy.cpp" idref="772" line="113">
+              <declaration_specifiers column="3"
+                file="scx_mutex_w_policy.cpp" idref="774" line="113">
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="776" length="0"
+                  line="113" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="3"
+                file="scx_mutex_w_policy.cpp" idref="778" line="113">
+                <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                  idref="780" line="113" name="t1"/>
+              </function_declarator>
+              <block column="11" file="scx_mutex_w_policy.cpp"
+                idref="782" line="113">
+                <block_statement column="13"
+                  file="scx_mutex_w_policy.cpp" idref="784" line="114">
+                  <systemCRoutine column="13"
+                    file="scx_mutex_w_policy.cpp" idref="788" line="114" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="790" line="114">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="792" line="114">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="796" line="114">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="798"
+                            line="114" value="1"/>
+                        </primary_expression>
+                        <primary_expression column="11"
+                          file="scx_mutex_w_policy.cpp" idref="802" line="114">
+                          <constant column="11"
+                            file="scx_mutex_w_policy.cpp" idref="804"
+                            line="114" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="19"
+                  file="scx_mutex_w_policy.cpp" idref="806" line="115">
+                  <postfix_expression column="19"
+                    file="scx_mutex_w_policy.cpp" idref="808" line="115">
+                    <primary_expression column="19"
+                      file="scx_mutex_w_policy.cpp" idref="810" line="115">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="812"
+                        line="115" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="814"
+                      line="115" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="816"
+                      line="115" name="lock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="818" line="115"/>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="18"
+                  file="scx_mutex_w_policy.cpp" idref="820" line="116">
+                  <output_stream column="18"
+                    file="scx_mutex_w_policy.cpp" idref="822" line="116" name="cout">
+                    <primary_expression column="10"
+                      file="scx_mutex_w_policy.cpp" idref="826" line="116">
+                      <constant column="10"
+                        file="scx_mutex_w_policy.cpp" idref="828"
+                        line="116" value="&quot;t1 got mutex at &quot;"/>
+                    </primary_expression>
+                    <systemCRoutine column="32"
+                      file="scx_mutex_w_policy.cpp" idref="832"
+                      line="116" name="sc_time_stamp">
+                      <arguments column="48"
+                        file="scx_mutex_w_policy.cpp" idref="834" line="116"/>
+                    </systemCRoutine>
+                    <standart_manipulator column="51"
+                      file="scx_mutex_w_policy.cpp" idref="836"
+                      line="116" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="58"
+                  file="scx_mutex_w_policy.cpp" idref="838" line="117">
+                  <systemCRoutine column="58"
+                    file="scx_mutex_w_policy.cpp" idref="842" line="117" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="844" line="117">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="846" line="117">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="850" line="117">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="852"
+                            line="117" value="10"/>
+                        </primary_expression>
+                        <primary_expression column="12"
+                          file="scx_mutex_w_policy.cpp" idref="856" line="117">
+                          <constant column="12"
+                            file="scx_mutex_w_policy.cpp" idref="858"
+                            line="117" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="20"
+                  file="scx_mutex_w_policy.cpp" idref="860" line="118">
+                  <postfix_expression column="20"
+                    file="scx_mutex_w_policy.cpp" idref="862" line="118">
+                    <primary_expression column="20"
+                      file="scx_mutex_w_policy.cpp" idref="864" line="118">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="866"
+                        line="118" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="868"
+                      line="118" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="870"
+                      line="118" name="unlock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="872" line="118"/>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="874" line="121">
+            <function_definition column="3"
+              file="scx_mutex_w_policy.cpp" idref="876" line="121">
+              <declaration_specifiers column="3"
+                file="scx_mutex_w_policy.cpp" idref="878" line="121">
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="880" length="0"
+                  line="121" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="3"
+                file="scx_mutex_w_policy.cpp" idref="882" line="121">
+                <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                  idref="884" line="121" name="t2"/>
+              </function_declarator>
+              <block column="11" file="scx_mutex_w_policy.cpp"
+                idref="886" line="121">
+                <block_statement column="13"
+                  file="scx_mutex_w_policy.cpp" idref="888" line="122">
+                  <systemCRoutine column="13"
+                    file="scx_mutex_w_policy.cpp" idref="892" line="122" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="894" line="122">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="896" line="122">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="900" line="122">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="902"
+                            line="122" value="2"/>
+                        </primary_expression>
+                        <primary_expression column="11"
+                          file="scx_mutex_w_policy.cpp" idref="906" line="122">
+                          <constant column="11"
+                            file="scx_mutex_w_policy.cpp" idref="908"
+                            line="122" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="19"
+                  file="scx_mutex_w_policy.cpp" idref="910" line="123">
+                  <postfix_expression column="19"
+                    file="scx_mutex_w_policy.cpp" idref="912" line="123">
+                    <primary_expression column="19"
+                      file="scx_mutex_w_policy.cpp" idref="914" line="123">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="916"
+                        line="123" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="918"
+                      line="123" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="920"
+                      line="123" name="lock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="922" line="123"/>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="18"
+                  file="scx_mutex_w_policy.cpp" idref="924" line="124">
+                  <output_stream column="18"
+                    file="scx_mutex_w_policy.cpp" idref="926" line="124" name="cout">
+                    <primary_expression column="10"
+                      file="scx_mutex_w_policy.cpp" idref="930" line="124">
+                      <constant column="10"
+                        file="scx_mutex_w_policy.cpp" idref="932"
+                        line="124" value="&quot;t2 got mutex at &quot;"/>
+                    </primary_expression>
+                    <systemCRoutine column="32"
+                      file="scx_mutex_w_policy.cpp" idref="936"
+                      line="124" name="sc_time_stamp">
+                      <arguments column="48"
+                        file="scx_mutex_w_policy.cpp" idref="938" line="124"/>
+                    </systemCRoutine>
+                    <standart_manipulator column="51"
+                      file="scx_mutex_w_policy.cpp" idref="940"
+                      line="124" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="58"
+                  file="scx_mutex_w_policy.cpp" idref="942" line="125">
+                  <systemCRoutine column="58"
+                    file="scx_mutex_w_policy.cpp" idref="946" line="125" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="948" line="125">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="950" line="125">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="954" line="125">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="956"
+                            line="125" value="10"/>
+                        </primary_expression>
+                        <primary_expression column="12"
+                          file="scx_mutex_w_policy.cpp" idref="960" line="125">
+                          <constant column="12"
+                            file="scx_mutex_w_policy.cpp" idref="962"
+                            line="125" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="20"
+                  file="scx_mutex_w_policy.cpp" idref="964" line="126">
+                  <postfix_expression column="20"
+                    file="scx_mutex_w_policy.cpp" idref="966" line="126">
+                    <primary_expression column="20"
+                      file="scx_mutex_w_policy.cpp" idref="968" line="126">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="970"
+                        line="126" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="972"
+                      line="126" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="974"
+                      line="126" name="unlock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="976" line="126"/>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="978" line="129">
+            <function_definition column="3"
+              file="scx_mutex_w_policy.cpp" idref="980" line="129">
+              <declaration_specifiers column="3"
+                file="scx_mutex_w_policy.cpp" idref="982" line="129">
+                <builtin_type_specifier column="3"
+                  file="scx_mutex_w_policy.cpp" idref="984" length="0"
+                  line="129" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="3"
+                file="scx_mutex_w_policy.cpp" idref="986" line="129">
+                <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                  idref="988" line="129" name="t3"/>
+              </function_declarator>
+              <block column="11" file="scx_mutex_w_policy.cpp"
+                idref="990" line="129">
+                <block_statement column="13"
+                  file="scx_mutex_w_policy.cpp" idref="992" line="130">
+                  <systemCRoutine column="13"
+                    file="scx_mutex_w_policy.cpp" idref="996" line="130" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="998" line="130">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="1000" line="130">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="1004" line="130">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="1006"
+                            line="130" value="3"/>
+                        </primary_expression>
+                        <primary_expression column="11"
+                          file="scx_mutex_w_policy.cpp" idref="1010" line="130">
+                          <constant column="11"
+                            file="scx_mutex_w_policy.cpp" idref="1012"
+                            line="130" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="19"
+                  file="scx_mutex_w_policy.cpp" idref="1014" line="131">
+                  <postfix_expression column="19"
+                    file="scx_mutex_w_policy.cpp" idref="1016" line="131">
+                    <primary_expression column="19"
+                      file="scx_mutex_w_policy.cpp" idref="1018" line="131">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="1020"
+                        line="131" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="1022"
+                      line="131" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="1024"
+                      line="131" name="lock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="1026" line="131"/>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="18"
+                  file="scx_mutex_w_policy.cpp" idref="1028" line="132">
+                  <output_stream column="18"
+                    file="scx_mutex_w_policy.cpp" idref="1030"
+                    line="132" name="cout">
+                    <primary_expression column="10"
+                      file="scx_mutex_w_policy.cpp" idref="1034" line="132">
+                      <constant column="10"
+                        file="scx_mutex_w_policy.cpp" idref="1036"
+                        line="132" value="&quot;t3 got mutex at &quot;"/>
+                    </primary_expression>
+                    <systemCRoutine column="32"
+                      file="scx_mutex_w_policy.cpp" idref="1040"
+                      line="132" name="sc_time_stamp">
+                      <arguments column="48"
+                        file="scx_mutex_w_policy.cpp" idref="1042" line="132"/>
+                    </systemCRoutine>
+                    <standart_manipulator column="51"
+                      file="scx_mutex_w_policy.cpp" idref="1044"
+                      line="132" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="58"
+                  file="scx_mutex_w_policy.cpp" idref="1046" line="133">
+                  <systemCRoutine column="58"
+                    file="scx_mutex_w_policy.cpp" idref="1050"
+                    line="133" name="wait">
+                    <arguments column="5" file="scx_mutex_w_policy.cpp"
+                      idref="1052" line="133">
+                      <arguments_list column="9"
+                        file="scx_mutex_w_policy.cpp" idref="1054" line="133">
+                        <primary_expression column="9"
+                          file="scx_mutex_w_policy.cpp" idref="1058" line="133">
+                          <constant column="9"
+                            file="scx_mutex_w_policy.cpp" idref="1060"
+                            line="133" value="10"/>
+                        </primary_expression>
+                        <primary_expression column="12"
+                          file="scx_mutex_w_policy.cpp" idref="1064" line="133">
+                          <constant column="12"
+                            file="scx_mutex_w_policy.cpp" idref="1066"
+                            line="133" value="SC_NS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="20"
+                  file="scx_mutex_w_policy.cpp" idref="1068" line="134">
+                  <postfix_expression column="20"
+                    file="scx_mutex_w_policy.cpp" idref="1070" line="134">
+                    <primary_expression column="20"
+                      file="scx_mutex_w_policy.cpp" idref="1072" line="134">
+                      <id_expression column="5"
+                        file="scx_mutex_w_policy.cpp" idref="1074"
+                        line="134" name="mutex_"/>
+                    </primary_expression>
+                    <dereferencing_operator column="5"
+                      file="scx_mutex_w_policy.cpp" idref="1076"
+                      line="134" name="&amp;"/>
+                    <id_expression column="12"
+                      file="scx_mutex_w_policy.cpp" idref="1078"
+                      line="134" name="unlock"/>
+                    <arguments column="12" file="scx_mutex_w_policy.cpp"
+                      idref="1080" line="134"/>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="3" file="scx_mutex_w_policy.cpp"
+            idref="1082" line="137">
+            <access_specifier column="3" file="scx_mutex_w_policy.cpp"
+              idref="1084" line="137" name="private"/>
+          </member_declaration>
+          <member_declaration column="8" file="scx_mutex_w_policy.cpp"
+            idref="1086" line="138">
+            <member_declarator_list column="8"
+              file="scx_mutex_w_policy.cpp" idref="1088" line="138">
+              <declaration_specifiers column="8"
+                file="scx_mutex_w_policy.cpp" idref="1090" line="138">
+                <qualified_type column="8" file="scx_mutex_w_policy.cpp"
+                  idref="1092" line="138">
+                  <qualified_id column="8" file="scx_mutex_w_policy.cpp"
+                    idref="1094" line="138" name="scx_mutex_w_policy"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5"
+                file="scx_mutex_w_policy.cpp" idref="1096" line="138">
+                <declarator column="5" file="scx_mutex_w_policy.cpp"
+                  idref="1098" line="138">
+                  <qualified_id column="5" file="scx_mutex_w_policy.cpp"
+                    idref="1100" line="138" name="mutex_"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="scx_mutex_w_policy.cpp"
+    idref="1102" line="141">
+    <sc_main_declaration column="2" file="scx_mutex_w_policy.cpp"
+      idref="1104" line="141">
+      <declaration_specifiers column="1" file="scx_mutex_w_policy.cpp"
+        idref="1106" line="141">
+        <builtin_type_specifier column="1" file="scx_mutex_w_policy.cpp"
+          idref="1108" length="0" line="141" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="scx_mutex_w_policy.cpp"
+        idref="1110" line="141">
+        <qualified_id column="5" file="scx_mutex_w_policy.cpp"
+          idref="1112" line="141" name="sc_main"/>
+        <parameter_list column="13" file="scx_mutex_w_policy.cpp"
+          idref="1114" line="141">
+          <parameter_declaration column="13"
+            file="scx_mutex_w_policy.cpp" idref="1116" line="141">
+            <declaration_specifiers column="13"
+              file="scx_mutex_w_policy.cpp" idref="1118" line="141">
+              <builtin_type_specifier column="13"
+                file="scx_mutex_w_policy.cpp" idref="1120" length="0"
+                line="141" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="14" file="scx_mutex_w_policy.cpp"
+              idref="1122" line="141">
+              <qualified_id column="14" file="scx_mutex_w_policy.cpp"
+                idref="1124" line="141" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="23"
+            file="scx_mutex_w_policy.cpp" idref="1126" line="141">
+            <declaration_specifiers column="23"
+              file="scx_mutex_w_policy.cpp" idref="1128" line="141">
+              <builtin_type_specifier column="23"
+                file="scx_mutex_w_policy.cpp" idref="1130" length="0"
+                line="141" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="25" file="scx_mutex_w_policy.cpp"
+              idref="1132" line="141">
+              <ptr_operator column="25" file="scx_mutex_w_policy.cpp"
+                idref="1134" line="141" name="*"/>
+              <declarator column="30" file="scx_mutex_w_policy.cpp"
+                idref="1136" line="141">
+                <qualified_id column="30" file="scx_mutex_w_policy.cpp"
+                  idref="1138" line="141" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="31"
+                  file="scx_mutex_w_policy.cpp" idref="1140" line="141"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="37" file="scx_mutex_w_policy.cpp" idref="1142" line="142">
+        <block_statement column="1" file="scx_mutex_w_policy.cpp"
+          idref="1144" line="143">
+          <declaration column="1" file="scx_mutex_w_policy.cpp"
+            idref="1146" line="143">
+            <init_declarator_list column="1"
+              file="scx_mutex_w_policy.cpp" idref="1148" line="143">
+              <declaration_specifiers column="1"
+                file="scx_mutex_w_policy.cpp" idref="1150" line="143">
+                <qualified_type column="1" file="scx_mutex_w_policy.cpp"
+                  idref="1152" line="143">
+                  <qualified_id column="1" file="scx_mutex_w_policy.cpp"
+                    idref="1154" line="143" name="top"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="3" file="scx_mutex_w_policy.cpp"
+                idref="1156" line="143">
+                <declarator column="3" file="scx_mutex_w_policy.cpp"
+                  idref="1158" line="143">
+                  <qualified_id column="3" file="scx_mutex_w_policy.cpp"
+                    idref="1160" line="143" name="top1"/>
+                </declarator>
+                <arguments_list column="11"
+                  file="scx_mutex_w_policy.cpp" idref="1162" line="143">
+                  <primary_expression column="11"
+                    file="scx_mutex_w_policy.cpp" idref="1166" line="143">
+                    <constant column="11" file="scx_mutex_w_policy.cpp"
+                      idref="1168" line="143" value="&quot;Top1&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="19" file="scx_mutex_w_policy.cpp"
+          idref="1170" line="144">
+          <systemCRoutine column="19" file="scx_mutex_w_policy.cpp"
+            idref="1172" line="144" name="sc_start">
+            <arguments column="3" file="scx_mutex_w_policy.cpp"
+              idref="1174" line="144">
+              <arguments_list column="11" file="scx_mutex_w_policy.cpp"
+                idref="1176" line="144">
+                <primary_expression column="11"
+                  file="scx_mutex_w_policy.cpp" idref="1180" line="144">
+                  <constant column="11" file="scx_mutex_w_policy.cpp"
+                    idref="1182" line="144" value="1000"/>
+                </primary_expression>
+                <primary_expression column="16"
+                  file="scx_mutex_w_policy.cpp" idref="1186" line="144">
+                  <constant column="16" file="scx_mutex_w_policy.cpp"
+                    idref="1188" line="144" value="SC_NS"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="24" file="scx_mutex_w_policy.cpp"
+          idref="1190" line="145">
+          <output_stream column="24" file="scx_mutex_w_policy.cpp"
+            idref="1192" line="145" name="cout">
+            <standart_manipulator column="8"
+              file="scx_mutex_w_policy.cpp" idref="1194" line="145" name="endl"/>
+            <standart_manipulator column="16"
+              file="scx_mutex_w_policy.cpp" idref="1196" line="145" name="endl"/>
+          </output_stream>
+        </block_statement>
+        <block_statement column="23" file="scx_mutex_w_policy.cpp"
+          idref="1198" line="146">
+          <return_statement column="23" file="scx_mutex_w_policy.cpp"
+            idref="1200" line="146">
+            <primary_expression column="3" file="scx_mutex_w_policy.cpp"
+              idref="1204" line="146">
+              <constant column="3" file="scx_mutex_w_policy.cpp"
+                idref="1206" line="146" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

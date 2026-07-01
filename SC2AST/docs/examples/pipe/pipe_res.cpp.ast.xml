@@ -1,0 +1,1654 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="display.h" idref="31" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="display.h" idref="32" line="18" name="/*****************************************************************************&#xa; &#xa;  display.h -- This is the interface file for the display module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="display.h" idref="33" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="display.cpp" idref="34" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="display.cpp" idref="35" line="18" name="/*****************************************************************************&#xa; &#xa;  display.cpp -- Implementation of the display module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="display.cpp" idref="36" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <external_declaration column="15" file="display.h" idref="38" line="39">
+    <declaration column="15" file="display.h" idref="40" line="39">
+      <declaration_specifiers column="15" file="display.h" idref="44" line="39">
+        <class_specifier column="15" extSCModule="true" file="display.h"
+          idref="46" keyword="struct" line="39" name="display">
+          <base_clause column="8" file="display.h" idref="48" line="39">
+            <base_specifier column="16" file="display.h" idref="50"
+              length="0" line="39" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="16" file="display.h"
+                idref="52" line="39" name="private"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="28" file="display.h" idref="54" line="40">
+            <member_declarator_list column="28" file="display.h"
+              idref="56" line="40">
+              <sc_port_specifier column="28" file="display.h" idref="58"
+                line="40" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="display.h"
+                  idref="60" line="40">
+                  <builtin_type_specifier column="10" file="display.h"
+                    idref="62" length="0" line="40" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="display.h" idref="64" line="40">
+                <declarator column="17" file="display.h" idref="66" line="40">
+                  <qualified_id column="17" file="display.h" idref="68"
+                    line="40" name="in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="23" file="display.h" idref="69" line="40" name="// input port 1"/>
+          <member_declaration column="21" file="display.h" idref="71" line="41">
+            <member_declarator_list column="21" file="display.h"
+              idref="73" line="41">
+              <sc_port_specifier column="21" file="display.h" idref="75"
+                line="41" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="display.h"
+                  idref="77" line="41">
+                  <builtin_type_specifier column="10" file="display.h"
+                    idref="79" length="0" line="41" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="display.h" idref="81" line="41">
+                <declarator column="15" file="display.h" idref="83" line="41">
+                  <qualified_id column="15" file="display.h" idref="85"
+                    line="41" name="clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="display.h" idref="86" line="41" name="// clock"/>
+          <member_declaration column="20" file="display.h" idref="88" line="43">
+            <function_definition column="20" file="display.h" idref="90" line="43">
+              <declaration_specifiers column="20" file="display.h"
+                idref="92" line="43">
+                <builtin_type_specifier column="20" file="display.h"
+                  idref="94" length="0" line="43" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="display.h"
+                idref="96" line="43">
+                <qualified_id column="5" file="display.h" idref="98"
+                  line="43" name="print_result"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <comment column="5" file="display.h" idref="99" line="45" name="//Constructor"/>
+          <comment column="26" file="display.h" idref="100" line="43" name="// method to display input port values"/>
+          <member_declaration column="24" file="display.h" idref="102" line="46"/>
+          <member_declaration column="24" file="display.h" idref="104" line="46">
+            <ctor_definition column="24" file="display.h" idref="106" line="46">
+              <qualified_id column="12" file="display.h" idref="108"
+                line="46" name="display"/>
+              <parameter_list column="22" file="display.h" idref="110" line="46">
+                <parameter_declaration column="22" file="display.h"
+                  idref="112" line="46">
+                  <declaration_specifiers column="22" file="display.h"
+                    idref="114" line="46">
+                    <builtin_type_specifier column="22" file="display.h"
+                      idref="116" length="0" line="46"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="22" file="display.h" idref="118" line="46">
+                    <qualified_id column="22" file="display.h"
+                      idref="120" line="46" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="22" file="display.h" idref="122" line="46">
+                <superclass_init column="22" file="display.h"
+                  idref="124" line="46">
+                  <declaration_specifiers column="22" file="display.h"
+                    idref="126" line="46">
+                    <builtin_type_specifier column="22" file="display.h"
+                      idref="128" length="0" line="46" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="22" file="display.h"
+                    idref="130" line="46">
+                    <primary_expression column="22" file="display.h"
+                      idref="132" line="46">
+                      <id_expression column="22" file="display.h"
+                        idref="134" line="46" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="22" file="display.h" idref="136" line="46">
+                <sc_method_block column="24" file="display.h"
+                  idref="138" line="47">
+                  <sc_method column="24" file="display.h" idref="140"
+                    line="47" name="print_result"/>
+                  <comment column="29" file="display.h" idref="141"
+                    line="47" name="// declare print_result as SC_METHOD and "/>
+                  <systemCRoutine column="27" file="display.h"
+                    idref="143" line="48" name="dont_initialize">
+                    <arguments column="9" file="display.h" idref="145" line="48"/>
+                  </systemCRoutine>
+                  <sc_sensitive column="26" file="display.h" idref="147"
+                    line="49" name="positive">
+                    <qualified_id column="16" file="display.h"
+                      idref="149" line="49" name="clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="display.cpp" idref="150" line="41" name="//Definition of print_result method "/>
+  <external_declaration column="2" file="display.cpp" idref="152" line="42">
+    <function_definition column="2" file="display.cpp" idref="154" line="42">
+      <declaration_specifiers column="2" file="display.cpp" idref="156" line="42">
+        <builtin_type_specifier column="2" file="display.cpp"
+          idref="158" length="0" line="42" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="display.cpp" idref="160" line="42">
+        <qualified_id column="1" file="display.cpp" idref="162"
+          line="42" name="print_result">
+          <scope_override column="1" file="display.cpp" idref="164"
+            line="42" name="display"/>
+        </qualified_id>
+      </function_declarator>
+      <block column="28" file="display.cpp" idref="166" line="43">
+        <block_statement column="1" file="display.cpp" idref="168" line="44">
+          <postfix_expression column="1" file="display.cpp" idref="170" line="44">
+            <primary_expression column="1" file="display.cpp"
+              idref="172" line="44">
+              <id_expression column="5" file="display.cpp" idref="174"
+                line="44" name="printf"/>
+            </primary_expression>
+            <arguments column="5" file="display.cpp" idref="176" line="44">
+              <arguments_list column="11" file="display.cpp" idref="178" line="44">
+                <primary_expression column="11" file="display.cpp"
+                  idref="182" line="44">
+                  <constant column="11" file="display.cpp" idref="184"
+                    line="44" value="&quot;Result = %f\n&quot;"/>
+                </primary_expression>
+                <postfix_expression column="27" file="display.cpp"
+                  idref="186" line="44">
+                  <primary_expression column="27" file="display.cpp"
+                    idref="188" line="44">
+                    <id_expression column="29" file="display.cpp"
+                      idref="190" line="44" name="in"/>
+                  </primary_expression>
+                  <dereferencing_operator column="29" file="display.cpp"
+                    idref="192" line="44" name="&amp;"/>
+                  <id_expression column="32" file="display.cpp"
+                    idref="194" line="44" name="read"/>
+                  <arguments column="32" file="display.cpp" idref="196" line="44"/>
+                </postfix_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <comment column="1" file="numgen.h" idref="197" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="numgen.h" idref="198" line="18" name="/*****************************************************************************&#xa; &#xa;  numgen.h -- This is the interface file for the numgen module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="numgen.h" idref="199" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="numgen.cpp" idref="200" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="numgen.cpp" idref="201" line="18" name="/*****************************************************************************&#xa; &#xa;  numgen.cpp -- The implementation for the numgen module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="numgen.cpp" idref="202" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="3" file="display.cpp" idref="203" line="45" name="// end of print method"/>
+  <external_declaration column="1" file="numgen.h" idref="205" line="39">
+    <declaration column="1" file="numgen.h" idref="207" line="39">
+      <declaration_specifiers column="1" file="numgen.h" idref="211" line="39">
+        <class_specifier column="1" extSCModule="true" file="numgen.h"
+          idref="213" keyword="struct" line="39" name="numgen">
+          <base_clause column="8" file="numgen.h" idref="215" line="39">
+            <base_specifier column="15" file="numgen.h" idref="217"
+              length="0" line="39" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="15" file="numgen.h"
+                idref="219" line="39" name="private"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="27" file="numgen.h" idref="221" line="40">
+            <member_declarator_list column="27" file="numgen.h"
+              idref="223" line="40">
+              <sc_port_specifier column="27" file="numgen.h" idref="225"
+                line="40" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="numgen.h"
+                  idref="227" line="40">
+                  <builtin_type_specifier column="11" file="numgen.h"
+                    idref="229" length="0" line="40" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="numgen.h" idref="231" line="40">
+                <declarator column="18" file="numgen.h" idref="233" line="40">
+                  <qualified_id column="18" file="numgen.h" idref="235"
+                    line="40" name="out1"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="numgen.h" idref="236" line="40" name="//output 1"/>
+          <member_declaration column="24" file="numgen.h" idref="238" line="41">
+            <member_declarator_list column="24" file="numgen.h"
+              idref="240" line="41">
+              <sc_port_specifier column="24" file="numgen.h" idref="242"
+                line="41" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="numgen.h"
+                  idref="244" line="41">
+                  <builtin_type_specifier column="11" file="numgen.h"
+                    idref="246" length="0" line="41" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="numgen.h" idref="248" line="41">
+                <declarator column="18" file="numgen.h" idref="250" line="41">
+                  <qualified_id column="18" file="numgen.h" idref="252"
+                    line="41" name="out2"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="numgen.h" idref="253" line="41" name="//output 2"/>
+          <member_declaration column="24" file="numgen.h" idref="255" line="42">
+            <member_declarator_list column="24" file="numgen.h"
+              idref="257" line="42">
+              <sc_port_specifier column="24" file="numgen.h" idref="259"
+                line="42" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="numgen.h"
+                  idref="261" line="42">
+                  <builtin_type_specifier column="10" file="numgen.h"
+                    idref="263" length="0" line="42" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="numgen.h" idref="265" line="42">
+                <declarator column="15" file="numgen.h" idref="267" line="42">
+                  <qualified_id column="15" file="numgen.h" idref="269"
+                    line="42" name="clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="5" file="numgen.h" idref="270" line="44" name="// method to write values to the output ports"/>
+          <comment column="22" file="numgen.h" idref="271" line="42" name="//clock"/>
+          <member_declaration column="20" file="numgen.h" idref="273" line="45">
+            <function_definition column="20" file="numgen.h" idref="275" line="45">
+              <declaration_specifiers column="20" file="numgen.h"
+                idref="277" line="45">
+                <builtin_type_specifier column="20" file="numgen.h"
+                  idref="279" length="0" line="45" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="numgen.h"
+                idref="281" line="45">
+                <qualified_id column="5" file="numgen.h" idref="283"
+                  line="45" name="generate"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <comment column="5" file="numgen.h" idref="284" line="47" name="//Constructor"/>
+          <member_declaration column="20" file="numgen.h" idref="286" line="48"/>
+          <member_declaration column="20" file="numgen.h" idref="288" line="48">
+            <ctor_definition column="20" file="numgen.h" idref="290" line="48">
+              <qualified_id column="12" file="numgen.h" idref="292"
+                line="48" name="numgen"/>
+              <parameter_list column="21" file="numgen.h" idref="294" line="48">
+                <parameter_declaration column="21" file="numgen.h"
+                  idref="296" line="48">
+                  <declaration_specifiers column="21" file="numgen.h"
+                    idref="298" line="48">
+                    <builtin_type_specifier column="21" file="numgen.h"
+                      idref="300" length="0" line="48"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="21" file="numgen.h" idref="302" line="48">
+                    <qualified_id column="21" file="numgen.h"
+                      idref="304" line="48" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="21" file="numgen.h" idref="306" line="48">
+                <superclass_init column="21" file="numgen.h" idref="308" line="48">
+                  <declaration_specifiers column="21" file="numgen.h"
+                    idref="310" line="48">
+                    <builtin_type_specifier column="21" file="numgen.h"
+                      idref="312" length="0" line="48" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="21" file="numgen.h"
+                    idref="314" line="48">
+                    <primary_expression column="21" file="numgen.h"
+                      idref="316" line="48">
+                      <id_expression column="21" file="numgen.h"
+                        idref="318" line="48" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="21" file="numgen.h" idref="320" line="48">
+                <sc_method_block column="23" file="numgen.h" idref="322" line="49">
+                  <sc_method column="23" file="numgen.h" idref="324"
+                    line="49" name="generate"/>
+                  <comment column="25" file="numgen.h" idref="325"
+                    line="49" name="//Declare generate as SC_METHOD and"/>
+                  <systemCRoutine column="23" file="numgen.h"
+                    idref="327" line="50" name="dont_initialize">
+                    <arguments column="9" file="numgen.h" idref="329" line="50"/>
+                  </systemCRoutine>
+                  <sc_sensitive column="26" file="numgen.h" idref="331"
+                    line="51" name="positive">
+                    <qualified_id column="23" file="numgen.h"
+                      idref="333" line="51" name="clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="numgen.cpp" idref="334" line="39" name="// definition of the `generate' method"/>
+  <external_declaration column="2" file="numgen.cpp" idref="336" line="40">
+    <function_definition column="2" file="numgen.cpp" idref="338" line="40">
+      <declaration_specifiers column="2" file="numgen.cpp" idref="340" line="40">
+        <builtin_type_specifier column="2" file="numgen.cpp" idref="342"
+          length="0" line="40" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="numgen.cpp" idref="344" line="40">
+        <qualified_id column="1" file="numgen.cpp" idref="346" line="40" name="generate">
+          <scope_override column="1" file="numgen.cpp" idref="348"
+            line="40" name="numgen"/>
+        </qualified_id>
+      </function_declarator>
+      <block column="23" file="numgen.cpp" idref="350" line="41">
+        <block_statement column="1" file="numgen.cpp" idref="352" line="42">
+          <declaration column="1" file="numgen.cpp" idref="354" line="42">
+            <init_declarator_list column="1" file="numgen.cpp"
+              idref="356" line="42">
+              <declaration_specifiers column="1" file="numgen.cpp"
+                idref="358" line="42">
+                <type_modifiers column="1" file="numgen.cpp" idref="360" line="42">
+                  <storage_class_specifier column="1" file="numgen.cpp"
+                    idref="362" line="42" name="static"/>
+                </type_modifiers>
+                <builtin_type_specifier column="3" file="numgen.cpp"
+                  idref="364" length="0" line="42" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="10" file="numgen.cpp" idref="366" line="42">
+                <declarator column="10" file="numgen.cpp" idref="368" line="42">
+                  <qualified_id column="10" file="numgen.cpp"
+                    idref="370" line="42" name="a"/>
+                </declarator>
+                <initializer column="19" file="numgen.cpp" idref="372" line="42">
+                  <primary_expression column="19" file="numgen.cpp"
+                    idref="376" line="42">
+                    <constant column="19" file="numgen.cpp" idref="378"
+                      line="42" value="134.56"/>
+                  </primary_expression>
+                </initializer>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="27" file="numgen.cpp" idref="380" line="43">
+          <declaration column="27" file="numgen.cpp" idref="382" line="43">
+            <init_declarator_list column="27" file="numgen.cpp"
+              idref="384" line="43">
+              <declaration_specifiers column="27" file="numgen.cpp"
+                idref="386" line="43">
+                <type_modifiers column="27" file="numgen.cpp"
+                  idref="388" line="43">
+                  <storage_class_specifier column="27" file="numgen.cpp"
+                    idref="390" line="43" name="static"/>
+                </type_modifiers>
+                <builtin_type_specifier column="3" file="numgen.cpp"
+                  idref="392" length="0" line="43" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="10" file="numgen.cpp" idref="394" line="43">
+                <declarator column="10" file="numgen.cpp" idref="396" line="43">
+                  <qualified_id column="10" file="numgen.cpp"
+                    idref="398" line="43" name="b"/>
+                </declarator>
+                <initializer column="19" file="numgen.cpp" idref="400" line="43">
+                  <primary_expression column="19" file="numgen.cpp"
+                    idref="404" line="43">
+                    <constant column="19" file="numgen.cpp" idref="406"
+                      line="43" value="98.24"/>
+                  </primary_expression>
+                </initializer>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="26" file="numgen.cpp" idref="408" line="45">
+          <expression_assignment column="5" file="numgen.cpp"
+            idref="418" line="45">
+            <primary_expression column="26" file="numgen.cpp"
+              idref="412" line="45">
+              <id_expression column="3" file="numgen.cpp" idref="414"
+                line="45" name="a"/>
+            </primary_expression>
+            <assignment_expression_operator column="3" file="numgen.cpp"
+              idref="416" line="45" name="-="/>
+            <primary_expression column="5" file="numgen.cpp" idref="422" line="45">
+              <constant column="5" file="numgen.cpp" idref="424"
+                line="45" value="1.5"/>
+            </primary_expression>
+          </expression_assignment>
+        </block_statement>
+        <block_statement column="11" file="numgen.cpp" idref="426" line="46">
+          <expression_assignment column="5" file="numgen.cpp"
+            idref="436" line="46">
+            <primary_expression column="11" file="numgen.cpp"
+              idref="430" line="46">
+              <id_expression column="3" file="numgen.cpp" idref="432"
+                line="46" name="b"/>
+            </primary_expression>
+            <assignment_expression_operator column="3" file="numgen.cpp"
+              idref="434" line="46" name="-="/>
+            <primary_expression column="5" file="numgen.cpp" idref="440" line="46">
+              <constant column="5" file="numgen.cpp" idref="442"
+                line="46" value="2.8"/>
+            </primary_expression>
+          </expression_assignment>
+        </block_statement>
+        <block_statement column="11" file="numgen.cpp" idref="444" line="47">
+          <postfix_expression column="11" file="numgen.cpp" idref="446" line="47">
+            <primary_expression column="11" file="numgen.cpp"
+              idref="448" line="47">
+              <id_expression column="3" file="numgen.cpp" idref="450"
+                line="47" name="out1"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="numgen.cpp"
+              idref="452" line="47" name="&amp;"/>
+            <id_expression column="8" file="numgen.cpp" idref="454"
+              line="47" name="write"/>
+            <arguments column="8" file="numgen.cpp" idref="456" line="47">
+              <arguments_list column="13" file="numgen.cpp" idref="458" line="47">
+                <primary_expression column="13" file="numgen.cpp"
+                  idref="462" line="47">
+                  <id_expression column="14" file="numgen.cpp"
+                    idref="464" line="47" name="a"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="16" file="numgen.cpp" idref="466" line="48">
+          <postfix_expression column="16" file="numgen.cpp" idref="468" line="48">
+            <primary_expression column="16" file="numgen.cpp"
+              idref="470" line="48">
+              <id_expression column="3" file="numgen.cpp" idref="472"
+                line="48" name="out2"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="numgen.cpp"
+              idref="474" line="48" name="&amp;"/>
+            <id_expression column="8" file="numgen.cpp" idref="476"
+              line="48" name="write"/>
+            <arguments column="8" file="numgen.cpp" idref="478" line="48">
+              <arguments_list column="13" file="numgen.cpp" idref="480" line="48">
+                <primary_expression column="13" file="numgen.cpp"
+                  idref="484" line="48">
+                  <id_expression column="14" file="numgen.cpp"
+                    idref="486" line="48" name="b"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <comment column="1" file="stage1.h" idref="487" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage1.h" idref="488" line="18" name="/*****************************************************************************&#xa; &#xa;  stage1.h -- This is the interface file for the stage1 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage1.h" idref="489" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage1.cpp" idref="490" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage1.cpp" idref="491" line="18" name="/*****************************************************************************&#xa; &#xa;  stage1.cpp -- This is the implementation file for the stage1 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage1.cpp" idref="492" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="3" file="numgen.cpp" idref="493" line="50" name="// end of `generate' method"/>
+  <external_declaration column="1" file="stage1.h" idref="495" line="39">
+    <declaration column="1" file="stage1.h" idref="497" line="39">
+      <declaration_specifiers column="1" file="stage1.h" idref="501" line="39">
+        <class_specifier column="1" extSCModule="true" file="stage1.h"
+          idref="503" keyword="struct" line="39" name="stage1">
+          <base_clause column="8" file="stage1.h" idref="505" line="39">
+            <base_specifier column="15" file="stage1.h" idref="507"
+              length="0" line="39" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="15" file="stage1.h"
+                idref="509" line="39" name="private"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="27" file="stage1.h" idref="511" line="40">
+            <member_declarator_list column="27" file="stage1.h"
+              idref="513" line="40">
+              <sc_port_specifier column="27" file="stage1.h" idref="515"
+                line="40" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage1.h"
+                  idref="517" line="40">
+                  <builtin_type_specifier column="10" file="stage1.h"
+                    idref="519" length="0" line="40" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage1.h" idref="521" line="40">
+                <declarator column="17" file="stage1.h" idref="523" line="40">
+                  <qualified_id column="17" file="stage1.h" idref="525"
+                    line="40" name="in1"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="24" file="stage1.h" idref="526" line="40" name="//input 1"/>
+          <member_declaration column="22" file="stage1.h" idref="528" line="41">
+            <member_declarator_list column="22" file="stage1.h"
+              idref="530" line="41">
+              <sc_port_specifier column="22" file="stage1.h" idref="532"
+                line="41" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage1.h"
+                  idref="534" line="41">
+                  <builtin_type_specifier column="10" file="stage1.h"
+                    idref="536" length="0" line="41" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage1.h" idref="538" line="41">
+                <declarator column="17" file="stage1.h" idref="540" line="41">
+                  <qualified_id column="17" file="stage1.h" idref="542"
+                    line="41" name="in2"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="24" file="stage1.h" idref="543" line="41" name="//input 2"/>
+          <member_declaration column="22" file="stage1.h" idref="545" line="42">
+            <member_declarator_list column="22" file="stage1.h"
+              idref="547" line="42">
+              <sc_port_specifier column="22" file="stage1.h" idref="549"
+                line="42" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="stage1.h"
+                  idref="551" line="42">
+                  <builtin_type_specifier column="11" file="stage1.h"
+                    idref="553" length="0" line="42" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="stage1.h" idref="555" line="42">
+                <declarator column="18" file="stage1.h" idref="557" line="42">
+                  <qualified_id column="18" file="stage1.h" idref="559"
+                    line="42" name="sum"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="25" file="stage1.h" idref="560" line="42" name="//output 1"/>
+          <member_declaration column="23" file="stage1.h" idref="562" line="43">
+            <member_declarator_list column="23" file="stage1.h"
+              idref="564" line="43">
+              <sc_port_specifier column="23" file="stage1.h" idref="566"
+                line="43" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="stage1.h"
+                  idref="568" line="43">
+                  <builtin_type_specifier column="11" file="stage1.h"
+                    idref="570" length="0" line="43" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="stage1.h" idref="572" line="43">
+                <declarator column="18" file="stage1.h" idref="574" line="43">
+                  <qualified_id column="18" file="stage1.h" idref="576"
+                    line="43" name="diff"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="stage1.h" idref="577" line="43" name="//output 2"/>
+          <member_declaration column="24" file="stage1.h" idref="579" line="44">
+            <member_declarator_list column="24" file="stage1.h"
+              idref="581" line="44">
+              <sc_port_specifier column="24" file="stage1.h" idref="583"
+                line="44" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage1.h"
+                  idref="585" line="44">
+                  <builtin_type_specifier column="10" file="stage1.h"
+                    idref="587" length="0" line="44" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="stage1.h" idref="589" line="44">
+                <declarator column="15" file="stage1.h" idref="591" line="44">
+                  <qualified_id column="15" file="stage1.h" idref="593"
+                    line="44" name="clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="stage1.h" idref="594" line="44" name="//clock"/>
+          <member_declaration column="20" file="stage1.h" idref="596" line="46">
+            <function_definition column="20" file="stage1.h" idref="598" line="46">
+              <declaration_specifiers column="20" file="stage1.h"
+                idref="600" line="46">
+                <builtin_type_specifier column="20" file="stage1.h"
+                  idref="602" length="0" line="46" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="stage1.h"
+                idref="604" line="46">
+                <qualified_id column="5" file="stage1.h" idref="606"
+                  line="46" name="addsub"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <comment column="5" file="stage1.h" idref="607" line="48" name="//Counstructor"/>
+          <comment column="20" file="stage1.h" idref="608" line="46" name="//method implementing functionality"/>
+          <member_declaration column="18" file="stage1.h" idref="610" line="49"/>
+          <member_declaration column="18" file="stage1.h" idref="612" line="49">
+            <ctor_definition column="18" file="stage1.h" idref="614" line="49">
+              <qualified_id column="12" file="stage1.h" idref="616"
+                line="49" name="stage1"/>
+              <parameter_list column="21" file="stage1.h" idref="618" line="49">
+                <parameter_declaration column="21" file="stage1.h"
+                  idref="620" line="49">
+                  <declaration_specifiers column="21" file="stage1.h"
+                    idref="622" line="49">
+                    <builtin_type_specifier column="21" file="stage1.h"
+                      idref="624" length="0" line="49"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="21" file="stage1.h" idref="626" line="49">
+                    <qualified_id column="21" file="stage1.h"
+                      idref="628" line="49" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="21" file="stage1.h" idref="630" line="49">
+                <superclass_init column="21" file="stage1.h" idref="632" line="49">
+                  <declaration_specifiers column="21" file="stage1.h"
+                    idref="634" line="49">
+                    <builtin_type_specifier column="21" file="stage1.h"
+                      idref="636" length="0" line="49" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="21" file="stage1.h"
+                    idref="638" line="49">
+                    <primary_expression column="21" file="stage1.h"
+                      idref="640" line="49">
+                      <id_expression column="21" file="stage1.h"
+                        idref="642" line="49" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="21" file="stage1.h" idref="644" line="49">
+                <sc_method_block column="23" file="stage1.h" idref="646" line="50">
+                  <sc_method column="23" file="stage1.h" idref="648"
+                    line="50" name="addsub"/>
+                  <comment column="30" file="stage1.h" idref="649"
+                    line="50" name="//Declare addsub as SC_METHOD and  "/>
+                  <systemCRoutine column="28" file="stage1.h"
+                    idref="651" line="51" name="dont_initialize">
+                    <arguments column="9" file="stage1.h" idref="653" line="51"/>
+                  </systemCRoutine>
+                  <sc_sensitive column="26" file="stage1.h" idref="655"
+                    line="52" name="positive">
+                    <qualified_id column="23" file="stage1.h"
+                      idref="657" line="52" name="clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="stage1.cpp" idref="658" line="39" name="//Definition of addsub method"/>
+  <external_declaration column="2" file="stage1.cpp" idref="660" line="40">
+    <function_definition column="2" file="stage1.cpp" idref="662" line="40">
+      <declaration_specifiers column="2" file="stage1.cpp" idref="664" line="40">
+        <builtin_type_specifier column="2" file="stage1.cpp" idref="666"
+          length="0" line="40" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="stage1.cpp" idref="668" line="40">
+        <qualified_id column="1" file="stage1.cpp" idref="670" line="40" name="addsub">
+          <scope_override column="1" file="stage1.cpp" idref="672"
+            line="40" name="stage1"/>
+        </qualified_id>
+      </function_declarator>
+      <block column="21" file="stage1.cpp" idref="674" line="41">
+        <block_statement column="1" file="stage1.cpp" idref="676" line="42">
+          <declaration column="1" file="stage1.cpp" idref="678" line="42">
+            <init_declarator_list column="1" file="stage1.cpp"
+              idref="680" line="42">
+              <declaration_specifiers column="1" file="stage1.cpp"
+                idref="682" line="42">
+                <builtin_type_specifier column="1" file="stage1.cpp"
+                  idref="684" length="0" line="42" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage1.cpp" idref="686" line="42">
+                <declarator column="3" file="stage1.cpp" idref="688" line="42">
+                  <qualified_id column="3" file="stage1.cpp" idref="690"
+                    line="42" name="a"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage1.cpp" idref="692" line="43">
+          <declaration column="11" file="stage1.cpp" idref="694" line="43">
+            <init_declarator_list column="11" file="stage1.cpp"
+              idref="696" line="43">
+              <declaration_specifiers column="11" file="stage1.cpp"
+                idref="698" line="43">
+                <builtin_type_specifier column="11" file="stage1.cpp"
+                  idref="700" length="0" line="43" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage1.cpp" idref="702" line="43">
+                <declarator column="3" file="stage1.cpp" idref="704" line="43">
+                  <qualified_id column="3" file="stage1.cpp" idref="706"
+                    line="43" name="b"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage1.cpp" idref="708" line="45">
+          <assignment column="5" file="stage1.cpp" idref="718" line="45">
+            <primary_expression column="11" file="stage1.cpp"
+              idref="712" line="45">
+              <id_expression column="3" file="stage1.cpp" idref="714"
+                line="45" name="a"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage1.cpp"
+              idref="716" line="45"/>
+            <postfix_expression column="5" file="stage1.cpp" idref="720" line="45">
+              <primary_expression column="5" file="stage1.cpp"
+                idref="722" line="45">
+                <id_expression column="7" file="stage1.cpp" idref="724"
+                  line="45" name="in1"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage1.cpp"
+                idref="726" line="45" name="&amp;"/>
+              <id_expression column="11" file="stage1.cpp" idref="728"
+                line="45" name="read"/>
+              <arguments column="11" file="stage1.cpp" idref="730" line="45"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="17" file="stage1.cpp" idref="732" line="46">
+          <assignment column="5" file="stage1.cpp" idref="742" line="46">
+            <primary_expression column="17" file="stage1.cpp"
+              idref="736" line="46">
+              <id_expression column="3" file="stage1.cpp" idref="738"
+                line="46" name="b"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage1.cpp"
+              idref="740" line="46"/>
+            <postfix_expression column="5" file="stage1.cpp" idref="744" line="46">
+              <primary_expression column="5" file="stage1.cpp"
+                idref="746" line="46">
+                <id_expression column="7" file="stage1.cpp" idref="748"
+                  line="46" name="in2"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage1.cpp"
+                idref="750" line="46" name="&amp;"/>
+              <id_expression column="11" file="stage1.cpp" idref="752"
+                line="46" name="read"/>
+              <arguments column="11" file="stage1.cpp" idref="754" line="46"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="17" file="stage1.cpp" idref="756" line="47">
+          <postfix_expression column="17" file="stage1.cpp" idref="758" line="47">
+            <primary_expression column="17" file="stage1.cpp"
+              idref="760" line="47">
+              <id_expression column="3" file="stage1.cpp" idref="762"
+                line="47" name="sum"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="stage1.cpp"
+              idref="764" line="47" name="&amp;"/>
+            <id_expression column="7" file="stage1.cpp" idref="766"
+              line="47" name="write"/>
+            <arguments column="7" file="stage1.cpp" idref="768" line="47">
+              <arguments_list column="12" file="stage1.cpp" idref="770" line="47">
+                <add_node column="14" file="stage1.cpp" idref="778" line="47">
+                  <primary_expression column="12" file="stage1.cpp"
+                    idref="774" line="47">
+                    <id_expression column="13" file="stage1.cpp"
+                      idref="776" line="47" name="a"/>
+                  </primary_expression>
+                  <primary_expression column="14" file="stage1.cpp"
+                    idref="782" line="47">
+                    <id_expression column="15" file="stage1.cpp"
+                      idref="784" line="47" name="b"/>
+                  </primary_expression>
+                </add_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="17" file="stage1.cpp" idref="786" line="48">
+          <postfix_expression column="17" file="stage1.cpp" idref="788" line="48">
+            <primary_expression column="17" file="stage1.cpp"
+              idref="790" line="48">
+              <id_expression column="3" file="stage1.cpp" idref="792"
+                line="48" name="diff"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="stage1.cpp"
+              idref="794" line="48" name="&amp;"/>
+            <id_expression column="8" file="stage1.cpp" idref="796"
+              line="48" name="write"/>
+            <arguments column="8" file="stage1.cpp" idref="798" line="48">
+              <arguments_list column="13" file="stage1.cpp" idref="800" line="48">
+                <subtract_node column="15" file="stage1.cpp" idref="808" line="48">
+                  <primary_expression column="13" file="stage1.cpp"
+                    idref="804" line="48">
+                    <id_expression column="14" file="stage1.cpp"
+                      idref="806" line="48" name="a"/>
+                  </primary_expression>
+                  <primary_expression column="15" file="stage1.cpp"
+                    idref="812" line="48">
+                    <id_expression column="16" file="stage1.cpp"
+                      idref="814" line="48" name="b"/>
+                  </primary_expression>
+                </subtract_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <comment column="1" file="stage2.h" idref="815" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage2.h" idref="816" line="18" name="/*****************************************************************************&#xa; &#xa;  stage2.h -- This is the interface file for the stage2 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage2.h" idref="817" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage2.cpp" idref="818" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage2.cpp" idref="819" line="18" name="/*****************************************************************************&#xa; &#xa;  stage2.cpp -- This is the implementation file for the stage2 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage2.cpp" idref="820" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="3" file="stage1.cpp" idref="821" line="50" name="// end of addsub method"/>
+  <external_declaration column="1" file="stage2.h" idref="823" line="39">
+    <declaration column="1" file="stage2.h" idref="825" line="39">
+      <declaration_specifiers column="1" file="stage2.h" idref="829" line="39">
+        <class_specifier column="1" extSCModule="true" file="stage2.h"
+          idref="831" keyword="struct" line="39" name="stage2">
+          <base_clause column="8" file="stage2.h" idref="833" line="39">
+            <base_specifier column="15" file="stage2.h" idref="835"
+              length="0" line="39" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="15" file="stage2.h"
+                idref="837" line="39" name="private"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="27" file="stage2.h" idref="839" line="40">
+            <member_declarator_list column="27" file="stage2.h"
+              idref="841" line="40">
+              <sc_port_specifier column="27" file="stage2.h" idref="843"
+                line="40" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage2.h"
+                  idref="845" line="40">
+                  <builtin_type_specifier column="10" file="stage2.h"
+                    idref="847" length="0" line="40" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage2.h" idref="849" line="40">
+                <declarator column="17" file="stage2.h" idref="851" line="40">
+                  <qualified_id column="17" file="stage2.h" idref="853"
+                    line="40" name="sum"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="24" file="stage2.h" idref="854" line="40" name="//input port 1"/>
+          <member_declaration column="22" file="stage2.h" idref="856" line="41">
+            <member_declarator_list column="22" file="stage2.h"
+              idref="858" line="41">
+              <sc_port_specifier column="22" file="stage2.h" idref="860"
+                line="41" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage2.h"
+                  idref="862" line="41">
+                  <builtin_type_specifier column="10" file="stage2.h"
+                    idref="864" length="0" line="41" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage2.h" idref="866" line="41">
+                <declarator column="17" file="stage2.h" idref="868" line="41">
+                  <qualified_id column="17" file="stage2.h" idref="870"
+                    line="41" name="diff"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="25" file="stage2.h" idref="871" line="41" name="//input port 2"/>
+          <member_declaration column="23" file="stage2.h" idref="873" line="42">
+            <member_declarator_list column="23" file="stage2.h"
+              idref="875" line="42">
+              <sc_port_specifier column="23" file="stage2.h" idref="877"
+                line="42" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="stage2.h"
+                  idref="879" line="42">
+                  <builtin_type_specifier column="11" file="stage2.h"
+                    idref="881" length="0" line="42" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="stage2.h" idref="883" line="42">
+                <declarator column="18" file="stage2.h" idref="885" line="42">
+                  <qualified_id column="18" file="stage2.h" idref="887"
+                    line="42" name="prod"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="stage2.h" idref="888" line="42" name="//output port 1"/>
+          <member_declaration column="24" file="stage2.h" idref="890" line="43">
+            <member_declarator_list column="24" file="stage2.h"
+              idref="892" line="43">
+              <sc_port_specifier column="24" file="stage2.h" idref="894"
+                line="43" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="stage2.h"
+                  idref="896" line="43">
+                  <builtin_type_specifier column="11" file="stage2.h"
+                    idref="898" length="0" line="43" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="stage2.h" idref="900" line="43">
+                <declarator column="18" file="stage2.h" idref="902" line="43">
+                  <qualified_id column="18" file="stage2.h" idref="904"
+                    line="43" name="quot"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="stage2.h" idref="905" line="43" name="//output port 2"/>
+          <member_declaration column="24" file="stage2.h" idref="907" line="44">
+            <member_declarator_list column="24" file="stage2.h"
+              idref="909" line="44">
+              <sc_port_specifier column="24" file="stage2.h" idref="911"
+                line="44" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage2.h"
+                  idref="913" line="44">
+                  <builtin_type_specifier column="10" file="stage2.h"
+                    idref="915" length="0" line="44" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="stage2.h" idref="917" line="44">
+                <declarator column="15" file="stage2.h" idref="919" line="44">
+                  <qualified_id column="15" file="stage2.h" idref="921"
+                    line="44" name="clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="stage2.h" idref="922" line="44" name="//clock"/>
+          <member_declaration column="20" file="stage2.h" idref="924" line="46">
+            <function_definition column="20" file="stage2.h" idref="926" line="46">
+              <declaration_specifiers column="20" file="stage2.h"
+                idref="928" line="46">
+                <builtin_type_specifier column="20" file="stage2.h"
+                  idref="930" length="0" line="46" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="stage2.h"
+                idref="932" line="46">
+                <qualified_id column="5" file="stage2.h" idref="934"
+                  line="46" name="multdiv"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <comment column="5" file="stage2.h" idref="935" line="48" name="//Constructor"/>
+          <comment column="21" file="stage2.h" idref="936" line="46" name="//method providing functionality"/>
+          <member_declaration column="19" file="stage2.h" idref="938" line="49"/>
+          <member_declaration column="19" file="stage2.h" idref="940" line="49">
+            <ctor_definition column="19" file="stage2.h" idref="942" line="49">
+              <qualified_id column="12" file="stage2.h" idref="944"
+                line="49" name="stage2"/>
+              <parameter_list column="21" file="stage2.h" idref="946" line="49">
+                <parameter_declaration column="21" file="stage2.h"
+                  idref="948" line="49">
+                  <declaration_specifiers column="21" file="stage2.h"
+                    idref="950" line="49">
+                    <builtin_type_specifier column="21" file="stage2.h"
+                      idref="952" length="0" line="49"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="21" file="stage2.h" idref="954" line="49">
+                    <qualified_id column="21" file="stage2.h"
+                      idref="956" line="49" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="21" file="stage2.h" idref="958" line="49">
+                <superclass_init column="21" file="stage2.h" idref="960" line="49">
+                  <declaration_specifiers column="21" file="stage2.h"
+                    idref="962" line="49">
+                    <builtin_type_specifier column="21" file="stage2.h"
+                      idref="964" length="0" line="49" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="21" file="stage2.h"
+                    idref="966" line="49">
+                    <primary_expression column="21" file="stage2.h"
+                      idref="968" line="49">
+                      <id_expression column="21" file="stage2.h"
+                        idref="970" line="49" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="21" file="stage2.h" idref="972" line="49">
+                <sc_method_block column="23" file="stage2.h" idref="974" line="50">
+                  <sc_method column="23" file="stage2.h" idref="976"
+                    line="50" name="multdiv"/>
+                  <comment column="24" file="stage2.h" idref="977"
+                    line="50" name="//Declare multdiv as SC_METHOD and"/>
+                  <systemCRoutine column="22" file="stage2.h"
+                    idref="979" line="51" name="dont_initialize">
+                    <arguments column="9" file="stage2.h" idref="981" line="51"/>
+                  </systemCRoutine>
+                  <sc_sensitive column="26" file="stage2.h" idref="983"
+                    line="52" name="positive">
+                    <qualified_id column="23" file="stage2.h"
+                      idref="985" line="52" name="clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="stage2.cpp" idref="986" line="39" name="//definition of multdiv method"/>
+  <external_declaration column="2" file="stage2.cpp" idref="988" line="40">
+    <function_definition column="2" file="stage2.cpp" idref="990" line="40">
+      <declaration_specifiers column="2" file="stage2.cpp" idref="992" line="40">
+        <builtin_type_specifier column="2" file="stage2.cpp" idref="994"
+          length="0" line="40" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="stage2.cpp" idref="996" line="40">
+        <qualified_id column="1" file="stage2.cpp" idref="998" line="40" name="multdiv">
+          <scope_override column="1" file="stage2.cpp" idref="1000"
+            line="40" name="stage2"/>
+        </qualified_id>
+      </function_declarator>
+      <block column="22" file="stage2.cpp" idref="1002" line="41">
+        <block_statement column="1" file="stage2.cpp" idref="1004" line="42">
+          <declaration column="1" file="stage2.cpp" idref="1006" line="42">
+            <init_declarator_list column="1" file="stage2.cpp"
+              idref="1008" line="42">
+              <declaration_specifiers column="1" file="stage2.cpp"
+                idref="1010" line="42">
+                <builtin_type_specifier column="1" file="stage2.cpp"
+                  idref="1012" length="0" line="42" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage2.cpp" idref="1014" line="42">
+                <declarator column="3" file="stage2.cpp" idref="1016" line="42">
+                  <qualified_id column="3" file="stage2.cpp"
+                    idref="1018" line="42" name="a"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage2.cpp" idref="1020" line="43">
+          <declaration column="11" file="stage2.cpp" idref="1022" line="43">
+            <init_declarator_list column="11" file="stage2.cpp"
+              idref="1024" line="43">
+              <declaration_specifiers column="11" file="stage2.cpp"
+                idref="1026" line="43">
+                <builtin_type_specifier column="11" file="stage2.cpp"
+                  idref="1028" length="0" line="43" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage2.cpp" idref="1030" line="43">
+                <declarator column="3" file="stage2.cpp" idref="1032" line="43">
+                  <qualified_id column="3" file="stage2.cpp"
+                    idref="1034" line="43" name="b"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage2.cpp" idref="1036" line="45">
+          <assignment column="5" file="stage2.cpp" idref="1046" line="45">
+            <primary_expression column="11" file="stage2.cpp"
+              idref="1040" line="45">
+              <id_expression column="3" file="stage2.cpp" idref="1042"
+                line="45" name="a"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage2.cpp"
+              idref="1044" line="45"/>
+            <postfix_expression column="5" file="stage2.cpp"
+              idref="1048" line="45">
+              <primary_expression column="5" file="stage2.cpp"
+                idref="1050" line="45">
+                <id_expression column="7" file="stage2.cpp" idref="1052"
+                  line="45" name="sum"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage2.cpp"
+                idref="1054" line="45" name="&amp;"/>
+              <id_expression column="11" file="stage2.cpp" idref="1056"
+                line="45" name="read"/>
+              <arguments column="11" file="stage2.cpp" idref="1058" line="45"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="17" file="stage2.cpp" idref="1060" line="46">
+          <assignment column="5" file="stage2.cpp" idref="1070" line="46">
+            <primary_expression column="17" file="stage2.cpp"
+              idref="1064" line="46">
+              <id_expression column="3" file="stage2.cpp" idref="1066"
+                line="46" name="b"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage2.cpp"
+              idref="1068" line="46"/>
+            <postfix_expression column="5" file="stage2.cpp"
+              idref="1072" line="46">
+              <primary_expression column="5" file="stage2.cpp"
+                idref="1074" line="46">
+                <id_expression column="7" file="stage2.cpp" idref="1076"
+                  line="46" name="diff"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage2.cpp"
+                idref="1078" line="46" name="&amp;"/>
+              <id_expression column="12" file="stage2.cpp" idref="1080"
+                line="46" name="read"/>
+              <arguments column="12" file="stage2.cpp" idref="1082" line="46"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="18" file="stage2.cpp" idref="1084" line="47">
+          <if_statement column="18" file="stage2.cpp" idref="1086" line="47">
+            <eq_node column="9" file="stage2.cpp" idref="1094" line="47">
+              <primary_expression column="5" file="stage2.cpp"
+                idref="1090" line="47">
+                <id_expression column="7" file="stage2.cpp" idref="1092"
+                  line="47" name="b"/>
+              </primary_expression>
+              <primary_expression column="9" file="stage2.cpp"
+                idref="1098" line="47">
+                <constant column="9" file="stage2.cpp" idref="1100"
+                  line="47" value="0"/>
+              </primary_expression>
+            </eq_node>
+            <block column="14" file="stage2.cpp" idref="1102" line="48">
+              <block_statement column="14" file="stage2.cpp"
+                idref="1104" line="48">
+                <assignment column="9" file="stage2.cpp" idref="1114" line="48">
+                  <primary_expression column="14" file="stage2.cpp"
+                    idref="1108" line="48">
+                    <id_expression column="7" file="stage2.cpp"
+                      idref="1110" line="48" name="b"/>
+                  </primary_expression>
+                  <assignment_operator column="7" file="stage2.cpp"
+                    idref="1112" line="48"/>
+                  <primary_expression column="9" file="stage2.cpp"
+                    idref="1118" line="48">
+                    <constant column="9" file="stage2.cpp" idref="1120"
+                      line="48" value="5.0"/>
+                  </primary_expression>
+                </assignment>
+              </block_statement>
+            </block>
+          </if_statement>
+        </block_statement>
+        <block_statement column="14" file="stage2.cpp" idref="1122" line="50">
+          <postfix_expression column="14" file="stage2.cpp" idref="1124" line="50">
+            <primary_expression column="14" file="stage2.cpp"
+              idref="1126" line="50">
+              <id_expression column="3" file="stage2.cpp" idref="1128"
+                line="50" name="prod"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="stage2.cpp"
+              idref="1130" line="50" name="&amp;"/>
+            <id_expression column="8" file="stage2.cpp" idref="1132"
+              line="50" name="write"/>
+            <arguments column="8" file="stage2.cpp" idref="1134" line="50">
+              <arguments_list column="13" file="stage2.cpp" idref="1136" line="50">
+                <mul_node column="15" file="stage2.cpp" idref="1144" line="50">
+                  <primary_expression column="13" file="stage2.cpp"
+                    idref="1140" line="50">
+                    <id_expression column="14" file="stage2.cpp"
+                      idref="1142" line="50" name="a"/>
+                  </primary_expression>
+                  <primary_expression column="15" file="stage2.cpp"
+                    idref="1148" line="50">
+                    <id_expression column="16" file="stage2.cpp"
+                      idref="1150" line="50" name="b"/>
+                  </primary_expression>
+                </mul_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="18" file="stage2.cpp" idref="1152" line="51">
+          <postfix_expression column="18" file="stage2.cpp" idref="1154" line="51">
+            <primary_expression column="18" file="stage2.cpp"
+              idref="1156" line="51">
+              <id_expression column="3" file="stage2.cpp" idref="1158"
+                line="51" name="quot"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="stage2.cpp"
+              idref="1160" line="51" name="&amp;"/>
+            <id_expression column="8" file="stage2.cpp" idref="1162"
+              line="51" name="write"/>
+            <arguments column="8" file="stage2.cpp" idref="1164" line="51">
+              <arguments_list column="13" file="stage2.cpp" idref="1166" line="51">
+                <div_node column="15" file="stage2.cpp" idref="1174" line="51">
+                  <primary_expression column="13" file="stage2.cpp"
+                    idref="1170" line="51">
+                    <id_expression column="14" file="stage2.cpp"
+                      idref="1172" line="51" name="a"/>
+                  </primary_expression>
+                  <primary_expression column="15" file="stage2.cpp"
+                    idref="1178" line="51">
+                    <id_expression column="16" file="stage2.cpp"
+                      idref="1180" line="51" name="b"/>
+                  </primary_expression>
+                </div_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <comment column="1" file="stage3.h" idref="1181" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage3.h" idref="1182" line="18" name="/*****************************************************************************&#xa; &#xa;  stage3.h -- This is the interface file for the stage3 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage3.h" idref="1183" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage3.cpp" idref="1184" line="26" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage3.cpp" idref="1185" line="18" name="/*****************************************************************************&#xa; &#xa;  stage3.cpp -- This is the implementation file for the stage3 module.&#xa; &#xa;  Original Author: Amit Rao, Synopsys, Inc.&#xa; &#xa; *****************************************************************************/"/>
+  <comment column="1" file="stage3.cpp" idref="1186" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="3" file="stage2.cpp" idref="1187" line="53" name="// end of multdiv"/>
+  <external_declaration column="1" file="stage3.h" idref="1189" line="39">
+    <declaration column="1" file="stage3.h" idref="1191" line="39">
+      <declaration_specifiers column="1" file="stage3.h" idref="1195" line="39">
+        <class_specifier column="1" extSCModule="true" file="stage3.h"
+          idref="1197" keyword="struct" line="39" name="stage3">
+          <base_clause column="8" file="stage3.h" idref="1199" line="39">
+            <base_specifier column="14" file="stage3.h" idref="1201"
+              length="0" line="39" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="14" file="stage3.h"
+                idref="1203" line="39" name="private"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="26" file="stage3.h" idref="1205" line="40">
+            <member_declarator_list column="26" file="stage3.h"
+              idref="1207" line="40">
+              <sc_port_specifier column="26" file="stage3.h"
+                idref="1209" line="40" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage3.h"
+                  idref="1211" line="40">
+                  <builtin_type_specifier column="10" file="stage3.h"
+                    idref="1213" length="0" line="40" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage3.h"
+                idref="1215" line="40">
+                <declarator column="17" file="stage3.h" idref="1217" line="40">
+                  <qualified_id column="17" file="stage3.h" idref="1219"
+                    line="40" name="prod"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="25" file="stage3.h" idref="1220" line="40" name="//input port 1"/>
+          <member_declaration column="23" file="stage3.h" idref="1222" line="41">
+            <member_declarator_list column="23" file="stage3.h"
+              idref="1224" line="41">
+              <sc_port_specifier column="23" file="stage3.h"
+                idref="1226" line="41" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage3.h"
+                  idref="1228" line="41">
+                  <builtin_type_specifier column="10" file="stage3.h"
+                    idref="1230" length="0" line="41" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="stage3.h"
+                idref="1232" line="41">
+                <declarator column="17" file="stage3.h" idref="1234" line="41">
+                  <qualified_id column="17" file="stage3.h" idref="1236"
+                    line="41" name="quot"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="25" file="stage3.h" idref="1237" line="41" name="//input port 2"/>
+          <member_declaration column="23" file="stage3.h" idref="1239" line="42">
+            <member_declarator_list column="23" file="stage3.h"
+              idref="1241" line="42">
+              <sc_port_specifier column="23" file="stage3.h"
+                idref="1243" line="42" name="sc_out" numOfChanels="1">
+                <declaration_specifiers column="11" file="stage3.h"
+                  idref="1245" line="42">
+                  <builtin_type_specifier column="11" file="stage3.h"
+                    idref="1247" length="0" line="42" name="double" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="18" file="stage3.h"
+                idref="1249" line="42">
+                <declarator column="18" file="stage3.h" idref="1251" line="42">
+                  <qualified_id column="18" file="stage3.h" idref="1253"
+                    line="42" name="powr"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="26" file="stage3.h" idref="1254" line="42" name="//output port 1 "/>
+          <member_declaration column="24" file="stage3.h" idref="1256" line="43">
+            <member_declarator_list column="24" file="stage3.h"
+              idref="1258" line="43">
+              <sc_port_specifier column="24" file="stage3.h"
+                idref="1260" line="43" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="stage3.h"
+                  idref="1262" line="43">
+                  <builtin_type_specifier column="10" file="stage3.h"
+                    idref="1264" length="0" line="43" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="15" file="stage3.h"
+                idref="1266" line="43">
+                <declarator column="15" file="stage3.h" idref="1268" line="43">
+                  <qualified_id column="15" file="stage3.h" idref="1270"
+                    line="43" name="clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="stage3.h" idref="1271" line="43" name="//clock"/>
+          <member_declaration column="20" file="stage3.h" idref="1273" line="45">
+            <function_definition column="20" file="stage3.h"
+              idref="1275" line="45">
+              <declaration_specifiers column="20" file="stage3.h"
+                idref="1277" line="45">
+                <builtin_type_specifier column="20" file="stage3.h"
+                  idref="1279" length="0" line="45" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="stage3.h"
+                idref="1281" line="45">
+                <qualified_id column="5" file="stage3.h" idref="1283"
+                  line="45" name="power"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <comment column="5" file="stage3.h" idref="1284" line="47" name="//Constructor"/>
+          <comment column="19" file="stage3.h" idref="1285" line="45" name="//method implementing functionality"/>
+          <member_declaration column="17" file="stage3.h" idref="1287" line="48"/>
+          <member_declaration column="17" file="stage3.h" idref="1289" line="48">
+            <ctor_definition column="17" file="stage3.h" idref="1291" line="48">
+              <qualified_id column="12" file="stage3.h" idref="1293"
+                line="48" name="stage3"/>
+              <parameter_list column="21" file="stage3.h" idref="1295" line="48">
+                <parameter_declaration column="21" file="stage3.h"
+                  idref="1297" line="48">
+                  <declaration_specifiers column="21" file="stage3.h"
+                    idref="1299" line="48">
+                    <builtin_type_specifier column="21" file="stage3.h"
+                      idref="1301" length="0" line="48"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="21" file="stage3.h" idref="1303" line="48">
+                    <qualified_id column="21" file="stage3.h"
+                      idref="1305" line="48" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="21" file="stage3.h" idref="1307" line="48">
+                <superclass_init column="21" file="stage3.h"
+                  idref="1309" line="48">
+                  <declaration_specifiers column="21" file="stage3.h"
+                    idref="1311" line="48">
+                    <builtin_type_specifier column="21" file="stage3.h"
+                      idref="1313" length="0" line="48" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="21" file="stage3.h"
+                    idref="1315" line="48">
+                    <primary_expression column="21" file="stage3.h"
+                      idref="1317" line="48">
+                      <id_expression column="21" file="stage3.h"
+                        idref="1319" line="48" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="21" file="stage3.h" idref="1321" line="48">
+                <sc_method_block column="22" file="stage3.h"
+                  idref="1323" line="49">
+                  <sc_method column="22" file="stage3.h" idref="1325"
+                    line="49" name="power"/>
+                  <comment column="29" file="stage3.h" idref="1326"
+                    line="49" name="//declare power as SC_METHOD and "/>
+                  <systemCRoutine column="27" file="stage3.h"
+                    idref="1328" line="50" name="dont_initialize">
+                    <arguments column="9" file="stage3.h" idref="1330" line="50"/>
+                  </systemCRoutine>
+                  <sc_sensitive column="26" file="stage3.h" idref="1332"
+                    line="51" name="positive">
+                    <qualified_id column="23" file="stage3.h"
+                      idref="1334" line="51" name="clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="stage3.cpp" idref="1335" line="40" name="//Definition of power method"/>
+  <external_declaration column="2" file="stage3.cpp" idref="1337" line="41">
+    <function_definition column="2" file="stage3.cpp" idref="1339" line="41">
+      <declaration_specifiers column="2" file="stage3.cpp" idref="1341" line="41">
+        <builtin_type_specifier column="2" file="stage3.cpp"
+          idref="1343" length="0" line="41" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="stage3.cpp" idref="1345" line="41">
+        <qualified_id column="1" file="stage3.cpp" idref="1347"
+          line="41" name="power">
+          <scope_override column="1" file="stage3.cpp" idref="1349"
+            line="41" name="stage3"/>
+        </qualified_id>
+      </function_declarator>
+      <block column="20" file="stage3.cpp" idref="1351" line="42">
+        <block_statement column="1" file="stage3.cpp" idref="1353" line="43">
+          <declaration column="1" file="stage3.cpp" idref="1355" line="43">
+            <init_declarator_list column="1" file="stage3.cpp"
+              idref="1357" line="43">
+              <declaration_specifiers column="1" file="stage3.cpp"
+                idref="1359" line="43">
+                <builtin_type_specifier column="1" file="stage3.cpp"
+                  idref="1361" length="0" line="43" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage3.cpp" idref="1363" line="43">
+                <declarator column="3" file="stage3.cpp" idref="1365" line="43">
+                  <qualified_id column="3" file="stage3.cpp"
+                    idref="1367" line="43" name="a"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage3.cpp" idref="1369" line="44">
+          <declaration column="11" file="stage3.cpp" idref="1371" line="44">
+            <init_declarator_list column="11" file="stage3.cpp"
+              idref="1373" line="44">
+              <declaration_specifiers column="11" file="stage3.cpp"
+                idref="1375" line="44">
+                <builtin_type_specifier column="11" file="stage3.cpp"
+                  idref="1377" length="0" line="44" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage3.cpp" idref="1379" line="44">
+                <declarator column="3" file="stage3.cpp" idref="1381" line="44">
+                  <qualified_id column="3" file="stage3.cpp"
+                    idref="1383" line="44" name="b"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage3.cpp" idref="1385" line="45">
+          <declaration column="11" file="stage3.cpp" idref="1387" line="45">
+            <init_declarator_list column="11" file="stage3.cpp"
+              idref="1389" line="45">
+              <declaration_specifiers column="11" file="stage3.cpp"
+                idref="1391" line="45">
+                <builtin_type_specifier column="11" file="stage3.cpp"
+                  idref="1393" length="0" line="45" name="double" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="stage3.cpp" idref="1395" line="45">
+                <declarator column="3" file="stage3.cpp" idref="1397" line="45">
+                  <qualified_id column="3" file="stage3.cpp"
+                    idref="1399" line="45" name="c"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="11" file="stage3.cpp" idref="1401" line="47">
+          <assignment column="5" file="stage3.cpp" idref="1411" line="47">
+            <primary_expression column="11" file="stage3.cpp"
+              idref="1405" line="47">
+              <id_expression column="3" file="stage3.cpp" idref="1407"
+                line="47" name="a"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage3.cpp"
+              idref="1409" line="47"/>
+            <postfix_expression column="5" file="stage3.cpp"
+              idref="1413" line="47">
+              <primary_expression column="5" file="stage3.cpp"
+                idref="1415" line="47">
+                <id_expression column="7" file="stage3.cpp" idref="1417"
+                  line="47" name="prod"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage3.cpp"
+                idref="1419" line="47" name="&amp;"/>
+              <id_expression column="12" file="stage3.cpp" idref="1421"
+                line="47" name="read"/>
+              <arguments column="12" file="stage3.cpp" idref="1423" line="47"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="18" file="stage3.cpp" idref="1425" line="48">
+          <assignment column="5" file="stage3.cpp" idref="1435" line="48">
+            <primary_expression column="18" file="stage3.cpp"
+              idref="1429" line="48">
+              <id_expression column="3" file="stage3.cpp" idref="1431"
+                line="48" name="b"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage3.cpp"
+              idref="1433" line="48"/>
+            <postfix_expression column="5" file="stage3.cpp"
+              idref="1437" line="48">
+              <primary_expression column="5" file="stage3.cpp"
+                idref="1439" line="48">
+                <id_expression column="7" file="stage3.cpp" idref="1441"
+                  line="48" name="quot"/>
+              </primary_expression>
+              <dereferencing_operator column="7" file="stage3.cpp"
+                idref="1443" line="48" name="&amp;"/>
+              <id_expression column="12" file="stage3.cpp" idref="1445"
+                line="48" name="read"/>
+              <arguments column="12" file="stage3.cpp" idref="1447" line="48"/>
+            </postfix_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="18" file="stage3.cpp" idref="1449" line="49">
+          <assignment column="5" file="stage3.cpp" idref="1459" line="49">
+            <primary_expression column="18" file="stage3.cpp"
+              idref="1453" line="49">
+              <id_expression column="3" file="stage3.cpp" idref="1455"
+                line="49" name="c"/>
+            </primary_expression>
+            <assignment_operator column="3" file="stage3.cpp"
+              idref="1457" line="49"/>
+            <questionmark_expression column="5" file="stage3.cpp"
+              idref="1461" line="49">
+              <primary_expression column="5" file="stage3.cpp"
+                idref="1465" line="49">
+                <and_node column="12" file="stage3.cpp" idref="1481" line="49">
+                  <gt_node column="9" file="stage3.cpp" idref="1473" line="49">
+                    <primary_expression column="7" file="stage3.cpp"
+                      idref="1469" line="49">
+                      <id_expression column="8" file="stage3.cpp"
+                        idref="1471" line="49" name="a"/>
+                    </primary_expression>
+                    <primary_expression column="9" file="stage3.cpp"
+                      idref="1477" line="49">
+                      <constant column="9" file="stage3.cpp"
+                        idref="1479" line="49" value="0"/>
+                    </primary_expression>
+                  </gt_node>
+                  <gt_node column="16" file="stage3.cpp" idref="1489" line="49">
+                    <primary_expression column="12" file="stage3.cpp"
+                      idref="1485" line="49">
+                      <id_expression column="15" file="stage3.cpp"
+                        idref="1487" line="49" name="b"/>
+                    </primary_expression>
+                    <primary_expression column="16" file="stage3.cpp"
+                      idref="1493" line="49">
+                      <constant column="16" file="stage3.cpp"
+                        idref="1495" line="49" value="0"/>
+                    </primary_expression>
+                  </gt_node>
+                </and_node>
+              </primary_expression>
+              <postfix_expression column="19" file="stage3.cpp"
+                idref="1497" line="49">
+                <primary_expression column="19" file="stage3.cpp"
+                  idref="1499" line="49">
+                  <id_expression column="21" file="stage3.cpp"
+                    idref="1501" line="49" name="pow"/>
+                </primary_expression>
+                <arguments column="21" file="stage3.cpp" idref="1503" line="49">
+                  <arguments_list column="24" file="stage3.cpp"
+                    idref="1505" line="49">
+                    <primary_expression column="24" file="stage3.cpp"
+                      idref="1509" line="49">
+                      <id_expression column="25" file="stage3.cpp"
+                        idref="1511" line="49" name="a"/>
+                    </primary_expression>
+                    <primary_expression column="26" file="stage3.cpp"
+                      idref="1515" line="49">
+                      <id_expression column="28" file="stage3.cpp"
+                        idref="1517" line="49" name="b"/>
+                    </primary_expression>
+                  </arguments_list>
+                </arguments>
+              </postfix_expression>
+              <primary_expression column="31" file="stage3.cpp"
+                idref="1521" line="49">
+                <constant column="31" file="stage3.cpp" idref="1523"
+                  line="49" value="0."/>
+              </primary_expression>
+            </questionmark_expression>
+          </assignment>
+        </block_statement>
+        <block_statement column="35" file="stage3.cpp" idref="1525" line="50">
+          <postfix_expression column="35" file="stage3.cpp" idref="1527" line="50">
+            <primary_expression column="35" file="stage3.cpp"
+              idref="1529" line="50">
+              <id_expression column="3" file="stage3.cpp" idref="1531"
+                line="50" name="powr"/>
+            </primary_expression>
+            <dereferencing_operator column="3" file="stage3.cpp"
+              idref="1533" line="50" name="&amp;"/>
+            <id_expression column="8" file="stage3.cpp" idref="1535"
+              line="50" name="write"/>
+            <arguments column="8" file="stage3.cpp" idref="1537" line="50">
+              <arguments_list column="13" file="stage3.cpp" idref="1539" line="50">
+                <primary_expression column="13" file="stage3.cpp"
+                  idref="1543" line="50">
+                  <id_expression column="14" file="stage3.cpp"
+                    idref="1545" line="50" name="c"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+</INTERNAL>

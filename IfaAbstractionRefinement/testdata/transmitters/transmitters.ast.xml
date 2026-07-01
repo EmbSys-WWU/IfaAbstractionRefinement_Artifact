@@ -1,0 +1,1522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="true" idref="10" keyword="class" name="backoff_transmitter">
+          <base_clause column="30" file="trasmitter.cpp" idref="12" line="5">
+            <base_specifier column="30" file="trasmitter.cpp" idref="14"
+              length="0" line="5" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="30"
+                file="trasmitter.cpp" idref="16" line="5" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="30" file="trasmitter.cpp"
+            idref="18" line="5">
+            <access_specifier column="30" file="trasmitter.cpp"
+              idref="20" line="5" name="public"/>
+          </member_declaration>
+          <member_declaration column="32" file="trasmitter.cpp"
+            idref="22" line="6">
+            <member_declarator_list column="32" file="trasmitter.cpp"
+              idref="24" line="6">
+              <sc_port_specifier column="32" file="trasmitter.cpp"
+                idref="26" line="6" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="13"
+                  file="trasmitter.cpp" idref="28" line="6">
+                  <builtin_type_specifier column="13"
+                    file="trasmitter.cpp" idref="30" length="0" line="6"
+                    name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="trasmitter.cpp"
+                idref="32" line="6">
+                <declarator column="17" file="trasmitter.cpp" idref="34" line="6">
+                  <qualified_id column="17" file="trasmitter.cpp"
+                    idref="36" line="6" name="bus"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="22" file="trasmitter.cpp"
+            idref="38" line="8">
+            <member_declarator_list column="22" file="trasmitter.cpp"
+              idref="40" line="8">
+              <declaration_specifiers column="22" file="trasmitter.cpp"
+                idref="42" line="8">
+                <builtin_type_specifier column="22"
+                  file="trasmitter.cpp" idref="44" length="0" line="8"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="trasmitter.cpp"
+                idref="46" line="8">
+                <declarator column="5" file="trasmitter.cpp" idref="48" line="8">
+                  <qualified_id column="5" file="trasmitter.cpp"
+                    idref="50" line="8" name="high_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="16" file="trasmitter.cpp"
+            idref="52" line="9">
+            <member_declarator_list column="16" file="trasmitter.cpp"
+              idref="54" line="9">
+              <declaration_specifiers column="16" file="trasmitter.cpp"
+                idref="56" line="9">
+                <builtin_type_specifier column="16"
+                  file="trasmitter.cpp" idref="58" length="0" line="9"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="trasmitter.cpp"
+                idref="60" line="9">
+                <declarator column="5" file="trasmitter.cpp" idref="62" line="9">
+                  <qualified_id column="5" file="trasmitter.cpp"
+                    idref="64" line="9" name="low_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="15" file="trasmitter.cpp"
+            idref="66" line="11">
+            <member_declarator_list column="15" file="trasmitter.cpp"
+              idref="68" line="11">
+              <declaration_specifiers column="15" file="trasmitter.cpp"
+                idref="70" line="11">
+                <builtin_type_specifier column="15"
+                  file="trasmitter.cpp" idref="72" length="0" line="11"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="trasmitter.cpp"
+                idref="74" line="11">
+                <declarator column="5" file="trasmitter.cpp" idref="76" line="11">
+                  <qualified_id column="5" file="trasmitter.cpp"
+                    idref="78" line="11" name="high_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="trasmitter.cpp"
+            idref="80" line="12">
+            <member_declarator_list column="17" file="trasmitter.cpp"
+              idref="82" line="12">
+              <declaration_specifiers column="17" file="trasmitter.cpp"
+                idref="84" line="12">
+                <builtin_type_specifier column="17"
+                  file="trasmitter.cpp" idref="86" length="0" line="12"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="trasmitter.cpp"
+                idref="88" line="12">
+                <declarator column="5" file="trasmitter.cpp" idref="90" line="12">
+                  <qualified_id column="5" file="trasmitter.cpp"
+                    idref="92" line="12" name="low_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="16" file="trasmitter.cpp"
+            idref="94" line="14">
+            <function_definition column="16" file="trasmitter.cpp"
+              idref="96" line="14">
+              <declaration_specifiers column="16" file="trasmitter.cpp"
+                idref="98" line="14">
+                <builtin_type_specifier column="16"
+                  file="trasmitter.cpp" idref="100" length="0" line="14"
+                  name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="trasmitter.cpp"
+                idref="102" line="14">
+                <qualified_id column="5" file="trasmitter.cpp"
+                  idref="104" line="14" name="low_transmitter"/>
+              </function_declarator>
+              <block column="26" file="trasmitter.cpp" idref="106" line="14">
+                <block_statement column="28" file="trasmitter.cpp"
+                  idref="108" line="15">
+                  <declaration column="28" file="trasmitter.cpp"
+                    idref="110" line="15">
+                    <init_declarator_list column="28"
+                      file="trasmitter.cpp" idref="112" line="15">
+                      <declaration_specifiers column="28"
+                        file="trasmitter.cpp" idref="114" line="15">
+                        <builtin_type_specifier column="28"
+                          file="trasmitter.cpp" idref="116" length="0"
+                          line="15" name="int" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="9" file="trasmitter.cpp"
+                        idref="118" line="15">
+                        <declarator column="9" file="trasmitter.cpp"
+                          idref="120" line="15">
+                          <qualified_id column="9" file="trasmitter.cpp"
+                            idref="122" line="15" name="backoff"/>
+                        </declarator>
+                        <initializer column="21" file="trasmitter.cpp"
+                          idref="124" line="15">
+                          <primary_expression column="21"
+                            file="trasmitter.cpp" idref="128" line="15">
+                            <constant column="21" file="trasmitter.cpp"
+                              idref="130" line="15" value="0"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="24" file="trasmitter.cpp"
+                  idref="132" line="16">
+                  <while_statement column="24" file="trasmitter.cpp"
+                    idref="134" line="16">
+                    <primary_expression column="15"
+                      file="trasmitter.cpp" idref="138" line="16">
+                      <constant column="15" file="trasmitter.cpp"
+                        idref="140" line="16" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="trasmitter.cpp" idref="142" line="16">
+                      <block_statement column="22" file="trasmitter.cpp"
+                        idref="144" line="17">
+                        <postfix_expression column="22"
+                          file="trasmitter.cpp" idref="146" line="17">
+                          <primary_expression column="22"
+                            file="trasmitter.cpp" idref="148" line="17">
+                            <id_expression column="4"
+                              file="trasmitter.cpp" idref="150"
+                              line="17" name="handle_backoff"/>
+                          </primary_expression>
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="152" line="17">
+                            <arguments_list column="18"
+                              file="trasmitter.cpp" idref="154" line="17">
+                              <primary_expression column="18"
+                                file="trasmitter.cpp" idref="158" line="17">
+                                <id_expression column="19"
+                                  file="trasmitter.cpp" idref="160"
+                                  line="17" name="backoff"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="27" file="trasmitter.cpp"
+                        idref="162" line="18">
+                        <postfix_expression column="27"
+                          file="trasmitter.cpp" idref="164" line="18">
+                          <primary_expression column="27"
+                            file="trasmitter.cpp" idref="166" line="18">
+                            <id_expression column="13"
+                              file="trasmitter.cpp" idref="168"
+                              line="18" name="bus"/>
+                          </primary_expression>
+                          <dereferencing_operator column="13"
+                            file="trasmitter.cpp" idref="170" line="18" name="&amp;"/>
+                          <id_expression column="17"
+                            file="trasmitter.cpp" idref="172" line="18" name="write"/>
+                          <arguments column="17" file="trasmitter.cpp"
+                            idref="174" line="18">
+                            <arguments_list column="22"
+                              file="trasmitter.cpp" idref="176" line="18">
+                              <primary_expression column="22"
+                                file="trasmitter.cpp" idref="180" line="18">
+                                <id_expression column="23"
+                                  file="trasmitter.cpp" idref="182"
+                                  line="18" name="low_in"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="30" file="trasmitter.cpp"
+                        idref="184" line="19">
+                        <if_statement column="30" file="trasmitter.cpp"
+                          idref="186" line="19">
+                          <lt_node column="25" file="trasmitter.cpp"
+                            idref="194" line="19">
+                            <primary_expression column="16"
+                              file="trasmitter.cpp" idref="190" line="19">
+                              <id_expression column="17"
+                                file="trasmitter.cpp" idref="192"
+                                line="19" name="backoff"/>
+                            </primary_expression>
+                            <primary_expression column="25"
+                              file="trasmitter.cpp" idref="198" line="19">
+                              <constant column="25"
+                                file="trasmitter.cpp" idref="200"
+                                line="19" value="6"/>
+                            </primary_expression>
+                          </lt_node>
+                          <block column="28" file="trasmitter.cpp"
+                            idref="202" line="20">
+                            <block_statement column="28"
+                              file="trasmitter.cpp" idref="204" line="20">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="214" line="20">
+                                <primary_expression column="28"
+                                  file="trasmitter.cpp" idref="208" line="20">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="210"
+                                    line="20" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="212" line="20"/>
+                                <add_node column="23"
+                                  file="trasmitter.cpp" idref="222" line="20">
+                                  <primary_expression column="13"
+                                    file="trasmitter.cpp" idref="218" line="20">
+                                    <id_expression column="15"
+                                    file="trasmitter.cpp" idref="220"
+                                    line="20" name="backoff"/>
+                                  </primary_expression>
+                                  <primary_expression column="23"
+                                    file="trasmitter.cpp" idref="226" line="20">
+                                    <constant column="23"
+                                    file="trasmitter.cpp" idref="228"
+                                    line="20" value="1"/>
+                                  </primary_expression>
+                                </add_node>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="4" file="trasmitter.cpp"
+                            idref="230" line="22">
+                            <block_statement column="4"
+                              file="trasmitter.cpp" idref="232" line="22">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="242" line="22">
+                                <primary_expression column="4"
+                                  file="trasmitter.cpp" idref="236" line="22">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="238"
+                                    line="22" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="240" line="22"/>
+                                <primary_expression column="13"
+                                  file="trasmitter.cpp" idref="246" line="22">
+                                  <constant column="13"
+                                    file="trasmitter.cpp" idref="248"
+                                    line="22" value="0"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="16" file="trasmitter.cpp"
+                        idref="250" line="23">
+                        <systemCRoutine column="16"
+                          file="trasmitter.cpp" idref="254" line="23" name="wait">
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="256" line="23">
+                            <arguments_list column="8"
+                              file="trasmitter.cpp" idref="258" line="23">
+                              <primary_expression column="8"
+                                file="trasmitter.cpp" idref="262" line="23">
+                                <constant column="8"
+                                  file="trasmitter.cpp" idref="264"
+                                  line="23" value="500"/>
+                              </primary_expression>
+                              <primary_expression column="12"
+                                file="trasmitter.cpp" idref="268" line="23">
+                                <constant column="12"
+                                  file="trasmitter.cpp" idref="270"
+                                  line="23" value="SC_US"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="trasmitter.cpp"
+            idref="272" line="27">
+            <function_definition column="5" file="trasmitter.cpp"
+              idref="274" line="27">
+              <declaration_specifiers column="5" file="trasmitter.cpp"
+                idref="276" line="27">
+                <builtin_type_specifier column="5" file="trasmitter.cpp"
+                  idref="278" length="0" line="27" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="trasmitter.cpp"
+                idref="280" line="27">
+                <qualified_id column="5" file="trasmitter.cpp"
+                  idref="282" line="27" name="high_transmitter"/>
+              </function_declarator>
+              <block column="27" file="trasmitter.cpp" idref="284" line="27">
+                <block_statement column="29" file="trasmitter.cpp"
+                  idref="286" line="28">
+                  <declaration column="29" file="trasmitter.cpp"
+                    idref="288" line="28">
+                    <init_declarator_list column="29"
+                      file="trasmitter.cpp" idref="290" line="28">
+                      <declaration_specifiers column="29"
+                        file="trasmitter.cpp" idref="292" line="28">
+                        <builtin_type_specifier column="29"
+                          file="trasmitter.cpp" idref="294" length="0"
+                          line="28" name="int" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="9" file="trasmitter.cpp"
+                        idref="296" line="28">
+                        <declarator column="9" file="trasmitter.cpp"
+                          idref="298" line="28">
+                          <qualified_id column="9" file="trasmitter.cpp"
+                            idref="300" line="28" name="backoff"/>
+                        </declarator>
+                        <initializer column="21" file="trasmitter.cpp"
+                          idref="302" line="28">
+                          <primary_expression column="21"
+                            file="trasmitter.cpp" idref="306" line="28">
+                            <constant column="21" file="trasmitter.cpp"
+                              idref="308" line="28" value="0"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="24" file="trasmitter.cpp"
+                  idref="310" line="29">
+                  <while_statement column="24" file="trasmitter.cpp"
+                    idref="312" line="29">
+                    <primary_expression column="15"
+                      file="trasmitter.cpp" idref="316" line="29">
+                      <constant column="15" file="trasmitter.cpp"
+                        idref="318" line="29" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="trasmitter.cpp" idref="320" line="29">
+                      <block_statement column="22" file="trasmitter.cpp"
+                        idref="322" line="30">
+                        <postfix_expression column="22"
+                          file="trasmitter.cpp" idref="324" line="30">
+                          <primary_expression column="22"
+                            file="trasmitter.cpp" idref="326" line="30">
+                            <id_expression column="4"
+                              file="trasmitter.cpp" idref="328"
+                              line="30" name="handle_backoff"/>
+                          </primary_expression>
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="330" line="30">
+                            <arguments_list column="18"
+                              file="trasmitter.cpp" idref="332" line="30">
+                              <primary_expression column="18"
+                                file="trasmitter.cpp" idref="336" line="30">
+                                <id_expression column="19"
+                                  file="trasmitter.cpp" idref="338"
+                                  line="30" name="backoff"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="27" file="trasmitter.cpp"
+                        idref="340" line="31">
+                        <systemCRoutine column="27"
+                          file="trasmitter.cpp" idref="344" line="31" name="wait">
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="346" line="31">
+                            <arguments_list column="8"
+                              file="trasmitter.cpp" idref="348" line="31">
+                              <primary_expression column="8"
+                                file="trasmitter.cpp" idref="352" line="31">
+                                <constant column="8"
+                                  file="trasmitter.cpp" idref="354"
+                                  line="31" value="250"/>
+                              </primary_expression>
+                              <primary_expression column="12"
+                                file="trasmitter.cpp" idref="358" line="31">
+                                <constant column="12"
+                                  file="trasmitter.cpp" idref="360"
+                                  line="31" value="SC_US"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="20" file="trasmitter.cpp"
+                        idref="362" line="32">
+                        <postfix_expression column="20"
+                          file="trasmitter.cpp" idref="364" line="32">
+                          <primary_expression column="20"
+                            file="trasmitter.cpp" idref="366" line="32">
+                            <id_expression column="13"
+                              file="trasmitter.cpp" idref="368"
+                              line="32" name="bus"/>
+                          </primary_expression>
+                          <dereferencing_operator column="13"
+                            file="trasmitter.cpp" idref="370" line="32" name="&amp;"/>
+                          <id_expression column="17"
+                            file="trasmitter.cpp" idref="372" line="32" name="write"/>
+                          <arguments column="17" file="trasmitter.cpp"
+                            idref="374" line="32">
+                            <arguments_list column="22"
+                              file="trasmitter.cpp" idref="376" line="32">
+                              <primary_expression column="22"
+                                file="trasmitter.cpp" idref="380" line="32">
+                                <id_expression column="23"
+                                  file="trasmitter.cpp" idref="382"
+                                  line="32" name="high_in"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="31" file="trasmitter.cpp"
+                        idref="384" line="33">
+                        <if_statement column="31" file="trasmitter.cpp"
+                          idref="386" line="33">
+                          <lt_node column="25" file="trasmitter.cpp"
+                            idref="394" line="33">
+                            <primary_expression column="16"
+                              file="trasmitter.cpp" idref="390" line="33">
+                              <id_expression column="17"
+                                file="trasmitter.cpp" idref="392"
+                                line="33" name="backoff"/>
+                            </primary_expression>
+                            <primary_expression column="25"
+                              file="trasmitter.cpp" idref="398" line="33">
+                              <constant column="25"
+                                file="trasmitter.cpp" idref="400"
+                                line="33" value="6"/>
+                            </primary_expression>
+                          </lt_node>
+                          <block column="28" file="trasmitter.cpp"
+                            idref="402" line="34">
+                            <block_statement column="28"
+                              file="trasmitter.cpp" idref="404" line="34">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="414" line="34">
+                                <primary_expression column="28"
+                                  file="trasmitter.cpp" idref="408" line="34">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="410"
+                                    line="34" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="412" line="34"/>
+                                <add_node column="23"
+                                  file="trasmitter.cpp" idref="422" line="34">
+                                  <primary_expression column="13"
+                                    file="trasmitter.cpp" idref="418" line="34">
+                                    <id_expression column="15"
+                                    file="trasmitter.cpp" idref="420"
+                                    line="34" name="backoff"/>
+                                  </primary_expression>
+                                  <primary_expression column="23"
+                                    file="trasmitter.cpp" idref="426" line="34">
+                                    <constant column="23"
+                                    file="trasmitter.cpp" idref="428"
+                                    line="34" value="1"/>
+                                  </primary_expression>
+                                </add_node>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="4" file="trasmitter.cpp"
+                            idref="430" line="36">
+                            <block_statement column="4"
+                              file="trasmitter.cpp" idref="432" line="36">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="442" line="36">
+                                <primary_expression column="4"
+                                  file="trasmitter.cpp" idref="436" line="36">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="438"
+                                    line="36" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="440" line="36"/>
+                                <primary_expression column="13"
+                                  file="trasmitter.cpp" idref="446" line="36">
+                                  <constant column="13"
+                                    file="trasmitter.cpp" idref="448"
+                                    line="36" value="0"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="16" file="trasmitter.cpp"
+                        idref="450" line="37">
+                        <systemCRoutine column="16"
+                          file="trasmitter.cpp" idref="454" line="37" name="wait">
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="456" line="37">
+                            <arguments_list column="8"
+                              file="trasmitter.cpp" idref="458" line="37">
+                              <primary_expression column="8"
+                                file="trasmitter.cpp" idref="462" line="37">
+                                <constant column="8"
+                                  file="trasmitter.cpp" idref="464"
+                                  line="37" value="250"/>
+                              </primary_expression>
+                              <primary_expression column="12"
+                                file="trasmitter.cpp" idref="468" line="37">
+                                <constant column="12"
+                                  file="trasmitter.cpp" idref="470"
+                                  line="37" value="SC_US"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="trasmitter.cpp"
+            idref="472" line="41">
+            <function_definition column="5" file="trasmitter.cpp"
+              idref="474" line="41">
+              <declaration_specifiers column="5" file="trasmitter.cpp"
+                idref="476" line="41">
+                <builtin_type_specifier column="5" file="trasmitter.cpp"
+                  idref="478" length="0" line="41" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="trasmitter.cpp"
+                idref="480" line="41">
+                <qualified_id column="2" file="trasmitter.cpp"
+                  idref="482" line="41" name="handle_backoff"/>
+                <parameter_list column="21" file="trasmitter.cpp"
+                  idref="484" line="41">
+                  <parameter_declaration column="21"
+                    file="trasmitter.cpp" idref="486" line="41">
+                    <declaration_specifiers column="21"
+                      file="trasmitter.cpp" idref="488" line="41">
+                      <builtin_type_specifier column="21"
+                        file="trasmitter.cpp" idref="490" length="0"
+                        line="41" name="int" sc_dt="false"/>
+                    </declaration_specifiers>
+                    <declarator column="22" file="trasmitter.cpp"
+                      idref="492" line="41">
+                      <qualified_id column="22" file="trasmitter.cpp"
+                        idref="494" line="41" name="bo"/>
+                    </declarator>
+                  </parameter_declaration>
+                </parameter_list>
+              </function_declarator>
+              <block column="28" file="trasmitter.cpp" idref="496" line="41">
+                <block_statement column="30" file="trasmitter.cpp"
+                  idref="498" line="42">
+                  <if_statement column="30" file="trasmitter.cpp"
+                    idref="500" line="42">
+                    <eq_node column="10" file="trasmitter.cpp"
+                      idref="508" line="42">
+                      <primary_expression column="6"
+                        file="trasmitter.cpp" idref="504" line="42">
+                        <id_expression column="7" file="trasmitter.cpp"
+                          idref="506" line="42" name="bo"/>
+                      </primary_expression>
+                      <primary_expression column="10"
+                        file="trasmitter.cpp" idref="512" line="42">
+                        <constant column="10" file="trasmitter.cpp"
+                          idref="514" line="42" value="0"/>
+                      </primary_expression>
+                    </eq_node>
+                    <block column="14" file="trasmitter.cpp" idref="516" line="42">
+                      <block_statement column="14" file="trasmitter.cpp"
+                        idref="518" line="42">
+                        <systemCRoutine column="14"
+                          file="trasmitter.cpp" idref="522" line="42" name="wait">
+                          <arguments column="16" file="trasmitter.cpp"
+                            idref="524" line="42">
+                            <arguments_list column="20"
+                              file="trasmitter.cpp" idref="526" line="42">
+                              <primary_expression column="20"
+                                file="trasmitter.cpp" idref="530" line="42">
+                                <constant column="20"
+                                  file="trasmitter.cpp" idref="532"
+                                  line="42" value="1"/>
+                              </primary_expression>
+                              <primary_expression column="22"
+                                file="trasmitter.cpp" idref="536" line="42">
+                                <constant column="22"
+                                  file="trasmitter.cpp" idref="538"
+                                  line="42" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                    <block column="3" file="trasmitter.cpp" idref="540" line="43">
+                      <block_statement column="3" file="trasmitter.cpp"
+                        idref="542" line="43">
+                        <if_statement column="3" file="trasmitter.cpp"
+                          idref="544" line="43">
+                          <eq_node column="15" file="trasmitter.cpp"
+                            idref="552" line="43">
+                            <primary_expression column="11"
+                              file="trasmitter.cpp" idref="548" line="43">
+                              <id_expression column="12"
+                                file="trasmitter.cpp" idref="550"
+                                line="43" name="bo"/>
+                            </primary_expression>
+                            <primary_expression column="15"
+                              file="trasmitter.cpp" idref="556" line="43">
+                              <constant column="15"
+                                file="trasmitter.cpp" idref="558"
+                                line="43" value="1"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="19" file="trasmitter.cpp"
+                            idref="560" line="43">
+                            <block_statement column="19"
+                              file="trasmitter.cpp" idref="562" line="43">
+                              <systemCRoutine column="19"
+                                file="trasmitter.cpp" idref="566"
+                                line="43" name="wait">
+                                <arguments column="21"
+                                  file="trasmitter.cpp" idref="568" line="43">
+                                  <arguments_list column="25"
+                                    file="trasmitter.cpp" idref="570" line="43">
+                                    <primary_expression column="25"
+                                    file="trasmitter.cpp" idref="574" line="43">
+                                    <constant column="25"
+                                    file="trasmitter.cpp"
+                                    idref="576" line="43" value="2"/>
+                                    </primary_expression>
+                                    <primary_expression column="27"
+                                    file="trasmitter.cpp" idref="580" line="43">
+                                    <constant column="27"
+                                    file="trasmitter.cpp"
+                                    idref="582" line="43" value="SC_MS"/>
+                                    </primary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </systemCRoutine>
+                            </block_statement>
+                          </block>
+                          <block column="3" file="trasmitter.cpp"
+                            idref="584" line="44">
+                            <block_statement column="3"
+                              file="trasmitter.cpp" idref="586" line="44">
+                              <if_statement column="3"
+                                file="trasmitter.cpp" idref="588" line="44">
+                                <eq_node column="15"
+                                  file="trasmitter.cpp" idref="596" line="44">
+                                  <primary_expression column="11"
+                                    file="trasmitter.cpp" idref="592" line="44">
+                                    <id_expression column="12"
+                                    file="trasmitter.cpp" idref="594"
+                                    line="44" name="bo"/>
+                                  </primary_expression>
+                                  <primary_expression column="15"
+                                    file="trasmitter.cpp" idref="600" line="44">
+                                    <constant column="15"
+                                    file="trasmitter.cpp" idref="602"
+                                    line="44" value="2"/>
+                                  </primary_expression>
+                                </eq_node>
+                                <block column="19" file="trasmitter.cpp"
+                                  idref="604" line="44">
+                                  <block_statement column="19"
+                                    file="trasmitter.cpp" idref="606" line="44">
+                                    <systemCRoutine column="19"
+                                    file="trasmitter.cpp" idref="610"
+                                    line="44" name="wait">
+                                    <arguments column="21"
+                                    file="trasmitter.cpp"
+                                    idref="612" line="44">
+                                    <arguments_list column="25"
+                                    file="trasmitter.cpp"
+                                    idref="614" line="44">
+                                    <primary_expression
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="618" line="44">
+                                    <constant column="25"
+                                    file="trasmitter.cpp"
+                                    idref="620" line="44" value="4"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="27"
+                                    file="trasmitter.cpp"
+                                    idref="624" line="44">
+                                    <constant column="27"
+                                    file="trasmitter.cpp"
+                                    idref="626" line="44" value="SC_MS"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </systemCRoutine>
+                                  </block_statement>
+                                </block>
+                                <block column="3" file="trasmitter.cpp"
+                                  idref="628" line="45">
+                                  <block_statement column="3"
+                                    file="trasmitter.cpp" idref="630" line="45">
+                                    <if_statement column="3"
+                                    file="trasmitter.cpp" idref="632" line="45">
+                                    <eq_node column="15"
+                                    file="trasmitter.cpp"
+                                    idref="640" line="45">
+                                    <primary_expression column="11"
+                                    file="trasmitter.cpp"
+                                    idref="636" line="45">
+                                    <id_expression column="12"
+                                    file="trasmitter.cpp"
+                                    idref="638" line="45" name="bo"/>
+                                    </primary_expression>
+                                    <primary_expression column="15"
+                                    file="trasmitter.cpp"
+                                    idref="644" line="45">
+                                    <constant column="15"
+                                    file="trasmitter.cpp"
+                                    idref="646" line="45" value="3"/>
+                                    </primary_expression>
+                                    </eq_node>
+                                    <block column="19"
+                                    file="trasmitter.cpp"
+                                    idref="648" line="45">
+                                    <block_statement column="19"
+                                    file="trasmitter.cpp"
+                                    idref="650" line="45">
+                                    <systemCRoutine column="19"
+                                    file="trasmitter.cpp"
+                                    idref="654" line="45" name="wait">
+                                    <arguments column="21"
+                                    file="trasmitter.cpp"
+                                    idref="656" line="45">
+                                    <arguments_list
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="658" line="45">
+                                    <primary_expression
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="662" line="45">
+                                    <constant column="25"
+                                    file="trasmitter.cpp"
+                                    idref="664"
+                                    line="45" value="8"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="27"
+                                    file="trasmitter.cpp"
+                                    idref="668" line="45">
+                                    <constant column="27"
+                                    file="trasmitter.cpp"
+                                    idref="670"
+                                    line="45" value="SC_MS"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </systemCRoutine>
+                                    </block_statement>
+                                    </block>
+                                    <block column="3"
+                                    file="trasmitter.cpp"
+                                    idref="672" line="46">
+                                    <block_statement column="3"
+                                    file="trasmitter.cpp"
+                                    idref="674" line="46">
+                                    <if_statement column="3"
+                                    file="trasmitter.cpp"
+                                    idref="676" line="46">
+                                    <eq_node column="15"
+                                    file="trasmitter.cpp"
+                                    idref="684" line="46">
+                                    <primary_expression
+                                    column="11"
+                                    file="trasmitter.cpp"
+                                    idref="680" line="46">
+                                    <id_expression
+                                    column="12"
+                                    file="trasmitter.cpp"
+                                    idref="682" line="46" name="bo"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="15"
+                                    file="trasmitter.cpp"
+                                    idref="688" line="46">
+                                    <constant column="15"
+                                    file="trasmitter.cpp"
+                                    idref="690" line="46" value="4"/>
+                                    </primary_expression>
+                                    </eq_node>
+                                    <block column="19"
+                                    file="trasmitter.cpp"
+                                    idref="692" line="46">
+                                    <block_statement
+                                    column="19"
+                                    file="trasmitter.cpp"
+                                    idref="694" line="46">
+                                    <systemCRoutine
+                                    column="19"
+                                    file="trasmitter.cpp"
+                                    idref="698" line="46" name="wait">
+                                    <arguments column="21"
+                                    file="trasmitter.cpp"
+                                    idref="700" line="46">
+                                    <arguments_list
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="702" line="46">
+
+                                    <primary_expression
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="706" line="46">
+                                    <constant
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="708"
+                                    line="46" value="16"/>
+                                    </primary_expression>
+
+                                    <primary_expression
+                                    column="28"
+                                    file="trasmitter.cpp"
+                                    idref="712" line="46">
+                                    <constant
+                                    column="28"
+                                    file="trasmitter.cpp"
+                                    idref="714"
+                                    line="46" value="SC_MS"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </systemCRoutine>
+                                    </block_statement>
+                                    </block>
+                                    <block column="3"
+                                    file="trasmitter.cpp"
+                                    idref="716" line="47">
+                                    <block_statement
+                                    column="3"
+                                    file="trasmitter.cpp"
+                                    idref="718" line="47">
+                                    <if_statement column="3"
+                                    file="trasmitter.cpp"
+                                    idref="720" line="47">
+                                    <eq_node column="15"
+                                    file="trasmitter.cpp"
+                                    idref="728" line="47">
+                                    <primary_expression
+                                    column="11"
+                                    file="trasmitter.cpp"
+                                    idref="724" line="47">
+                                    <id_expression
+                                    column="12"
+                                    file="trasmitter.cpp"
+                                    idref="726"
+                                    line="47" name="bo"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="15"
+                                    file="trasmitter.cpp"
+                                    idref="732" line="47">
+                                    <constant
+                                    column="15"
+                                    file="trasmitter.cpp"
+                                    idref="734"
+                                    line="47" value="5"/>
+                                    </primary_expression>
+                                    </eq_node>
+                                    <block column="19"
+                                    file="trasmitter.cpp"
+                                    idref="736" line="47">
+                                    <block_statement
+                                    column="19"
+                                    file="trasmitter.cpp"
+                                    idref="738" line="47">
+                                    <systemCRoutine
+                                    column="19"
+                                    file="trasmitter.cpp"
+                                    idref="742"
+                                    line="47" name="wait">
+                                    <arguments
+                                    column="21"
+                                    file="trasmitter.cpp"
+                                    idref="744" line="47">
+
+                                    <arguments_list
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="746" line="47">
+
+                                    <primary_expression
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="750" line="47">
+                                    <constant
+                                    column="25"
+                                    file="trasmitter.cpp"
+                                    idref="752"
+                                    line="47" value="32"/>
+                                    </primary_expression>
+
+                                    <primary_expression
+                                    column="28"
+                                    file="trasmitter.cpp"
+                                    idref="756" line="47">
+                                    <constant
+                                    column="28"
+                                    file="trasmitter.cpp"
+                                    idref="758"
+                                    line="47" value="SC_MS"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </systemCRoutine>
+                                    </block_statement>
+                                    </block>
+                                    <block column="3"
+                                    file="trasmitter.cpp"
+                                    idref="760" line="48">
+                                    <block_statement
+                                    column="3"
+                                    file="trasmitter.cpp"
+                                    idref="762" line="48">
+                                    <systemCRoutine
+                                    column="3"
+                                    file="trasmitter.cpp"
+                                    idref="766"
+                                    line="48" name="wait">
+                                    <arguments
+                                    column="8"
+                                    file="trasmitter.cpp"
+                                    idref="768" line="48">
+
+                                    <arguments_list
+                                    column="12"
+                                    file="trasmitter.cpp"
+                                    idref="770" line="48">
+
+                                    <primary_expression
+                                    column="12"
+                                    file="trasmitter.cpp"
+                                    idref="774" line="48">
+                                    <constant
+                                    column="12"
+                                    file="trasmitter.cpp"
+                                    idref="776"
+                                    line="48" value="64"/>
+                                    </primary_expression>
+
+                                    <primary_expression
+                                    column="15"
+                                    file="trasmitter.cpp"
+                                    idref="780" line="48">
+                                    <constant
+                                    column="15"
+                                    file="trasmitter.cpp"
+                                    idref="782"
+                                    line="48" value="SC_MS"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </systemCRoutine>
+                                    </block_statement>
+                                    </block>
+                                    </if_statement>
+                                    </block_statement>
+                                    </block>
+                                    </if_statement>
+                                    </block_statement>
+                                    </block>
+                                    </if_statement>
+                                  </block_statement>
+                                </block>
+                              </if_statement>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="trasmitter.cpp"
+            idref="784" line="51">
+            <function_definition column="2" file="trasmitter.cpp"
+              idref="786" line="51">
+              <declaration_specifiers column="2" file="trasmitter.cpp"
+                idref="788" line="51">
+                <builtin_type_specifier column="2" file="trasmitter.cpp"
+                  idref="790" length="0" line="51" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="trasmitter.cpp"
+                idref="792" line="51">
+                <qualified_id column="5" file="trasmitter.cpp"
+                  idref="794" line="51" name="monitor"/>
+              </function_declarator>
+              <block column="18" file="trasmitter.cpp" idref="796" line="51">
+                <block_statement column="20" file="trasmitter.cpp"
+                  idref="798" line="52">
+                  <declaration column="20" file="trasmitter.cpp"
+                    idref="800" line="52">
+                    <init_declarator_list column="20"
+                      file="trasmitter.cpp" idref="802" line="52">
+                      <declaration_specifiers column="20"
+                        file="trasmitter.cpp" idref="804" line="52">
+                        <builtin_type_specifier column="20"
+                          file="trasmitter.cpp" idref="806" length="0"
+                          line="52" name="int" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="9" file="trasmitter.cpp"
+                        idref="808" line="52">
+                        <declarator column="9" file="trasmitter.cpp"
+                          idref="810" line="52">
+                          <qualified_id column="9" file="trasmitter.cpp"
+                            idref="812" line="52" name="backoff"/>
+                        </declarator>
+                        <initializer column="21" file="trasmitter.cpp"
+                          idref="814" line="52">
+                          <primary_expression column="21"
+                            file="trasmitter.cpp" idref="818" line="52">
+                            <constant column="21" file="trasmitter.cpp"
+                              idref="820" line="52" value="0"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="24" file="trasmitter.cpp"
+                  idref="822" line="53">
+                  <while_statement column="24" file="trasmitter.cpp"
+                    idref="824" line="53">
+                    <primary_expression column="15"
+                      file="trasmitter.cpp" idref="828" line="53">
+                      <constant column="15" file="trasmitter.cpp"
+                        idref="830" line="53" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="trasmitter.cpp" idref="832" line="53">
+                      <block_statement column="22" file="trasmitter.cpp"
+                        idref="834" line="54">
+                        <postfix_expression column="22"
+                          file="trasmitter.cpp" idref="836" line="54">
+                          <primary_expression column="22"
+                            file="trasmitter.cpp" idref="838" line="54">
+                            <id_expression column="4"
+                              file="trasmitter.cpp" idref="840"
+                              line="54" name="handle_backoff"/>
+                          </primary_expression>
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="842" line="54">
+                            <arguments_list column="18"
+                              file="trasmitter.cpp" idref="844" line="54">
+                              <primary_expression column="18"
+                                file="trasmitter.cpp" idref="848" line="54">
+                                <id_expression column="19"
+                                  file="trasmitter.cpp" idref="850"
+                                  line="54" name="backoff"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="27" file="trasmitter.cpp"
+                        idref="852" line="55">
+                        <systemCRoutine column="27"
+                          file="trasmitter.cpp" idref="856" line="55" name="wait">
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="858" line="55">
+                            <arguments_list column="8"
+                              file="trasmitter.cpp" idref="860" line="55">
+                              <primary_expression column="8"
+                                file="trasmitter.cpp" idref="864" line="55">
+                                <constant column="8"
+                                  file="trasmitter.cpp" idref="866"
+                                  line="55" value="125"/>
+                              </primary_expression>
+                              <primary_expression column="12"
+                                file="trasmitter.cpp" idref="870" line="55">
+                                <constant column="12"
+                                  file="trasmitter.cpp" idref="872"
+                                  line="55" value="SC_US"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="20" file="trasmitter.cpp"
+                        idref="874" line="56">
+                        <assignment column="21" file="trasmitter.cpp"
+                          idref="884" line="56">
+                          <primary_expression column="20"
+                            file="trasmitter.cpp" idref="878" line="56">
+                            <id_expression column="13"
+                              file="trasmitter.cpp" idref="880"
+                              line="56" name="low_out"/>
+                          </primary_expression>
+                          <assignment_operator column="13"
+                            file="trasmitter.cpp" idref="882" line="56"/>
+                          <postfix_expression column="21"
+                            file="trasmitter.cpp" idref="886" line="56">
+                            <primary_expression column="21"
+                              file="trasmitter.cpp" idref="888" line="56">
+                              <id_expression column="23"
+                                file="trasmitter.cpp" idref="890"
+                                line="56" name="bus"/>
+                            </primary_expression>
+                            <dereferencing_operator column="23"
+                              file="trasmitter.cpp" idref="892"
+                              line="56" name="&amp;"/>
+                            <id_expression column="27"
+                              file="trasmitter.cpp" idref="894"
+                              line="56" name="read"/>
+                            <arguments column="27" file="trasmitter.cpp"
+                              idref="896" line="56"/>
+                          </postfix_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="33" file="trasmitter.cpp"
+                        idref="898" line="57">
+                        <systemCRoutine column="33"
+                          file="trasmitter.cpp" idref="902" line="57" name="wait">
+                          <arguments column="4" file="trasmitter.cpp"
+                            idref="904" line="57">
+                            <arguments_list column="8"
+                              file="trasmitter.cpp" idref="906" line="57">
+                              <primary_expression column="8"
+                                file="trasmitter.cpp" idref="910" line="57">
+                                <constant column="8"
+                                  file="trasmitter.cpp" idref="912"
+                                  line="57" value="375"/>
+                              </primary_expression>
+                              <primary_expression column="12"
+                                file="trasmitter.cpp" idref="916" line="57">
+                                <constant column="12"
+                                  file="trasmitter.cpp" idref="918"
+                                  line="57" value="SC_US"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="20" file="trasmitter.cpp"
+                        idref="920" line="58">
+                        <assignment column="22" file="trasmitter.cpp"
+                          idref="930" line="58">
+                          <primary_expression column="20"
+                            file="trasmitter.cpp" idref="924" line="58">
+                            <id_expression column="13"
+                              file="trasmitter.cpp" idref="926"
+                              line="58" name="high_out"/>
+                          </primary_expression>
+                          <assignment_operator column="13"
+                            file="trasmitter.cpp" idref="928" line="58"/>
+                          <postfix_expression column="22"
+                            file="trasmitter.cpp" idref="932" line="58">
+                            <primary_expression column="22"
+                              file="trasmitter.cpp" idref="934" line="58">
+                              <id_expression column="24"
+                                file="trasmitter.cpp" idref="936"
+                                line="58" name="bus"/>
+                            </primary_expression>
+                            <dereferencing_operator column="24"
+                              file="trasmitter.cpp" idref="938"
+                              line="58" name="&amp;"/>
+                            <id_expression column="28"
+                              file="trasmitter.cpp" idref="940"
+                              line="58" name="read"/>
+                            <arguments column="28" file="trasmitter.cpp"
+                              idref="942" line="58"/>
+                          </postfix_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="34" file="trasmitter.cpp"
+                        idref="944" line="59">
+                        <if_statement column="34" file="trasmitter.cpp"
+                          idref="946" line="59">
+                          <lt_node column="25" file="trasmitter.cpp"
+                            idref="954" line="59">
+                            <primary_expression column="16"
+                              file="trasmitter.cpp" idref="950" line="59">
+                              <id_expression column="17"
+                                file="trasmitter.cpp" idref="952"
+                                line="59" name="backoff"/>
+                            </primary_expression>
+                            <primary_expression column="25"
+                              file="trasmitter.cpp" idref="958" line="59">
+                              <constant column="25"
+                                file="trasmitter.cpp" idref="960"
+                                line="59" value="6"/>
+                            </primary_expression>
+                          </lt_node>
+                          <block column="28" file="trasmitter.cpp"
+                            idref="962" line="60">
+                            <block_statement column="28"
+                              file="trasmitter.cpp" idref="964" line="60">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="974" line="60">
+                                <primary_expression column="28"
+                                  file="trasmitter.cpp" idref="968" line="60">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="970"
+                                    line="60" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="972" line="60"/>
+                                <add_node column="23"
+                                  file="trasmitter.cpp" idref="982" line="60">
+                                  <primary_expression column="13"
+                                    file="trasmitter.cpp" idref="978" line="60">
+                                    <id_expression column="15"
+                                    file="trasmitter.cpp" idref="980"
+                                    line="60" name="backoff"/>
+                                  </primary_expression>
+                                  <primary_expression column="23"
+                                    file="trasmitter.cpp" idref="986" line="60">
+                                    <constant column="23"
+                                    file="trasmitter.cpp" idref="988"
+                                    line="60" value="1"/>
+                                  </primary_expression>
+                                </add_node>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="4" file="trasmitter.cpp"
+                            idref="990" line="62">
+                            <block_statement column="4"
+                              file="trasmitter.cpp" idref="992" line="62">
+                              <assignment column="13"
+                                file="trasmitter.cpp" idref="1002" line="62">
+                                <primary_expression column="4"
+                                  file="trasmitter.cpp" idref="996" line="62">
+                                  <id_expression column="5"
+                                    file="trasmitter.cpp" idref="998"
+                                    line="62" name="backoff"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="trasmitter.cpp" idref="1000" line="62"/>
+                                <primary_expression column="13"
+                                  file="trasmitter.cpp" idref="1006" line="62">
+                                  <constant column="13"
+                                    file="trasmitter.cpp" idref="1008"
+                                    line="62" value="0"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="trasmitter.cpp"
+            idref="1010" line="66"/>
+          <member_declaration column="5" file="trasmitter.cpp"
+            idref="1012" line="66">
+            <ctor_definition column="5" file="trasmitter.cpp"
+              idref="1014" line="66">
+              <qualified_id column="12" file="trasmitter.cpp"
+                idref="1016" line="66" name="backoff_transmitter"/>
+              <parameter_list column="32" file="trasmitter.cpp"
+                idref="1018" line="66">
+                <parameter_declaration column="32" file="trasmitter.cpp"
+                  idref="1020" line="66">
+                  <declaration_specifiers column="32"
+                    file="trasmitter.cpp" idref="1022" line="66">
+                    <builtin_type_specifier column="32"
+                      file="trasmitter.cpp" idref="1024" length="0"
+                      line="66" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="32" file="trasmitter.cpp"
+                    idref="1026" line="66">
+                    <qualified_id column="32" file="trasmitter.cpp"
+                      idref="1028" line="66" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="32" file="trasmitter.cpp"
+                idref="1030" line="66">
+                <superclass_init column="32" file="trasmitter.cpp"
+                  idref="1032" line="66">
+                  <declaration_specifiers column="32"
+                    file="trasmitter.cpp" idref="1034" line="66">
+                    <builtin_type_specifier column="32"
+                      file="trasmitter.cpp" idref="1036" length="0"
+                      line="66" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="32" file="trasmitter.cpp"
+                    idref="1038" line="66">
+                    <primary_expression column="32"
+                      file="trasmitter.cpp" idref="1040" line="66">
+                      <id_expression column="32" file="trasmitter.cpp"
+                        idref="1042" line="66" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="32" file="trasmitter.cpp" idref="1044" line="66">
+                <sc_thread_block column="34" file="trasmitter.cpp"
+                  idref="1046" line="67">
+                  <sc_thread column="34" file="trasmitter.cpp"
+                    idref="1048" line="67" name="low_transmitter"/>
+                </sc_thread_block>
+                <sc_thread_block column="35" file="trasmitter.cpp"
+                  idref="1050" line="68">
+                  <sc_thread column="35" file="trasmitter.cpp"
+                    idref="1052" line="68" name="high_transmitter"/>
+                </sc_thread_block>
+                <sc_thread_block column="36" file="trasmitter.cpp"
+                  idref="1054" line="69">
+                  <sc_thread column="36" file="trasmitter.cpp"
+                    idref="1056" line="69" name="monitor"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="trasmitter.cpp" idref="1058" line="73">
+    <sc_main_declaration column="2" file="trasmitter.cpp" idref="1060" line="73">
+      <declaration_specifiers column="1" file="trasmitter.cpp"
+        idref="1062" line="73">
+        <builtin_type_specifier column="1" file="trasmitter.cpp"
+          idref="1064" length="0" line="73" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="trasmitter.cpp" idref="1066" line="73">
+        <qualified_id column="5" file="trasmitter.cpp" idref="1068"
+          line="73" name="sc_main"/>
+        <parameter_list column="12" file="trasmitter.cpp" idref="1070" line="73">
+          <parameter_declaration column="12" file="trasmitter.cpp"
+            idref="1072" line="73">
+            <declaration_specifiers column="12" file="trasmitter.cpp"
+              idref="1074" line="73">
+              <builtin_type_specifier column="12" file="trasmitter.cpp"
+                idref="1076" length="0" line="73" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="trasmitter.cpp" idref="1078" line="73">
+              <qualified_id column="13" file="trasmitter.cpp"
+                idref="1080" line="73" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="trasmitter.cpp"
+            idref="1082" line="73">
+            <declaration_specifiers column="21" file="trasmitter.cpp"
+              idref="1084" line="73">
+              <builtin_type_specifier column="21" file="trasmitter.cpp"
+                idref="1086" length="0" line="73" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="trasmitter.cpp" idref="1088" line="73">
+              <ptr_operator column="23" file="trasmitter.cpp"
+                idref="1090" line="73" name="*"/>
+              <declarator column="27" file="trasmitter.cpp" idref="1092" line="73">
+                <qualified_id column="27" file="trasmitter.cpp"
+                  idref="1094" line="73" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="29"
+                  file="trasmitter.cpp" idref="1096" line="73"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="35" file="trasmitter.cpp" idref="1098" line="73">
+        <block_statement column="37" file="trasmitter.cpp" idref="1100" line="74">
+          <declaration column="37" file="trasmitter.cpp" idref="1102" line="74">
+            <init_declarator_list column="37" file="trasmitter.cpp"
+              idref="1104" line="74">
+              <declaration_specifiers column="37" file="trasmitter.cpp"
+                idref="1106" line="74">
+                <qualified_type column="37" file="trasmitter.cpp"
+                  idref="1108" line="74">
+                  <qualified_id column="37" file="trasmitter.cpp"
+                    idref="1110" line="74" name="backoff_transmitter"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="5" file="trasmitter.cpp"
+                idref="1112" line="74">
+                <declarator column="5" file="trasmitter.cpp"
+                  idref="1114" line="74">
+                  <qualified_id column="5" file="trasmitter.cpp"
+                    idref="1116" line="74" name="bt"/>
+                </declarator>
+                <arguments_list column="27" file="trasmitter.cpp"
+                  idref="1118" line="74">
+                  <primary_expression column="27" file="trasmitter.cpp"
+                    idref="1122" line="74">
+                    <constant column="27" file="trasmitter.cpp"
+                      idref="1124" line="74" value="&quot;bt&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="33" file="trasmitter.cpp" idref="1126" line="75">
+          <declaration column="33" file="trasmitter.cpp" idref="1128" line="75">
+            <init_declarator_list column="33" file="trasmitter.cpp"
+              idref="1130" line="75">
+              <declaration_specifiers column="33" file="trasmitter.cpp"
+                idref="1132" line="75">
+                <builtin_type_specifier column="33"
+                  file="trasmitter.cpp" idref="1134" length="0"
+                  line="75" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="14"
+                    file="trasmitter.cpp" idref="1136" line="75">
+                    <builtin_type_specifier column="14"
+                      file="trasmitter.cpp" idref="1138" length="0"
+                      line="75" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <init_declarator column="18" file="trasmitter.cpp"
+                idref="1140" line="75">
+                <declarator column="18" file="trasmitter.cpp"
+                  idref="1142" line="75">
+                  <qualified_id column="18" file="trasmitter.cpp"
+                    idref="1144" line="75" name="bus"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="23" file="trasmitter.cpp" idref="1146" line="76">
+          <postfix_expression column="23" file="trasmitter.cpp"
+            idref="1148" line="76">
+            <primary_expression column="23" file="trasmitter.cpp"
+              idref="1150" line="76">
+              <id_expression column="5" file="trasmitter.cpp"
+                idref="1152" line="76" name="bt"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="trasmitter.cpp"
+              idref="1154" line="76" name="&amp;"/>
+            <id_expression column="8" file="trasmitter.cpp" idref="1156"
+              line="76" name="bus"/>
+            <arguments column="8" file="trasmitter.cpp" idref="1158" line="76">
+              <arguments_list column="11" file="trasmitter.cpp"
+                idref="1160" line="76">
+                <primary_expression column="11" file="trasmitter.cpp"
+                  idref="1164" line="76">
+                  <id_expression column="12" file="trasmitter.cpp"
+                    idref="1166" line="76" name="bus"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="16" file="trasmitter.cpp" idref="1168" line="77">
+          <systemCRoutine column="16" file="trasmitter.cpp" idref="1170"
+            line="77" name="sc_start">
+            <arguments column="5" file="trasmitter.cpp" idref="1172" line="77"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="15" file="trasmitter.cpp" idref="1174" line="78">
+          <return_statement column="15" file="trasmitter.cpp"
+            idref="1176" line="78">
+            <primary_expression column="5" file="trasmitter.cpp"
+              idref="1180" line="78">
+              <constant column="5" file="trasmitter.cpp" idref="1182"
+                line="78" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

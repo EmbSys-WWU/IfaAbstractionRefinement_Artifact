@@ -1,0 +1,3 @@
+forbid
+	(IN GVar[many_slots ms;.int high_in_a;]) -> (OUT GVar[many_slots ms;.int low_out;])
+	(IN GVar[many_slots ms;.int high_in_b;]) -> (OUT GVar[many_slots ms;.int low_out;])

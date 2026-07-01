@@ -1,0 +1,123 @@
+#!/bin/sh
+set -eu
+
+IMAGE="${IMAGE:-artifact}"
+
+JAVA="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
+
+run_case() {
+    name="$1"
+    label="$2"
+    args="$3"
+
+    echo "============================================================"
+    echo "Example: $name"
+    echo "Case:    $label"
+    echo "============================================================"
+
+    docker run --rm "$IMAGE" -c "$JAVA $args -e"
+
+    echo
+}
+
+run_standard_example() {
+    name="$1"
+
+    MODEL="/app/testdata/$name/$name.ast.xml"
+    POLICY="/app/testdata/$name/$name.policy.txt"
+
+    run_case "$name" \
+        "without refinement, without policy" \
+        "-m $MODEL"
+
+    run_case "$name" \
+        "partial descendants threshold 1000, without policy" \
+        "-m $MODEL -d 1000"
+
+    run_case "$name" \
+        "splitters, without policy" \
+        "-m $MODEL -s"
+
+    run_case "$name" \
+        "splitters and policy, without information-flow refinement" \
+        "-m $MODEL -p $POLICY -s"
+
+    run_case "$name" \
+        "splitters, policy, cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -s -ic"
+
+    run_case "$name" \
+        "splitters, policy, non-cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -s -in"
+}
+
+run_arbiter() {
+    name="arbiter"
+
+    MODEL="/app/testdata/$name/$name.ast.xml"
+    POLICY="/app/testdata/$name/$name.policy.txt"
+
+    run_case "$name" \
+        "without refinement, without policy" \
+        "-m $MODEL"
+
+    run_case "$name" \
+        "partial descendants threshold 1000, without policy" \
+        "-m $MODEL -d 1000"
+
+    run_case "$name" \
+        "splitters, without policy" \
+        "-m $MODEL -s"
+
+    run_case "$name" \
+        "with policy, without any refinement" \
+        "-m $MODEL -p $POLICY"
+
+    run_case "$name" \
+        "with policy, cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -ic"
+
+    run_case "$name" \
+        "with policy, non-cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -in"
+}
+
+run_transmitters() {
+    name="transmitters"
+
+    MODEL="/app/testdata/$name/$name.ast.xml"
+    POLICY="/app/testdata/$name/$name.policy.txt"
+
+    run_case "$name" \
+        "partial descendants threshold 1000, without policy" \
+        "-m $MODEL -d 1000"
+
+    run_case "$name" \
+        "splitters, without policy" \
+        "-m $MODEL -s"
+
+    run_case "$name" \
+        "splitters and policy, without information-flow refinement" \
+        "-m $MODEL -p $POLICY -s"
+
+    run_case "$name" \
+        "splitters, policy, cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -s -ic"
+
+    run_case "$name" \
+        "splitters, policy, non-cumulative information-flow refinement" \
+        "-m $MODEL -p $POLICY -s -in"
+
+    run_case "$name" \
+        "without refinement, without policy" \
+        "-m $MODEL"
+
+    run_case "$name" \
+        "without refinement, with policy" \
+        "-m $MODEL -p $POLICY"
+}
+
+run_standard_example "priorities"
+run_standard_example "many_slots"
+run_arbiter
+run_transmitters

@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="31" line="49" name="// delay pipe for."/>
+  <comment column="1" file="main.cpp" idref="32" line="48" name="// For this example change the typedef below to the class that you want a "/>
+  <comment column="1" file="main.cpp" idref="33" line="47" name="//"/>
+  <comment column="1" file="main.cpp" idref="34" line="46" name="//    N is the number of stages in the pipe, and should be >= 2."/>
+  <comment column="1" file="main.cpp" idref="35" line="45" name="//    T the class specifying the value to be piped."/>
+  <comment column="1" file="main.cpp" idref="36" line="44" name="// number of clocks. The template arguments to this class are:"/>
+  <comment column="1" file="main.cpp" idref="37" line="43" name="// edge and it will appear as the output of the pipe after the specified"/>
+  <comment column="1" file="main.cpp" idref="38" line="42" name="// in a specified number of clocks. A value may be inserted at each clock"/>
+  <comment column="1" file="main.cpp" idref="39" line="41" name="// This program implements a delay pipe which passes values through a fifo"/>
+  <comment column="1" file="main.cpp" idref="40" line="28" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="main.cpp" idref="41" line="18" name="/*****************************************************************************&#xa;&#xa;  main.cpp -- This example shows the use of the sc_export class to &#xa;              demonstrate the use of sc_export in the implementation of&#xa;              a delay pipe.&#xa;&#xa;  Original Author: Andy Goodrich, Forte Design Systems, Inc.&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="main.cpp" idref="42" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.4 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <external_declaration column="15" file="main.cpp" idref="44" line="51">
+    <declaration column="15" file="main.cpp" idref="46" line="51">
+      <init_declarator_list column="15" file="main.cpp" idref="48" line="51">
+        <declaration_specifiers column="15" file="main.cpp" idref="50" line="51">
+          <type_modifiers column="15" file="main.cpp" idref="52" line="51">
+            <storage_class_specifier column="15" file="main.cpp"
+              idref="54" line="51" name="typedef"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="56"
+            length="121" line="51" name="sc_biguint" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="23" file="main.cpp" idref="58" line="51">
+          <declarator column="23" file="main.cpp" idref="60" line="51">
+            <qualified_id column="23" file="main.cpp" idref="62"
+              line="51" name="atom"/>
+          </declarator>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="63" line="56" name="//=============================================================================="/>
+  <comment column="1" file="main.cpp" idref="64" line="55" name="// dpipe&lt;T,N> - DELAY PIPELINE FOR AN ARBITRARY CLASS:"/>
+  <comment column="1" file="main.cpp" idref="65" line="54" name="//=============================================================================="/>
+  <comment column="31" file="main.cpp" idref="66" line="51" name="// Value to be pipe delayed."/>
+  <external_declaration column="29" file="main.cpp" idref="68" line="57">
+    <template_head column="29" file="main.cpp" idref="70" line="57">
+      <template_parameter_list column="9" file="main.cpp" idref="72" line="57">
+        <template_parameter column="9" file="main.cpp" idref="74"
+          line="57" name="T"/>
+        <template_parameter column="17" file="main.cpp" idref="76" line="57">
+          <parameter_declaration column="17" file="main.cpp" idref="78" line="57">
+            <declaration_specifiers column="17" file="main.cpp"
+              idref="80" line="57">
+              <builtin_type_specifier column="17" file="main.cpp"
+                idref="82" length="0" line="57" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="19" file="main.cpp" idref="84" line="57">
+              <qualified_id column="19" file="main.cpp" idref="86"
+                line="57" name="N"/>
+            </declarator>
+          </parameter_declaration>
+        </template_parameter>
+      </template_parameter_list>
+    </template_head>
+    <declaration column="24" file="main.cpp" idref="88" line="58">
+      <declaration_specifiers column="24" file="main.cpp" idref="92" line="58">
+        <class_specifier column="24" extSCModule="true" file="main.cpp"
+          idref="94" keyword="class" line="58" name="dpipe">
+          <base_clause column="16" file="main.cpp" idref="96" line="58">
+            <base_specifier column="16" file="main.cpp" idref="98"
+              length="0" line="58" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="16" file="main.cpp"
+                idref="100" line="58" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="16" file="main.cpp" idref="102" line="58">
+            <access_specifier column="16" file="main.cpp" idref="104"
+              line="58" name="public"/>
+          </member_declaration>
+          <member_declaration column="18" file="main.cpp" idref="106" line="59">
+            <member_declarator_list column="18" file="main.cpp"
+              idref="108" line="59">
+              <declaration_specifiers column="18" file="main.cpp"
+                idref="110" line="59">
+                <type_modifiers column="18" file="main.cpp" idref="112" line="59">
+                  <storage_class_specifier column="18" file="main.cpp"
+                    idref="114" line="59" name="typedef"/>
+                </type_modifiers>
+                <builtin_type_specifier column="5" file="main.cpp"
+                  idref="116" length="0" line="59" name="sc_export" sc_dt="true">
+                  <declaration_specifiers column="22" file="main.cpp"
+                    idref="118" line="59">
+                    <builtin_type_specifier column="22" file="main.cpp"
+                      idref="120" length="0" line="59"
+                      name="sc_signal_inout_if" sc_dt="true">
+                      <declaration_specifiers column="41"
+                        file="main.cpp" idref="122" line="59">
+                        <qualified_type column="41" file="main.cpp"
+                          idref="124" line="59">
+                          <qualified_id column="41" file="main.cpp"
+                            idref="126" line="59" name="T"/>
+                        </qualified_type>
+                      </declaration_specifiers>
+                    </builtin_type_specifier>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="45" file="main.cpp" idref="128" line="59">
+                <declarator column="45" file="main.cpp" idref="130" line="59">
+                  <qualified_id column="45" file="main.cpp" idref="132"
+                    line="59" name="in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="51" file="main.cpp" idref="133" line="59" name="// To pipe port type."/>
+          <member_declaration column="49" file="main.cpp" idref="135" line="60">
+            <member_declarator_list column="49" file="main.cpp"
+              idref="137" line="60">
+              <declaration_specifiers column="49" file="main.cpp"
+                idref="139" line="60">
+                <type_modifiers column="49" file="main.cpp" idref="141" line="60">
+                  <storage_class_specifier column="49" file="main.cpp"
+                    idref="143" line="60" name="typedef"/>
+                </type_modifiers>
+                <builtin_type_specifier column="5" file="main.cpp"
+                  idref="145" length="0" line="60" name="sc_export" sc_dt="true">
+                  <declaration_specifiers column="22" file="main.cpp"
+                    idref="147" line="60">
+                    <builtin_type_specifier column="22" file="main.cpp"
+                      idref="149" length="0" line="60"
+                      name="sc_signal_in_if" sc_dt="true">
+                      <declaration_specifiers column="38"
+                        file="main.cpp" idref="151" line="60">
+                        <qualified_type column="38" file="main.cpp"
+                          idref="153" line="60">
+                          <qualified_id column="38" file="main.cpp"
+                            idref="155" line="60" name="T"/>
+                        </qualified_type>
+                      </declaration_specifiers>
+                    </builtin_type_specifier>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="42" file="main.cpp" idref="157" line="60">
+                <declarator column="42" file="main.cpp" idref="159" line="60">
+                  <qualified_id column="42" file="main.cpp" idref="161"
+                    line="60" name="out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="49" file="main.cpp" idref="162" line="60" name="// From pipe port type."/>
+          <member_declaration column="47" file="main.cpp" idref="164" line="62"/>
+          <member_declaration column="47" file="main.cpp" idref="166" line="62">
+            <ctor_definition column="47" file="main.cpp" idref="168" line="62">
+              <qualified_id column="12" file="main.cpp" idref="170"
+                line="62" name="dpipe"/>
+              <parameter_list column="18" file="main.cpp" idref="172" line="63">
+                <parameter_declaration column="18" file="main.cpp"
+                  idref="174" line="63">
+                  <declaration_specifiers column="18" file="main.cpp"
+                    idref="176" line="63">
+                    <builtin_type_specifier column="18" file="main.cpp"
+                      idref="178" length="0" line="63"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="18" file="main.cpp" idref="180" line="63">
+                    <qualified_id column="18" file="main.cpp"
+                      idref="182" line="63" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="18" file="main.cpp" idref="184" line="63">
+                <superclass_init column="18" file="main.cpp" idref="186" line="63">
+                  <declaration_specifiers column="18" file="main.cpp"
+                    idref="188" line="63">
+                    <builtin_type_specifier column="18" file="main.cpp"
+                      idref="190" length="0" line="63" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="18" file="main.cpp"
+                    idref="192" line="63">
+                    <primary_expression column="18" file="main.cpp"
+                      idref="194" line="63">
+                      <id_expression column="18" file="main.cpp"
+                        idref="196" line="63" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="18" file="main.cpp" idref="198" line="63">
+                <block_statement column="5" file="main.cpp" idref="200" line="64">
+                  <postfix_expression column="5" file="main.cpp"
+                    idref="202" line="64">
+                    <primary_expression column="5" file="main.cpp"
+                      idref="204" line="64">
+                      <id_expression column="9" file="main.cpp"
+                        idref="206" line="64" name="m_in"/>
+                    </primary_expression>
+                    <arguments column="9" file="main.cpp" idref="208" line="64">
+                      <arguments_list column="13" file="main.cpp"
+                        idref="210" line="64">
+                        <primary_expression column="21" file="main.cpp"
+                          idref="226" line="64">
+                          <arrayaccess_expression column="20"
+                            file="main.cpp" idref="218" line="64">
+                            <primary_expression column="13"
+                              file="main.cpp" idref="214" line="64">
+                              <id_expression column="14" file="main.cpp"
+                                idref="216" line="64" name="m_pipe"/>
+                            </primary_expression>
+                            <primary_expression column="20"
+                              file="main.cpp" idref="222" line="64">
+                              <constant column="20" file="main.cpp"
+                                idref="224" line="64" value="0"/>
+                            </primary_expression>
+                          </arrayaccess_expression>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="24" file="main.cpp" idref="228" line="65">
+                  <postfix_expression column="24" file="main.cpp"
+                    idref="230" line="65">
+                    <primary_expression column="24" file="main.cpp"
+                      idref="232" line="65">
+                      <id_expression column="9" file="main.cpp"
+                        idref="234" line="65" name="m_out"/>
+                    </primary_expression>
+                    <arguments column="9" file="main.cpp" idref="236" line="65">
+                      <arguments_list column="14" file="main.cpp"
+                        idref="238" line="65">
+                        <primary_expression column="24" file="main.cpp"
+                          idref="262" line="65">
+                          <arrayaccess_expression column="21"
+                            file="main.cpp" idref="246" line="65">
+                            <primary_expression column="14"
+                              file="main.cpp" idref="242" line="65">
+                              <id_expression column="15" file="main.cpp"
+                                idref="244" line="65" name="m_pipe"/>
+                            </primary_expression>
+                            <subtract_node column="23" file="main.cpp"
+                              idref="254" line="65">
+                              <primary_expression column="21"
+                                file="main.cpp" idref="250" line="65">
+                                <id_expression column="22"
+                                  file="main.cpp" idref="252" line="65" name="N"/>
+                              </primary_expression>
+                              <primary_expression column="23"
+                                file="main.cpp" idref="258" line="65">
+                                <constant column="23" file="main.cpp"
+                                  idref="260" line="65" value="1"/>
+                              </primary_expression>
+                            </subtract_node>
+                          </arrayaccess_expression>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <sc_method_block column="27" file="main.cpp" idref="264" line="66">
+                  <sc_method column="27" file="main.cpp" idref="266"
+                    line="66" name="rachet"/>
+                  <sc_sensitive column="26" file="main.cpp" idref="268"
+                    line="67" name="positive">
+                    <qualified_id column="23" file="main.cpp"
+                      idref="270" line="67" name="m_clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="272" line="70">
+            <function_definition column="5" file="main.cpp" idref="274" line="70">
+              <declaration_specifiers column="5" file="main.cpp"
+                idref="276" line="70">
+                <builtin_type_specifier column="5" file="main.cpp"
+                  idref="278" length="0" line="70" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="main.cpp"
+                idref="280" line="70">
+                <qualified_id column="5" file="main.cpp" idref="282"
+                  line="70" name="rachet"/>
+              </function_declarator>
+              <block column="17" file="main.cpp" idref="284" line="71">
+                <block_statement column="5" file="main.cpp" idref="286" line="72">
+                  <for_statement column="5" file="main.cpp" idref="288" line="72">
+                    <for_init column="13" file="main.cpp" idref="290" line="72">
+                      <declaration column="13" file="main.cpp"
+                        idref="292" line="72">
+                        <init_declarator_list column="13"
+                          file="main.cpp" idref="294" line="72">
+                          <declaration_specifiers column="13"
+                            file="main.cpp" idref="296" line="72">
+                            <builtin_type_specifier column="13"
+                              file="main.cpp" idref="298" length="0"
+                              line="72" name="int" sc_dt="false"/>
+                          </declaration_specifiers>
+                          <init_declarator column="15" file="main.cpp"
+                            idref="300" line="72">
+                            <declarator column="15" file="main.cpp"
+                              idref="302" line="72">
+                              <qualified_id column="15" file="main.cpp"
+                                idref="304" line="72" name="i"/>
+                            </declarator>
+                            <initializer column="21" file="main.cpp"
+                              idref="306" line="72">
+                              <subtract_node column="24" file="main.cpp"
+                                idref="314" line="72">
+                                <primary_expression column="21"
+                                  file="main.cpp" idref="310" line="72">
+                                  <id_expression column="23"
+                                    file="main.cpp" idref="312"
+                                    line="72" name="N"/>
+                                </primary_expression>
+                                <primary_expression column="24"
+                                  file="main.cpp" idref="318" line="72">
+                                  <constant column="24" file="main.cpp"
+                                    idref="320" line="72" value="1"/>
+                                </primary_expression>
+                              </subtract_node>
+                            </initializer>
+                          </init_declarator>
+                        </init_declarator_list>
+                      </declaration>
+                    </for_init>
+                    <for_condition column="26" file="main.cpp"
+                      idref="322" line="72">
+                      <gt_node column="30" file="main.cpp" idref="330" line="72">
+                        <primary_expression column="26" file="main.cpp"
+                          idref="326" line="72">
+                          <id_expression column="28" file="main.cpp"
+                            idref="328" line="72" name="i"/>
+                        </primary_expression>
+                        <primary_expression column="30" file="main.cpp"
+                          idref="334" line="72">
+                          <constant column="30" file="main.cpp"
+                            idref="336" line="72" value="0"/>
+                        </primary_expression>
+                      </gt_node>
+                    </for_condition>
+                    <for_update column="33" file="main.cpp" idref="338" line="72">
+                      <statement_expression_list column="33"
+                        file="main.cpp" idref="340" line="72">
+                        <postdecrement_node column="35" file="main.cpp"
+                          idref="348" line="72">
+                          <primary_expression column="33"
+                            file="main.cpp" idref="344" line="72">
+                            <id_expression column="35" file="main.cpp"
+                              idref="346" line="72" name="i"/>
+                          </primary_expression>
+                        </postdecrement_node>
+                      </statement_expression_list>
+                    </for_update>
+                    <for_block column="39" file="main.cpp" idref="350" line="73">
+                      <block column="39" file="main.cpp" idref="352" line="73">
+                        <block_statement column="9" file="main.cpp"
+                          idref="354" line="74">
+                          <postfix_expression column="9" file="main.cpp"
+                            idref="356" line="74">
+                            <primary_expression column="20"
+                              file="main.cpp" idref="370" line="74">
+                              <arrayaccess_expression column="19"
+                                file="main.cpp" idref="362" line="74">
+                                <primary_expression column="9"
+                                  file="main.cpp" idref="358" line="74">
+                                  <id_expression column="13"
+                                    file="main.cpp" idref="360"
+                                    line="74" name="m_pipe"/>
+                                </primary_expression>
+                                <primary_expression column="19"
+                                  file="main.cpp" idref="366" line="74">
+                                  <id_expression column="20"
+                                    file="main.cpp" idref="368"
+                                    line="74" name="i"/>
+                                </primary_expression>
+                              </arrayaccess_expression>
+                            </primary_expression>
+                            <dereferencing_operator column="21"
+                              file="main.cpp" idref="372" line="74" name="&amp;"/>
+                            <id_expression column="23" file="main.cpp"
+                              idref="374" line="74" name="write"/>
+                            <arguments column="23" file="main.cpp"
+                              idref="376" line="74">
+                              <arguments_list column="28"
+                                file="main.cpp" idref="378" line="74">
+                                <postfix_expression column="28"
+                                  file="main.cpp" idref="380" line="74">
+                                  <primary_expression column="38"
+                                    file="main.cpp" idref="402" line="74">
+                                    <arrayaccess_expression column="35"
+                                    file="main.cpp" idref="386" line="74">
+                                    <primary_expression column="28"
+                                    file="main.cpp" idref="382" line="74">
+                                    <id_expression column="29"
+                                    file="main.cpp" idref="384"
+                                    line="74" name="m_pipe"/>
+                                    </primary_expression>
+                                    <subtract_node column="37"
+                                    file="main.cpp" idref="394" line="74">
+                                    <primary_expression column="35"
+                                    file="main.cpp" idref="390" line="74">
+                                    <id_expression column="36"
+                                    file="main.cpp" idref="392"
+                                    line="74" name="i"/>
+                                    </primary_expression>
+                                    <primary_expression column="37"
+                                    file="main.cpp" idref="398" line="74">
+                                    <constant column="37"
+                                    file="main.cpp" idref="400"
+                                    line="74" value="1"/>
+                                    </primary_expression>
+                                    </subtract_node>
+                                    </arrayaccess_expression>
+                                  </primary_expression>
+                                  <dereferencing_operator column="39"
+                                    file="main.cpp" idref="404"
+                                    line="74" name="&amp;"/>
+                                  <id_expression column="41"
+                                    file="main.cpp" idref="406"
+                                    line="74" name="read"/>
+                                  <arguments column="41" file="main.cpp"
+                                    idref="408" line="74"/>
+                                </postfix_expression>
+                              </arguments_list>
+                            </arguments>
+                          </postfix_expression>
+                        </block_statement>
+                      </block>
+                    </for_block>
+                  </for_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="410" line="78">
+            <member_declarator_list column="5" file="main.cpp"
+              idref="412" line="78">
+              <sc_port_specifier column="5" file="main.cpp" idref="414"
+                line="78" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="5" file="main.cpp"
+                  idref="416" line="78">
+                  <builtin_type_specifier column="5" file="main.cpp"
+                    idref="418" length="0" line="78" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="5" file="main.cpp" idref="420" line="78">
+                <declarator column="5" file="main.cpp" idref="422" line="78">
+                  <qualified_id column="5" file="main.cpp" idref="424"
+                    line="78" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="main.cpp" idref="425" line="78" name="// Pipe synchronization."/>
+          <member_declaration column="20" file="main.cpp" idref="427" line="79">
+            <member_declarator_list column="20" file="main.cpp"
+              idref="429" line="79">
+              <declaration_specifiers column="20" file="main.cpp"
+                idref="431" line="79">
+                <qualified_type column="20" file="main.cpp" idref="433" line="79">
+                  <qualified_id column="20" file="main.cpp" idref="435"
+                    line="79" name="in"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="main.cpp" idref="437" line="79">
+                <declarator column="5" file="main.cpp" idref="439" line="79">
+                  <qualified_id column="5" file="main.cpp" idref="441"
+                    line="79" name="m_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="14" file="main.cpp" idref="442" line="79" name="// Input to delay pipe."/>
+          <member_declaration column="12" file="main.cpp" idref="444" line="80">
+            <member_declarator_list column="12" file="main.cpp"
+              idref="446" line="80">
+              <declaration_specifiers column="12" file="main.cpp"
+                idref="448" line="80">
+                <qualified_type column="12" file="main.cpp" idref="450" line="80">
+                  <qualified_id column="12" file="main.cpp" idref="452"
+                    line="80" name="out"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="main.cpp" idref="454" line="80">
+                <declarator column="5" file="main.cpp" idref="456" line="80">
+                  <qualified_id column="5" file="main.cpp" idref="458"
+                    line="80" name="m_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="16" file="main.cpp" idref="459" line="80" name="// Output from delay pipe."/>
+          <member_declaration column="14" file="main.cpp" idref="461" line="81">
+            <member_declarator_list column="14" file="main.cpp"
+              idref="463" line="81">
+              <declaration_specifiers column="14" file="main.cpp"
+                idref="465" line="81">
+                <builtin_type_specifier column="14" file="main.cpp"
+                  idref="467" length="0" line="81" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="14" file="main.cpp"
+                    idref="469" line="81">
+                    <qualified_type column="14" file="main.cpp"
+                      idref="471" line="81">
+                      <qualified_id column="14" file="main.cpp"
+                        idref="473" line="81" name="T"/>
+                    </qualified_type>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <member_declarator column="16" file="main.cpp" idref="475" line="81">
+                <declarator column="16" file="main.cpp" idref="477" line="81">
+                  <qualified_id column="16" file="main.cpp" idref="479"
+                    line="81" name="m_pipe"/>
+                  <declarator_suffixes arrayCounter="1" column="18"
+                    file="main.cpp" idref="481" line="81">
+                    <constant_expression column="24" file="main.cpp"
+                      idref="483" line="81">
+                      <primary_expression column="24" file="main.cpp"
+                        idref="487" line="81">
+                        <id_expression column="25" file="main.cpp"
+                          idref="489" line="81" name="N"/>
+                      </primary_expression>
+                    </constant_expression>
+                  </declarator_suffixes>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="490" line="85" name="// Testbench reader of values from the pipe:"/>
+  <external_declaration column="2" file="main.cpp" idref="492" line="87">
+    <declaration column="2" file="main.cpp" idref="494" line="87">
+      <declaration_specifiers column="2" file="main.cpp" idref="498" line="87">
+        <class_specifier column="2" extSCModule="true" file="main.cpp"
+          idref="500" keyword="class" line="87" name="Reader">
+          <base_clause column="17" file="main.cpp" idref="502" line="88">
+            <base_specifier column="17" file="main.cpp" idref="504"
+              length="0" line="88" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="17" file="main.cpp"
+                idref="506" line="88" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="17" file="main.cpp" idref="508" line="88">
+            <access_specifier column="17" file="main.cpp" idref="510"
+              line="88" name="public"/>
+          </member_declaration>
+          <member_declaration column="1" file="main.cpp" idref="512" line="89">
+            <access_specifier column="1" file="main.cpp" idref="514"
+              line="89" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="main.cpp" idref="516" line="90"/>
+          <member_declaration column="9" file="main.cpp" idref="518" line="90">
+            <ctor_definition column="9" file="main.cpp" idref="520" line="90">
+              <qualified_id column="12" file="main.cpp" idref="522"
+                line="90" name="Reader"/>
+              <parameter_list column="19" file="main.cpp" idref="524" line="91">
+                <parameter_declaration column="19" file="main.cpp"
+                  idref="526" line="91">
+                  <declaration_specifiers column="19" file="main.cpp"
+                    idref="528" line="91">
+                    <builtin_type_specifier column="19" file="main.cpp"
+                      idref="530" length="0" line="91"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="19" file="main.cpp" idref="532" line="91">
+                    <qualified_id column="19" file="main.cpp"
+                      idref="534" line="91" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="19" file="main.cpp" idref="536" line="91">
+                <superclass_init column="19" file="main.cpp" idref="538" line="91">
+                  <declaration_specifiers column="19" file="main.cpp"
+                    idref="540" line="91">
+                    <builtin_type_specifier column="19" file="main.cpp"
+                      idref="542" length="0" line="91" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="19" file="main.cpp"
+                    idref="544" line="91">
+                    <primary_expression column="19" file="main.cpp"
+                      idref="546" line="91">
+                      <id_expression column="19" file="main.cpp"
+                        idref="548" line="91" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="19" file="main.cpp" idref="550" line="91">
+                <sc_method_block column="5" file="main.cpp" idref="552" line="92">
+                  <sc_method column="5" file="main.cpp" idref="554"
+                    line="92" name="extract"/>
+                  <sc_sensitive column="26" file="main.cpp" idref="556"
+                    line="93" name="positive">
+                    <qualified_id column="23" file="main.cpp"
+                      idref="558" line="93" name="m_clk"/>
+                  </sc_sensitive>
+                  <systemCRoutine column="31" file="main.cpp"
+                    idref="560" line="94" name="dont_initialize">
+                    <arguments column="9" file="main.cpp" idref="562" line="94"/>
+                  </systemCRoutine>
+                </sc_method_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="564" line="97">
+            <access_specifier column="5" file="main.cpp" idref="566"
+              line="97" name="protected"/>
+          </member_declaration>
+          <member_declaration column="12" file="main.cpp" idref="568" line="98">
+            <function_definition column="12" file="main.cpp" idref="570" line="98">
+              <declaration_specifiers column="12" file="main.cpp"
+                idref="572" line="98">
+                <builtin_type_specifier column="12" file="main.cpp"
+                  idref="574" length="0" line="98" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="main.cpp"
+                idref="576" line="98">
+                <qualified_id column="5" file="main.cpp" idref="578"
+                  line="98" name="extract"/>
+              </function_declarator>
+              <block column="18" file="main.cpp" idref="580" line="99">
+                <block_statement column="5" file="main.cpp" idref="582" line="100">
+                  <output_stream column="5" file="main.cpp" idref="584"
+                    line="100" name="cout">
+                    <systemCRoutine column="14" file="main.cpp"
+                      idref="588" line="100" name="sc_simulation_time">
+                      <arguments column="35" file="main.cpp" idref="590" line="100"/>
+                    </systemCRoutine>
+                    <primary_expression column="38" file="main.cpp"
+                      idref="594" line="100">
+                      <constant column="38" file="main.cpp" idref="596"
+                        line="100" value="&quot;: &quot;"/>
+                    </primary_expression>
+                    <postfix_expression column="46" file="main.cpp"
+                      idref="598" line="100">
+                      <primary_expression column="46" file="main.cpp"
+                        idref="600" line="100">
+                        <id_expression column="49" file="main.cpp"
+                          idref="602" line="100" name="m_from_pipe"/>
+                      </primary_expression>
+                      <dereferencing_operator column="49"
+                        file="main.cpp" idref="604" line="100" name="&amp;"/>
+                      <id_expression column="61" file="main.cpp"
+                        idref="606" line="100" name="read"/>
+                      <arguments column="61" file="main.cpp" idref="608" line="100"/>
+                    </postfix_expression>
+                    <standart_manipulator column="68" file="main.cpp"
+                      idref="610" line="100" name="endl"/>
+                  </output_stream>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="612" line="103">
+            <access_specifier column="5" file="main.cpp" idref="614"
+              line="103" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="main.cpp" idref="616" line="104">
+            <member_declarator_list column="9" file="main.cpp"
+              idref="618" line="104">
+              <sc_port_specifier column="9" file="main.cpp" idref="620"
+                line="104" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="5" file="main.cpp"
+                  idref="622" line="104">
+                  <builtin_type_specifier column="5" file="main.cpp"
+                    idref="624" length="0" line="104" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="5" file="main.cpp" idref="626" line="104">
+                <declarator column="5" file="main.cpp" idref="628" line="104">
+                  <qualified_id column="5" file="main.cpp" idref="630"
+                    line="104" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="main.cpp" idref="631" line="104" name="// Module synchronization."/>
+          <member_declaration column="20" file="main.cpp" idref="633" line="105">
+            <member_declarator_list column="20" file="main.cpp"
+              idref="635" line="105">
+              <sc_port_specifier column="20" file="main.cpp" idref="637"
+                line="105" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="10" file="main.cpp"
+                  idref="639" line="105">
+                  <qualified_type column="10" file="main.cpp"
+                    idref="641" line="105">
+                    <qualified_id column="10" file="main.cpp"
+                      idref="643" line="105" name="atom"/>
+                  </qualified_type>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="16" file="main.cpp" idref="645" line="105">
+                <declarator column="16" file="main.cpp" idref="647" line="105">
+                  <qualified_id column="16" file="main.cpp" idref="649"
+                    line="105" name="m_from_pipe"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="650" line="110" name="// Testbench writer of values to the pipe:"/>
+  <external_declaration column="2" file="main.cpp" idref="652" line="112">
+    <declaration column="2" file="main.cpp" idref="654" line="112">
+      <declaration_specifiers column="2" file="main.cpp" idref="658" line="112">
+        <class_specifier column="2" extSCModule="true" file="main.cpp"
+          idref="660" keyword="class" line="112" name="Writer">
+          <base_clause column="17" file="main.cpp" idref="662" line="113">
+            <base_specifier column="17" file="main.cpp" idref="664"
+              length="0" line="113" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="17" file="main.cpp"
+                idref="666" line="113" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="17" file="main.cpp" idref="668" line="113">
+            <access_specifier column="17" file="main.cpp" idref="670"
+              line="113" name="public"/>
+          </member_declaration>
+          <member_declaration column="1" file="main.cpp" idref="672" line="114"/>
+          <member_declaration column="1" file="main.cpp" idref="674" line="114">
+            <ctor_definition column="1" file="main.cpp" idref="676" line="114">
+              <qualified_id column="12" file="main.cpp" idref="678"
+                line="114" name="Writer"/>
+              <parameter_list column="19" file="main.cpp" idref="680" line="115">
+                <parameter_declaration column="19" file="main.cpp"
+                  idref="682" line="115">
+                  <declaration_specifiers column="19" file="main.cpp"
+                    idref="684" line="115">
+                    <builtin_type_specifier column="19" file="main.cpp"
+                      idref="686" length="0" line="115"
+                      name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="19" file="main.cpp" idref="688" line="115">
+                    <qualified_id column="19" file="main.cpp"
+                      idref="690" line="115" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="19" file="main.cpp" idref="692" line="115">
+                <superclass_init column="19" file="main.cpp" idref="694" line="115">
+                  <declaration_specifiers column="19" file="main.cpp"
+                    idref="696" line="115">
+                    <builtin_type_specifier column="19" file="main.cpp"
+                      idref="698" length="0" line="115" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="19" file="main.cpp"
+                    idref="700" line="115">
+                    <primary_expression column="19" file="main.cpp"
+                      idref="702" line="115">
+                      <id_expression column="19" file="main.cpp"
+                        idref="704" line="115" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="19" file="main.cpp" idref="706" line="115">
+                <sc_method_block column="5" file="main.cpp" idref="708" line="116">
+                  <sc_method column="5" file="main.cpp" idref="710"
+                    line="116" name="insert"/>
+                  <sc_sensitive column="25" file="main.cpp" idref="712"
+                    line="117" name="positive">
+                    <qualified_id column="23" file="main.cpp"
+                      idref="714" line="117" name="m_clk"/>
+                  </sc_sensitive>
+                </sc_method_block>
+                <block_statement column="31" file="main.cpp" idref="716" line="118">
+                  <assignment column="19" file="main.cpp" idref="726" line="118">
+                    <primary_expression column="31" file="main.cpp"
+                      idref="720" line="118">
+                      <id_expression column="9" file="main.cpp"
+                        idref="722" line="118" name="m_counter"/>
+                    </primary_expression>
+                    <assignment_operator column="9" file="main.cpp"
+                      idref="724" line="118"/>
+                    <primary_expression column="19" file="main.cpp"
+                      idref="730" line="118">
+                      <constant column="19" file="main.cpp" idref="732"
+                        line="118" value="0"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="734" line="121">
+            <function_definition column="5" file="main.cpp" idref="736" line="121">
+              <declaration_specifiers column="5" file="main.cpp"
+                idref="738" line="121">
+                <builtin_type_specifier column="5" file="main.cpp"
+                  idref="740" length="0" line="121" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="main.cpp"
+                idref="742" line="121">
+                <qualified_id column="5" file="main.cpp" idref="744"
+                  line="121" name="insert"/>
+              </function_declarator>
+              <block column="17" file="main.cpp" idref="746" line="122">
+                <block_statement column="5" file="main.cpp" idref="748" line="123">
+                  <postfix_expression column="5" file="main.cpp"
+                    idref="750" line="123">
+                    <primary_expression column="5" file="main.cpp"
+                      idref="752" line="123">
+                      <id_expression column="9" file="main.cpp"
+                        idref="754" line="123" name="m_to_pipe"/>
+                    </primary_expression>
+                    <dereferencing_operator column="9" file="main.cpp"
+                      idref="756" line="123" name="&amp;"/>
+                    <id_expression column="19" file="main.cpp"
+                      idref="758" line="123" name="write"/>
+                    <arguments column="19" file="main.cpp" idref="760" line="123">
+                      <arguments_list column="24" file="main.cpp"
+                        idref="762" line="123">
+                        <primary_expression column="24" file="main.cpp"
+                          idref="766" line="123">
+                          <id_expression column="25" file="main.cpp"
+                            idref="768" line="123" name="m_counter"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="35" file="main.cpp" idref="770" line="124">
+                  <postincrement_node column="9" file="main.cpp"
+                    idref="778" line="124">
+                    <primary_expression column="35" file="main.cpp"
+                      idref="774" line="124">
+                      <id_expression column="9" file="main.cpp"
+                        idref="776" line="124" name="m_counter"/>
+                    </primary_expression>
+                  </postincrement_node>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="main.cpp" idref="780" line="127">
+            <member_declarator_list column="5" file="main.cpp"
+              idref="782" line="127">
+              <sc_port_specifier column="5" file="main.cpp" idref="784"
+                line="127" name="sc_in" numOfChanels="1">
+                <declaration_specifiers column="5" file="main.cpp"
+                  idref="786" line="127">
+                  <builtin_type_specifier column="5" file="main.cpp"
+                    idref="788" length="0" line="127" name="bool" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="5" file="main.cpp" idref="790" line="127">
+                <declarator column="5" file="main.cpp" idref="792" line="127">
+                  <qualified_id column="5" file="main.cpp" idref="794"
+                    line="127" name="m_clk"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="main.cpp" idref="795" line="127" name="// Module synchronization."/>
+          <member_declaration column="20" file="main.cpp" idref="797" line="128">
+            <member_declarator_list column="20" file="main.cpp"
+              idref="799" line="128">
+              <declaration_specifiers column="20" file="main.cpp"
+                idref="801" line="128">
+                <qualified_type column="20" file="main.cpp" idref="803" line="128">
+                  <qualified_id column="20" file="main.cpp" idref="805"
+                    line="128" name="atom"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="main.cpp" idref="807" line="128">
+                <declarator column="5" file="main.cpp" idref="809" line="128">
+                  <qualified_id column="5" file="main.cpp" idref="811"
+                    line="128" name="m_counter"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="21" file="main.cpp" idref="812" line="128" name="// Write value."/>
+          <member_declaration column="19" file="main.cpp" idref="814" line="129">
+            <member_declarator_list column="19" file="main.cpp"
+              idref="816" line="129">
+              <sc_port_specifier column="19" file="main.cpp" idref="818"
+                line="129" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="13" file="main.cpp"
+                  idref="820" line="129">
+                  <qualified_type column="13" file="main.cpp"
+                    idref="822" line="129">
+                    <qualified_id column="13" file="main.cpp"
+                      idref="824" line="129" name="atom"/>
+                  </qualified_type>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="19" file="main.cpp" idref="826" line="129">
+                <declarator column="19" file="main.cpp" idref="828" line="129">
+                  <qualified_id column="19" file="main.cpp" idref="830"
+                    line="129" name="m_to_pipe"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="831" line="132" name="// Main program"/>
+  <external_declaration column="2" file="main.cpp" idref="833" line="134">
+    <sc_main_declaration column="2" file="main.cpp" idref="835" line="134">
+      <declaration_specifiers column="1" file="main.cpp" idref="837" line="134">
+        <builtin_type_specifier column="1" file="main.cpp" idref="839"
+          length="0" line="134" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="main.cpp" idref="841" line="134">
+        <qualified_id column="5" file="main.cpp" idref="843" line="134" name="sc_main"/>
+        <parameter_list column="12" file="main.cpp" idref="845" line="134">
+          <parameter_declaration column="12" file="main.cpp" idref="847" line="134">
+            <declaration_specifiers column="12" file="main.cpp"
+              idref="849" line="134">
+              <builtin_type_specifier column="12" file="main.cpp"
+                idref="851" length="0" line="134" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="main.cpp" idref="853" line="134">
+              <qualified_id column="13" file="main.cpp" idref="855"
+                line="134" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="main.cpp" idref="857" line="134">
+            <declaration_specifiers column="21" file="main.cpp"
+              idref="859" line="134">
+              <builtin_type_specifier column="21" file="main.cpp"
+                idref="861" length="0" line="134" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="main.cpp" idref="863" line="134">
+              <ptr_operator column="23" file="main.cpp" idref="865"
+                line="134" name="*"/>
+              <declarator column="27" file="main.cpp" idref="867" line="134">
+                <qualified_id column="27" file="main.cpp" idref="869"
+                  line="134" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="29"
+                  file="main.cpp" idref="871" line="134"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="35" file="main.cpp" idref="873" line="135">
+        <block_statement column="1" file="main.cpp" idref="875" line="136">
+          <declaration column="1" file="main.cpp" idref="877" line="136">
+            <init_declarator_list column="1" file="main.cpp" idref="879" line="136">
+              <declaration_specifiers column="1" file="main.cpp"
+                idref="881" line="136">
+                <builtin_type_specifier column="1" file="main.cpp"
+                  idref="883" length="0" line="136" name="sc_clock" sc_dt="true"/>
+              </declaration_specifiers>
+              <init_declarator column="5" file="main.cpp" idref="885" line="136">
+                <declarator column="5" file="main.cpp" idref="887" line="136">
+                  <qualified_id column="5" file="main.cpp" idref="889"
+                    line="136" name="clock"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="19" file="main.cpp" idref="891" line="137">
+          <declaration column="19" file="main.cpp" idref="893" line="137">
+            <init_declarator_list column="19" file="main.cpp"
+              idref="895" line="137">
+              <declaration_specifiers column="19" file="main.cpp"
+                idref="897" line="137">
+                <qualified_type column="19" file="main.cpp" idref="899" line="137">
+                  <qualified_id column="19" file="main.cpp" idref="901"
+                    line="137" name="dpipe">
+                    <template_argument_list column="10" file="main.cpp"
+                      idref="903" line="137">
+                      <template_argument column="10" file="main.cpp"
+                        idref="905" line="137">
+                        <type_name column="10" file="main.cpp"
+                          idref="907" line="137">
+                          <declaration_specifiers column="10"
+                            file="main.cpp" idref="909" line="137">
+                            <qualified_type column="10" file="main.cpp"
+                              idref="911" line="137">
+                              <qualified_id column="10" file="main.cpp"
+                                idref="913" line="137" name="atom"/>
+                            </qualified_type>
+                          </declaration_specifiers>
+                          <abstract_declarator column="11"
+                            file="main.cpp" idref="915" line="137"/>
+                        </type_name>
+                      </template_argument>
+                      <template_argument column="15" file="main.cpp"
+                        idref="917" line="137">
+                        <primary_expression column="15" file="main.cpp"
+                          idref="921" line="137">
+                          <constant column="15" file="main.cpp"
+                            idref="923" line="137" value="4"/>
+                        </primary_expression>
+                      </template_argument>
+                    </template_argument_list>
+                  </qualified_id>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="17" file="main.cpp" idref="925" line="137">
+                <declarator column="17" file="main.cpp" idref="927" line="137">
+                  <qualified_id column="17" file="main.cpp" idref="929"
+                    line="137" name="delay"/>
+                </declarator>
+                <arguments_list column="24" file="main.cpp" idref="931" line="137">
+                  <primary_expression column="24" file="main.cpp"
+                    idref="935" line="137">
+                    <constant column="24" file="main.cpp" idref="937"
+                      line="137" value="&quot;pipe&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="32" file="main.cpp" idref="939" line="138">
+          <declaration column="32" file="main.cpp" idref="941" line="138">
+            <init_declarator_list column="32" file="main.cpp"
+              idref="943" line="138">
+              <declaration_specifiers column="32" file="main.cpp"
+                idref="945" line="138">
+                <qualified_type column="32" file="main.cpp" idref="947" line="138">
+                  <qualified_id column="32" file="main.cpp" idref="949"
+                    line="138" name="Reader"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="5" file="main.cpp" idref="951" line="138">
+                <declarator column="5" file="main.cpp" idref="953" line="138">
+                  <qualified_id column="5" file="main.cpp" idref="955"
+                    line="138" name="reader"/>
+                </declarator>
+                <arguments_list column="18" file="main.cpp" idref="957" line="138">
+                  <primary_expression column="18" file="main.cpp"
+                    idref="961" line="138">
+                    <constant column="18" file="main.cpp" idref="963"
+                      line="138" value="&quot;reader&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="28" file="main.cpp" idref="965" line="139">
+          <declaration column="28" file="main.cpp" idref="967" line="139">
+            <init_declarator_list column="28" file="main.cpp"
+              idref="969" line="139">
+              <declaration_specifiers column="28" file="main.cpp"
+                idref="971" line="139">
+                <qualified_type column="28" file="main.cpp" idref="973" line="139">
+                  <qualified_id column="28" file="main.cpp" idref="975"
+                    line="139" name="Writer"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="5" file="main.cpp" idref="977" line="139">
+                <declarator column="5" file="main.cpp" idref="979" line="139">
+                  <qualified_id column="5" file="main.cpp" idref="981"
+                    line="139" name="writer"/>
+                </declarator>
+                <arguments_list column="18" file="main.cpp" idref="983" line="139">
+                  <primary_expression column="18" file="main.cpp"
+                    idref="987" line="139">
+                    <constant column="18" file="main.cpp" idref="989"
+                      line="139" value="&quot;writer&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="28" file="main.cpp" idref="991" line="141">
+          <postfix_expression column="28" file="main.cpp" idref="993" line="141">
+            <primary_expression column="28" file="main.cpp" idref="995" line="141">
+              <id_expression column="5" file="main.cpp" idref="997"
+                line="141" name="delay"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="main.cpp"
+              idref="999" line="141" name="&amp;"/>
+            <id_expression column="11" file="main.cpp" idref="1001"
+              line="141" name="m_clk"/>
+            <arguments column="11" file="main.cpp" idref="1003" line="141">
+              <arguments_list column="16" file="main.cpp" idref="1005" line="141">
+                <primary_expression column="16" file="main.cpp"
+                  idref="1009" line="141">
+                  <id_expression column="17" file="main.cpp"
+                    idref="1011" line="141" name="clock"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="1013" line="143">
+          <postfix_expression column="23" file="main.cpp" idref="1015" line="143">
+            <primary_expression column="23" file="main.cpp" idref="1017" line="143">
+              <id_expression column="5" file="main.cpp" idref="1019"
+                line="143" name="reader"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="main.cpp"
+              idref="1021" line="143" name="&amp;"/>
+            <id_expression column="12" file="main.cpp" idref="1023"
+              line="143" name="m_clk"/>
+            <arguments column="12" file="main.cpp" idref="1025" line="143">
+              <arguments_list column="17" file="main.cpp" idref="1027" line="143">
+                <primary_expression column="17" file="main.cpp"
+                  idref="1031" line="143">
+                  <id_expression column="18" file="main.cpp"
+                    idref="1033" line="143" name="clock"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="24" file="main.cpp" idref="1035" line="144">
+          <postfix_expression column="24" file="main.cpp" idref="1037" line="144">
+            <primary_expression column="24" file="main.cpp" idref="1039" line="144">
+              <id_expression column="5" file="main.cpp" idref="1041"
+                line="144" name="reader"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="main.cpp"
+              idref="1043" line="144" name="&amp;"/>
+            <id_expression column="12" file="main.cpp" idref="1045"
+              line="144" name="m_from_pipe"/>
+            <arguments column="12" file="main.cpp" idref="1047" line="144">
+              <arguments_list column="23" file="main.cpp" idref="1049" line="144">
+                <postfix_expression column="23" file="main.cpp"
+                  idref="1051" line="144">
+                  <primary_expression column="23" file="main.cpp"
+                    idref="1053" line="144">
+                    <id_expression column="24" file="main.cpp"
+                      idref="1055" line="144" name="delay"/>
+                  </primary_expression>
+                  <dereferencing_operator column="24" file="main.cpp"
+                    idref="1057" line="144" name="&amp;"/>
+                  <id_expression column="30" file="main.cpp"
+                    idref="1059" line="144" name="m_out"/>
+                </postfix_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="36" file="main.cpp" idref="1061" line="146">
+          <postfix_expression column="36" file="main.cpp" idref="1063" line="146">
+            <primary_expression column="36" file="main.cpp" idref="1065" line="146">
+              <id_expression column="5" file="main.cpp" idref="1067"
+                line="146" name="writer"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="main.cpp"
+              idref="1069" line="146" name="&amp;"/>
+            <id_expression column="12" file="main.cpp" idref="1071"
+              line="146" name="m_clk"/>
+            <arguments column="12" file="main.cpp" idref="1073" line="146">
+              <arguments_list column="17" file="main.cpp" idref="1075" line="146">
+                <primary_expression column="17" file="main.cpp"
+                  idref="1079" line="146">
+                  <id_expression column="18" file="main.cpp"
+                    idref="1081" line="146" name="clock"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="24" file="main.cpp" idref="1083" line="147">
+          <postfix_expression column="24" file="main.cpp" idref="1085" line="147">
+            <primary_expression column="24" file="main.cpp" idref="1087" line="147">
+              <id_expression column="5" file="main.cpp" idref="1089"
+                line="147" name="writer"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="main.cpp"
+              idref="1091" line="147" name="&amp;"/>
+            <id_expression column="12" file="main.cpp" idref="1093"
+              line="147" name="m_to_pipe"/>
+            <arguments column="12" file="main.cpp" idref="1095" line="147">
+              <arguments_list column="21" file="main.cpp" idref="1097" line="147">
+                <postfix_expression column="21" file="main.cpp"
+                  idref="1099" line="147">
+                  <primary_expression column="21" file="main.cpp"
+                    idref="1101" line="147">
+                    <id_expression column="22" file="main.cpp"
+                      idref="1103" line="147" name="delay"/>
+                  </primary_expression>
+                  <dereferencing_operator column="22" file="main.cpp"
+                    idref="1105" line="147" name="&amp;"/>
+                  <id_expression column="28" file="main.cpp"
+                    idref="1107" line="147" name="m_in"/>
+                </postfix_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="33" file="main.cpp" idref="1109" line="149">
+          <systemCRoutine column="33" file="main.cpp" idref="1111"
+            line="149" name="sc_start">
+            <arguments column="5" file="main.cpp" idref="1113" line="149">
+              <arguments_list column="13" file="main.cpp" idref="1115" line="149">
+                <primary_expression column="13" file="main.cpp"
+                  idref="1119" line="149">
+                  <constant column="13" file="main.cpp" idref="1121"
+                    line="149" value="10"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="17" file="main.cpp" idref="1123" line="151">
+          <return_statement column="17" file="main.cpp" idref="1125" line="151">
+            <primary_expression column="5" file="main.cpp" idref="1129" line="151">
+              <constant column="5" file="main.cpp" idref="1131"
+                line="151" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

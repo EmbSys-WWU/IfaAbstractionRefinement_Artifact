@@ -1,0 +1,6820 @@
+/*****************************************************************************
+
+ Copyright (c) 2005, FZI Forschungszentrum Informatik,
+ Microelectronic System Design (SIM),
+ Haid-und-Neu-Str. 10-14, 76131 Karlsruhe, Germany.
+ All rights reserved.
+
+ The contents of this file are subject to the restrictions and limitations
+ set forth in the License as specified in the file LICENSE. You may not
+ use this file except in compliance with such restrictions and limitations.
+ You may obtain instructions on how to receive a copy of the License at
+ http://www.fzi.de/kascpar.html. Software distributed by Contributors
+ under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF
+ ANY KIND, either express or implied. See the License for the specific
+ language governing rights and limitations under the License.
+
+ ****************************************************************************/
+
+/*****************************************************************************
+
+ This file is part of KaSCPar - Karlsruhe SystemC Parser Suite
+ - Subproject: SC2AST - SystemC2AST
+
+ Please report any problems or bugs to: kascpar@fzi.de
+
+ Author: Pavel Parfuntseu
+
+ ****************************************************************************/
+ 
+/******************************************************************************
+*                                                                             *
+* Copyright (C) 1996, 1997 Sun Microsystems Inc.                              *
+*                                                                             *
+* Use of this file and the system it is part of is constrained by the         *
+* file COPYRIGHT in the root directory of this system.  You may, however,     *
+* make any modifications you wish to this file.                               *
+*                                                                             *
+* Author: Sreenivasa Viswanadha                                               *
+* Date: 3/20/97                                                               *
+*                                                                             *
+* This file contains a Java grammar and actions that implement a front-end.   *
+*                                                                             *
+*                                                                             *
+* Derived in part from the following work:                                    *
+*                                                                             *
+* PUBLIC DOMAIN PCCTS-BASED C++ GRAMMAR (cplusplus.g, stat.g, expr.g)         *
+*                                                                             *
+* Authors: Sumana Srinivasan, NeXT Inc.;            sumana_srinivasan@next.com*
+*          Terence Parr, Parr Research Corporation; parrt@parr-research.com   *
+*          Russell Quong, Purdue University;        quong@ecn.purdue.edu      *
+*                                                                             *
+* VERSION 1.1                                                                 *
+*                                                                             *
+******************************************************************************/
+
+
+options {
+	DEBUG_PARSER = false;
+        //DEBUG_TOKEN_MANAGER = true;
+	// for performance reasons
+
+
+
+
+  ERROR_REPORTING = false;
+	JAVA_UNICODE_ESCAPE = true;
+	MULTI = true;
+	VISITOR = true;
+	NODE_USES_PARSER = true;
+	NODE_DEFAULT_VOID = false;
+  NODE_PACKAGE = "de.fzi.sim.kascpar.sc2ast";
+}
+
+PARSER_BEGIN(SCParser)
+package de.fzi.sim.kascpar.sc2ast;
+
+import de.fzi.sim.kascpar.util.RefInfo;
+import de.fzi.sim.kascpar.util.TokenInfo;
+import java.util.TreeMap;
+import java.util.TreeSet;
+/**
+ * Parses the input stream (C/C++, System-C file) and generates a corresponding AST.
+ */
+public class SCParser {
+
+  /**
+   * A fixed precision signed and unsigned integer max value of range.
+   */
+  protected final static int MAX_FIXED_PRECISION_INTEGER = 64;
+  
+  /**
+   * An arbitrary precision signed and unsigned integer max value of range.
+   */
+  protected final static int MAX_NBITS = 512;
+
+  /**
+   * A limited precision fixed point type.
+   */
+  protected final static int FIXED_FAST_BIT_SIZE = 53;
+  
+  
+/*
+  protected final static int CHAR_SIZE_IN_BITS = 8;
+  protected final static int SHORT_SIZE_IN_BITS = 16;
+  protected final static int INT_SIZE_IN_BITS = 32;
+  protected final static int LONG_SIZE_IN_BITS = INT_SIZE_IN_BITS;  
+  protected final static int FLOAT_SIZE_IN_BITS = 32;
+  protected final static int DOUBLE_SIZE_IN_BITS = 64;
+*/  
+
+  protected final static String SC_MODULE_CONST = "sc_module";
+  protected final static String SC_MODULE_NAME_CONST = "sc_module_name";
+  protected final static String SC_PRIM_CHANNEL_CONST = "sc_prim_channel";
+  protected final static String SC_BEHAVIOR_CONST = "sc_behavior";
+  protected final static String SC_PROTOCOL_CONST = "sc_protocol";
+
+  protected final static String SC_IN_CONST = "sc_in";
+  protected final static String SC_OUT_CONST = "sc_out";
+  protected final static String SC_INOUT_CONST = "sc_inout";
+  protected final static String BOOL_CONST = "bool";
+  
+  protected final static String MASTER_BUS_PROTOCOL_BUS_TYPE_CONST = "bus";
+  protected final static String MASTER_BUS_PROTOCOL_INDEXED_TYPE_CONST = "indexed";
+  protected final static String SC_CURRENT_USER_MODULE_CONST = "SC_CURRENT_USER_MODULE";
+
+  /**
+   * Controls the unique ast instance id.
+   * Each instance node takes the unique instance id.
+   * The member is modified by the method getNewASTInstanceID.
+   * The method getASTInstanceID returns the current value of the member field. 
+   */  
+  protected static long m_curASTInstanceId = 0;
+
+  /**
+   * A symbol table manager object. Currently only types and namespaces are recorded for
+   * doing semantic predicates for parsing.
+   */
+   static SymtabManager sym;
+
+  /**
+   * Reads a fully qualified name (since it is used during lookahead, we
+   * cannot use token. We have to explicitly use getToken).
+   */
+  static String GetFullyScopedName()
+  {
+     Token t = getToken(1);
+
+     if (t.kind == SC_CTOR) {
+         m_isCTOR_look = true;
+       return getToken(3).image;
+     }
+     else
+     if (t.kind != ID && t.kind != SCOPE)
+        return null;
+     m_isCTOR_look = false;
+     StringBuffer s = new StringBuffer();
+
+     int i;
+     if (t.kind != SCOPE)
+     {
+        s.append(t.image);
+        t = getToken(2);
+        i = 3;
+     }
+     else
+        i = 2;
+
+     while (t.kind == SCOPE)
+     {
+        s.append(t.image);
+        s.append((t = getToken(i++)).image);
+        t = getToken(i++);
+     }
+//     System.out.println(s);
+     return s.toString();
+  }
+
+  /**
+   * This method first tries to read a sequence of tokens of the form
+   *             ("::")? <ID> ("::" <ID>)*
+   * and if it succeeds then asks the symbol table manager  if this is
+   * the name of a constructor.
+   */
+  static boolean IsCtor()
+  {
+      return sym.IsCtor(GetFullyScopedName());
+  }
+
+  /**
+   * Adds a AST node ASTdeclaration_specifiers to the AST.
+   * A built type name, a bit length and a systemC flag are set from the corresponding parameters.
+   * @param builtTypeName - a type (C++ or SystemC) name.
+   * @param length - a length in bit of the type.
+   * @param isSCType - a flag should be set to true if builtTypeName is a systemC type.
+   *
+   */
+  static void addDeclaration_specifiers(String builtTypeName, int length, boolean isSCType) {
+
+
+    ASTdeclaration_specifiers d_sp = new ASTdeclaration_specifiers(null, JJTDECLARATION_SPECIFIERS);
+    jjtree.openNodeScope(d_sp);
+
+      ASTbuiltin_type_specifier b_in_t = new ASTbuiltin_type_specifier(null, JJTBUILTIN_TYPE_SPECIFIER);
+      jjtree.openNodeScope(b_in_t);
+
+        b_in_t.setName(builtTypeName);
+        b_in_t.setLength(length);
+        b_in_t.setSystemCDataType(isSCType);
+      jjtree.closeNodeScope(b_in_t,true);
+
+    jjtree.closeNodeScope(d_sp, true);
+
+  }
+  
+  /**
+   * Adds a AST node ASTsuperclass_init to the AST.
+   *
+   */
+  static void addSuperClassInitNode() {
+
+     ASTsuperclass_init super_init = new ASTsuperclass_init(null, JJTSUPERCLASS_INIT);
+     jjtree.openNodeScope(super_init);
+
+       addDeclaration_specifiers(SC_MODULE_CONST, 0, true);
+
+       ASTarguments_list argl = new ASTarguments_list(null, JJTARGUMENTS_LIST);
+       jjtree.openNodeScope(argl);
+
+         ASTprimary_expression prim = new ASTprimary_expression(null, JJTPRIMARY_EXPRESSION);
+         jjtree.openNodeScope(prim);
+
+           ASTid_expression id = new ASTid_expression(null, JJTID_EXPRESSION);
+           jjtree.openNodeScope(id);
+           id.setName("name");
+
+           jjtree.closeNodeScope(id,true);
+
+         jjtree.closeNodeScope(prim,true);
+
+       jjtree.closeNodeScope(argl,true);
+
+     jjtree.closeNodeScope(super_init,true);
+  }
+
+  /**
+   * Adds a AST node ASTmember_declarator_list to the AST.
+   * This is a AST representation of generated with GNU gcc preprocessor code instead of SC_HAS_PROCESS macro.
+   */
+  static void addHasProcessInstruction(String class_name)
+  {
+
+          ASTmember_declarator_list mdl = new ASTmember_declarator_list(null, JJTMEMBER_DECLARATOR_LIST);
+          jjtree.openNodeScope(mdl);
+
+            ASTdeclaration_specifiers d_sp = new ASTdeclaration_specifiers(null, JJTDECLARATION_SPECIFIERS);
+            jjtree.openNodeScope(d_sp);
+
+              ASTtype_modifiers tm = new ASTtype_modifiers(null, JJTTYPE_MODIFIERS);
+              jjtree.openNodeScope(tm);
+
+                ASTstorage_class_specifier storage = new ASTstorage_class_specifier(null, JJTSTORAGE_CLASS_SPECIFIER);
+                jjtree.openNodeScope(storage);
+                  storage.setName("typedef");
+
+                jjtree.closeNodeScope(storage, true);
+
+              jjtree.closeNodeScope(tm, true);
+
+              ASTqualified_type qt = new ASTqualified_type(null, JJTQUALIFIED_TYPE);
+              jjtree.openNodeScope(qt);
+
+                ASTqualified_id qual_id = new ASTqualified_id(null, JJTQUALIFIED_ID);
+                jjtree.openNodeScope(qual_id);
+
+                qual_id.setName(class_name);
+
+                jjtree.closeNodeScope(qual_id, true);
+
+
+              jjtree.closeNodeScope(qt, true);
+
+            jjtree.closeNodeScope(d_sp, true);
+
+            ASTmember_declarator md = new ASTmember_declarator(null, JJTMEMBER_DECLARATOR);
+            jjtree.openNodeScope(md);
+              ASTdeclarator decl = new ASTdeclarator(null, JJTDECLARATOR);
+              jjtree.openNodeScope(decl);
+
+                ASTqualified_id qual_id2 = new ASTqualified_id(null, JJTQUALIFIED_ID);
+                jjtree.openNodeScope(qual_id2);
+                qual_id2.setName(SC_CURRENT_USER_MODULE_CONST);
+
+                jjtree.closeNodeScope(qual_id2,true);
+
+              jjtree.closeNodeScope(decl,true);
+
+            jjtree.closeNodeScope(md, true);
+
+          jjtree.closeNodeScope(mdl, true);
+
+  }
+  /**
+   * Adds a AST node ASTparameter_list to the AST.
+   * This is a part of the AST representation of generated with GNU gcc preprocessor code instead of SC_CTOR macro.
+   */
+  static void addCTORInstruction() {
+    
+    ASTparameter_list p_l = new ASTparameter_list(null, JJTPARAMETER_LIST);
+    jjtree.openNodeScope(p_l);
+
+      ASTparameter_declaration p_d = new ASTparameter_declaration(null, JJTPARAMETER_DECLARATION);
+      jjtree.openNodeScope(p_d);
+
+        addDeclaration_specifiers(SC_MODULE_NAME_CONST, 0, true);
+        
+        ASTdeclarator decl = new ASTdeclarator(null, JJTDECLARATOR);
+        jjtree.openNodeScope(decl);
+
+          ASTqualified_id qual_id = new ASTqualified_id(null, JJTQUALIFIED_ID);
+          jjtree.openNodeScope(qual_id);
+          qual_id.setName("name");
+
+          jjtree.closeNodeScope(qual_id,true);
+
+        jjtree.closeNodeScope(decl,true);
+
+      jjtree.closeNodeScope(p_d,true);
+
+    jjtree.closeNodeScope(p_l,true);
+
+  }
+  /**
+   * Tests if the token is a systemC base class(sc_module,..).
+   * @param t - a possible a systemC base class.
+   * @return true if the token t is a systemC base class, false otherwise.
+   */
+  static boolean isSCBaseClass(Token t) {
+
+    if (t.kind == SC_MODULE
+         ||
+           t.kind == SC_PRIM_CHANNEL
+         ||
+           t.kind == SC_CHANNEL
+         ||
+           t.kind == SC_BEHAVIOR) {
+      return true;
+    }
+    else
+      return false;
+  }
+
+  /**
+   * Tests if the next token in the input stream is a systemC routine and this routine should be used in sc_main only.
+   * @return true if the next token in the input stream is a systemC routine
+   * and this routine should be used in sc_main only, false otherwiae.
+   */
+  static public boolean isSCRoutineForSCMainOnly() {
+
+    Token t = getToken(1);
+
+    if (t.kind == SC_CYCLE
+      || t.kind == SC_START
+      || t.kind == SC_INITIALIZE)
+      return true;
+    else
+      return false;
+
+  }
+
+  /**
+   * Tests if the input stream from the id token till the "<<" or ";" token is a parenthesis balanced.
+   * @return true if the input stream is a parenthesis balanced, false otherwise.
+   */
+  static boolean isParanthBalancedExpr(int id)
+  {
+     int paranth_count = 0, i = id;
+     Token t = getToken(i);
+     while ((t.kind != SHIFTLEFT && t.kind != SEMICOLON ) ) {
+       if (t.kind == LPARENTHESIS)
+         ++paranth_count;
+       else
+       if (t.kind == RPARENTHESIS) {
+         if (paranth_count == 0)
+           return true;
+         --paranth_count;
+       }  
+       t = getToken(++i);
+        
+     }
+
+     if (paranth_count == 0)
+       return true;
+     else
+       return false;  
+  }
+
+  
+  /**
+   * Controls a adding a result of permutation the SC_HAS_PROCESS macro or not.
+   * @param value 0 - avoids a entry in AST tree, 1 - allows a entry in the AST tree.
+   */
+  public static void setHasProcessMacroElab(int value) {
+    m_hasProcessMacroElab = value;
+  }
+  
+  /**
+   * Returns a new unique id for the AST instance.
+   * 
+   */
+   public static long getNewASTInstanceID() {
+     
+       return ++m_curASTInstanceId;
+   }
+
+  /**
+   * Returns a current unique id of the last created AST instance.
+   * 
+   */ 
+   public static long getASTInstanceID() {
+     
+      return m_curASTInstanceId;
+   }
+
+  /**
+   * Gets a line mapping information of token with id number into the input token stream.
+   * @param id - a number into the input token stream.
+   * @return null if the line mapping information for this token is not found, otherwise the TokenInfo object.
+   * @see de.fzi.sim.kascpar.util.TokenInfo
+   */
+  public static TokenInfo getExtLineInfo(int id) {
+    RefInfo  ptrRef = null;
+    if (m_lineMapper != null) {
+
+      if (token.image == null)
+        return null;
+
+      if (token.next == null)
+        id = 0;
+          
+      Integer int_t = null;
+
+      if (id == 0)
+        int_t = new Integer(token.beginLine-1);
+      else
+        int_t = new Integer(token.next.beginLine-1);  
+
+      if(m_lineMapper.containsKey(int_t)) {
+        ptrRef =  (RefInfo) m_lineMapper.get(int_t);
+      }
+
+      if (ptrRef != null) {
+        return new TokenInfo(ptrRef, token.beginColumn);
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * Gets a line mapping information for a corresponding line and a column in a common source file.
+   * @param line - a line in a common source file.
+   * @param column - a column in a common source file.   
+   * @return null if the line mapping information for this token is not found, otherwise the TokenInfo object.
+   * @see de.fzi.sim.kascpar.util.TokenInfo
+   */
+  public static TokenInfo getExtLineInfo(int line,int column) {
+    RefInfo  ptrRef = null;
+    if (m_lineMapper != null) {
+
+
+      Integer int_t = new Integer(line - 1);
+
+      if(m_lineMapper.containsKey(int_t)) {
+        ptrRef =  (RefInfo) m_lineMapper.get(int_t);
+      }
+
+      if (ptrRef != null) {
+        return new TokenInfo(ptrRef, column);
+      }
+    }
+    return null;
+  }
+
+  
+  /**
+   * Gets error message with line, column information.
+   * It tries to take a line mapping information correspond to the current token in the input token stream.
+   * @return a error message.
+   *
+   */
+  public static String getErrorMessage()
+  {
+      Token errortok = token.next;
+      int line = errortok.beginLine, column = errortok.beginColumn;
+
+      TokenInfo t = getExtLineInfo(1);
+      String mess = (errortok.kind == 0) ? tokenImage[0] : errortok.image;
+      if (t != null) {
+        mess = "Parse error at line " + (t.refInfo().line()+1) + ", column " + t.column() + ", file " + t.refInfo().file() + ". Encountered: " + mess;
+      }
+      else {
+        mess = "Parse error at line " + line + ", column " + column + ".  Encountered: " + mess;
+      }
+      return mess;
+  }
+
+  /**
+   * Sets the result dictionary of the line mapping algorithm
+   * The key is a object of the Integer, the value is a object of the RefInfo class in this dictionary.
+   * @see de.fzi.sim.kascpar.util.RefInfo
+   * @see de.fzi.sim.kascpar.util.LineMapper
+   */
+  public static void setLineMappingTable(TreeMap map)
+  {
+    m_lineMapper = map;
+  }
+
+  /**
+   * Returns true if a next token(s) in the input token stream is(are) a declared class name.
+   */
+  static boolean  class_name_lookahead()
+  {
+    Scope sc = null;
+    if (m_cur_scope_in_comp_name == null) {
+      sc = sym.GetScopeOfScopedName(getToken(1).image);
+    }
+    else {
+      sc = sym.GetScopeOfScopedName(m_cur_scope_in_comp_name + "::" + getToken(1).image);
+    }  
+
+    if (sc != null) {
+      return sc.IsClass();
+    }  
+    else {
+      return false;
+    }  
+  }
+
+  /**
+   * Returns true if a next token(s) in the input token stream is(are) a declared namespace name.
+   */
+  static boolean namespace_name_lookahead()
+  {
+    Scope sc = null;
+    if (m_cur_scope_in_comp_name == null) {
+      sc = sym.GetScopeOfScopedName(getToken(1).image);
+    }
+    else {
+      sc = sym.GetScopeOfScopedName(m_cur_scope_in_comp_name + "::" + getToken(1).image);
+    }
+
+    if (sc != null) {
+      return sc.IsNamespace() && !sc.IsAliasNamespace();
+    }  
+    else {
+      return false;
+    }  
+  }
+
+  /**
+   * Returns true if a next token(s) in the input token stream is(are) a declared allias namespace name.
+   */
+  static boolean alias_namespace_name_lookahead()
+  {
+
+    Scope sc = null;
+    if (m_cur_scope_in_comp_name == null) {
+      sc = sym.GetScopeOfScopedName(getToken(1).image);
+    }
+    else {
+      sc = sym.GetScopeOfScopedName(m_cur_scope_in_comp_name + "::" + getToken(1).image);
+    }  
+    if (sc != null) {
+      return sc.IsNamespace() && sc.IsAliasNamespace();
+    }  
+    else
+      return false;
+
+  }
+
+  /**
+   *  Returns true if the class member is constant, static and is a built in type of C/C++.
+   */
+  static  boolean isAllowMemberInitialization() {
+    return (m_isStatic && m_isConst && m_isCBuiltInType);
+  }
+  /**
+   * Returns a string representation of i1 and i2 separated with "_".
+   */
+  static String strKey(int i1, int i2) {
+    return new String(Integer.toString(i1) + "_" + Integer.toString(i2));
+  }
+  /**
+   * Registers the behaviour with the comments in source code during parse.
+   */
+  public static void elaborateComments(boolean flag)
+  {
+    SimpleNode.m_elaborateComments = flag;
+  }
+
+  /**
+   * Registers the behaviour with the line mapping information during the AST generation.
+   */
+  public static void saveFileLineColumnInfoInAST(boolean flag) {
+    
+    SimpleNode.m_fileLineColumnSaving = flag;
+  }
+
+  /**
+   * Tries to find a comment in the input token stream.
+   * If a comment is not already in AST, adds it to the AST.
+   *
+   */
+  static void addCommentToAST() {
+
+       
+    Token t = getToken(1);
+
+    if (t.specialToken == null) return;
+
+    // The above statement determines that there are no special tokens
+    // and returns control to the caller.
+
+    Token tmp_t = t.specialToken;
+
+    while (tmp_t.specialToken != null)
+      tmp_t = tmp_t.specialToken;
+
+      // The above line walks back the special token chain until it
+      // reaches the first special token after the previous regular
+      // token.
+    int kind = 0;
+    String str = new String("");
+    int line = 0, column = 0;
+    while (tmp_t != null) {
+
+
+      if (kind == 0) {
+        if (tmp_t.image.indexOf("//") != -1) {
+          kind = 1;
+        }
+        if (tmp_t.image.indexOf("/*") != -1) {
+          kind = 2;
+        }
+
+        line = tmp_t.beginLine;
+        column = tmp_t.beginColumn;
+      }
+
+      if (kind == 1) {
+        if (tmp_t.image.indexOf('\n') != -1) {
+          addCommentNodeToAST(str + tmp_t.image.substring(0,tmp_t.image.indexOf('\n')),
+                              line,
+                              column);
+          kind = 0;
+          str = "";
+        }
+        else
+          str += tmp_t.image;
+      }
+      else
+      if (kind == 2) {
+        if (tmp_t.image.indexOf("*/") != -1) {
+          addCommentNodeToAST(str + tmp_t.image.substring(0,tmp_t.image.indexOf("*/") + 2),
+                              line,
+                              column);
+          kind = 0;
+          str = "";
+        }
+        else
+          str += tmp_t.image;
+
+      }
+      tmp_t = tmp_t.next;
+    }
+
+  }
+
+  /**
+   * Creates a new AST node ASTcomment with text, line, column and adds this object to the AST.
+   */
+  static void addCommentNodeToAST(String text, int line, int column) {
+
+    if (m_isFirst == false)
+      return;
+    String str = strKey(line,column);
+    if (m_comentSet.contains(str)) {
+      return;
+    }
+    else
+      m_comentSet.add(str);
+    
+      TokenInfo t = getExtLineInfo(line, column);
+
+    ASTcomment id = new ASTcomment(JJTCOMMENT, t);
+    jjtree.openNodeScope(id);
+      id.setName(text);
+    jjtree.closeNodeScope(id,true);
+    
+  }
+
+  /**
+   * A parenthesis balance flag.
+   */
+  protected static boolean m_isBal;
+
+  /**
+   * Flag of a adding the result of permutation the SC_HAS_PROCESS macro or not. 
+   */
+  protected static int m_hasProcessMacroElab;
+  /**
+   * Contains true if a current standart C++ stream is cout and false if the current standart C++ stream is cerr.
+   */
+  protected static boolean m_isStream_output;
+
+  /**
+   * Contains true if the macro SC_CTOR is found in a current processed module.
+   */
+  protected static boolean m_isCTOR, m_isCTOR_look;
+  /**
+   * Contains true if a current processed module inherits direct from sc_module, sc_channel.., or has a special systemC macro(SC_CTOR,...).
+   */
+  protected static boolean m_isExtOfSCClass;
+  /**
+   * Contains true if a current processed token is in the sc_main function.
+   */
+  protected static boolean m_isSC_main;
+  /**
+   * Contains line mapping dictionary if a current processed token is in the sc_main function.
+   * The key is a object of the Integer, the value is a object of the RefInfo class in this dictionary.
+   */
+  protected static TreeMap m_lineMapper;
+  /**
+   * Stores a current name of scope in the complicated name.
+   */
+  protected static String m_cur_scope_in_comp_name;
+  /**
+   * boolean flag is used to control a initialization of a member.
+   */
+  protected static boolean m_isStatic, m_isConst, m_isCBuiltInType;
+  /**
+   * Shows a begining of the parsing.
+   */
+  protected static boolean m_isFirst;
+  /**
+   * It is used to control the comments occurence in the AST.
+   */
+  protected static TreeSet m_comentSet;
+
+}
+
+
+
+PARSER_END(SCParser)
+
+TOKEN_MGR_DECLS :
+{
+   static int beginLine;
+   static int beginCol;
+   static boolean lineDirective = false;
+
+   static void resetBeginLineCol()
+   {
+   }
+}
+
+SKIP : {
+  <["\r"]"\n">
+}
+
+/* SKIP : */
+ SPECIAL_TOKEN:
+{
+ "\n"
+|
+  " "
+|
+  "\t"
+|
+  "//" : IN_LINE_COMMENT
+|
+  "/*" : IN_COMMENT
+|
+  < "#" ([" ", "\t"])* "line" > : LINE_NUMBER
+|
+  < "#" ([" ", "\t"])* ["0"-"9"] > { input_stream.backup(1); } : LINE_NUMBER
+
+}
+
+<LINE_NUMBER> SKIP:
+{
+   < (["0"-"9"])+ >
+   {
+     try
+     {
+        beginLine = Integer.parseInt(image.toString());
+     }
+     catch(NumberFormatException e) { } // Will never come here.
+   } : LINE_DIRECTIVE
+}
+
+<LINE_DIRECTIVE> SKIP:
+{
+  "\n"   : AFTER_LINE_DIRECTIVE
+|
+  <~[]>
+}
+
+<AFTER_LINE_DIRECTIVE> SKIP:
+{
+
+  <~[]>
+  {
+     input_stream.adjustBeginLineColumn(beginLine, 1);
+     input_stream.backup(1);
+  } : DEFAULT
+}
+
+
+<IN_LINE_COMMENT>
+SPECIAL_TOKEN:                    /*SKIP:*/
+{
+   "\n"  : DEFAULT
+}
+
+<IN_LINE_COMMENT> MORE:
+{
+  < ~[] >
+}
+
+<IN_COMMENT>
+SPECIAL_TOKEN:     /*SKIP:*/
+{
+   "*/" : DEFAULT
+}
+
+<IN_COMMENT> MORE:
+{
+  < ~[] >
+}
+
+
+//<PREPROCESSOR_OUTPUT> SKIP:
+//{
+//   "\n"   : DEFAULT
+//}
+
+
+
+
+TOKEN :
+{
+
+
+  < LCURLYBRACE: "{" >
+| < RCURLYBRACE: "}" >
+| < LSQUAREBRACKET: "[" >
+| < RSQUAREBRACKET: "]" >
+| < LPARENTHESIS: "(" >
+| < RPARENTHESIS: ")" >
+| < SCOPE: "::" >
+| < COLON: ":" >
+| < SEMICOLON: ";" >
+| < COMMA: "," >
+| < QUESTIONMARK: "?" >
+| < ELLIPSIS: "..." >
+| < ASSIGNEQUAL: "=" >
+| < TIMESEQUAL: "*=" >
+| < DIVIDEEQUAL: "/=" >
+| < MODEQUAL: "%=" >
+| < PLUSEQUAL: "+=" >
+| < MINUSEQUAL: "-=" >
+| < SHIFTLEFTEQUAL: "<<=" >
+| < SHIFTRIGHTEQUAL: ">>=" >
+| < BITWISEANDEQUAL: "&=" >
+| < BITWISEXOREQUAL: "^=" >
+| < BITWISEOREQUAL: "|=" >
+| < OR: "||" >
+| < AND: "&&" >
+| < BITWISEOR: "|" >
+| < BITWISEXOR: "^" >
+| < AMPERSAND: "&" >
+| < EQUAL: "==" >
+| < NOTEQUAL: "!=" >
+| < LESSTHAN: "<" >
+| < GREATERTHAN: ">" >
+| < LESSTHANOREQUALTO: "<=" >
+| < GREATERTHANOREQUALTO: ">=" >
+| < SHIFTLEFT: "<<" >
+| < SHIFTRIGHT: ">>" >
+| < PLUS: "+" >
+| < MINUS: "-" >
+| < STAR: "*" >
+| < DIVIDE: "/" >
+| < MOD: "%" >
+| < PLUSPLUS: "++" >
+| < MINUSMINUS: "--" >
+| < TILDE: "~" >
+| < NOT: "!" >
+| < DOT: "." >
+| < POINTERTO: "->" >
+| < DOTSTAR: ".*" >
+| < ARROWSTAR: "->*" >
+| < AUTO: "auto" >
+| < BREAK: "break" >
+| < CASE: "case" >
+| < CATCH: "catch" >
+| < CHAR: "char" >
+| < CONST: "const" >
+
+
+| < CONTINUE: "continue" >
+| < _DEFAULT: "default" >
+| < DELETE: "delete" >
+| < DO: "do" >
+| < DOUBLE: "double" >
+| < ELSE: "else" >
+| < ENUM: "enum" >
+| < EXTERN: "extern" >
+| < FLOAT: "float" >
+| < FOR: "for" >
+| < FRIEND: "friend" >
+| < GOTO: "goto" >
+| < IF: "if" >
+| < INLINE: "inline" >
+| < EXPLICIT: "explicit">
+| < INT: "int" >
+| < UINT64 : "uint64" >
+| < LONG: "long" >
+| < NEW: "new" >
+| < PRIVATE: "private" >
+| < PROTECTED: "protected" >
+| < PUBLIC: "public" >
+| < REDECLARED: "redeclared" >
+| < REGISTER: "register" >
+| < RETURN: "return" >
+| < SHORT: "short" >
+| < SIGNED: "signed" >
+| < SIZEOF: "sizeof" >
+| < STATIC: "static" >
+| < STRUCT: "struct" >
+| < CLASS : "class" >
+| < SWITCH: "switch" >
+| < TEMPLATE: "template" >
+| < THIS: "this" >
+| < TRY: "try" >
+| < TYPEDEF: "typedef" >
+| < UNION: "union" >
+| < UNSIGNED: "unsigned" >
+| < VIRTUAL: "virtual" >
+| < VOID: "void" >
+| < VOLATILE: "volatile" >
+| < WHILE: "while" >
+
+| < OPERATOR: "operator" >
+| < TRUETOK: "true" >
+| < FALSETOK: "false" >
+| < BOOL: "bool" >
+| < THROW: "throw" >
+| < NAMESPACE: "namespace" >
+| < USING: "using" >
+| < TYPENAME: "typename">
+
+| < SC_MODULE_MACRO: "SC_MODULE" >
+| < SC_MODULE: "sc_module" >
+| < SC_CHANNEL: "sc_channel" >
+| < SC_BEHAVIOR: "sc_behavior" >
+| < SC_CTOR: "SC_CTOR" >
+| < SC_INT: "sc_int">
+| < SC_UINT: "sc_uint">
+| < SC_BIGINT: "sc_bigint">
+| < SC_BIGUINT: "sc_biguint">
+| < SC_IN: "sc_in">
+| < SC_OUT: "sc_out">
+| < SC_INOUT: "sc_inout">
+| < SENSITIVE: "sensitive">
+| < SENSITIVE_POS: "sensitive_pos">
+| < SENSITIVE_NEG: "sensitive_neg">
+| < SC_THREAD: "SC_THREAD">
+| < SC_CTHREAD: "SC_CTHREAD" >
+| < SC_EVENT: "sc_event" >
+| < SC_EVENT_LIST: "sc_event_list" >
+| < SC_EVENT_OR_LIST: "sc_event_or_list" >
+| < SC_EVENT_AND_LIST: "sc_event_and_list" >
+| < SC_METHOD: "SC_METHOD" >
+| < SC_BIT: "sc_bit" >
+| < SC_BIT_VECTOR: "sc_bv" >
+| < SC_LOGIC: "sc_logic" >
+| < SC_LOGIC_VECTOR: "sc_lv" >
+| < SC_LOGIC_VECTOR_BASE: "sc_lv_base" >
+| < SC_PROXY: "sc_proxy" >
+| < SC_WITHOUT_CONTEXT: "sc_without_context" >
+| < SC_GLOBAL: "sc_global" >
+| < SC_BITREF_R: "sc_bitref_r" >
+| < SC_BITREF: "sc_bitref" >
+| < SC_SUBREF_R: "sc_subref_r" >
+| < SC_SUBREF: "sc_subref" >
+| < SC_CONCREF_R: "sc_concref_r" >
+| < SC_CONCREF: "sc_concref" >
+
+| < SC_FIXED: "sc_fixed" >
+| < SC_UFIXED: "sc_ufixed" >
+| < SC_FIX: "sc_fix" >
+| < SC_UFIX: "sc_ufix" >
+| < SC_FXNUM: "sc_fxnum" >
+| < SC_FIXED_FAST: "sc_fixed_fast" >
+| < SC_UFIXED_FAST: "sc_ufixed_fast" >
+| < SC_FXNUM_FAST: "sc_fxnum_fast" >
+| < SC_FMT: "sc_fmt" >
+| < SC_NUMREP: "sc_numrep" >
+| < SC_FIX_FAST: "sc_fix_fast" >
+| < SC_UFIX_FAST: "sc_ufix_fast" >
+| < SC_FXTYPE_PARAMS: "sc_fxtype_params" >
+| < SC_FXTYPE_CONTEXT: "sc_fxtype_context" >
+| < SC_FXCAST_SWITCH: "sc_fxcast_switch" >
+| < SC_FXCAST_CONTEXT: "sc_fxcast_context" >
+| < SC_FXNUM_BITREF: "sc_fxnum_bitref" >
+| < SC_FXNUM_FAST_BITREF: "sc_fxnum_fast_bitref">
+| < SC_FXNUM_SUBREF: "sc_fxnum_subref">
+| < SC_FXNUM_FAST_SUBREF: "sc_fxnum_fast_subref">
+
+| < SCFX_IEEE_DOUBLE: "scfx_ieee_double">
+| < SCFX_IEEE_FLOAT: "scfx_ieee_float">
+| < SCFX_MANT: "scfx_mant">
+| < SCFX_MANT_REF: "scfx_mant_ref">
+| < SCFX_PARAMS: "scfx_params">
+| < SCFX_INDEX: "scfx_index">
+| < SCFX_REP: "scfx_rep">
+| < SCFX_STRING: "scfx_string">
+| < SCFX_INT_BITREF_R: "sc_int_bitref_r">
+| < SCFX_INT_BITREF: "sc_int_bitref">
+| < SCFX_INT_SUBREF_R: "sc_int_subref_r">
+| < SCFX_INT_SUBREF: "sc_int_subref">
+| < SC_LENGTH_PARAM : "sc_length_param">
+| < SC_SIGNED_BITREF_R : "sc_signed_bitref_r">
+| < SC_SIGNED_BITREF : "sc_signed_bitref">
+| < SC_SIGNED_SUBREF_R : "sc_signed_subref_r">
+| < SC_SIGNED_SUBREF : "sc_signed_subref">
+| < SC_UINT_BITREF_R : "sc_uint_bitref_r">
+| < SC_UINT_BITREF : "sc_uint_bitref">
+| < SC_UINT_SUBREF_R : "sc_uint_subref_r">
+| < SC_UINT_SUBREF : "sc_uint_subref">
+| < SC_UNSIGNED_BITREF_R : "sc_unsigned_bitref_r">
+| < SC_UNSIGNED_BITREF : "sc_unsigned_bitref">
+| < SC_UNSIGNED_SUBREF_R : "sc_unsigned_subref_r">
+| < SC_UNSIGNED_SUBREF : "sc_unsigned_subref">
+| < SC_CONCATREF : "sc_concatref">
+| < SC_CONCAT_BOOL : "sc_concat_bool">
+| < SC_VALUE_BASE : "sc_value_base">
+| < SC_GENERIC_BASE : "sc_generic_base">
+
+| < SC_SIGNAL: "sc_signal" >
+| < SC_BUFFER: "sc_buffer" >
+| < SC_WATCH: "sc_watch" >
+| < SC_EXPORT_BASE: "sc_export_base" >
+| < SC_PORT_BASE: "sc_port_base" >
+| < SC_PORT_REGISTRY: "sc_port_registry" >
+| < SC_PORT_B: "sc_port_b" >
+| < SC_PORT: "sc_port" >
+| < SC_INTERFACE: "sc_interface" >
+| < SC_MUTEX_IF: "sc_mutex_if" >
+| < SC_SEMAPHORE_IF: "sc_semaphore_if" >
+| < SC_MUTEX: "sc_mutex" >
+| < SC_SEMAPHORE: "sc_semaphore" >
+| < SC_SIGNAL_IN_IF: "sc_signal_in_if" >
+| < SC_SIGNAL_OUT_IF: "sc_signal_out_if" >
+| < SC_SIGNAL_INOUT_IF: "sc_signal_inout_if" >
+| < SC_IN_CLK: "sc_in_clk" >
+| < SC_OUT_CLK: "sc_out_clk" >
+| < SC_INOUT_CLK: "sc_inout_clk" >
+| < SC_IN_RESOLVED: "sc_in_resolved" >
+| < SC_OUT_RESOLVED: "sc_out_resolved" >
+| < SC_INOUT_RESOLVED: "sc_inout_resolved" >
+| < SC_LV_RESOLVE: "sc_lv_resolve" >
+| < SC_IN_RV: "sc_in_rv" >
+| < SC_OUT_RV: "sc_out_rv" >
+| < SC_INOUT_RV: "sc_inout_rv" >
+| < SC_FIFO_IN: "sc_fifo_in" >
+| < SC_FIFO_OUT: "sc_fifo_out" >
+| < SC_SIGNAL_RESOLVED: "sc_signal_resolved" >
+| < SC_SIGNAL_RV: "sc_signal_rv" >
+| < SC_CLOCK: "sc_clock" >
+| < SC_TIME: "sc_time" >
+| < SC_JOIN: "sc_join" >
+| < SC_LAMBDA: "sc_lambda" >
+| < SC_TIME_PARAMS: "sc_time_params" >
+| < SC_CURR_PROC_INFO: "sc_curr_proc_info" >
+| < SC_MSG_DEF: "sc_msg_def" >
+| < SC_TRACE_PARAMS: "sc_trace_params" >
+| < SC_BIND_PROXY: "sc_bind_proxy">
+| < SC_LAMBDA_RATOR_E: "sc_lambda_rator_e">
+| < SC_LAMBDA_RAND_E: "sc_lambda_rand_e">
+| < SC_ENC: "sc_enc">
+
+
+| < SC_LAMBDA_PTR: "sc_lambda_ptr" >
+| < SC_LAMBDA_RAND: "sc_lambda_rand" >
+| < SC_CTHREAD_HANDLE: "sc_cthread_handle" >
+| < SC_METHOD_HANDLE: "sc_method_handle" >
+| < SC_THREAD_HANDLE: "sc_thread_handle" >
+| < SC_PROCESS_CB: "sc_process_call_base" >
+| < SC_PROCESS_CALL: "sc_process_call" >
+| < SC_EVENT_TIMED: "sc_event_timed" >
+| < SC_ZERO_TIME: "SC_ZERO_TIME">
+| < SC_WAIT_ROUTINE: "wait">
+| < SC_WAIT_UNTIL_ROUTINE: "wait_until">
+| < SC_WATCHING_ROUTINE: "watching">
+| < SC_NEXT_TRIGGER: "next_trigger">
+| < SC_NOTIFY: "notify">
+| < SC_LOGIC_RESOLVE: "sc_logic_resolve">
+
+| < SC_ASSERT: "sc_assert">
+| < SC_CONTEXT: "sc_context">
+| < SC_CONTEXT_BEGIN: "sc_context_begin">
+| < SC_SWITCH: "sc_switch">
+| < SC_MODULE_NAME: "sc_module_name">
+| < SC_CYCLE: "sc_cycle">
+| < SC_INITIALIZE: "sc_initialize">
+| < SC_FIFO: "sc_fifo">
+| < SC_FIFO_NB_IN_IF: "sc_fifo_nonblocking_in_if">
+| < SC_FIFO_B_IN_IF: "sc_fifo_blocking_in_if">
+| < SC_FIFO_NB_OUT_IF: "sc_fifo_nonblocking_out_if">
+| < SC_FIFO_B_OUT_IF: "sc_fifo_blocking_out_if">
+| < SC_FIFO_IN_IF: "sc_fifo_in_if">
+| < SC_FIFO_OUT_IF: "sc_fifo_out_if">
+| < SC_HAS_PROCESS: "SC_HAS_PROCESS">
+| < SC_MAIN: "sc_main">
+| < SC_MASTER: "sc_master">
+| < SC_INMASTER: "sc_inmaster">
+| < SC_INOUTMASTER: "sc_inoutmaster">
+| < SC_OUTMASTER: "sc_outmaster">
+| < SC_SLAVE: "sc_slave">
+| < SC_INSLAVE: "sc_inslave">
+| < SC_INOUTSLAVE: "sc_inoutslave">
+| < SC_OUTSLAVE: "sc_outslave">
+| < SC_NOHANDSHAKE: "sc_noHandshake">
+| < SC_ENABLEHANDSHAKE: "sc_enableHandshake">
+| < SC_FULLHANDSHAKE: "sc_fullHandshake">
+| < SC_INDEXED: "sc_indexed">
+| < SC_O_MODE: "sc_o_mode">
+| < SC_OBJECT: "sc_object">
+| < SC_PROCESS_BASE: "sc_process_base">
+| < SC_SPAWN_OBJECT: "sc_spawn_object">
+| < SC_SPAWN_OBJECT_V: "sc_spawn_object_v">
+| < SC_PROCESS_HOST: "sc_process_host">
+| < SC_PROCESS_MONITOR: "sc_process_monitor">
+| < SC_RUNNABLE: "sc_runnable">
+| < SC_CLK_POS_CALLBACK: "sc_clock_posedge_callback">
+| < SC_CLK_NEG_CALLBACK: "sc_clock_negedge_callback">
+| < SC_CHECK: "sc_check">
+| < SC_PRIM_CHANNEL: "sc_prim_channel">
+| < SC_PRIM_CHANNEL_REG: "sc_prim_channel_registry">
+
+| < SC_PROTOCOL_MACRO: "SC_PROTOCOL">
+| < SC_Q_MODE: "SC_Q_MODE">
+| < SC_SET_TIME_RESOLUTION: "sc_set_time_resolution">
+| < SC_GET_TIME_RESOLUTION: "sc_get_time_resolution">
+| < SC_SET_DEFAULT_TIME_UNIT: "sc_set_default_time_unit">
+| < SC_GET_DEFAULT_TIME_UNIT: "sc_get_default_time_unit">
+| < SC_SLAVE_MACRO: "SC_SLAVE">
+| < SC_STOP: "sc_stop">
+| < SC_STOP_HERE_ROUTINE: "sc_stop_here">
+
+| < SC_START: "sc_start">
+| < SC_STRING: "sc_string">
+| < DONT_INITIALIZE: "dont_initialize">
+| < SC_TIME_UNIT: "sc_time_unit">
+| < SC_TIME_STAMP: "sc_time_stamp">
+| < SC_TRACE: "sc_trace">
+| < SC_TRACE_FILE: "sc_trace_file">
+| < VCD_TRACE_FILE: "vcd_trace_file">
+| < WIF_TRACE_FILE: "wif_trace_file">
+| < ISDB_TRACE_FILE: "isdb_trace_file">
+| < VCD_T_TRACE: "vcd_T_trace">
+| < WIF_T_TRACE: "wif_T_trace">
+| < SC_PHASH_BASE: "sc_phash_base">
+| < SC_PHASH_BASE_ITER: "sc_phash_base_iter">
+| < SC_PHASH: "sc_phash">
+| < SC_PHASH_ITER: "sc_phash_iter">
+| < SC_PDHASH: "sc_pdhash">
+| < SC_PDHASH_ITER: "sc_pdhash_iter">
+| < SC_STRHASH: "sc_strhash">
+| < SC_STRHASH_ITER: "sc_strhash_iter">
+| < SC_PLIST_BASE: "sc_plist_base">
+| < SC_PLIST_BASE_ITER: "sc_plist_base_iter">
+| < SC_MEMPOOL: "sc_mempool">
+| < SC_MPOBJECT: "sc_mpobject">
+| < SC_PPQ: "sc_ppq">
+| < SC_PPQ_BASE: "sc_ppq_base">
+
+
+
+| < SC_CREATE_VCD_TRACE_FILE: "sc_create_vcd_trace_file">
+| < SC_CLOSE_VCD_TRACE_FILE: "sc_close_vcd_trace_file">
+
+| < SC_CREATE_WIF_TRACE_FILE: "sc_create_wif_trace_file">
+| < SC_CLOSE_WIF_TRACE_FILE: "sc_close_wif_trace_file">
+
+| < SC_CREATE_ISDB_TRACE_FILE: "sc_create_isdb_trace_file">
+| < SC_CLOSE_ISDB_TRACE_FILE: "sc_close_isdb_trace_file">
+| < W_BEGIN: "W_BEGIN">
+| < W_DO: "W_DO">
+| < W_ESCAPE: "W_ESCAPE">
+| < W_END: "W_END">
+
+| <SC_SPAWN_OPTIONS: "sc_spawn_options">
+| <SC_PROCESS_HANDLE: "sc_process_handle">
+| <SC_FORK_MACRO: "SC_FORK">
+| <SC_JOIN_MACRO: "SC_JOIN">
+| <SC_SPAWN_ROUTINE: "sc_spawn">
+| <SC_BIND_ROUTINE: "sc_bind">
+
+| <SC_REF_ROUTINE: "sc_ref">
+| <SC_CREF_ROUTINE: "sc_cref">
+| <SC_EVENT_QUEUE: "sc_event_queue" >
+
+| <SC_EXPORT: "sc_export" >
+| <SC_EXPORT_REGISTRY: "sc_export_registry">
+
+| <SC_SEVERITY: "sc_severity">
+| <SC_ACTION: "sc_action">
+| <SC_ACTIONS: "sc_actions">
+| <SC_REPORT: "sc_report">
+| <SC_REPORT_HANDLER: "sc_report_handler">
+| <SC_REPORT_INFO_MACRO : "SC_REPORT_INFO">
+| <SC_REPORT_WARNING_MACRO : "SC_REPORT_WARNING">
+| <SC_REPORT_ERROR_MACRO : "SC_REPORT_ERROR">
+| <SC_REPORT_FATAL_MACRO : "SC_REPORT_FATAL">
+| <SC_STRING_OLD : "sc_string_old">
+| <SC_BYTE_HEAP : "sc_byte_heap">
+| <SC_VPOOL : "sc_vpool">
+| <SC_MAIN_MAIN_ROUTINE : "sc_main_main">
+| <SC_ARGC_ROUTINE : "sc_argc">
+| <SC_ARGV_ROUTINE : "sc_argv">
+| <SC_START_OF_SIMULATION_INVOKED_ROUTINE : "sc_start_of_simulation_invoked">
+| <SC_END_OF_SIMULATION_INVOKED_ROUTINE : "sc_end_of_simulation_invoked">
+
+| <SC_STOP_MODE: "sc_stop_mode">
+| <SC_SET_STOP_MODE_ROUTINE: "sc_set_stop_mode">
+| <SC_GEN_UNIQUE_NAME_ROUTINE: "sc_gen_unique_name">
+| <SC_SIMCONTEXT : "sc_simcontext">
+| <SC_API_VERSION_STRING : "SC_API_VERSION_STRING">
+| <SC_COR : "sc_cor">
+| <SC_COR_PKG : "sc_cor_pkg">
+| <SC_METHOD_PROCESS : "sc_method_process">
+| <SC_SIMULATION_TIME_ROUTINE : "sc_simulation_time">
+| <SC_GET_CURR_PROCESS_HANDLE_ROUTINE : "sc_get_curr_process_handle">
+| <SC_GET_CURR_SIMCONTEXT_ROUTINE : "sc_get_curr_simcontext">
+| <SC_PROCESS_B : "sc_process_b">
+| <SC_CURR_PROC_KIND : "sc_curr_process_kind">
+| <SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE : "sc_get_last_created_process_handle">
+| <SC_GET_CURR_PROCESS_KIND_ROUTINE : "sc_get_curr_process_kind">
+| <SC_MAP_TO_TARGET_INIT_MACRO : "SC_MAP_TO_TARGET_INIT">
+| <SC_MAP_TO_TARGET_MACRO : "SC_MAP_TO_TARGET">
+| <SC_SENSITIVE : "sc_sensitive">
+| <SC_SENSITIVE_POS : "sc_sensitive_pos">
+| <SC_SENSITIVE_NEG : "sc_sensitive_neg">
+| <SC_COPYRIGHT_ROUTINE : "sc_copyright">
+| <SC_VERSION_ROUTINE : "sc_version">
+| <SC_ABS_ROUTINE : "sc_abs">
+| <SC_MAX_ROUTINE : "sc_max">
+| <SC_MIN_ROUTINE : "sc_min">
+| <SC_LOGIC_VALUE_T : "sc_logic_value_t">
+| <SC_MAX_NUM_DELTA_CYCLES : "SC_MAX_NUM_DELTA_CYCLES">
+| <SC_ATTR_BASE : "sc_attr_base">
+| <SC_ATTRIBUTE : "sc_attribute">
+| <SC_ATTR_CLTN : "sc_attr_cltn">
+| <SC_BV_BASE : "sc_bv_base">
+| <SC_EVENT_FINDER_T : "sc_event_finder_t">
+| <SC_EVENT_FINDER : "sc_event_finder">
+| <SC_EVENT_QUEUE_IF : "sc_event_queue_if">
+| <SC_FXNUM_FAST_OBSERVER : "sc_fxnum_fast_observer">
+
+
+
+| <SC_FXNUM_OBSERVER : "sc_fxnum_observer">
+| <SC_FXVAL : "sc_fxval">
+| <SC_FXVAL_FAST : "sc_fxval_fast">
+| <SC_FXVAL_FAST_OBSERVER : "sc_fxval_fast_observer">
+| <SC_FXVAL_OBSERVER : "sc_fxval_observer">
+| <SC_INT_BASE : "sc_int_base">
+| <SC_LENGTH_CONTEXT : "sc_length_context">
+| <SC_PVECTOR : "sc_pvector">
+| <SC_UINT_BASE : "sc_uint_base">
+| <SC_UNSIGNED : "sc_unsigned">
+| <SC_SIGNED : "sc_signed">
+| <SC_PLIST_ITER: "sc_plist_iter">
+| <SC_PLIST: "sc_plist">
+| < COUT: "cout" >
+| < CERR: "cerr" >
+
+| <TLM_SYNC_ENUM : "tlm_sync_enum">
+| <TLM_INITIATOR_SOCKET : "tlm_initiator_socket">
+| <TLM_TARGET_SOCKET : "tlm_target_socket">
+| <PEQ_WITH_CB_AND_PHASE : "peq_with_cb_and_phase">
+| <TLM_DMI : "tlm_dmi">
+
+}
+
+TOKEN [IGNORE_CASE] :
+{
+  <  OCTALINT : "0" (["0"-"7"])* >
+| <  OCTALLONG : <OCTALINT> "l" >
+| <  UNSIGNED_OCTALINT : <OCTALINT> "u" >
+| <  UNSIGNED_OCTALLONG : <OCTALINT> ("ul" | "lu") >
+
+| <  DECIMALINT : ["1"-"9"] (["0"-"9"])* >
+| <  DECIMALLONG : <DECIMALINT> ["u","l"] >
+| <  UNSIGNED_DECIMALINT : <DECIMALINT> "u" >
+| <  UNSIGNED_DECIMALLONG : <DECIMALINT> ("ul" | "lu") >
+
+
+| <  HEXADECIMALINT : "0x" (["0"-"9","a"-"f"])+ >
+| <  HEXADECIMALLONG : <HEXADECIMALINT> (["u","l"])? >
+| <  UNSIGNED_HEXADECIMALINT : <HEXADECIMALINT> "u" >
+| <  UNSIGNED_HEXADECIMALLONG : <HEXADECIMALINT> ("ul" | "lu") >
+
+
+| <  FLOATONE : ((["0"-"9"])+ "." (["0"-"9"])* | (["0"-"9"])* "." (["0"-"9"])+)
+              ("e" (["-","+"])? (["0"-"9"])+)? (["f","l"])? >
+
+| <  FLOATTWO : (["0"-"9"])+ "e" (["-","+"])?  (["0"-"9"])+ (["f","l"])? >
+}
+
+TOKEN :
+{
+
+  <FIXED_POINT_QUANTIZATION_TYPE: "SC_RND" | "SC_RND_ZERO" | "SC_RND_MIN_INF" | "SC_RND_INF" | "SC_RND_CONV" | "SC_TRN" | "SC_TRN_ZERO" >
+| <FIXED_POINT_OVERFLOW_TYPE: "SC_SAT" | "SC_SAT_ZERO" | "SC_SAT_SYM" | "SC_WRAP" | "SC_WRAP_SM"  >
+| <SC_TIME_CONSTANTS: "SC_FS" | "SC_PS" | "SC_NS" | "SC_US" | "SC_MS" | "SC_SEC" >
+| <SC_CONTEXT_BEGIN_CONSTANTS: "SC_NOW" | "SC_LATER" >
+| <SC_SWITCH_CONSTANTS: "SC_ON" | "SC_OFF" >
+| <SC_FMT_CONSTANTS: "SC_E" | "SC_F" >
+| <SC_NUMREP_CONSTANTS: "SC_DEC" | "SC_BIN" | "SC_BIN_US" | "SC_BIN_SM" | "SC_OCT" | "SC_OCT_US" | "SC_OCT_SM" | "SC_HEX" | "SC_HEX_US" | "SC_HEX_SM" | "SC_CSD">
+//| <SC_LAMBDA_RATOR_E_CONSTANTS1: "SC_LAMBDA_FALSE" | "SC_LAMBDA_TRUE" | "SC_LAMBDA_AND" | "SC_LAMBDA_OR" | "SC_LAMBDA_NOT" | "SC_LAMBDA_BOOL">
+//| <SC_LAMBDA_RATOR_E_CONSTANTS2: "SC_LAMBDA_BOOL_EQ" | "SC_LAMBDA_BOOL_NE" | "SC_LAMBDA_SUL_EQ" | "SC_LAMBDA_SUL_NE" | "SC_LAMBDA_INT_EQ" | "SC_LAMBDA_INT_NE" | "SC_LAMBDA_INT_LE" | "SC_LAMBDA_INT_GE">
+//| <SC_LAMBDA_RATOR_E_CONSTANTS3: "SC_LAMBDA_INT_LT" | "SC_LAMBDA_INT_GT" | "SC_LAMBDA_SUL_BITAND" | "SC_LAMBDA_SUL_BITOR" | "SC_LAMBDA_SUL_BITNOT" | "SC_LAMBDA_SUL_BITXOR" | "SC_LAMBDA_INT_ADD">
+//| <SC_LAMBDA_RATOR_E_CONSTANTS4: "SC_LAMBDA_INT_SUB" | "SC_LAMBDA_INT_MUL" | "SC_LAMBDA_INT_DIV" | "SC_LAMBDA_INT_REM" | "SC_LAMBDA_INT_BITAND" | "SC_LAMBDA_INT_BITOR" | "SC_LAMBDA_INT_BITNOT" | "SC_LAMBDA_INT_BITXOR">
+| <SC_LAMBDA_RAND_E_CONSTANTS:    "SC_LAMBDA_RAND_LAMBDA" | "SC_LAMBDA_RAND_SIGNAL_INT" | "SC_LAMBDA_RAND_SIGNAL_SUL" | "SC_LAMBDA_RAND_SIGNAL_BOOL" | "SC_LAMBDA_RAND_INT" | "SC_LAMBDA_RAND_SUL" | "SC_LAMBDA_RAND_BOOL">
+| <SC_ENC_CONSTANTS:    "SC_TC_" | "SC_US_">
+                                                                
+| <SC_SEVERITY_CONSTANTS: "SC_INFO" | "SC_WARNING" | "SC_ERROR" | "SC_FATAL" >
+| <SC_ACTION_CONSTANTS: "SC_UNSPECIFIED" | "SC_DO_NOTHING" | "SC_THROW" | "SC_LOG" | "SC_DISPLAY" | "SC_CACHE_REPORT" | "SC_INTERRUPT" | "SC_STOP" | "SC_ABORT" >
+| <SC_REPORT_HANDLER_METHODS : "report" | "set_handler" | "set_actions" | "stop_after" | "suppress" | "force" | "get_new_action_id" | "get_log_file_name"
+                               | "set_log_file_name" | "get_cached_report" | "clear_cached_report">
+| <SC_STOP_MODE_CONSTANTS : "SC_STOP_IMMEDIATE" | "SC_STOP_FINISH_DELTA" >
+| <SC_CURR_PROC_KIND_CONSTANTS : "SC_NO_PROC_" | "SC_METHOD_PROC_" | "SC_THREAD_PROC_" | "SC_CTHREAD_PROC_" >
+| <SC_IO_MANIPULATORS :  "boolalpha" | "noboolalpha" | "showbase" | "showpoint"
+                       | "noshowpoint" | "showpos" | "noshowpos" | "skipws" | "noskipws" | "uppercase" | "nouppercase"
+                       | "internal" | "left" | "right" | "dec" | "hex" | "oct" | "fixed" | "scientific"
+                       | "endl" | "ends" | "flush" | "ws">
+| <SC_IO_MANIPULATOR_WITH_PARAM : "resetiosflags" | "setiosflags" | "setbase" | "setfill" | "setprecisionl" | "setw">
+| <SC_LOGIC_VALUE_T_CONSTANT : "Log_0" | "Log_1" | "Log_Z" | "Log_X" >
+| <SC_LOGIC_CONSTANT : "SC_LOGIC_0" | "SC_LOGIC_1" | "SC_LOGIC_Z" | "SC_LOGIC_X" >
+| <  CHARACTER : ("L")? "'"
+   (   (~["'","\\","\n","\r"])
+   | ("\\" (
+             ["n","t","v","b","r","f","a","\\","?","'","\""]
+            |
+             "0" (["0"-"7"])*
+            |
+             ["1"-"9"] (["0"-"9"])*
+            |
+             ("0x" | "0X") (["0"-"9","a"-"f","A"-"F"])+
+           )
+     )
+   )
+   "'" >
+
+| <  STRING : ("L")? "\""
+
+   ( ( ~["\"","\\","\n","\r"])
+   | ("\\" (
+             ["n","t","v","b","r","f","a","\\","?","'","\""]
+            |
+
+             "0" (["0"-"7"])*
+            |
+             ["1"-"9"] (["0"-"9"])*
+            |
+             ("0x" | "0X") (["0"-"9","a"-"f","A"-"F"])+
+           )
+     )
+   )*
+   "\"" >
+}
+
+TOKEN: {
+<PREPROCESSOR_OUTPUT : "#" (~["\n","\\"])+ >
+|
+<FZI_SIM_PRAGMA : "//pragma_SysXplorer">
+|
+<FZI_SIM_PRAGMA_ITER_TYPE : "iterations" >
+|
+<FZI_SIM_PRAGMA_SIGNAL_TYPE : "signal" >
+}
+
+
+ASTtranslation_unit translation_unit() :
+{}
+{  {
+
+    sym.OpenScope(null, false);
+    m_isSC_main = false;
+    m_isStream_output = false;
+    m_isBal = true;
+    m_isFirst = false;
+    m_comentSet = new TreeSet();
+    // resets the instance counter.
+    m_curASTInstanceId = 0;
+   } 
+    
+   ( LOOKAHEAD(2) external_declaration() )* <EOF>
+   { sym.CloseScope();
+
+   return jjtThis; }
+}
+
+Token getID() #void :
+{Token t = null;}
+{  (
+     t = <ID>
+    |
+     t = <FZI_SIM_PRAGMA_SIGNAL_TYPE>
+    |
+     t = <FZI_SIM_PRAGMA_ITER_TYPE>
+    |
+     t = <SC_IO_MANIPULATORS>
+    |
+     t = <SC_IO_MANIPULATOR_WITH_PARAM>
+    |
+     t = <SC_REPORT_HANDLER_METHODS>
+     
+   )
+   { return t;}
+}
+void preprocessor_directive() :
+{Token t; }
+{
+   t = <PREPROCESSOR_OUTPUT> {
+//    System.out.println(t.image);
+//
+//    System.out.println(getToken(1).image);
+//    System.out.println(getToken(2).image);
+//    System.out.println(getToken(3).image);
+//    System.out.println(getToken(4).image);
+      jjtThis.setName(t.image);
+
+
+     while(getToken(1).image.equals("\\")){
+       // shifts token pointer forward
+       getNextToken();
+       // skips all "\\" tokens
+       while(getToken(1).image.equals("\\"))
+        getNextToken();
+
+       jjtThis.setName(jjtThis.name() + getToken(1).image);
+       // shifts token pointer forward
+       getNextToken();
+     }
+   }
+   ("\\")?
+}
+
+
+void external_declaration() :
+{ boolean isTypedef = false;
+  m_isFirst = true;
+}
+{
+    LOOKAHEAD(("typedef" | template_head())? class_head()  "{")
+       ( template_head() )? declaration()
+   |
+    LOOKAHEAD("enum" (getID())? "{")
+       enum_specifier() (init_declarator_list(false))?  ";"
+   |
+    LOOKAHEAD ((template_head())? dtor_ctor_decl_spec()
+                               dtor_declarator() "{")
+       dtor_definition()
+   |
+    LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+       ctor_definition()
+
+   |
+    LOOKAHEAD(<USING>)
+     declaration()
+   |
+    LOOKAHEAD(function_definition())
+       function_definition()
+
+   |
+    LOOKAHEAD((scope_override())? "operator")
+         conversion_function_decl_or_def()
+   |
+    template_head()
+      (
+        LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+           ctor_definition()
+      |
+        LOOKAHEAD((declaration_specifiers())?  function_declarator_lookahead())
+           function_definition()
+      |
+        isTypedef = declaration_specifiers()
+               (init_declarator_list(isTypedef))?  ";"
+      )
+   |
+   LOOKAHEAD(3)
+    declaration()
+   |
+    ";"
+   |
+
+   preprocessor_directive()
+   |
+    fzi_sim_directive()
+   |
+    namespace_definition()
+   |
+   LOOKAHEAD(2)
+    sc_main_declaration()
+
+}
+
+void fzi_sim_directive() :
+{
+ Token type = null, name = null;
+
+ int min = 0, max = 0, id_type = 0;
+}
+{
+  <FZI_SIM_PRAGMA>
+  (
+    (
+      type = <FZI_SIM_PRAGMA_ITER_TYPE>  { id_type = 0; } min = constant_int() max = constant_int()
+    )
+   |
+    (
+      type = <FZI_SIM_PRAGMA_SIGNAL_TYPE>  {  id_type = 1; } name = getID() 
+    )
+
+  )
+  {
+    jjtThis.setName(type.image);
+    jjtThis.setTypeId(id_type);
+
+    if (id_type == 0) {
+      jjtThis.setMinValue(min);
+      jjtThis.setMaxValue(max);
+    }
+    else
+    if (id_type == 1) {
+      jjtThis.setSignalName(name.image);
+    }
+  }
+  
+}
+
+
+void sc_main_declaration() :
+{Token t;}
+{
+
+  <INT> { addDeclaration_specifiers("int", 0, false); } 
+    t = <SC_MAIN>
+    {
+      ASTfunction_declarator fd = new ASTfunction_declarator(null, JJTFUNCTION_DECLARATOR);
+      jjtree.openNodeScope(fd);
+
+
+
+        ASTqualified_id qual_id = new ASTqualified_id(null, JJTQUALIFIED_ID);
+        jjtree.openNodeScope(qual_id);
+
+        qual_id.setName(t.image);
+
+        jjtree.closeNodeScope(qual_id, true);
+      
+      
+    }
+    pl() parameter_list() pr()
+    { jjtree.closeNodeScope(fd, true); }
+       (
+     "{"
+
+       { sym.OpenScope(null, false); m_isSC_main = true; }
+
+       (
+
+//          LOOKAHEAD(sc_function_in_sc_main() postfix_expression_helper_main())
+         LOOKAHEAD(3)
+          (sc_function_in_sc_main() [ LOOKAHEAD(2) ";"]) #block_statement
+         |
+          LOOKAHEAD(statement())
+            statement()
+
+       )*
+
+       { sym.CloseScope(); }
+
+     "}"
+
+     { m_isSC_main = false; }
+
+     ) #block
+
+}
+
+
+void sc_spawn_routine_wrap() #systemCRoutine :
+{Token t = null;}
+{
+  t = sc_spawn_routine()
+  {jjtThis.setName(t.image);}
+}
+void dyn_process_creation_block_declaration() :
+{}
+{
+  <SC_FORK_MACRO>
+    sc_spawn_routine_wrap()  (LOOKAHEAD(3) <COMMA> sc_spawn_routine_wrap() )*
+    [<COMMA>]
+
+  <SC_JOIN_MACRO>
+}
+
+Token sc_spawn_routine() #void:
+{Token t = null;}
+{
+  (
+    t = <SC_SPAWN_ROUTINE> expr_list()
+  )   
+   
+    { //jjtThis.setName(t.image);
+      return t;
+
+    }
+}
+
+
+void class_body(String class_name) #void:
+{}
+{
+   (
+     LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+      {
+        if (m_isCTOR_look) {
+
+          ASTmember_declaration m_d = new ASTmember_declaration(null, JJTMEMBER_DECLARATION);
+          jjtree.openNodeScope(m_d);
+
+          if (m_hasProcessMacroElab != 0)
+            addHasProcessInstruction(class_name);
+
+          jjtree.closeNodeScope(m_d, true);
+        }
+      }
+      member_declaration(class_name)
+     |
+      // trick
+      member_declaration(class_name)
+   )*
+}
+
+void port_specifier_helper()  #void:
+{}
+{
+   [namespace_name() <SCOPE>] sc_port_specifier()
+}
+
+void sc_port_specifier()  :
+{ Token t = null; int numberOfChanels = 1; int size;
+  boolean replace = false;
+  String name = null;
+  String s = null;
+}
+{
+   [ LOOKAHEAD(scope_override_lookahead()) name = scope_override()  ]
+   /* it should be declaration_specifiers() instead !builtin_type_specifier() !!!!!!!!!!!!!!!!!! */
+
+   (
+    
+    (
+     (
+        t = <SC_IN>
+       |
+        t = <SC_OUT>
+       |
+        t = <SC_INOUT>
+     )
+     "<" declaration_specifiers_with_declarator() ">"
+    )
+
+   |
+
+
+    (
+        t = <SC_IN_CLK>
+         {
+          replace = true;
+          s = SC_IN_CONST;
+          addDeclaration_specifiers(BOOL_CONST, 0, false);
+
+          
+         }     
+       |
+        t = <SC_OUT_CLK>
+         {
+          replace = true;
+          s = SC_OUT_CONST;
+          addDeclaration_specifiers(BOOL_CONST, 0, false);
+
+         }
+        
+       |
+        t = <SC_INOUT_CLK>
+         {
+          replace = true;
+          s = SC_INOUT_CONST;
+          addDeclaration_specifiers(BOOL_CONST, 0, false);
+
+         }
+        
+    )
+   |
+
+    (
+        t = <SC_IN_RESOLVED>
+       |
+        t = <SC_OUT_RESOLVED>
+       |
+
+        t = <SC_INOUT_RESOLVED>
+    )
+   |
+
+    ( (
+        t = <SC_FIFO_IN> 
+       |
+        t = <SC_FIFO_OUT>
+      )
+      { numberOfChanels = 0; }
+
+      "<" declaration_specifiers_with_declarator() ">"
+    )
+   |
+   // master / slave ports
+
+    (
+     (
+       (
+           t = <SC_INMASTER>
+          |
+           t = <SC_OUTMASTER>
+          |
+           t = <SC_INOUTMASTER>
+          |
+           t = <SC_INSLAVE>
+          |
+           t = <SC_OUTSLAVE>
+          |
+           t = <SC_INOUTSLAVE>
+       )
+
+       "<" [ declaration_specifiers_with_declarator() ]
+
+           <COMMA>
+
+           m_s_protocol_declaration()
+       ">"
+
+      )
+
+
+     |
+
+      (  (
+           t = <SC_MASTER>
+          |
+           t = <SC_SLAVE>
+         )
+         "<" [ declaration_specifiers_with_declarator() ] ">"
+      )
+
+    )
+
+   |
+
+    (
+      (
+          t = <SC_IN_RV>
+         |
+          t = <SC_OUT_RV>
+         |
+          t = <SC_INOUT_RV>
+      )
+
+      "<" size = constant_int() ">"
+      {
+        jjtThis.setLength(size);
+      }
+    )
+   |
+    (
+        t = <SC_PORT> "<" sc_interface() (<COMMA> numberOfChanels = constant_int() )? ">"
+
+    )
+  |
+    (
+        t = <TLM_INITIATOR_SOCKET>  "<" ( size = constant_int() )? <COMMA> sc_interface() (<COMMA> numberOfChanels = constant_int() )? ">"
+    )
+  | 
+    (
+        t = <TLM_TARGET_SOCKET>  "<" ( size = constant_int() )? <COMMA> sc_interface() (<COMMA> numberOfChanels = constant_int() )? ">"
+    )
+   )
+
+   //qualified_id() ("," qualified_id())*
+
+    {
+      if (replace)
+
+        jjtThis.setName(s);
+
+      else
+        jjtThis.setName(t.image);
+
+      jjtThis.setNumberOfChanels(numberOfChanels);
+    }
+
+
+}
+
+//void export_declaration() :
+//{Token t;}
+//{
+//     (
+//        t = <SC_EXPORT>
+//     )
+//
+//     "<" declaration_specifiers_with_declarator() ">"
+//
+//     qualified_id() ("," qualified_id())*
+//
+//     {
+//       jjtThis.setName(t.image);
+//
+//}    }
+
+void m_s_protocol_declaration() :
+
+{Token t2 = null; int size = 0; }
+{
+
+
+  (
+
+    (
+      (
+        t2 = <SC_NOHANDSHAKE>
+       |
+        t2 = <SC_ENABLEHANDSHAKE>
+       |
+        t2 = <SC_FULLHANDSHAKE>
+      )
+
+      {jjtThis.setProtocol(MASTER_BUS_PROTOCOL_BUS_TYPE_CONST);}
+
+      "<" declaration_specifiers_with_declarator() ">"
+
+    )
+
+   |
+    (
+      t2 = <SC_INDEXED> { jjtThis.setProtocol(MASTER_BUS_PROTOCOL_INDEXED_TYPE_CONST); }
+
+      "<" size = constant_int()
+
+          { jjtThis.setRange(size); }
+
+      ">"
+
+    )
+  )
+  {
+    jjtThis.setName(t2.image);
+  }
+}
+
+
+
+void sc_interface() #void:
+{}
+{   /* it should be declaration_specifiers() instead declaration_specifiers() !!!!!!!!!!!!!!!!!!! */
+   declaration_specifiers_with_declarator()
+}
+
+
+
+void c_built_inTypes(SCPortTypes jjt) #void :
+{ boolean isSignedChar = false;}
+
+{
+  <VOID>  { jjt.setName("void"); m_isCBuiltInType = true;}
+
+  |
+  <BOOL> {
+   jjt.setName("bool");
+   m_isCBuiltInType = true;
+  }
+  |
+   LOOKAHEAD(2) (<SIGNED> {isSignedChar = true;} )? <CHAR>
+    {
+//      jjt.setLength(CHAR_SIZE_IN_BITS);
+      if (isSignedChar)
+        jjt.setName("signed char");
+      else 
+        jjt.setName("char");
+
+      m_isCBuiltInType = true;
+    }
+
+  |
+   LOOKAHEAD(2) <UNSIGNED> <CHAR>
+    {
+//      jjt.setLength(CHAR_SIZE_IN_BITS);
+      jjt.setName("unsigned char");
+      m_isCBuiltInType = true;
+
+    }
+
+  |
+   LOOKAHEAD(2) (<SIGNED>)? <SHORT>
+    {
+      jjt.setName("short");
+      m_isCBuiltInType = true;
+//      jjt.setLength(SHORT_SIZE_IN_BITS);
+    }
+
+  |
+   LOOKAHEAD(2) <UNSIGNED> <SHORT>
+    {
+      jjt.setName("unsigned short");
+      m_isCBuiltInType = true;
+//      jjt.setLength(SHORT_SIZE_IN_BITS);
+    }
+
+  |
+   LOOKAHEAD(2) (<SIGNED>)? <LONG>
+    {
+      jjt.setName("long");
+      m_isCBuiltInType = true;
+//      jjt.setLength(LONG_SIZE_IN_BITS);
+    }
+
+  |
+   LOOKAHEAD(3) <UNSIGNED> <LONG>
+    {
+      jjt.setName("unsigned long");
+      m_isCBuiltInType = true;
+//      jjt.setLength(LONG_SIZE_IN_BITS);
+    }
+
+  |
+   LOOKAHEAD(2) (<SIGNED>)? <INT>
+    {
+//      jjt.setLength(INT_SIZE_IN_BITS);
+      jjt.setName("int");
+      m_isCBuiltInType = true;
+    }
+ |
+   LOOKAHEAD(2) <SIGNED>
+    {
+//      jjt.setLength(INT_SIZE_IN_BITS);
+      jjt.setName("int");
+      m_isCBuiltInType = true;
+    }
+
+  |
+   LOOKAHEAD(2) (<UNSIGNED>)? <INT>
+    {
+
+//      jjt.setLength(INT_SIZE_IN_BITS);
+      jjt.setName("unsigned int");
+      m_isCBuiltInType = true;
+
+    }
+
+  |
+   LOOKAHEAD(2) <UNSIGNED>
+    {
+      jjt.setName("unsigned int");
+//      jjt.setLength(INT_SIZE_IN_BITS);
+      m_isCBuiltInType = true;
+    }
+
+
+  |
+
+   <FLOAT>
+     {
+//      jjt.setLength(FLOAT_SIZE_IN_BITS);
+      jjt.setName("float");
+      m_isCBuiltInType = true;
+     }
+  |
+
+   <UINT64>
+     {
+//      jjt.setLength(INT_SIZE_IN_BITS);
+      jjt.setName("uint64");
+      m_isCBuiltInType = true;
+     }
+  |
+   <DOUBLE>
+     {
+
+
+
+       jjt.setName("double");
+       m_isCBuiltInType = true;
+//       jjt.setLength(DOUBLE_SIZE_IN_BITS);
+     }
+
+}
+
+Token systemCTypes(SCPortTypes jjt) #void:
+{Token t = null;
+
+ int size = 1;
+}
+{
+  (
+   t = <SC_BIT>  {
+               jjt.setLength(0);
+            }
+  |
+   t = <SC_INT> "<" size = constant_int() ">"
+            {
+               if (size > MAX_FIXED_PRECISION_INTEGER ) {
+                 throw new IndexOutOfBoundsException("Size " + size + " is out of range [1.." + MAX_FIXED_PRECISION_INTEGER + "]" );
+               }
+               jjt.setLength(size);
+            }
+  |
+   t = <SC_UINT> "<" size = constant_int() ">"
+            {
+               if (size > MAX_FIXED_PRECISION_INTEGER ) {
+                 throw new IndexOutOfBoundsException("Size " + size + " is out of range [1.." + MAX_FIXED_PRECISION_INTEGER + "]" );
+               }
+               jjt.setLength(size);
+            }
+  |
+   t = <SC_BIGINT> "<" size = constant_int() ">"
+            {
+               if (size > MAX_NBITS) {
+                 throw new IndexOutOfBoundsException("Size " + size + " is out of range [1.." + MAX_NBITS + "]" );
+               }
+               jjt.setLength(size);
+            }
+  |
+   t = <SC_BIGUINT> "<" size = constant_int() ">"
+            {
+
+               if (size > MAX_NBITS) {
+                 throw new IndexOutOfBoundsException("Size " + size + " is out of range [1.." + MAX_NBITS + "]" );
+               }
+               jjt.setLength(size);
+            }
+  |
+   t = <SC_BIT_VECTOR> "<" size = constant_int() ">"
+      {
+
+         jjt.setLength(size);
+      }
+  |
+   t = <SC_LOGIC_VECTOR> "<" size = constant_int() ">"
+      {
+         jjt.setLength(size);
+      }
+  |
+   t = <SC_LOGIC>
+      {
+         jjt.setLength(0);
+      }
+  |
+   t = <SC_FIXED>
+      fixed_type_parse(jjt)
+
+  |
+   t = <SC_UFIXED>
+      fixed_type_parse(jjt)
+  |
+   t = <SC_FIX>
+
+  |
+   t = <SC_UFIX>
+  |
+   t = <SC_FXNUM>
+  |
+   t = <SC_FIXED_FAST>
+      fixed_type_parse(jjt)
+      {
+        jjt.setLength(FIXED_FAST_BIT_SIZE);
+
+      }
+  |
+
+   t = <SC_UFIXED_FAST>
+      fixed_type_parse(jjt)
+      {
+
+        jjt.setLength(FIXED_FAST_BIT_SIZE);
+      }
+  |
+   t = <SC_FIX_FAST>
+    {
+      jjt.setLength(FIXED_FAST_BIT_SIZE);
+    }
+  |
+
+   t = <SC_UFIX_FAST>
+    {
+      jjt.setLength(FIXED_FAST_BIT_SIZE);
+    }
+  |
+   t = <SC_FXNUM_FAST>
+    {
+      jjt.setLength(FIXED_FAST_BIT_SIZE);
+    }
+  |
+   t = <SC_FMT>
+  |
+   t = <SC_FXNUM_FAST_BITREF>
+  |
+   t = <SC_FXNUM_SUBREF>
+  |
+   t = <SC_FXNUM_FAST_SUBREF>
+
+   
+  |
+   t = <SC_NUMREP>
+  |
+   t = <SC_FXTYPE_PARAMS>
+  |
+   t = <SC_FXTYPE_CONTEXT>
+  |
+   t = <SC_FXCAST_CONTEXT>
+  |
+   t = <SC_FXCAST_SWITCH>
+  |
+   t = <SC_FXNUM_BITREF> 
+  |
+   t = <SC_SIGNAL>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_BUFFER>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_IN_IF>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_OUT_IF>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_NB_IN_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_B_IN_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_NB_OUT_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_B_OUT_IF> "<" declaration_specifiers_with_declarator() ">"         
+  |
+   t = <SC_CONTEXT>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_CONTEXT_BEGIN>
+
+  |
+   t = <SC_MODULE_NAME>
+  |
+   t = <SC_MODULE>
+  |
+   t = <SC_CHANNEL>
+
+  |
+   t = <SC_BEHAVIOR>
+  |
+   t = <SC_LOGIC_VECTOR_BASE>
+  |
+   t = <SC_SWITCH>
+  |
+   t = <SC_INTERFACE>
+  |
+   t = <SC_MUTEX_IF>
+  |
+   t = <SC_MUTEX>
+  |
+   t = <SC_SEMAPHORE_IF>
+
+  |
+   t = <SC_SEMAPHORE>
+  |
+
+   t = <SC_SIGNAL_IN_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SIGNAL_OUT_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SIGNAL_INOUT_IF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SIGNAL_RESOLVED>
+  |
+   t = <SC_SIGNAL_RV> "<" size = constant_int() ">"
+   {
+      jjt.setLength(size);
+
+   }
+  |
+   t = <VCD_T_TRACE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <WIF_T_TRACE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PHASH_BASE>
+  |
+   t = <SC_PHASH_BASE_ITER>
+  |
+   t = <SC_PHASH> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PHASH_ITER> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PDHASH> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PDHASH_ITER> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_STRHASH> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_STRHASH_ITER> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PLIST_BASE_ITER>
+  |
+   t = <SC_PLIST_BASE>
+  |
+   t = <SC_MEMPOOL>
+  |
+   t = <SC_MPOBJECT>
+  |
+   t = <SC_PPQ_BASE>
+  |
+   t = <SC_PPQ> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_CLOCK>
+  |
+   t = <SC_TIME>
+  |
+   t = <SC_JOIN>
+  |
+   t = <SC_LAMBDA>
+  |
+   t = <SC_LAMBDA_PTR>
+  |
+   t = <SC_LAMBDA_RAND>
+  |
+   t = <SC_LAMBDA_RAND_E>
+  |
+   t = <SC_PROCESS_CB>
+  |
+   t = <SC_EXPORT_REGISTRY> 
+  |
+   t = <SC_PROCESS_CALL> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_BIND_PROXY>
+  |
+   t = <SC_MSG_DEF>
+  |
+   t = < SC_LAMBDA_RATOR_E>
+  |
+   t =< SC_ENC>
+  |
+   t = <SC_TRACE_PARAMS>   
+  |
+   t = <SC_CURR_PROC_INFO>
+  |
+   t = <SC_TIME_PARAMS>   
+  |
+   t = <SC_EVENT_TIMED> 
+  |
+   t = <SC_TIME_UNIT>
+  |
+   t = <SC_EXPORT_BASE>
+  |
+   t = <SC_PORT_BASE>
+  |
+   t = <SC_PORT_REGISTRY>
+  |
+   t = <SC_PORT_B> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_NOHANDSHAKE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FULLHANDSHAKE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_ENABLEHANDSHAKE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_INDEXED> "<" size = constant_int() ">"
+  |
+   t = <SC_O_MODE>
+  |
+   t = <SC_Q_MODE>
+  |
+   t = <SC_OBJECT>
+  |
+   t = <SC_SPAWN_OBJECT_V> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SPAWN_OBJECT>
+  |
+   t = <SC_PROCESS_MONITOR>
+  |
+   t = <SC_PROCESS_HOST>
+  |
+   t = <SC_PROCESS_BASE>
+  |
+   t = <SC_RUNNABLE>
+  |
+   t = <SC_WATCH>
+  |
+   t = <SC_CLK_POS_CALLBACK>
+  |
+   t = <SC_CLK_NEG_CALLBACK>   
+  |
+   t = <SC_CHECK> 
+  |
+   t = <SC_STOP_MODE>
+  |
+   t = <SC_EVENT>
+  |
+   t = <SC_EVENT_LIST>
+  |
+   t = <SC_EVENT_OR_LIST>
+  |
+   t = <SC_EVENT_AND_LIST>
+  |
+   t = <SC_EVENT_QUEUE>
+  |
+   t = <SC_SPAWN_OPTIONS>
+  |
+   t = <SC_PROCESS_HANDLE>
+  |
+   t = <SC_PRIM_CHANNEL>
+  |
+   t = <SC_PRIM_CHANNEL_REG>
+  |
+   t = <SC_STRING>
+  |
+   t = <SC_PROXY> "<" declaration_specifiers_with_declarator() ">" 
+  |
+  
+   t = <SC_WITHOUT_CONTEXT>
+  |
+   t = <SC_GLOBAL> "<" declaration_specifiers_with_declarator() ">" 
+  | 
+   t = <SC_LOGIC_RESOLVE>
+  |
+   t = <SC_LV_RESOLVE>  "<" size = constant_int() ">"
+     {
+        jjt.setLength(size);
+     }
+  |
+   t = <SC_TRACE_FILE>
+  |
+   t = <VCD_TRACE_FILE>
+  |
+   t = <WIF_TRACE_FILE>
+  |
+   t = <ISDB_TRACE_FILE>
+  |
+   t = <SC_SEVERITY>
+  |
+   t = <SC_ACTION>
+  |
+   t = <SC_ACTIONS>
+  |
+   t = <SC_REPORT>
+  |
+   t = <SC_STRING_OLD>
+  |
+   t = <SC_BYTE_HEAP>
+  |
+   t = <SC_VPOOL>  "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PVECTOR> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SIMCONTEXT>
+  |
+   t = <SC_API_VERSION_STRING>
+  |
+   t = <SC_BITREF_R>
+  |
+   t = <SC_BITREF> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_SUBREF_R> "<" declaration_specifiers_with_declarator() ">"   
+  |
+   t = <SC_SUBREF> "<" declaration_specifiers_with_declarator() ">"
+  |                                                                
+   t = <SC_CONCREF_R> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_CONCREF> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_COR>
+  |
+   t = <SC_COR_PKG>
+  |
+   t = <SC_METHOD_PROCESS>
+  |
+   t = <SC_PROCESS_B>
+  |
+   t = <SC_CURR_PROC_KIND>
+  |
+   t = <SC_SENSITIVE>
+  |
+   t = <SC_SENSITIVE_POS>
+  |
+   t = <SC_SENSITIVE_NEG>               
+  |
+   t = <SC_LOGIC_VALUE_T>
+  |
+   t = <SC_ATTR_BASE>
+
+  |
+   t = <SC_ATTR_CLTN>
+  |
+   t = <SC_ATTRIBUTE> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_BV_BASE>
+  |
+   t =  <SC_EVENT_FINDER_T> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t =  <SC_EVENT_FINDER>
+  |
+   t = <SC_EVENT_QUEUE_IF> 
+  |
+  t =  <SC_FXNUM_FAST_OBSERVER>
+  |
+   t =  <SC_FXNUM_OBSERVER>
+  |
+   t =  <SC_FXVAL>
+  |
+   t =  <SC_FXVAL_FAST>
+  |
+   t =  <SC_FXVAL_FAST_OBSERVER>
+  |
+   t =  <SC_FXVAL_OBSERVER>
+  |
+   t = <SC_INT_BASE>
+  |
+   t = <SC_LENGTH_CONTEXT>
+
+  | 
+   t = <SC_PLIST_ITER> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_PLIST> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_UINT_BASE>
+  |
+   t = <SC_UNSIGNED>
+  |
+   t = <SC_SIGNED>
+  |
+   t = <SC_EXPORT> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_IN> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_OUT> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_INOUT> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_IN_CLK>
+  |
+   t = <SC_OUT_CLK>
+  |
+   t = <SC_INOUT_CLK>
+  |
+   t = <SC_IN_RESOLVED>
+  |
+   t = <SC_OUT_RESOLVED>
+  |
+   t = <SC_INOUT_RESOLVED>
+  |
+   t = <SC_FIFO_IN> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_FIFO_OUT> "<" declaration_specifiers_with_declarator() ">"
+  |
+   t = <SC_MASTER> "<" [ declaration_specifiers_with_declarator() ] ">"
+  |
+   t = <SC_SLAVE>  "<" [ declaration_specifiers_with_declarator() ] ">"
+
+  |
+   t = < SCFX_IEEE_DOUBLE>
+  | 
+   t = < SCFX_IEEE_FLOAT>
+  |
+   t = < SCFX_MANT>
+  |
+   t = < SCFX_MANT_REF>
+  |
+   t = < SCFX_PARAMS>
+  |
+   t = < SCFX_INDEX>
+  |
+   t = < SCFX_REP>
+  |
+   t = < SCFX_STRING>
+  |
+   t = < SCFX_INT_BITREF_R>
+  |
+   t = < SCFX_INT_BITREF>
+  |
+   t = < SCFX_INT_SUBREF_R>
+  |
+   t = < SCFX_INT_SUBREF>
+  |
+   t = < SC_LENGTH_PARAM>
+  |
+   t = < SC_SIGNED_BITREF_R>
+  |
+   t = < SC_SIGNED_BITREF>
+  |
+   t = < SC_SIGNED_SUBREF_R>
+  |
+   t = < SC_SIGNED_SUBREF>
+  |
+   t = < SC_UINT_BITREF_R>
+  |
+   t = < SC_UINT_BITREF>
+  |
+   t = < SC_UINT_SUBREF_R>
+  |
+   t = < SC_UINT_SUBREF>
+  |
+   t = < SC_UNSIGNED_BITREF_R>
+  |
+   t = < SC_UNSIGNED_BITREF>
+  |
+   t = < SC_UNSIGNED_SUBREF_R>
+  |
+   t = < SC_UNSIGNED_SUBREF>
+  |
+   t = < SC_CONCATREF>
+  |
+   t = < SC_CONCAT_BOOL>
+  |
+   t = < SC_VALUE_BASE>
+  |
+   t = < SC_GENERIC_BASE> "<" declaration_specifiers_with_declarator() ">"   
+  |
+   t = <SC_IN_RV>   "<" size = constant_int() ">"
+      {
+        jjt.setLength(size);
+      }
+
+  |
+   t = <SC_OUT_RV>  "<" size = constant_int() ">"
+      {
+        jjt.setLength(size);
+      }
+
+  |
+   t = <SC_INOUT_RV> "<" size = constant_int() ">"
+   
+      {
+        jjt.setLength(size);
+      }
+  |
+   t = <SC_PORT> "<" sc_interface() (<COMMA> size = constant_int() )? ">"
+  |
+   t = <TLM_INITIATOR_SOCKET>  "<" ( size = constant_int() )? <COMMA> declaration_specifiers_with_declarator()  <COMMA> ( constant_int() )? ">"
+      {
+        jjt.setLength(size);
+      }
+  |
+   t = <TLM_TARGET_SOCKET>  "<" ( size = constant_int() )? <COMMA> declaration_specifiers_with_declarator()  <COMMA> ( constant_int() )? ">"
+      {
+        jjt.setLength(size);
+      }
+  |
+   (
+    (
+        t = <SC_INMASTER>
+
+       |
+        t = <SC_OUTMASTER>
+       |
+        t = <SC_INOUTMASTER>
+       |
+        t = <SC_INSLAVE>
+       |
+        t = <SC_OUTSLAVE>
+       |
+        t = <SC_INOUTSLAVE>
+    )
+
+    "<" [ declaration_specifiers_with_declarator() ]
+
+        <COMMA>
+
+        m_s_protocol_declaration()
+    ">"
+
+   )   
+  |
+   t = <SC_THREAD_HANDLE>
+  |
+   t = <SC_CTHREAD_HANDLE>
+  |
+   t = <SC_METHOD_HANDLE>
+  |  
+   t = <TLM_SYNC_ENUM>
+  |
+   t = <TLM_DMI> 
+  |
+   t = <PEQ_WITH_CB_AND_PHASE> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+ )
+ {
+   jjt.setSystemCDataType(true);
+   jjt.setName(t.image);
+
+   return t;
+ }
+}
+
+String report_handler_scope() #void :
+{Token t; String name;}
+{
+  (t = <SC_REPORT_HANDLER> <SCOPE> name = report_handler_method() )
+  { return t.image + "::" + name; }
+  
+}
+
+String report_handler_method() #void:
+{Token t;}
+{
+  t = <SC_REPORT_HANDLER_METHODS> expr_list()
+  { return t.image; }
+
+}
+
+void fixed_type_parse(SCPortTypes jjt) #void :
+{
+  int size, size2, size3 = 0;
+  Token t3 = null, t4 = null;
+
+}
+{
+  "<" size = constant_int()
+  <COMMA> size2 = constant_int()
+  (LOOKAHEAD(2) <COMMA> t3  = <FIXED_POINT_QUANTIZATION_TYPE>)?
+  (LOOKAHEAD(2) <COMMA> t4  = <FIXED_POINT_OVERFLOW_TYPE>)?
+  (<COMMA> size3  = constant_int())?
+  ">"
+  {
+
+    jjt.setTotalWordLength(size);
+    jjt.setIntegerWordLength(size2);
+
+    if (t3 != null)
+      jjt.setQuantizationMode(t3.image);
+
+    if (t4 != null)
+      jjt.setOverflowMode(t4.image);
+
+    if (size3 != 0)
+      jjt.setNumberOfSaturatedBits(size3);
+
+    jjt.setSystemCDataType(true);
+  }
+
+}
+
+Token sc_wait_until_statement() #void :
+{
+Token t;
+}
+
+{
+  t = <SC_WAIT_UNTIL_ROUTINE> sc_wait_watching_statement()
+  { return t;}
+
+}
+
+
+void sc_wait_watching_statement() #void :
+
+{
+}
+
+{
+  expr_list()
+}
+//{
+//   pl()
+//    [pl()] waiting_event() [pr()]
+//   (
+//
+//     (<AND> [pl()] waiting_event() [pr()] #and_node(2))
+//    |
+//     (<OR>  [pl()] waiting_event()  [pr()] #or_node(2))
+//   )*
+//   pr()
+//
+//}
+
+//void waiting_event() :
+//{Token name = null;
+// boolean value = true, value2 = true, result, isEqual = false, logExpr = false;
+//}
+//{
+//
+//    (<NOT> { value = !value;} )? name = getID() ".delayed()" { jjtThis.setName(name.image); }
+//
+//    ((<EQUAL> {isEqual = true;} | <NOTEQUAL> ) {logExpr = true;} value2 = delayed2()  )?
+//
+//    {
+//      if ((value2 && !value) || (!value2 && value)) {
+//        result = false;
+//      }
+//      else {
+//        result = true;
+//
+//      }
+//      if (logExpr == true && isEqual == false) {
+//        result = !result;
+//      }
+//
+//      jjtThis.setEventValue(result);
+//
+//    }
+//
+//
+//
+//}
+
+
+void sc_slave()  :
+{Token t, t2;}
+{
+    <SC_SLAVE_MACRO> "(" t =  getID() <COMMA>  t2 = getID() ")"
+      {
+        jjtThis.setSlaveMethod(t.image);
+
+        jjtThis.setSlavePort(t2.image);
+        m_isExtOfSCClass = true;
+      }
+}
+
+void dont_initialize() #systemCRoutine :
+{Token t;}
+{
+
+  t = <DONT_INITIALIZE> expr_list() ";" {jjtThis.setName(t.image);}
+}
+
+
+void sc_method()  :
+{Token t;}
+{
+    <SC_METHOD> "(" t =  getID() ")" {jjtThis.setName(t.image); m_isExtOfSCClass = true; }
+}
+
+
+void sc_thread()  :
+{Token t;}
+{
+    <SC_THREAD> "(" t = getID() ")" {jjtThis.setName(t.image);  m_isExtOfSCClass = true; }
+
+}
+
+void sc_report_macro() :
+{Token t;}
+{
+  (
+    t = <SC_REPORT_INFO_MACRO>
+   |
+    t = <SC_REPORT_WARNING_MACRO>
+   |
+    t = <SC_REPORT_ERROR_MACRO>
+   |
+    t = <SC_REPORT_FATAL_MACRO>
+  )
+
+  {
+    jjtThis.setName(t.image);
+  }
+  pl()
+  (expression_list())?
+  pr()
+}
+
+void sc_cthread() :
+{
+  String s1;
+  String s2;
+  String s3 = "pos"; // default value
+}
+{
+   <SC_CTHREAD>  "(" s1 = clocked_thread() "," s2 = clock() (( "." | "->" ) s3 = edge() "("")")? ")"
+   {
+      jjtThis.setName(s1);
+      jjtThis.setClock(s2);
+      jjtThis.setEdge(s3);
+      m_isExtOfSCClass = true;
+   }
+}
+
+String clocked_thread() #void:
+
+{
+  Token t;
+}
+{
+  t = getID()
+  { return t.image;}
+
+}
+
+
+String clock() #void:
+{
+  Token t1;
+}
+{
+  t1 = getID()
+  { return t1.image ; }
+
+}
+
+String edge() #void:
+{
+  Token t1;
+}
+{
+  t1 = getID()
+  { return t1.image ; }
+
+}
+
+
+
+void sc_watching_list()  :
+{}
+{
+
+    ( LOOKAHEAD(2) <SC_WATCHING_ROUTINE> sc_wait_watching_statement() ";" #sc_watching(1) )+
+}
+
+//void sc_watching()  :
+//{
+// String event;
+// String delayed;
+//}
+//{
+//
+//    <SC_WATCHING_ROUTINE>  "(" event = watching_event()  "==" delayed = delayed() ")"
+
+//    {
+//	jjtThis.setEvent(event);
+//        jjtThis.setDelayed(delayed);
+//    }
+//}
+//
+//String watching_event() #void:
+//{
+//  Token t;
+//}
+//{
+//  t=getID()".delayed()"
+//  { return t.image;}
+//}
+//
+//String delayed() #void:
+//{
+//  Token t;
+//
+//}
+//{
+//  (t = <TRUETOK>
+//  | t = <FALSETOK>)
+//  { return t.image;}
+//}
+
+boolean delayed2() #void:
+{
+
+  Token t;
+
+}
+{
+  (t = <TRUETOK>
+  | t = <FALSETOK>)
+  { return Boolean.parseBoolean(t.image);}
+}
+
+void method_thread_fol_decl() #void :
+{}
+{
+  (
+    LOOKAHEAD(2) sc_sensitive_expr() (LOOKAHEAD(2) (dont_initialize() ))?
+   |
+    (dont_initialize() ) (LOOKAHEAD(2) sc_sensitive_expr())?
+  )
+
+//    sc_sensitive_dont_intit_expr()
+
+}
+
+void sc_sensitive_expr() #void :
+{}
+{
+  (LOOKAHEAD(2) sc_sensitive() )+
+}                             // | LOOKAHEAD(2) dont_initialize()
+
+
+void sc_sensitive() :
+{}
+{
+   LOOKAHEAD(2)
+   (
+     (
+       <SENSITIVE> { jjtThis.setName("normal"); }
+      |
+       <SENSITIVE_POS> { jjtThis.setName("positive"); }
+      |
+       <SENSITIVE_NEG> { jjtThis.setName("negative"); }
+     )
+     (<SHIFTLEFT> (LOOKAHEAD(qualified_id() (<SHIFTLEFT> | ";") ) qualified_id() | postfix_expression() #postfix_expression(>1)  ) )+ ";"
+   )
+  |
+(
+     (
+       <SENSITIVE> { jjtThis.setName("normal"); }
+      |
+       <SENSITIVE_POS> { jjtThis.setName("positive"); }
+      |
+       <SENSITIVE_NEG> { jjtThis.setName("negative"); }
+     )
+     pl() (LOOKAHEAD(qualified_id() pr() ) qualified_id() | postfix_expression() #postfix_expression(>1)) pr() ";"
+   )
+}
+
+//     (
+//       <SENSITIVE> { jjtThis.setName("normal"); }
+//      |
+//       <SENSITIVE_POS> { jjtThis.setName("positive"); }
+//      |
+//       <SENSITIVE_NEG> { jjtThis.setName("negative"); }
+//     )
+//
+//
+//
+//     (LOOKAHEAD(2) <SHIFTLEFT> qualified_id())+ ";"
+//
+//  |
+//   (
+////     (
+////       <SENSITIVE> { jjtThis.setName("normal"); }
+////      |
+////       <SENSITIVE_POS> { jjtThis.setName("positive"); }
+////      |
+////       <SENSITIVE_NEG> { jjtThis.setName("negative"); }
+////     )
+//     pl() qualified_id() pr() ";"
+//   )
+//}
+
+
+
+//void sensitive_item() :
+//{String s;}
+//{
+//  s = qualified_id() {jjtThis.setName(s);}
+//}
+
+void sc_notify() :
+{
+ Token t1 = null;
+ String s = "";
+ String cur;
+ String access_cur, access_last = "";
+
+}
+{
+
+  ( t1 = getID() { cur = t1.image; }
+         ( pl() pr() {cur += "()";} )?
+        ("->" {access_cur = "->";} |"." { access_cur = ".";})
+
+         {
+           if (s.length() != 0)
+             s = s + access_last + cur;
+           else
+             s = cur;
+
+           access_last = access_cur;
+         }
+  )*
+
+
+
+  <SC_NOTIFY> pl() ( expression_list() )?  pr()
+  {
+    if(s.length() > 0)
+      jjtThis.setName(s);
+  }
+
+}
+
+void function_definition() :
+{
+   Scope sc = null;
+   boolean isTypedef;
+}
+{
+(
+    LOOKAHEAD(3) isTypedef = declaration_specifiers()
+        sc = function_declarator(isTypedef) func_decl_def(sc)
+   |
+    sc = function_declarator(false) func_decl_def(sc)
+)
+}
+
+/* veraendert */
+void func_decl_def(Scope sc) #void :
+{
+   boolean closeReqd = false;
+}
+{
+  {
+     if (closeReqd = (sc != null && sc != sym.GetCurScope()))
+        sym.SetCurrentScope(sc);
+  }
+
+  (
+    ";"                  // deklaration
+   |
+
+    compound_statement() // deklaration und definition
+  )
+
+
+  { if (closeReqd) sym.CloseScope(); }
+}
+
+void linkage_specification() :
+{}
+{
+   "extern" <STRING>
+   (
+    "{" ( external_declaration() )* "}"
+      ( LOOKAHEAD(";") ";")?
+   |
+    declaration()
+   )
+}
+
+void declaration() :
+
+{ boolean isTypedef = false; }
+
+{
+    LOOKAHEAD(5)
+      (isTypedef = declaration_specifiers()
+               [ LOOKAHEAD( init_declarator_list(isTypedef) ) init_declarator_list(isTypedef) ] ";" ) #init_declarator_list(>1)
+
+   |
+    linkage_specification()
+   |
+    alias_namespace_definition()
+   |
+   LOOKAHEAD(2)
+    using_declaration()
+   |
+    using_directive()
+}
+
+
+/**
+ * Very temporary. Just returns true if it sees a typedef. Finally, we will
+ * need a structure that stores all the attributes.
+ */
+boolean type_modifiers() :
+
+{ boolean isTypedef = false; Token t = null;}
+{
+   (
+     isTypedef = storage_class_specifier()
+    |
+     type_qualifier()
+    |
+
+     t = <INLINE>
+    |
+     t = <VIRTUAL>
+    |
+     t = <FRIEND>
+
+    {if (t != null) jjtThis.setName(t.image);}
+   )
+
+   { return isTypedef; }
+}
+
+/**
+
+ * Very temporary. Just returns true if it sees a typedef. Finally, we will
+ * need a structure that stores all the attributes.
+ */
+boolean declaration_specifiers() :
+{
+   String name = null;
+   boolean isTypedef = false, tmp;
+}
+{
+   [ LOOKAHEAD(scope_override_lookahead()) name = scope_override()  ]
+ (
+   (
+      LOOKAHEAD(type_modifiers()) tmp = type_modifiers() { isTypedef |= tmp; }
+   )+
+
+
+    [ LOOKAHEAD(2) (
+     
+     LOOKAHEAD(builtin_type_specifier()) builtin_type_specifier() 
+         (  LOOKAHEAD(2) (
+            LOOKAHEAD(builtin_type_specifier()) builtin_type_specifier()
+          |
+            LOOKAHEAD(type_modifiers()) tmp = type_modifiers() )
+                                        { isTypedef |= tmp; }
+         )*
+    |
+     (
+        qualified_type() 
+      |
+        class_specifier()
+      |
+        enum_specifier()
+     )
+     (LOOKAHEAD(2) tmp = type_modifiers() { isTypedef |= tmp;} )*
+    ) ]
+   |
+
+    LOOKAHEAD(builtin_type_specifier()) builtin_type_specifier()
+         ( LOOKAHEAD(2) (
+            LOOKAHEAD(builtin_type_specifier()) builtin_type_specifier()
+          |
+            tmp = type_modifiers() { isTypedef |= tmp; } )
+         )*
+   |
+    (
+     
+     qualified_type() 
+    |
+      class_specifier()
+    |
+      enum_specifier()
+    
+    )
+    (LOOKAHEAD(2) tmp = type_modifiers() { isTypedef |= tmp; } )*
+ )
+
+ { return isTypedef; }
+}
+
+
+
+
+void type_specifier() :
+{}
+{
+    simple_type_specifier()
+   |
+    class_specifier()
+   |
+    enum_specifier()
+}
+
+
+void simple_type_specifier() :
+{}
+{
+   (
+   LOOKAHEAD(4)
+    builtin_type_specifier()
+   |
+    qualified_type()
+   )
+}
+
+
+void scope_override_lookahead() :
+{}
+{
+    "::"
+
+   |
+    getID() ("<" template_argument_list() ">")? "::"
+}
+
+String scope_override() :
+{
+   String name = "";
+   Token t;
+
+}
+{
+  (
+    ("::")  { name += "::"; }
+    (
+      LOOKAHEAD(getID() ( "<" template_argument_list() ">")? "::" ) t = getID()  ("<" template_argument_list() ">")? "::"
+                   { name += t.image + "::"; }
+    )*
+   |
+    (
+      LOOKAHEAD(getID() ( "<" template_argument_list() ">")? "::") t = getID()  ("<" template_argument_list() ">")? "::"
+                   { name += t.image + "::"; }
+    )+
+  )
+
+  { 
+    jjtThis.setName(name.substring(0, name.length()-2));
+    return name;
+  }
+}
+
+//String qualified_id2() #void :
+//{
+//   String name = "";
+//   Token t;
+//}
+//{
+//    [ LOOKAHEAD(scope_override_lookahead()) name = scope_override() ]
+//    (
+//      ( t = systemCKeyWords() | t = getID()  )   [ "<" template_argument_list()  ">" ]
+//      { jjtThis.setName(t.image); return name + t.image; }
+//     |
+//      "operator" optor() { return "operator"; }
+//    )
+//}
+
+
+String qualified_id() :
+{
+   String name = "";
+   Token t;
+}
+{
+    [ LOOKAHEAD(scope_override_lookahead()) name = scope_override()  ]
+    (
+     (
+       t = < SC_WAIT_UNTIL_ROUTINE>
+      |
+       t = < SC_WATCHING_ROUTINE>
+      | 
+       t = < SC_NEXT_TRIGGER>
+      |
+       t = < SC_NOTIFY>
+      |
+       t = <SC_WAIT_ROUTINE>
+      |
+       t = <SC_TRACE>
+      |
+       t = <DONT_INITIALIZE>
+      |
+       t = <SC_INITIALIZE>
+      |
+       t = <SC_ASSERT>
+      |
+       t = <SC_CYCLE>
+      |
+       t = <SC_SET_TIME_RESOLUTION>
+      |
+       t = <SC_GET_TIME_RESOLUTION>
+      |
+       t = <SC_SET_DEFAULT_TIME_UNIT>
+      |
+       t = <SC_GET_DEFAULT_TIME_UNIT>
+      |
+       t = <SC_STOP>
+      |
+       t = <SC_STOP_HERE_ROUTINE>
+      |
+       t = <SC_START>
+      |
+       t = <SC_TIME_STAMP>
+      |
+       t = <SC_CREATE_VCD_TRACE_FILE>
+      |
+       t = <SC_CLOSE_VCD_TRACE_FILE>
+      |
+       t = <SC_CREATE_WIF_TRACE_FILE>
+      |
+       t = <SC_CLOSE_WIF_TRACE_FILE>
+      |
+       t = <SC_CREATE_ISDB_TRACE_FILE>
+      |
+       t = <SC_CLOSE_ISDB_TRACE_FILE>
+      |
+       t = <SC_SPAWN_ROUTINE>
+      |
+       t = <SC_CREF_ROUTINE>
+      |
+       t = <SC_REF_ROUTINE>
+      |
+       t = <SC_BIND_ROUTINE> 
+      |
+       t = <SC_MAIN_MAIN_ROUTINE>
+      |
+       t = <SC_ARGC_ROUTINE>
+      |
+       t = <SC_ARGV_ROUTINE>
+      |
+       t = <SC_START_OF_SIMULATION_INVOKED_ROUTINE>
+      |
+       t = <SC_END_OF_SIMULATION_INVOKED_ROUTINE>
+      |
+       t = <SC_SET_STOP_MODE_ROUTINE>
+      |
+       t = <SC_GEN_UNIQUE_NAME_ROUTINE>
+      |
+       t = <SC_SIMULATION_TIME_ROUTINE>
+      |
+       t = <SC_GET_CURR_PROCESS_HANDLE_ROUTINE>
+      |
+       t = <SC_GET_CURR_SIMCONTEXT_ROUTINE>
+      | 
+       t = <SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE>
+      |
+       t = <SC_GET_CURR_PROCESS_KIND_ROUTINE>
+//      |
+//       t = <SENSITIVE>
+//      |
+//       t = <SENSITIVE_POS>
+//      |
+//       t = <SENSITIVE_NEG>
+      |
+       t = <SC_COPYRIGHT_ROUTINE>
+      |
+       t = <SC_VERSION_ROUTINE>
+      |
+       t = <SC_ABS_ROUTINE>
+      |
+       t = <SC_MAX_ROUTINE>
+      |
+       t = <SC_MIN_ROUTINE>
+      | 
+       t = getID()
+     )
+      
+       
+     [ LOOKAHEAD(2) "<" template_argument_list()  ">"]
+     
+     { jjtThis.setName(t.image); return name + t.image; }
+     |
+      "operator" optor() { return "operator"; }
+    )
+}
+
+//void qualified_id2() #qualified_id :
+//{
+//   String name = "";
+//   Token t;
+//}
+//{   (
+//      t = getID()   [ "<" template_argument_list()  ">" ]
+//
+//      { jjtThis.setName(t.image);  }
+//     |
+//      "operator" optor() { }
+//    )
+//}
+//
+
+void ptr_to_member() :
+{}
+{
+    scope_override()  "*"
+}
+
+void qualified_type() :
+{ }
+{
+    LOOKAHEAD({ sym.IsFullyScopedTypeName(GetFullyScopedName()) } )
+       qualified_id() {jjtThis.setIsKnown(true); }
+
+}
+
+
+void type_qualifier() :
+{Token t;}
+{
+   (
+     t = <CONST> { m_isConst = true; }
+    |
+     t = <VOLATILE>
+   )
+   {
+     jjtThis.setName(t.image);
+   }
+}
+
+/**
+ * Very temporary. Just returns true if it sees a typedef. Finally, we will
+ * need a structure that stores all the attributes.
+ */
+boolean storage_class_specifier() :
+{Token t = null;
+ boolean  isTypedef = false;}
+{
+   ( t = <AUTO> |  t = <REGISTER> | t = <STATIC> { m_isStatic = true; }| t = <EXTERN> | t = <TYPEDEF> { isTypedef = true; } )
+
+   {  jjtThis.setName(t.image); return isTypedef; }
+}
+
+void builtin_type_specifier() :
+{}
+{
+  //{m_cur_scope_in_comp_name = null;} complicated_name_spec() {m_cur_scope_in_comp_name = null;})
+  
+  [ namespace_name() <SCOPE> ] systemCTypes(jjtThis) 
+  
+    
+  |
+    c_built_inTypes(jjtThis)
+   
+   
+}
+
+
+void init_declarator_list(boolean isTypedef) #void :
+{}
+{
+   init_declarator(isTypedef) ("," init_declarator(isTypedef))*
+}
+
+void init_declarator(boolean isTypedef) :
+{ String name; }
+{
+   name = declarator()
+   {
+
+      if (isTypedef)
+         sym.PutTypeName(name);
+
+   }
+   (
+    "=" initializer()
+   |
+    pl() expression_list()  pr()
+   )?
+}
+
+void class_head() :
+{ }
+{
+   (
+    ("struct" | "union" | "class")
+    (getID() (base_clause(null))?)?
+   )
+  |
+   (
+    ( (<SC_MODULE_MACRO> | <SC_PROTOCOL_MACRO>) pl() getID() pr() ) (base_clause(null))?
+   )
+}
+
+void class_specifier() :
+{
+   ClassScope sc = null;
+
+   Token t;
+   m_isExtOfSCClass = false;
+   String base_class;
+
+}
+{
+   (
+     ( <SC_MODULE_MACRO> {base_class = SC_MODULE_CONST; }
+      |
+       <SC_PROTOCOL_MACRO> {base_class = SC_PROTOCOL_CONST; }
+     )
+
+     pl() t = getID() pr()
+
+     {
+        sc = (ClassScope)sym.OpenScope(t.image, true);
+        jjtThis.setName(t.image);
+        jjtThis.setKeyword("class");
+        // *******************************************************************************
+        // creates some additional nodes to present correct AST tree for SC_MODULE_MACRO macro
+        // *******************************************************************************
+
+        ASTbase_clause b_c = new ASTbase_clause(null, JJTBASE_CLAUSE);
+        jjtree.openNodeScope(b_c);
+
+          ASTbase_specifier b_cp = new ASTbase_specifier(null, JJTBASE_SPECIFIER);
+          jjtree.openNodeScope(b_cp);
+
+          b_cp.setName(base_class);
+          b_cp.setSystemCDataType(true);
+
+            ASTbase_class_access_specifier b_access_sp = new ASTbase_class_access_specifier(null, JJTBASE_CLASS_ACCESS_SPECIFIER);
+            jjtree.openNodeScope(b_access_sp);
+            b_access_sp.setName("public");
+
+            jjtree.closeNodeScope(b_access_sp, true);
+
+          jjtree.closeNodeScope(b_cp, true);
+
+        jjtree.closeNodeScope(b_c, true);
+
+        // adds "public" access specifiers
+
+        ASTmember_declaration m_d = new ASTmember_declaration(null, JJTMEMBER_DECLARATION);
+        jjtree.openNodeScope(m_d);
+
+          ASTaccess_specifier a_sp = new ASTaccess_specifier(null, JJTACCESS_SPECIFIER);
+          jjtree.openNodeScope(a_sp);
+
+          a_sp.setName("public");
+
+          jjtree.closeNodeScope(a_sp, true);
+
+        jjtree.closeNodeScope(m_d, true);
+
+
+        jjtThis.setExtOfSCClass(true);
+
+
+
+     }
+
+     (base_clause(sc))?
+
+     // class body
+
+     "{" class_body(jjtThis.name()) "}"
+     {
+        sym.CloseScope();
+     }
+
+   )
+  |
+   (
+     ("struct" { jjtThis.setKeyword("struct"); } | "union" { jjtThis.setKeyword("union"); } | "class" { jjtThis.setKeyword("class"); } )
+     (
+      "{"
+          {
+             sym.OpenScope(null, false);
+          }
+          class_body(jjtThis.name())
+      "}"
+          {
+             sym.CloseScope();
+          }
+     |
+      LOOKAHEAD(2) t = getID()
+       {
+          sc = (ClassScope)sym.OpenScope(t.image, true);
+        // eingefuegt
+        jjtThis.setName(t.image);
+       }
+       (base_clause(sc))?
+
+       // class body
+
+      "{"
+         class_body(jjtThis.name())
+         {
+           if (m_isExtOfSCClass) {
+             jjtThis.setExtOfSCClass(true);
+           }
+         }
+
+      "}"
+          {
+             sym.CloseScope();
+          }
+     |
+      t=getID() (LOOKAHEAD(2) "<" template_argument_list()  ">")?
+      {
+        sym.PutTypeName(t.image);
+        jjtThis.setName(t.image);
+        if (m_isExtOfSCClass) {
+          jjtThis.setExtOfSCClass(true);
+        }
+      }
+     )
+   )
+}
+
+void base_clause(ClassScope scope) :
+{ boolean val = m_isExtOfSCClass; }
+{
+  (
+   ":" base_specifier(scope) { if (val != true) val = m_isExtOfSCClass; }( "," base_specifier(scope) { if (val != true) val = m_isExtOfSCClass; })*
+  ) 
+
+   {
+     if (val != m_isExtOfSCClass) {
+       m_isExtOfSCClass = val;
+     }
+
+   }
+}
+
+
+void base_class_access_specifier() :
+{Token t = null; String res = "private", res2;}
+{
+   (
+     t = <VIRTUAL> { res = t.image; }
+     (res2 =  base_class_access_specifier_helper() { res = res + " " + res2; } )?
+    |
+     res = base_class_access_specifier_helper()
+     (t = <VIRTUAL> { res = res + " " + t.image; } )?
+   )?
+   { jjtThis.setName(res); }
+}
+
+
+void base_specifier(ClassScope scope) :
+{ Token t; boolean isSCType = false;}
+{
+//("virtual" (LOOKAHEAD(2)access_specifier())? | access_specifier() (LOOKAHEAD(2)"virtual")?)?
+   base_class_access_specifier()
+   (LOOKAHEAD(scope_override_lookahead()) scope_override())?
+
+   (t = systemCTypes(jjtThis)  {isSCType = true;} |  t= getID() )
+   ("<" template_argument_list()  ">")?
+   {
+      jjtThis.setName(t.image);
+      jjtThis.setSystemCDataType(isSCType);
+      m_isExtOfSCClass = isSCBaseClass(t);
+
+
+      scope.AddSuper(sym.GetScope(t.image));
+   }
+}
+
+void access_specifier() :
+{Token t = null;}
+{
+    t = <PUBLIC> { jjtThis.setName(t.image); }
+   |
+    t = <PROTECTED> { jjtThis.setName(t.image); }
+   |
+    t = <PRIVATE> { jjtThis.setName(t.image); }
+
+}
+
+String base_class_access_specifier_helper() #void :
+{Token t;}
+
+{
+    t = <PUBLIC> { return t.image; }
+   |
+    t = <PROTECTED> { return t.image; }
+   |
+    t = <PRIVATE> { return t.image; }
+
+}
+
+void bit_field_member_declaration() :
+{String declaratorStr = null; }
+{
+  type_specifier() ( declaratorStr = declarator()  )? <COLON> constant_expression() <SEMICOLON>
+  (
+     { 
+        if ( declaratorStr == null )
+	  jjtThis.setIsNamed( false );
+	else
+	  jjtThis.setIsNamed( true );
+     }
+  )
+	
+}
+
+void member_declaration(String class_name)  :
+{ boolean isTypedef = false;
+  m_isStatic = m_isConst = m_isCBuiltInType = false;
+
+}
+{
+  (
+    LOOKAHEAD(bit_field_member_declaration())
+      bit_field_member_declaration()
+   |
+    LOOKAHEAD( port_specifier_helper() )
+      ( port_specifier_helper() (member_declarator_list(false))? ";") #member_declarator_list
+   |
+
+   /* new added to suport template classe declarations inside class */
+   
+    LOOKAHEAD(("typedef" | template_head())? class_head()  "{")
+       ( template_head() )? declaration()
+   |       
+    LOOKAHEAD(("typedef")? class_head() "{") declaration()
+
+   |
+    LOOKAHEAD("enum" (getID())? "{") enum_specifier()
+       ( member_declarator_list(false) )?  ";"
+   |
+    LOOKAHEAD( "operator" )
+       conversion_function_decl_or_def()
+   |
+    LOOKAHEAD(dtor_ctor_decl_spec() dtor_declarator() "{")
+       dtor_definition()
+   |
+    LOOKAHEAD(("inline"| "virtual" | <EXPLICIT>)* "~")
+       dtor_ctor_decl_spec() simple_dtor_declarator()  ";"
+   |
+    LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+      ctor_definition()
+   |
+    LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead() ";")
+      (dtor_ctor_decl_spec() ctor_declarator() ";")
+   |
+    LOOKAHEAD((declaration_specifiers())? function_declarator_lookahead())
+       function_definition()
+
+   |
+    LOOKAHEAD(declaration_specifiers())
+       (isTypedef = declaration_specifiers()
+          (member_declarator_list(isTypedef))? ";") #member_declarator_list
+   |
+
+    LOOKAHEAD(getID()) function_declarator(false) ";"
+   |
+    LOOKAHEAD(3)
+     qualified_id() ";"
+   |
+    access_specifier()  ":"
+   |
+    ";"
+   
+//   |
+//    export_declaration() ";"
+   |
+    sc_has_process_declaration() ";"
+   |
+    sc_map_to_target_declaration() [ LOOKAHEAD(2) ";"]
+  )  
+
+  {
+    m_isStatic = m_isConst = m_isCBuiltInType = false;
+  }
+}
+
+
+void member_declarator_list(boolean isTypedef) #void :
+{}
+{
+   member_declarator(isTypedef) // ("=" <OCTALINT>)?
+   ("," member_declarator(isTypedef) /*("=" <OCTALINT>)?*/)*
+
+}
+
+void member_declarator(boolean isTypedef) :
+{ String name; }
+{
+   name = declarator()
+   {
+      if (isTypedef)
+         sym.PutTypeName(name);
+   }
+   
+   (LOOKAHEAD({isAllowMemberInitialization()})
+    (
+       "=" initializer()
+      |
+       pl() expression_list()  pr()
+    )   
+   )?
+   
+}
+
+void conversion_function_decl_or_def() :
+{
+}
+{
+   [ LOOKAHEAD(scope_override_lookahead()) scope_override() ]
+
+   "operator" declaration_specifiers() ("*" | "&")?
+
+   pl() (parameter_list())? pr()
+   (LOOKAHEAD(2) type_qualifier())?
+   (exception_spec())?
+   func_decl_def(null)  // Temporary (fix the null)
+}
+
+void enum_specifier() :
+{ Token t; }
+{
+   "enum"
+
+   (
+    "{" enumerator_list() "}"
+   |
+    t=getID() (LOOKAHEAD(2) "{" enumerator_list() "}")?
+           { sym.PutTypeName(t.image); jjtThis.setName(t.image); }
+   )
+}
+
+void enumerator_list() :
+{}
+{
+   enumerator() ("," enumerator())*
+}
+
+void enumerator() :
+{ Token t; }
+{
+   t = getID() ("=" constant_expression())? {jjtThis.setName(t.image); }
+}
+
+void ptr_operator() :
+{}
+{
+    "&" { jjtThis.setName("&"); } cv_qualifier_seq()
+   |
+    "*" { jjtThis.setName("*"); } cv_qualifier_seq()
+   |
+    ptr_to_member() cv_qualifier_seq()
+}
+/*
+ * #void eingefuegt
+
+ */
+void cv_qualifier_seq() #void :
+{}
+{
+   [ LOOKAHEAD(2) (
+     "const" [ LOOKAHEAD(2) "volatile" ]
+    |
+     "volatile" [ LOOKAHEAD(2) "const" ] ) #cv_qualifier
+   ]
+}
+
+String declarator() :
+{ String name; }
+{
+
+  (
+    LOOKAHEAD(ptr_operator())
+      ptr_operator() name = declarator()
+   |
+    name = direct_declarator()
+  )
+
+  { return name; }
+}
+/*
+ * #void eingefuegt
+ */
+String direct_declarator()  #void  :
+{
+   String name;
+   Token t;
+}
+{
+   LOOKAHEAD(2)
+    "~" t = getID() (LOOKAHEAD(2) declarator_suffixes())?
+        { return "~" + t.image; }
+   |
+    pl() name = declarator() pr() (LOOKAHEAD(2) declarator_suffixes())?
+        { return name; }
+   |
+    name = qualified_id() (LOOKAHEAD(2) declarator_suffixes())?
+
+    { return name; }
+}
+
+void declarator_suffixes() :
+{}
+{
+    ("[" (constant_expression())? "]" { jjtThis.arrayCounter++; } )+
+   |
+    pl() (parameter_list())? pr()
+    (LOOKAHEAD(2) type_qualifier())?
+    (exception_spec())?
+}
+
+/**
+ * Used only for lookahead.
+ */
+void function_declarator_lookahead() :
+{}
+{
+   (LOOKAHEAD(2) ptr_operator() )* qualified_id() pl()
+}
+
+Scope function_declarator(boolean isTypedef) :
+{ Scope sc = null; }
+
+{
+  (
+    LOOKAHEAD(ptr_operator())
+       ptr_operator() sc = function_declarator(isTypedef)
+   |
+     sc = function_direct_declarator(isTypedef)
+  )
+
+  { return sc; }
+}
+
+/* veraendert
+ * #void eingefuegt
+
+ */
+Scope function_direct_declarator(boolean isTypedef) #void :
+{
+  String name;
+  Scope sc = null;
+  boolean closeReqd = false;
+}
+{
+     name = qualified_id()
+
+
+     {
+        sc = sym.GetScopeOfFullyScopedName(name);
+
+        if (closeReqd = (sc != null && sc != sym.GetCurScope()))
+           sym.SetCurrentScope(sc);
+     }
+
+     pl() (parameter_list())?  pr()
+     (LOOKAHEAD(2) type_qualifier())?
+     (exception_spec())?
+     (LOOKAHEAD("=") "=" <OCTALINT>)?
+
+     {
+        if (closeReqd)
+
+           sym.CloseScope();
+
+        if (isTypedef)
+           sym.PutTypeName(name);
+
+        return sc;
+     }
+}
+
+/*
+ * #void eingefuegt
+ */
+void dtor_ctor_decl_spec() #void :
+{}
+{
+
+   [
+    dtor_ctor_decl_spec_helper1() [dtor_ctor_decl_spec_helper2()] [dtor_ctor_decl_spec_helper3()]
+   |
+    dtor_ctor_decl_spec_helper2() [dtor_ctor_decl_spec_helper1()] [dtor_ctor_decl_spec_helper3()]
+   | 
+    dtor_ctor_decl_spec_helper3() [dtor_ctor_decl_spec_helper1()] [dtor_ctor_decl_spec_helper2()]
+   ]
+}
+
+
+void dtor_ctor_decl_spec_helper1() #dtor_ctor_decl_spec :
+{Token t = null;}
+{
+  t = <VIRTUAL> { jjtThis.setName(t.image); }
+}
+
+void dtor_ctor_decl_spec_helper2() #dtor_ctor_decl_spec :
+{Token t = null;}
+{
+  t = <INLINE> { jjtThis.setName(t.image); }
+}
+
+void dtor_ctor_decl_spec_helper3() #dtor_ctor_decl_spec :
+{Token t = null;}
+{
+
+  t = <EXPLICIT> { jjtThis.setName(t.image); }
+}
+    
+
+
+void dtor_definition() :
+{}
+{
+   (template_head())?
+   dtor_ctor_decl_spec()
+   dtor_declarator()
+   compound_statement()
+}
+
+void local_watching_block() :
+{}
+{
+  <W_BEGIN>
+    [sc_watching_list()] #begin_block
+  <W_DO>
+    (LOOKAHEAD(statement()) statement())* #do_block
+  <W_ESCAPE>
+    (LOOKAHEAD(statement()) statement())* #escape_block
+  <W_END>
+}
+
+void ctor_definition() :
+{
+   Scope sc = null;
+   boolean closeReqd = false;
+   boolean isInit = false;
+}
+{
+   dtor_ctor_decl_spec()
+   sc = ctor_declarator()
+
+
+   {
+      if (closeReqd = (sc != null && sc != sym.GetCurScope()))
+         sym.SetCurrentScope(sc);
+   }
+
+
+
+   (exception_spec())?
+
+   (
+     ";"
+    |
+     [ ctor_initializer() {isInit = true;} ]
+       {
+         if (m_isCTOR && isInit == false) {
+
+           //***********************************
+           // adds initialisation of _name
+           //***********************************
+
+           ASTctor_initializer ct_init = new ASTctor_initializer(null, JJTCTOR_INITIALIZER);
+
+           jjtree.openNodeScope(ct_init);
+
+           addSuperClassInitNode();
+
+
+           jjtree.closeNodeScope(ct_init, true);
+
+
+         }
+       }
+
+
+
+     (
+     "{"
+
+       { sym.OpenScope(null, false); }
+
+       (
+            LOOKAHEAD(3) (sc_method() [LOOKAHEAD(2)";"] ( LOOKAHEAD(2) method_thread_fol_decl() )? )  #sc_method_block
+          |
+            LOOKAHEAD(3) (sc_thread() [LOOKAHEAD(2)";"] ( LOOKAHEAD(2) method_thread_fol_decl() )? )  #sc_thread_block
+          |
+            LOOKAHEAD(3) (sc_cthread() [LOOKAHEAD(2)";"] (LOOKAHEAD(sc_watching_list()) sc_watching_list())?)  #sc_cthread_block
+          |
+            LOOKAHEAD(3) sc_slave() [LOOKAHEAD(2)";"]
+          |
+          LOOKAHEAD(statement())
+            statement()
+
+
+       )*
+
+       { sym.CloseScope(); }
+
+     "}"
+     )
+
+     #block
+
+   )
+
+   { if (closeReqd) sym.CloseScope(); }
+}
+
+String ctor_declarator_lookahead() :
+{}
+{
+
+   LOOKAHEAD(  { IsCtor() } ) ( <SC_CTOR> pl() qualified_id() )  | (qualified_id() pl() )
+
+}
+/*
+ * #void eingefuegt
+
+ */
+
+
+Scope ctor_declarator()  #void :
+{
+  String name;
+  Scope sc = null;
+  boolean closeReqd = false;
+}
+{
+
+
+    LOOKAHEAD( { IsCtor() } )
+     (
+       (
+         name = qualified_id()
+
+          {
+             m_isCTOR = false;
+
+             sc = sym.GetScopeOfFullyScopedName(name);
+
+             if (closeReqd = (sc != null && sc != sym.GetCurScope()))
+                sym.SetCurrentScope(sc);
+          }
+         pl() [ LOOKAHEAD(2) parameter_list() ]  pr()
+
+
+         [ LOOKAHEAD(2) exception_spec() ]
+       )
+
+
+      |
+
+        <SC_CTOR>  pl() name = qualified_id() pr()
+
+         {
+            m_isCTOR = true;
+
+            m_isExtOfSCClass = true;
+
+
+            // ********************************************
+            // generates code instead macro SC_CTOR
+            // ********************************************
+
+            addCTORInstruction();
+
+
+
+            sc = sym.GetScopeOfFullyScopedName(name);
+
+            if (closeReqd = (sc != null && sc != sym.GetCurScope()))
+               sym.SetCurrentScope(sc);
+         }
+
+     )
+
+
+     {
+        if (closeReqd)
+           sym.CloseScope();
+
+        return sc;
+     }
+}
+
+void ctor_initializer() :
+{
+  boolean isInit = false;
+
+}
+{
+   ":" superclass_init()
+     {
+       if (m_isCTOR && isInit == false) {
+
+         //***********************************
+         // adds initialisation of _name
+         //***********************************
+
+         addSuperClassInitNode();
+
+
+         isInit = true;
+       }
+
+
+     }
+   ("," superclass_init())*
+
+}
+
+void superclass_init() :
+{}
+{
+
+   (LOOKAHEAD(3) qualified_id() | LOOKAHEAD([namespace_name() <SCOPE>] systemCTypes(jjtThis)) declaration_specifiers() )  pl() (expression_list())?  pr()
+
+
+
+}
+void dtor_declarator()  :
+{}
+{
+   (LOOKAHEAD(scope_override_lookahead()) scope_override())?
+    simple_dtor_declarator()
+
+}
+
+void simple_dtor_declarator() :
+{}
+{
+   "~"
+   LOOKAHEAD( { IsCtor() } ) getID() pl() (parameter_list())?  pr()
+}
+
+void parameter_list() :
+{ }
+{
+
+    parameter_declaration_list() [ LOOKAHEAD(2) [ "," ]  ellipsis_parameter()]
+   |
+    ellipsis_parameter()
+
+
+}
+
+void ellipsis_parameter() :
+{}
+{
+  "..."  
+}
+
+/* veraendert
+ * #void eingefuegt
+ */
+void parameter_declaration_list() #void :
+{}
+{
+   parameter_declaration() (LOOKAHEAD(2) "," parameter_declaration())*
+}
+
+void parameter_declaration() :
+{}
+
+{
+   declaration_specifiers()
+   (
+    LOOKAHEAD(declarator()) declarator()
+   |
+    abstract_declarator()
+   )
+   ("=" assignment_expression())?
+}
+
+void declaration_specifiers_with_declarator() #void :
+{}
+{
+   declaration_specifiers()
+   [ptr_operator()]
+
+   
+}
+
+/*
+ * veraendert #array_initializer eingef\FCgt
+ */
+void initializer() :
+
+{}
+{
+    LOOKAHEAD(5)
+     ("{" initializer() (LOOKAHEAD("," initializer()) ("," initializer()) )* [","] "}" ) #array_initializer
+
+
+   |
+    assignment_expression()
+
+}
+
+void type_name() :
+{}
+{
+
+
+  declaration_specifiers() abstract_declarator()
+}
+
+void abstract_declarator() :
+{}
+{
+   [ LOOKAHEAD(2) (
+    pl() abstract_declarator()   pr()
+    (abstract_declarator_suffix())+
+   |
+    ("[" (constant_expression())? "]")+
+   |
+    ptr_operator() abstract_declarator() )
+   ]
+}
+
+void abstract_declarator_suffix() :
+{}
+{
+    "[" ( constant_expression() )?  "]"
+   |
+    pl() (parameter_list())? pr()
+}
+
+void template_head() :
+{}
+{
+   "template" "<" template_parameter_list() ">"
+}
+
+void template_parameter_list() :
+{}
+{
+   template_parameter() ("," template_parameter())*
+}
+
+void template_parameter() :
+{ Token t; }
+
+{
+    LOOKAHEAD(3)
+      ("class" | "typename") t=getID() {   jjtThis.setName(t.image); sym.PutTypeName(t.image); }
+
+   |
+    parameter_declaration()
+
+}
+
+void template_id() :
+{}
+{
+   getID() "<" template_argument_list() ">"
+}
+
+void template_argument_list() :
+{}
+{
+   template_argument() ("," template_argument())*
+}
+
+void template_argument() :
+{}
+{
+    LOOKAHEAD(3)
+      type_name()
+   |
+    shift_expression()
+}
+
+void statement_list() #void:
+
+{}
+{
+   (LOOKAHEAD(statement()) statement())+
+}
+
+
+
+void statement() #block_statement :
+
+{}
+{
+
+   LOOKAHEAD(4) sc_map_to_target() [LOOKAHEAD(2) ";"]
+   |
+   LOOKAHEAD([namespace_name() <SCOPE>] (<COUT> | <CERR>))  ([namespace_name() <SCOPE>] output_stream() )  
+    
+   |
+    LOOKAHEAD(declaration())
+      declaration()
+   |
+   LOOKAHEAD( expression() ";" )
+      expression() ";"
+   |
+    compound_statement()
+   |
+    selection_statement()
+   |
+    jump_statement()
+   |
+    ";"  #empty_statement
+   |
+    try_block()
+   |
+    throw_statement()
+   |
+    LOOKAHEAD(2)
+      labeled_statement()
+   |
+     iteration_statement()
+   |
+
+     sc_notify() ";"
+   |
+    local_watching_block()
+   |
+    dyn_process_creation_block_declaration()
+   |
+    sc_report_macro()
+//   |
+//    (report_handler_scope() postfix_expression_helper()) #postfix_expression(>1) ";"
+   |
+    fzi_sim_directive()
+
+}
+
+
+void rstatement() #block_statement :
+{}
+{
+
+
+
+    LOOKAHEAD(4)
+      sc_map_to_target() [ LOOKAHEAD(2) ";"]
+   |
+   LOOKAHEAD([namespace_name() <SCOPE>](<COUT> | <CERR>))
+    output_stream()
+
+   |
+    LOOKAHEAD( declaration() )
+      declaration()
+   |
+
+    LOOKAHEAD( expression() ";" )
+      expression() ";"
+   |
+    selection_statement()
+   |
+    jump_statement()
+   |
+    ";"  #empty_statement
+   |
+    try_block()
+   |
+    throw_statement()
+   |
+    LOOKAHEAD(2)
+      labeled_statement()
+   |
+     iteration_statement()
+   |
+     sc_notify() ";"
+   |
+    local_watching_block()
+
+   |
+    dyn_process_creation_block_declaration()
+   |
+    sc_report_macro()
+//   |
+//    (report_handler_scope() postfix_expression_helper()) #postfix_expression(>1) ";"
+   |
+    fzi_sim_directive()
+
+
+}
+
+void labeled_statement() :
+{}
+{
+    getID() ":" statement()
+
+
+ /*  |
+    "case" constant_expression()  ":" statement()
+   |
+    "default"  ":" statement() */
+}
+
+void compound_statement() #block :
+{}
+{
+   "{"
+
+   { sym.OpenScope(null, false); }
+
+   (statement_list())?
+
+
+   { sym.CloseScope(); }
+
+   "}"
+}
+
+/* hinzugefuegt */
+void cf_block() #void:
+{}
+{
+  compound_statement()
+ |
+  rstatement() #block(1)
+}
+
+/* veraendert */
+
+void selection_statement() #void :
+{}
+{
+
+    ( "if" pl() expression() pr() cf_block()
+     (LOOKAHEAD(2) "else" cf_block())? ) #if_statement
+   |
+    ( "switch" pl() expression() pr() "{" (switch_label()  (statement())* )* "}" ) #switch_statement
+}
+
+void switch_label() :
+{}
+{
+   "case" constant_expression() ":"
+  |
+   "default"  ":"
+}
+
+void iteration_statement() #void :
+{}
+{
+    ("while" pl() expression() pr() cf_block() ) #while_statement
+   |
+    ("do" cf_block()  "while" pl() expression() pr() ";") #do_statement
+   |
+
+ /*  ("for" pl() (LOOKAHEAD(3) declaration() | expression() ";" | ";")
+    (expression())? ";" (expression())? pr() statement()) #for_statement */
+
+
+     ("for"  pl() ( (LOOKAHEAD(3) declaration() | expression() ";" | ";") #for_init(>0) )
+     (((expression())? ";") #for_condition(>0))  (((expression())? #statement_expression_list(>0)) #for_update(>0))  pr()
+     ( cf_block()   #for_block))  #for_statement
+}
+
+
+
+void jump_statement() #void :
+{}
+
+{
+    ( "goto" getID() ";" ) #goto_statement
+   |
+    ( "continue" ";" ) #continue_statement
+   |
+    ( "break" ";" ) #break_statement
+   |
+    ( "return" (expression())? ";" ) #return_statement
+}
+
+void try_block() :
+{}
+{
+   "try" compound_statement() (handler())*
+}
+
+
+void handler() :
+{}
+{
+   "catch" pl() exception_declaration() pr()
+   compound_statement()
+ |
+   "finally" compound_statement()
+}
+
+
+void exception_declaration() :
+{}
+{    parameter_declaration_list()
+   |
+     "..."
+}
+
+void throw_statement() :
+{}
+
+{    "throw" (assignment_expression())? ";"
+}
+
+/*
+ * veraendert
+ */
+void expression()  #void :
+{}
+{    
+     assignment_expression()
+     (
+        LOOKAHEAD(2)
+          "," assignment_expression()
+     )*
+    
+
+}
+
+
+/*
+ * veraendert: assignment_expression entspricht expression in J2VHDL
+ */
+void assignment_expression() #void :
+{}
+{
+    conditional_expression() 
+    ( assignment_operator() assignment_expression() #assignment(3)
+      | assignment_expression_operator() assignment_expression() #expression_assignment(3)
+   )?
+}
+
+
+/*
+ * neu hinzugefuegt
+ */
+
+void assignment_operator() :
+{}
+{
+  "="
+}
+
+
+/*
+ * neu hinzugefuegt
+ */
+
+void assignment_expression_operator() :
+{ Token t; }
+{
+ (
+  t = <TIMESEQUAL>
+
+  |
+   t = <DIVIDEEQUAL>
+  |
+   t = <MODEQUAL>
+  |
+   t = <PLUSEQUAL>
+  |
+   t = <MINUSEQUAL>
+  |
+   t = <BITWISEANDEQUAL>
+  |
+   t = <BITWISEXOREQUAL>
+  |
+   t = <BITWISEOREQUAL>
+  |
+   t = <SHIFTLEFTEQUAL>
+  |
+   t = <SHIFTRIGHTEQUAL>
+ )
+
+ { jjtThis.setName(t.image); }
+
+}
+
+///*
+// * neu hinzugefuegt
+//*/
+//void conditional_expression() #void :
+//{}
+//{   logical_or_expression()
+//("?" conditional_expression()  ":" conditional_expression() #questionmark_expression(2))?
+//}
+//
+
+void conditional_expression() #void:
+{
+  
+  
+}
+{   LOOKAHEAD(logical_or_expression()
+
+             "?"  conditional_expression()  ":" conditional_expression()  ) 
+   (
+    (logical_or_expression()
+
+    "?" conditional_expression()  ":" conditional_expression())  #questionmark_expression
+   ) 
+   |
+    logical_or_expression()
+  
+}
+
+void constant_expression()  :
+{}
+{    conditional_expression() //#questionmark_expression(3)
+}
+
+
+/*
+ * neu hinzugefuegt
+ */
+
+void logical_or_expression() #void :
+{}
+{    logical_and_expression() ( "||" logical_and_expression() #or_node(2) )*
+
+}
+
+/*
+ * neu hinzugefuegt
+ */
+
+void logical_and_expression()  #void :
+{}
+{    inclusive_or_expression() ( "&&" inclusive_or_expression() #and_node(2) )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void inclusive_or_expression() #void :
+{}
+{    exclusive_or_expression()( "|" exclusive_or_expression() #bitwise_or_node(2) )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void exclusive_or_expression() #void :
+{}
+{    and_expression()( "^" and_expression() #bitwise_xor_node(2) )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void and_expression() #void :
+
+{}
+{    equality_expression()( LOOKAHEAD(2) "&" equality_expression() #bitwise_and_node(2) )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void equality_expression() #void :
+{}
+{    relational_expression()
+	(
+           "!=" relational_expression() #neq_node(2)
+         |
+	   "==" relational_expression() #eq_node(2)
+        )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void relational_expression() #void :
+{}
+{
+   shift_expression()
+   (
+        LOOKAHEAD(2)
+        (
+         "<"  shift_expression()  #lt_node(2)
+         |
+	 ">"  shift_expression()  #gt_node(2)
+         |
+	 "<=" shift_expression()  #le_node(2)
+         |
+         ">=" shift_expression()  #ge_node(2)
+        )
+   )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+
+void shift_expression() #void :
+{
+}
+{
+     additive_expression()
+     (
+      LOOKAHEAD("<<",{!(m_isStream_output && m_isBal)}) (
+
+      "<<" additive_expression() #left_shift_node(2) )
+        {
+             m_isBal = true;
+        }
+      |
+        ">>" additive_expression() #right_shift_node(2)
+     )*
+}
+
+
+
+
+void additive_expression() #void :
+{}
+
+/* sc_concatenation_node  (a,b) oder ((a,b),c)  */
+{
+    multiplicative_expression()
+
+    (
+      LOOKAHEAD(2)
+      (
+        "+" multiplicative_expression() #add_node(2)
+      |
+        "-" multiplicative_expression() #subtract_node(2)
+      )
+    )*
+
+
+}
+
+
+
+
+
+void multiplicative_expression() #void :
+{}
+{  pm_expression()
+   (
+     LOOKAHEAD(2)
+     (
+
+      "*" pm_expression()  #mul_node(2)
+
+     |
+
+      "/" pm_expression()  #div_node(2)
+     |
+      "%" pm_expression()  #mod_node(2)
+     )
+   )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void pm_expression()  #void :
+{}
+{
+    cast_expression()
+    (
+       ".*"   cast_expression() #pm_expression(2)
+     |
+       "->*"  cast_expression() #pm_expression(2)
+    )*
+}
+
+/*
+ * neu hinzugefuegt
+ */
+void cast_expression() #void :
+{}
+{   
+   LOOKAHEAD(pl() type_name() pr())    
+    (pl() type_name() pr() cast_expression()) #cast_expression(2)
+   |
+
+   LOOKAHEAD(unary_expression())
+     unary_expression()
+
+}
+/*
+ *
+ */
+void unary_expression() #void :
+{}
+{
+     "++" unary_expression() #preincrement_node(1)
+   |
+
+     "--" unary_expression() #predecrement_node(1)
+   |
+     LOOKAHEAD(3)
+     (unary_operator() cast_expression()) #unary_expression
+   |
+     "sizeof"
+     (
+       LOOKAHEAD(pl())
+       pl() type_name()  pr()
+     |
+       unary_expression()
+     ) #sizeof_expression(1)
+
+   |
+//   LOOKAHEAD(report_handler_scope())
+//    (report_handler_scope() ";")
+//   |
+   LOOKAHEAD(3)
+   ((sc_function_in_statement() postfix_expression_helper()) #postfix_expression(>1))
+   |
+     postfix_expression()   #postfix_expression(>1)
+}
+
+void new_expression() :
+{}
+{
+   (LOOKAHEAD("::") ("::"))?
+   "new"
+   (
+     LOOKAHEAD(pl() type_name() pr() )
+
+      pl() type_name() pr()
+    |
+     (LOOKAHEAD(pl() expression_list() ) pl() expression_list() pr())?
+     (
+       LOOKAHEAD(pl() type_name() pr() )
+       pl() type_name() pr()
+
+      |
+       LOOKAHEAD(declaration_specifiers())
+        new_type_id()
+     )
+   )
+   (LOOKAHEAD(new_initializer()) new_initializer())?
+}
+
+void new_type_id() :
+{}
+{
+   declaration_specifiers()
+   ( LOOKAHEAD(new_declarator()) new_declarator() )?
+}
+
+void new_declarator() :
+{}
+{
+     direct_new_declarator()
+   |
+     ptr_operator() cv_qualifier_seq()  [ LOOKAHEAD(2) new_declarator() ]
+}
+
+void direct_new_declarator() :
+{}
+{
+   (LOOKAHEAD(2) "[" expression() "]" )+
+}
+
+void new_initializer() :
+{}
+{    pl() ( expression_list() )? pr()
+}
+
+void delete_expression() :
+{}
+{    ( "::" )? "delete" cast_expression()
+}
+
+void delete_array_expression() :
+{}
+{    ( "::" )? "delete" "[" "]" cast_expression()
+}
+
+void unary_operator() :
+{}
+{    "&"  {jjtThis.setOperator("ref");}
+   | "*"  {jjtThis.setOperator("pointer");}
+   | "+"  {jjtThis.setOperator("add");}
+   | "-"  {jjtThis.setOperator("minnus");}
+   | "~"  {jjtThis.setOperator("tilde");}
+   | "!"  {jjtThis.setOperator("not");}
+}
+
+/*
+ * neu hinzugefuegt
+
+ */
+
+
+//void postfix_expression()  #void:
+//{}
+//
+//{
+//   LOOKAHEAD(3)
+//    primary_expression()
+//    ( LOOKAHEAD(2) (
+//     "[" expression() #arrayaccess_expression "]" #primary_expression(>1)
+
+//    |
+//     ( pl() ( expression_list() )? pr()) #arguments
+//    | LOOKAHEAD(2)
+//     "." id_expression(false)
+//    |
+//     "->" id_expression(false)
+//    |
+//     "++" #postincrement_node(1)
+//    |
+//     "--" #postdecrement_node(1))
+
+//
+//    )*
+//  |
+//   simple_type_specifier() pl() ( expression_list() )? pr()
+//}
+void expr_list() #void :
+{}
+{
+  ( pl() ( expression_list() )? pr()) #arguments
+}
+
+
+void dereferencing_operator() :
+{}
+{
+    "." { jjtThis.setName("&"); }
+   |
+    "->" { jjtThis.setName("*"); }
+}
+
+void postfix_expression_helper() #void:
+{}
+{
+    
+   (
+    LOOKAHEAD(2) (
+
+    "[" expression() #arrayaccess_expression(2) "]" #primary_expression(1)
+    |
+     ( pl() ( expression_list() )? pr()) #arguments
+    | 
+     LOOKAHEAD(2) 
+     dereferencing_operator() id_expression(false)
+    |
+     dereferencing_operator() id_expression(false)
+    |
+     "++" #postincrement_node(1)
+    |
+     "--" #postdecrement_node(1))
+   )*  
+}
+
+
+/*
+ * neu hinzugefuegt
+ */
+void postfix_expression()  #void:
+{}
+{
+   LOOKAHEAD(3)
+    primary_expression()
+    postfix_expression_helper()
+//    ( LOOKAHEAD(2) (
+//     "[" expression() #arrayaccess_expression(2) "]" #primary_expression(1)
+//    |
+//     ( pl() ( expression_list() )? pr()) #arguments
+//    |
+//      postfix_expression_helper())
+//    )*
+  |
+   simple_type_specifier() pl() ( expression_list() )? pr()
+}
+
+
+void sc_function_in_sc_main() #systemCRoutine :
+{Token t = null; String name = null;}
+{
+  (
+   (
+    (
+      t = <SC_CYCLE>
+     |
+      t = <SC_ASSERT>
+     |
+      t = <SC_START>
+     |
+      t = <SC_SET_TIME_RESOLUTION>
+
+     |
+      t = <SC_SET_DEFAULT_TIME_UNIT>
+     |
+      t = <SC_TRACE>
+     |
+      t = <SC_CREATE_VCD_TRACE_FILE>
+     |
+      t = <SC_CREATE_WIF_TRACE_FILE>
+     |
+
+      t = <SC_CREATE_ISDB_TRACE_FILE>
+     |
+      t = <SC_CLOSE_WIF_TRACE_FILE>
+     |
+      t = <SC_CLOSE_ISDB_TRACE_FILE>
+     |
+      t = <SC_CLOSE_VCD_TRACE_FILE>
+     |
+      t = <SC_BIND_ROUTINE>
+     |
+      t = <SC_REF_ROUTINE>
+     |
+      t = <SC_CREF_ROUTINE>
+     |
+      t = <SC_SET_STOP_MODE_ROUTINE>
+     |
+      t = <SC_GEN_UNIQUE_NAME_ROUTINE>
+     |
+      t = <SC_ABS_ROUTINE>
+     |
+      t = <SC_MAX_ROUTINE>
+     |
+      t = <SC_MIN_ROUTINE>
+     |
+      t = <SC_STOP_HERE_ROUTINE>                       
+    )
+    expr_list()
+   )
+
+   |
+
+   (
+    (
+      t = <SC_INITIALIZE>
+     |
+      t = <SC_STOP>
+     |
+      t = <SC_GET_TIME_RESOLUTION>
+     |
+      t = <SC_GET_DEFAULT_TIME_UNIT>
+     |
+      t = <SC_TIME_STAMP>
+     |
+      t = <SC_START_OF_SIMULATION_INVOKED_ROUTINE>
+     |
+      t = <SC_END_OF_SIMULATION_INVOKED_ROUTINE>
+     |
+      t = <SC_SIMULATION_TIME_ROUTINE>
+
+     |
+      t = <SC_GET_CURR_PROCESS_HANDLE_ROUTINE>
+     |
+      t = <SC_GET_CURR_SIMCONTEXT_ROUTINE>
+     |
+      t = <SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE>
+     |
+      t = <SC_GET_CURR_PROCESS_KIND_ROUTINE>
+     |
+      t = <SC_COPYRIGHT_ROUTINE> 
+     |
+      t = <SC_VERSION_ROUTINE>
+
+    )
+    pl() pr()  #arguments
+   )
+
+   |
+    LOOKAHEAD(3)
+    t = sc_spawn_routine()
+   |
+    name = report_handler_scope()      
+  )
+   {
+     if (name != null)
+       jjtThis.setName(name);
+     else
+       jjtThis.setName(t.image);
+   }
+}
+
+void sc_function_in_statement() #systemCRoutine :
+{Token t = null; String name = null;  }
+{
+
+  (
+   (
+    (
+
+      t = <SC_STOP>
+     |
+      t = <SC_GET_TIME_RESOLUTION>
+     |
+      t = <SC_GET_DEFAULT_TIME_UNIT>
+     |
+      t = <SC_TIME_STAMP>
+     |
+      t = <SC_ARGC_ROUTINE>
+     |
+      t = <SC_ARGV_ROUTINE>
+     |
+      t = <SC_START_OF_SIMULATION_INVOKED_ROUTINE>
+     |
+
+      t = <SC_END_OF_SIMULATION_INVOKED_ROUTINE>
+     |
+      t = <SC_SIMULATION_TIME_ROUTINE>
+     |
+      t = <SC_GET_CURR_PROCESS_HANDLE_ROUTINE>
+     |
+      t = <SC_GET_CURR_SIMCONTEXT_ROUTINE>
+     |
+      t = <SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE>
+     |
+      t = <SC_GET_CURR_PROCESS_KIND_ROUTINE>
+     |
+      t = <SC_COPYRIGHT_ROUTINE>
+     |
+      t = <SC_VERSION_ROUTINE>
+     |
+
+      t = <SC_STOP_HERE_ROUTINE>                             
+
+    )
+    pl() pr()  #arguments
+   )
+
+   |
+
+   (
+    (
+      t = <SC_ASSERT>
+     |
+      t = <SC_SET_TIME_RESOLUTION>
+     |
+      t = <SC_SET_DEFAULT_TIME_UNIT>
+     |
+      t = <SC_WAIT_ROUTINE>
+     |
+      t = <SC_NEXT_TRIGGER>
+     |
+      t = <SC_TRACE>
+     |
+      t = <SC_CREATE_VCD_TRACE_FILE>
+     |
+      t = <SC_CREATE_WIF_TRACE_FILE>
+     |
+      t = <SC_CREATE_ISDB_TRACE_FILE>
+     |
+      t = <SC_CLOSE_WIF_TRACE_FILE>
+     |
+      t = <SC_CLOSE_ISDB_TRACE_FILE>
+     |
+      t = <SC_CLOSE_VCD_TRACE_FILE>
+     |
+      t = <SC_BIND_ROUTINE>
+     |
+      t = <SC_REF_ROUTINE>
+     |
+      t = <SC_CREF_ROUTINE>
+     |
+      t = <SC_MAIN_MAIN_ROUTINE>
+     |
+      t = <SC_SET_STOP_MODE_ROUTINE>
+     |
+      t = <SC_GEN_UNIQUE_NAME_ROUTINE>
+     |
+      t = <SC_ABS_ROUTINE>
+     |
+      t = <SC_MAX_ROUTINE>
+     |
+      t = <SC_MIN_ROUTINE>                 
+   )
+    expr_list()
+   )
+
+   |
+    t =  sc_wait_until_statement()
+   |
+   LOOKAHEAD(3)
+    t = sc_spawn_routine()
+   |
+    name = report_handler_scope()      
+  )
+
+   {
+     if (name != null)
+       jjtThis.setName(name);
+     else
+       jjtThis.setName(t.image);
+   }
+}
+
+
+
+Token systemCKeyWords() #void :
+{Token t = null;}
+{
+
+ (
+   t = <SC_WAIT_UNTIL_ROUTINE>
+  |
+   t = <SC_WATCHING_ROUTINE>
+  |
+   t = <SC_WAIT_ROUTINE>
+  |
+   t = <SC_NEXT_TRIGGER>
+  |
+   t = <SC_ASSERT>
+  |
+   t = <SC_CYCLE>
+  |
+   t = <SC_INITIALIZE>
+  |
+   t = <SC_SET_TIME_RESOLUTION>
+  |
+   t = <SC_GET_TIME_RESOLUTION>
+  |
+   t = <SC_SET_DEFAULT_TIME_UNIT>
+  |
+   t = <SC_GET_DEFAULT_TIME_UNIT>
+  |
+  t = <SC_INTERFACE>
+  |
+  t = <SC_INT>
+
+  |
+  t = <SC_UINT>
+
+  |
+  t = <SC_BIGINT>
+  |
+  t = <SC_BIGUINT>
+  |
+  t = <SC_IN>
+  |
+  t = <SC_OUT>
+  |
+  t = <SC_INOUT>
+  |
+  t = <SC_FIFO_IN>
+  |
+  t = <SC_FIFO_OUT>
+  |
+  t = <SC_EVENT>
+  |
+  t = <SC_EVENT_LIST>
+  |
+   t = <SC_EVENT_OR_LIST>
+  |
+   t = <SC_EVENT_AND_LIST>  
+  |
+  t = <SC_EVENT_QUEUE>
+  |
+  t = <SC_BIT>
+  |
+   t = <SC_BITREF_R>
+  |
+   t = <SC_BITREF>
+  |
+   t = <SC_SUBREF_R>
+  |
+   t = <SC_SUBREF>
+  |
+   t = <SC_CONCREF_R>
+  |
+   t = <SC_CONCREF>            
+  |
+  t = <SC_BIT_VECTOR>
+  |
+  t = <SC_LOGIC>
+  |
+  t = <SC_LOGIC_VECTOR>
+  |
+   t = <SC_LOGIC_VECTOR_BASE>  
+  |
+  t = <SC_FIXED>
+  |
+  t = <SC_UFIXED>
+  |
+  t = <SC_FIX>
+  |
+  t = <SC_FXNUM>
+  |
+  t = <SC_UFIX>
+  |
+   t = <SC_PROXY>
+  |
+
+   t = <SC_WITHOUT_CONTEXT>
+  |
+   t = <SC_GLOBAL>    
+  |
+  t = <SC_FIXED_FAST>
+  |
+  t = <SC_UFIXED_FAST>
+  |
+  t = <SC_FIX_FAST>
+  |
+  t = <SC_UFIX_FAST>
+  |
+  t = <SC_FXNUM_FAST>
+  |
+   t = <SC_FXNUM_FAST_BITREF>
+  |
+   t = <SC_FXNUM_SUBREF>
+  |
+   t = <SC_FXNUM_FAST_SUBREF>
+  |
+  t = <SENSITIVE>
+  |
+  t = <SENSITIVE_POS>
+  |
+  t = <SENSITIVE_NEG>
+  |
+  t = <SC_FMT>
+  |
+  t = <SC_NUMREP>
+  |
+  t = <SC_FXTYPE_PARAMS>
+  |
+  t = <SC_FXTYPE_CONTEXT>
+  |
+  t = <SC_FXCAST_SWITCH>
+  |
+   t = <SC_FXNUM_BITREF>   
+  |
+  t = <SC_FXCAST_CONTEXT>
+  |
+  t = <SC_SIGNAL>
+  |
+  t = <SC_BUFFER>
+  |
+  t = <SC_FIFO>
+  |
+  t = <SC_FIFO_IN_IF>
+  |
+  t = <SC_FIFO_OUT_IF>
+  |
+   t = <SC_FIFO_NB_IN_IF> 
+  |
+   t = <SC_FIFO_B_IN_IF> 
+  |
+   t = <SC_FIFO_NB_OUT_IF> 
+  |
+   t = <SC_FIFO_B_OUT_IF> 
+  |
+  t = <SC_CONTEXT_BEGIN>
+  |
+  t = <SC_MODULE_NAME>
+  |
+  t = <SC_MODULE>
+  |
+  t = <SC_CHANNEL>
+  |
+  t = <SC_BEHAVIOR>
+  |
+  t = <SC_SWITCH>
+  |
+  t = <SC_CONTEXT>
+  |
+  t = <SC_PORT>
+  |
+  t = <TLM_INITIATOR_SOCKET> 
+  |
+  t = <TLM_TARGET_SOCKET> 
+  |
+  t = <SC_MUTEX_IF>
+  |
+  t = <SC_SEMAPHORE_IF>
+  |
+  t = <SC_MUTEX>
+  |
+  t = <SC_SEMAPHORE>
+  |
+  t = <SC_SIGNAL_IN_IF>
+  |
+  t = <SC_SIGNAL_OUT_IF>
+  |
+  t = <SC_SIGNAL_INOUT_IF>
+  |
+  t = <SC_IN_CLK>
+  |
+  t = <SC_OUT_CLK>
+  |
+  t = <SC_INOUT_CLK>
+  |
+  t = <SC_IN_RESOLVED>
+  |
+  t = <SC_OUT_RESOLVED>
+  |
+
+  t = <SC_INOUT_RESOLVED>
+  |
+  t = <SC_IN_RV>
+  |
+  t = <SC_INOUT_RV>
+  |
+  t = <SC_OUT_RV>    
+
+  |
+  t = <SC_SIGNAL_RESOLVED>
+  |
+  t = <SC_SIGNAL_RV>
+  |
+   t = <VCD_T_TRACE>
+  |
+   t = <WIF_T_TRACE>
+  |
+   t = <SC_PHASH_BASE>
+  |
+   t = <SC_PHASH_BASE_ITER>
+  | 
+   t = <SC_PHASH>
+
+  |
+   t = <SC_PHASH_ITER>
+  |
+   t = <SC_PDHASH>
+  |
+   t = <SC_PDHASH_ITER>
+  |
+   t = <SC_STRHASH>
+  |
+   t = <SC_STRHASH_ITER>
+  |
+   t = <SC_PLIST_BASE_ITER>
+  |
+   t = <SC_PLIST_BASE>
+  |
+   t = <SC_PLIST_ITER>
+  |
+   t = <SC_PLIST>
+  |
+   t = <SC_MEMPOOL>
+  |
+   t = <SC_MPOBJECT>
+  | 
+   t = <SC_PPQ_BASE>
+  |
+   t = <SC_PPQ>     
+  |
+  t = <SC_CLOCK>
+  |
+   t = <SC_JOIN>
+  |
+   t = <SC_LAMBDA>
+  |
+   t = <SC_LAMBDA_PTR>
+  |
+   t = <SC_LAMBDA_RAND>
+  |
+   t = <SC_BIND_PROXY>
+  |
+   t = <SC_MSG_DEF>
+  |
+   t = < SC_LAMBDA_RATOR_E>
+  |
+   t = < SC_LAMBDA_RAND_E>
+  |
+   t =< SC_ENC>   
+  |
+   t = <SC_TRACE_PARAMS>      
+  |
+   t = <SC_CURR_PROC_INFO>   
+  |
+   t = <SC_TIME_PARAMS>      
+  |
+   t = <SC_CTHREAD_HANDLE>
+  |
+   t = <SC_THREAD_HANDLE>
+  |
+   t = <SC_METHOD_HANDLE>
+  |
+   t = <SC_EXPORT_REGISTRY>   
+  |
+   t = <SC_PROCESS_CB>
+  |
+   t = <SC_PROCESS_CALL>
+  |
+  t = <SC_TIME>
+  |
+  t = <SC_TIME_UNIT>
+  |
+  t = <SC_TIME_STAMP>
+  |
+  t = <SC_MASTER>
+
+  |
+  t = <SC_INMASTER>
+  |
+  t = <SC_OUTMASTER>
+
+  |
+  t = <SC_INOUTMASTER>
+  |
+   t = <SC_EXPORT_BASE>
+  |
+   t = <SC_PORT_BASE>
+  |
+   t = <SC_PORT_REGISTRY>
+  |
+   t = <SC_PORT_B>      
+  |
+  t = <SC_SLAVE>
+  |
+  t = <SC_INSLAVE>
+  |
+  t = <SC_OUTSLAVE>
+  |
+  t = <SC_INOUTSLAVE>
+  |
+  t = <SC_NOHANDSHAKE>
+  |
+
+  t = <SC_ENABLEHANDSHAKE>
+  |
+  t = <SC_FULLHANDSHAKE>
+  |
+  t = <SC_INDEXED>
+  |
+  t = <SC_O_MODE>
+  |
+  t = <SC_Q_MODE>
+  |
+  t = <SC_OBJECT>
+  |
+   t = <SC_PROCESS_MONITOR>
+  |
+   t = <SC_PROCESS_HOST>  
+  |
+   t = <SC_SPAWN_OBJECT>
+  |
+   t = <SC_SPAWN_OBJECT_V>   
+  |
+   t = <SC_PROCESS_BASE>  
+  |
+   t = <SC_RUNNABLE>
+  |
+   t = <SC_WATCH>
+  |
+   t = <SC_CLK_POS_CALLBACK>
+  |
+   t = <SC_CLK_NEG_CALLBACK>   
+  |
+  t = <SC_CHECK>
+  |
+  t = <SC_PRIM_CHANNEL>
+  |
+   t = <SC_PRIM_CHANNEL_REG>  
+  |
+  t = <SC_START>
+  |
+   t = <SC_LOGIC_RESOLVE>
+  |
+   t = <SC_LV_RESOLVE>   
+  |
+  t = <SC_STOP>
+  |
+  t = <SC_STRING>
+  |
+  t = <DONT_INITIALIZE>
+  |
+   t = <SC_TRACE>
+  |
+   t = <SC_TRACE_FILE>
+  |
+   t = <VCD_TRACE_FILE>
+  |
+   t = <WIF_TRACE_FILE>
+  |
+   t = <ISDB_TRACE_FILE>
+  |
+   t = <SC_CREATE_VCD_TRACE_FILE>
+  |
+   t = <SC_CREATE_WIF_TRACE_FILE>
+  |
+   t = <SC_CREATE_ISDB_TRACE_FILE>
+  |
+   t = <SC_CLOSE_WIF_TRACE_FILE>
+  |
+   t = <SC_CLOSE_ISDB_TRACE_FILE>
+  |
+   t = <SC_CLOSE_VCD_TRACE_FILE>
+  |
+   t = <SC_SPAWN_OPTIONS>
+  |
+   t = <SC_PROCESS_HANDLE>
+  |
+   t = <SC_SPAWN_ROUTINE>
+  |
+   t = <SC_BIND_ROUTINE>
+  |
+   t = <SC_REF_ROUTINE>
+  |
+   t = <SC_CREF_ROUTINE>
+  |
+   t = <SC_EXPORT>
+  |
+   t = <SC_SEVERITY>
+  |
+   t = <SC_ACTION>
+  |
+   t = <SC_ACTIONS>
+  |
+   t = <SC_REPORT_HANDLER>
+  |
+   t = <SC_REPORT>
+  |
+   t = <SC_MAIN_MAIN_ROUTINE>
+  |
+   t = <SC_ARGC_ROUTINE>
+  |
+   t = <SC_ARGV_ROUTINE>
+  |
+   t = <SC_START_OF_SIMULATION_INVOKED_ROUTINE>
+  |
+   t = <SC_END_OF_SIMULATION_INVOKED_ROUTINE>
+  |
+   t = <SC_STOP_MODE>
+  |
+   t = <SC_SET_STOP_MODE_ROUTINE>
+  |
+   t = <SC_GEN_UNIQUE_NAME_ROUTINE>
+  |
+   t = <SC_SIMCONTEXT>
+  |
+   t = <SC_API_VERSION_STRING>   
+  |
+   t = <SC_COR>
+  |
+   t = <SC_COR_PKG>
+  |
+   t = <SC_EVENT_TIMED>    
+  |
+   t = <SC_METHOD_PROCESS>
+  |
+   t = <SC_SIMULATION_TIME_ROUTINE>
+  |
+   t = <SC_GET_CURR_PROCESS_HANDLE_ROUTINE>
+  |
+   t = <SC_GET_CURR_SIMCONTEXT_ROUTINE>
+  |
+   t = <SC_PROCESS_B>
+  |
+   t = <SC_CURR_PROC_KIND>
+
+  |
+   t = <SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE>
+  |
+   t = <SC_GET_CURR_PROCESS_KIND_ROUTINE>
+  |
+   t = <SC_MAP_TO_TARGET_INIT_MACRO>
+  |
+   t = <SC_MAP_TO_TARGET_MACRO>
+  |
+   t = <SC_SENSITIVE>
+  |
+   t = <SC_SENSITIVE_POS>
+  |
+   t = <SC_SENSITIVE_NEG>            
+  |
+   t = <SC_MAIN>
+  |
+   t = <SC_VERSION_ROUTINE>
+  |
+   t = <SC_COPYRIGHT_ROUTINE>
+  |
+   t = <SC_MAX_ROUTINE>
+  |
+   t = <SC_MIN_ROUTINE>                    
+  |
+   t = <SC_STOP_HERE_ROUTINE>                       
+  |
+   t = <SC_LOGIC_VALUE_T>
+  |
+   t = <SC_LOGIC_CONSTANT>
+  |
+   t = <SC_MAX_NUM_DELTA_CYCLES>
+  |
+   t = <SC_ATTR_BASE>
+  |
+   t = <SC_ATTR_CLTN>
+  | 
+   t = <SC_ATTRIBUTE>
+  |
+   t = <SC_BV_BASE>
+  |
+   t =  <SC_EVENT_FINDER_T>
+  |
+   t =  <SC_EVENT_FINDER>
+  |
+   t = <SC_EVENT_QUEUE_IF>    
+  |
+   t =  <SC_FXNUM_FAST_OBSERVER>
+  |
+   t =  <SC_FXNUM_OBSERVER>
+  |
+   t =  <SC_FXVAL>
+  |
+   t =  <SC_FXVAL_FAST>
+  |
+   t =  <SC_FXVAL_FAST_OBSERVER>
+  |
+   t =  <SC_FXVAL_OBSERVER>
+  |
+   t = <SC_INT_BASE>
+  |
+   t = <SC_LENGTH_CONTEXT>
+  |
+   t = <SC_STRING_OLD>
+  |
+   t = <SC_LENGTH_PARAM>
+  |
+   t = <SC_UINT_BASE>
+  |
+   t = <SC_UNSIGNED>
+  |
+   t = <SC_SIGNED>
+  |
+   t = <SC_BYTE_HEAP>
+  |
+   t = <SC_VPOOL>
+  |
+   t = <SC_PVECTOR>
+  | 
+   t = < SCFX_IEEE_DOUBLE>
+  |
+   t = < SCFX_IEEE_FLOAT>
+  |
+   t = < SCFX_MANT>
+  |
+   t = < SCFX_MANT_REF>
+  |
+   t = < SCFX_PARAMS>
+  |
+   t = < SCFX_INDEX>
+  |
+   t = < SCFX_REP>
+  |
+   t = < SCFX_STRING>
+  |
+   t = < SCFX_INT_BITREF_R>
+  |
+   t = < SCFX_INT_BITREF>
+  |
+   t = < SCFX_INT_SUBREF_R>
+  |
+   t = < SCFX_INT_SUBREF>
+  |
+   t = < SC_SIGNED_BITREF_R>
+  |
+   t = < SC_SIGNED_BITREF>
+  |
+   t = < SC_SIGNED_SUBREF_R>
+  |
+   t = < SC_SIGNED_SUBREF>
+  |
+   t = < SC_UINT_BITREF_R>
+  |
+   t = < SC_UINT_BITREF>
+  |
+   t = < SC_UINT_SUBREF_R>
+  |
+   t = < SC_UINT_SUBREF>
+  |
+   t = < SC_UNSIGNED_BITREF_R>
+  |
+   t = < SC_UNSIGNED_BITREF>
+  |
+   t = < SC_UNSIGNED_SUBREF_R>
+  |
+   t = < SC_UNSIGNED_SUBREF>
+  |
+   t = < SC_CONCATREF>
+  |
+   t = < SC_CONCAT_BOOL>
+  |
+   t = < SC_VALUE_BASE>
+  |
+   t = < SC_GENERIC_BASE>
+  |   
+   t = <TLM_SYNC_ENUM>
+  |
+   t = <TLM_DMI> 
+  |
+   t = <PEQ_WITH_CB_AND_PHASE>
+   
+ )
+
+{
+  return t;
+}
+
+}
+
+
+void id_expression(boolean mayBeGlSCFunction) #void :
+{Token t; boolean isSCRoutine = false; }
+{
+
+   (LOOKAHEAD(scope_override_lookahead()) scope_override())?
+   ( (
+        t = getID()
+      | LOOKAHEAD({((isSCRoutineForSCMainOnly() && m_isSC_main) || (!isSCRoutineForSCMainOnly() && !m_isSC_main))})
+        t = systemCKeyWords() { isSCRoutine = true; }
+     )
+
+     {
+
+       if (isSCRoutine && mayBeGlSCFunction) {
+         //throw new ParseException("Parse error at line " + token.beginLine + ", collumn " + token.beginColumn + ".  Encountered: " + t.image);
+         generateParseException();
+       }
+
+       jjtThis.setName(t.image);
+
+//       if (isSCRoutine && mayBeGlSCFunction) {
+//         jjtThis.setSCRoutine(true);
+//       }
+     }
+     #id_expression
+
+     | "operator" optor()  #optor_overloading
+
+     | "~"  getID()
+
+   )
+
+
+}
+
+void primary_expression()  :
+{}
+{
+     "this" #this_node
+//   | ( LOOKAHEAD(2) <STRING> )+
+   | pl() expression()  pr()
+   |
+     LOOKAHEAD( ("::")? "new")
+     new_expression()
+
+   |
+     LOOKAHEAD( ("::")? "delete") 
+     (
+       LOOKAHEAD(2) 
+       delete_array_expression() 
+       |
+       delete_expression()
+     ) 
+   |
+     id_expression(true)
+   |  LOOKAHEAD(2) constant()
+}
+
+void expression_list() #arguments_list :
+{}
+{    assignment_expression()( "," assignment_expression())*
+}
+
+void constant() :
+{Token t;}
+{  t = <OCTALINT>  {jjtThis.setName(t.image);}
+   | t = <OCTALLONG> {jjtThis.setName(t.image);}
+   | t = <DECIMALINT> {jjtThis.setName(t.image);}
+   | t = <DECIMALLONG> {jjtThis.setName(t.image);}
+   | t = <HEXADECIMALINT> {jjtThis.setName(t.image);}
+   | t = <HEXADECIMALLONG> {jjtThis.setName(t.image);}
+
+   | t = <UNSIGNED_OCTALINT> {jjtThis.setName(t.image);}
+   | t = <UNSIGNED_OCTALLONG> {jjtThis.setName(t.image);}
+   | t = <UNSIGNED_DECIMALINT> {jjtThis.setName(t.image);}
+   | t = <UNSIGNED_DECIMALLONG> {jjtThis.setName(t.image);}
+   | t = <UNSIGNED_HEXADECIMALINT> {jjtThis.setName(t.image);}
+   | t = <UNSIGNED_HEXADECIMALLONG> {jjtThis.setName(t.image);}
+
+   | t = <CHARACTER> {jjtThis.setName(t.image);}
+   | t = <STRING> {jjtThis.setName(t.image);}
+   | t = <FLOATONE> {jjtThis.setName(t.image);}
+   | t = <FLOATTWO> {jjtThis.setName(t.image);}
+//   | t = <TRUETOK> {jjtThis.setName(t.image);}
+//   | t = <FALSETOK> {jjtThis.setName(t.image);}
+   | t = boolean_literal() {jjtThis.setName(t.image);}
+   | t = sc_constants() {jjtThis.setName(t.image);}
+}
+
+
+Token sc_constants() #void :
+{ Token t = null; }
+
+{ (
+     t = sc_time_constant()
+    |
+     t = sc_fp_quantization_constants()
+    |
+     t = sc_fp_overflow_constants()
+    |
+     t = sc_context_begin_constant()
+    |
+     t = sc_switch_constant()
+    |
+     t = sc_fmt_constant()
+    |
+     t = sc_numrep_constant()
+//    |
+//     t = sc_lambda_rator_e_constant() 
+    |
+     t = sc_lambda_rand_e_constant()
+    |
+     t = sc_enc_constants()
+    |
+     t = sc_action_constant()
+    |
+     t = sc_severity_constant()
+    |
+     t = sc_stop_mode_constant()
+    |
+     t = sc_curr_proc_kind_constant()
+    |
+     t = sc_logic_value_t_constant()
+    |
+     t = <SC_LOGIC_CONSTANT>
+    |
+     t = <SC_MAX_NUM_DELTA_CYCLES>
+     
+  )
+
+  {
+    return t;                                         
+  }
+
+}
+
+Token sc_context_begin_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_CONTEXT_BEGIN_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+
+Token sc_fmt_constant() #void :
+
+{ Token t = null; }
+
+{ (
+    t = <SC_FMT_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+
+//Token sc_lambda_rator_e_constant() #void :
+//{ Token t = null; }
+//
+//{ (
+//    t = <SC_LAMBDA_RATOR_E_CONSTANTS1>
+//   |
+//    t = <SC_LAMBDA_RATOR_E_CONSTANTS2>
+//   |
+//    t = <SC_LAMBDA_RATOR_E_CONSTANTS3>
+//   |
+//    t = <SC_LAMBDA_RATOR_E_CONSTANTS4>
+//  )
+//
+//  {
+//
+//    return t;
+//  }
+//
+//
+//}
+
+Token sc_lambda_rand_e_constant() #void :
+
+{ Token t = null; }
+
+{ (
+    t = <SC_LAMBDA_RAND_E_CONSTANTS>
+  )
+
+  {
+
+    return t;
+  }
+
+
+}
+
+Token sc_enc_constants() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_ENC_CONSTANTS>
+  )
+
+  {
+
+    return t;
+  }
+
+
+}
+
+
+
+
+
+Token sc_numrep_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_NUMREP_CONSTANTS>
+  )
+
+  {
+
+    return t;
+  }
+
+
+}
+
+Token sc_severity_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_SEVERITY_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+
+Token sc_curr_proc_kind_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_CURR_PROC_KIND_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+Token sc_stop_mode_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_STOP_MODE_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+Token sc_action_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_ACTION_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+Token sc_logic_value_t_constant() #void :
+{ Token t = null; }
+
+
+{ (
+    t = <SC_LOGIC_VALUE_T_CONSTANT>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+Token sc_switch_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_SWITCH_CONSTANTS>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+Token sc_time_constant() #void :
+{ Token t = null; }
+
+{ (
+    t = <SC_TIME_CONSTANTS>
+   |
+    t = <SC_ZERO_TIME>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+Token sc_fp_quantization_constants() #void:
+{ Token t = null; }
+
+{ (
+
+    t = <FIXED_POINT_QUANTIZATION_TYPE>
+  )
+
+  {
+    return t;
+
+  }
+
+}
+
+Token sc_fp_overflow_constants() #void:
+{ Token t = null; }
+
+{ (
+    t = <FIXED_POINT_OVERFLOW_TYPE>
+  )
+
+  {
+    return t;
+  }
+
+}
+
+
+
+int constant_int() #void:
+{Token t = null; }
+
+{  
+
+   t = <OCTALINT> { if (t.image.length() == 1)
+                        return 0;
+                      else
+                        return Integer.parseInt(t.image.substring(1), 8);
+                  }
+   | t = <DECIMALINT> { return Integer.parseInt(t.image, 10); }                    
+   | t = <HEXADECIMALINT> { return Integer.parseInt(t.image.substring(2), 16); }
+}
+
+Token boolean_literal() #void:
+{Token t = null;}
+{
+  (
+    t=<TRUETOK>
+   |
+    t=<FALSETOK>
+  )
+
+  { return t; }
+}
+
+void optor() :
+{}
+{
+     "new" [ LOOKAHEAD(2) "[" "]" ]
+   | "delete" [ LOOKAHEAD(2) "[" "]" ]
+   | "+"
+   | "-"
+   | "*"
+   | "/"
+   | "%"
+   | "^"
+   | "&"
+   | "|"
+   | "~"
+   | "!"
+   | "="
+   | "<"
+   | ">"
+   | "+="
+   | "-="
+
+   | "*="
+   | "/="
+   | "%="
+   | "^="
+   | "&="
+   | "|="
+   | "<<"
+   | ">>"
+   | ">>="
+   | "<<="
+   | "=="
+   | "!="
+   | "<="
+   | ">="
+   | "&&"
+   | "||"
+   | "++"
+   | "--"
+   | ","
+
+   | "->*"
+   | "->"
+   | pl() pr()
+   | "[" "]"
+   | declaration_specifiers() (LOOKAHEAD(2) ("*"|"&"))?
+}
+
+void exception_spec() :
+{}
+{
+   "throw" pl() exception_list() pr()
+}
+
+
+void exception_list() :
+{}
+{
+   type_name() ( "," type_name())*
+}
+
+TOKEN :
+{
+  <  ID : ["a"-"z","A"-"Z", "_"] (["a"-"z","A"-"Z","0"-"9","_"])* >
+}
+
+
+void output_stream() :
+
+{ Token t = null;
+  boolean isStdPrefix = false;
+ }
+
+{
+  ( t = <COUT>
+   |
+    t = <CERR>
+  )
+  {
+   if (isStdPrefix) 
+     jjtThis.setName(new String("std::") + t.image);
+   else
+     jjtThis.setName(t.image);
+  
+    
+    m_isStream_output = true;
+    m_isBal = false;
+  }
+
+   (
+     (
+
+      "." postfix_expression() #postfix_expression <SEMICOLON>
+
+
+     )
+    |
+     (
+      standart_output_stream_helper()
+      (   // LOOKAHEAD(standart_output_stream_helper())
+            standart_output_stream_helper()
+      )*
+
+      <SEMICOLON>
+     )
+   )  
+  { if(m_isStream_output) {
+      m_isStream_output = false;
+      m_isBal = false;
+    }
+  }
+
+}
+
+
+void standart_output_stream_helper() #void :
+{}
+
+{
+  "<<" (
+   {     
+     m_isBal = isParanthBalancedExpr(1);
+//     System.out.println("m_isBal is " + m_isBal);
+   }
+   (
+    LOOKAHEAD(3)
+      standart_manipulator() 
+    |
+     expression()
+   ) 
+
+
+  )    
+}
+
+void standart_manipulator() :
+{ Token t; boolean isStdPrefix = false;}
+{
+  //["std::" {isStdPrefix = true;}]
+  (
+    t = <SC_IO_MANIPULATORS>
+   |
+    t = <SC_IO_MANIPULATOR_WITH_PARAM> pl() expression_list() pr()
+  )
+  {
+    if (isStdPrefix)
+      jjtThis.setName(new String("std::") + t.image);
+    else
+      jjtThis.setName(t.image);
+  }
+}
+void pl() #void :
+{
+
+}
+{
+  "(" 
+}
+
+
+void pr() #void :
+{
+
+}
+{
+  ")" 
+
+}
+
+void sc_has_process_declaration() #void:
+{ Token t = null; }
+{
+  <SC_HAS_PROCESS> pl() t = getID() pr()
+    {
+      if (m_hasProcessMacroElab != 0)
+        addHasProcessInstruction(t.image);
+       
+      m_isExtOfSCClass = true;
+    }
+}
+
+void sc_map_to_target_declaration() :
+{ Token t = null; }
+{
+  t = <SC_MAP_TO_TARGET_INIT_MACRO> { jjtThis.setName(t.image); }
+}
+
+void sc_map_to_target() :
+{ Token t = null, t2 = null, t3 = null, t_name; int id = -1; String s = null; }
+{
+  
+  t_name =  <SC_MAP_TO_TARGET_MACRO> pl() t = getID() <COMMA>
+                                    t2 = <STRING> <COMMA>
+                                    ( id = constant_int() { s = Integer.toString(id); }
+                                     |
+                                      t3 = getID()  { s = t3.image;}
+                                    )  
+
+                               pr()
+  {
+    jjtThis.setName(t_name.image);
+    jjtThis.setObject(t.image);
+    jjtThis.setTarget(t2.image);
+    jjtThis.setInstanceId(s);    
+  }                   
+    
+}
+
+void namespace_definition() :
+{}
+{
+   LOOKAHEAD(2)
+   named_namespace_definition()
+  |
+   unnamed_namespace_definition()
+}
+
+void named_namespace_definition() :
+{}
+{
+   LOOKAHEAD(<NAMESPACE>  getID(), { (sym.GetScope(getToken(2).image) == null) })
+    original_namespace_definition()
+
+  |
+    extended_namespace_definition()
+}
+
+
+void original_namespace_definition() :
+{Token t = null;}
+{
+  <NAMESPACE>  t = getID()
+  {
+    sym.OpenScope(t.image, false);
+  }
+
+  "{" namespace_body() "}"
+  
+  {
+    sym.CloseScope();
+    
+    jjtThis.setName(t.image);
+  }
+}
+
+
+void extended_namespace_definition() :
+{Token t = null;
+ Scope sc = null;
+ Scope old = null;
+}
+{
+  <NAMESPACE>  t = getID()
+  {
+    sc = sym.GetScope(t.image);
+    if (sc != null) {
+      old = sym.GetCurScope();
+      sym.SetCurrentScope(sc);
+    }
+  }
+
+   "{" namespace_body() "}"
+   {
+     if (old != null) {
+      sym.SetCurrentScope(old);
+     }
+     jjtThis.setName(t.image);
+   }
+}
+
+void unnamed_namespace_definition() :
+
+{}
+{
+  <NAMESPACE>
+   // unnames namespace is visible after definition!!! -> trick without scope!
+   //{ sym.OpenScope(null, false); }
+
+   "{" namespace_body() "}"
+
+   // { sym.CloseScope(); }
+   
+}
+
+void namespace_declaration() #void :
+{ boolean isTypedef;}
+
+{
+    LOOKAHEAD(("typedef" | template_head())? class_head()  "{")
+       ( template_head() )? declaration()
+   |
+    LOOKAHEAD("enum" (getID())? "{")
+       enum_specifier() (init_declarator_list(false))?  ";"
+   |
+    LOOKAHEAD ((template_head())? dtor_ctor_decl_spec()
+                               dtor_declarator() "{")
+       dtor_definition()
+   |
+    LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+       ctor_definition()
+
+   |
+    LOOKAHEAD(function_definition())
+       function_definition()
+
+   |
+    LOOKAHEAD((scope_override())? "operator")
+         conversion_function_decl_or_def()
+   |
+    template_head()
+      (
+
+        LOOKAHEAD(dtor_ctor_decl_spec() ctor_declarator_lookahead())
+           ctor_definition()
+      |
+        LOOKAHEAD((declaration_specifiers())?  function_declarator_lookahead())
+           function_definition()
+      |
+        isTypedef = declaration_specifiers()
+               (init_declarator_list(isTypedef))?  ";"
+      )
+   |
+   LOOKAHEAD(3)
+    declaration()
+   |
+    ";"
+   |
+   preprocessor_directive()
+   |
+    fzi_sim_directive()
+   |
+    namespace_definition()
+   |
+   LOOKAHEAD(2)
+    sc_main_declaration()
+}
+void namespace_body() :
+{}
+{
+   (namespace_declaration())*
+}
+
+void alias_namespace_definition() :
+{
+  Token t = null;
+  String name = null;
+  Scope sc = null;
+}
+{
+  <NAMESPACE> t = getID() <ASSIGNEQUAL> { name = GetFullyScopedName(); } namespace_qualified_spec() ";"
+  {
+    sc = sym.GetScopeOfScopedName(name);
+    if (sc != null && sc.IsNamespace()) {
+      
+      sym.OpenScope(t.image, false);
+
+      sym.GetCurScope().SetReferenceNamespace(sc);
+      sym.CloseScope();
+    }
+    jjtThis.setName(t.image);  
+  }
+}
+
+void namespace_qualified_spec() :
+{}
+{
+  
+ [<SCOPE>] { m_cur_scope_in_comp_name = null; }
+ [LOOKAHEAD(complicated_name_spec()) complicated_name_spec()]
+ 
+ namespace_name()
+
+ {m_cur_scope_in_comp_name = null;}
+ 
+}
+
+void using_declaration() :
+{
+  String type = null;
+  Scope sc = null;
+  String name = null;
+}
+
+{
+  (
+    LOOKAHEAD(2)
+     ( <USING> [<TYPENAME>] { name = GetFullyScopedName(); } 
+
+     {m_cur_scope_in_comp_name = null;} complicated_name_spec() {m_cur_scope_in_comp_name = null;})
+    |
+     (<USING> { name = GetFullyScopedName(); } <SCOPE> )
+  )
+  type = not_qualified_id() ";"
+  {
+    
+    sc = sym.GetScopeOfFullyScopedName(name);
+    if (sc != null) {
+
+      if ( sc.IsTypeName2(type)) {
+        ((Scope)sym.GetCurScope()).AddTypeFromNamespace(type);
+      }
+
+    }   
+    
+    jjtThis.setName(name);
+  }
+}
+
+
+
+void using_directive() :
+
+{
+  Scope sc = null;
+  String name = null;
+
+}
+{
+  <USING> <NAMESPACE> { name = GetFullyScopedName(); }
+  namespace_qualified_spec() ";"
+  {
+    sc = sym.GetScopeOfScopedName(name);
+    if (sc != null) {
+      if (sc.IsNamespace() || sc.IsAliasNamespace()) {
+        ((Scope)sym.GetCurScope()).AddNamespace(sc);
+      }
+    }  
+    jjtThis.setName(name);
+  }
+}
+
+void class_or_namespace_name() :
+{ }
+{
+  (
+   LOOKAHEAD(2)
+    class_name()
+   |
+    namespace_name()
+  )
+
+  <SCOPE>
+
+}
+
+
+void complicated_name_spec() :
+
+{ }
+
+{
+   class_or_namespace_name()
+
+   (
+    [LOOKAHEAD(2) complicated_name_spec()]
+   )
+  |
+   (
+
+    <TEMPLATE>
+
+    complicated_name_spec()
+   )
+  
+}
+
+void complicated_name_spec_without_template() #complicated_name_spec :
+
+{ }
+
+{
+   class_or_namespace_name()
+
+   (
+    [LOOKAHEAD(2) complicated_name_spec()]
+   )
+}
+
+
+void namespace_name() :
+{}
+{ LOOKAHEAD({namespace_name_lookahead()})
+   original_namespace_name()
+  |
+  LOOKAHEAD({alias_namespace_name_lookahead()})
+   alias_namespace_name()
+}
+
+void original_namespace_name() :
+{Token t = null;}
+{
+  {
+     if (m_cur_scope_in_comp_name == null) {
+       m_cur_scope_in_comp_name = getToken(1).image;
+     }
+     else
+       m_cur_scope_in_comp_name += "::" + getToken(1).image;
+   }
+
+
+  t = getID() {jjtThis.setName(t.image);}
+}
+
+void alias_namespace_name() :
+{Token t = null;}
+{
+  t = getID() {jjtThis.setName(t.image);}
+}
+
+String not_qualified_id() :
+{Token t = null;}
+{
+  t = getID() {jjtThis.setName(t.image);}
+  {return t.image; }
+}
+
+void class_name() :
+{}
+{ 
+  LOOKAHEAD(2)
+   template_id()
+  |
+  LOOKAHEAD( { class_name_lookahead() } )
+  (
+   { if (m_cur_scope_in_comp_name == null) {
+       m_cur_scope_in_comp_name = getToken(1).image;
+     }
+     else
+       m_cur_scope_in_comp_name += "::" + getToken(1).image;
+   }
+   not_qualified_id()
+  )
+}
+
+void comment() :
+{
+
+}
+{
+  "`"
+}
+
+/*end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

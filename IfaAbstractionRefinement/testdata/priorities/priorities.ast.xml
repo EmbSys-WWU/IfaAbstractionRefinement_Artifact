@@ -1,0 +1,1138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="true" idref="10" keyword="class" name="priorities">
+          <base_clause column="21" file="priorities.cpp" idref="12" line="3">
+            <base_specifier column="21" file="priorities.cpp" idref="14"
+              length="0" line="3" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="21"
+                file="priorities.cpp" idref="16" line="3" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="21" file="priorities.cpp"
+            idref="18" line="3">
+            <access_specifier column="21" file="priorities.cpp"
+              idref="20" line="3" name="public"/>
+          </member_declaration>
+          <member_declaration column="23" file="priorities.cpp"
+            idref="22" line="4">
+            <member_declarator_list column="23" file="priorities.cpp"
+              idref="24" line="4">
+              <sc_port_specifier column="23" file="priorities.cpp"
+                idref="26" line="4" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="13"
+                  file="priorities.cpp" idref="28" line="4">
+                  <builtin_type_specifier column="13"
+                    file="priorities.cpp" idref="30" length="0" line="4"
+                    name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="priorities.cpp"
+                idref="32" line="4">
+                <declarator column="17" file="priorities.cpp" idref="34" line="4">
+                  <qualified_id column="17" file="priorities.cpp"
+                    idref="36" line="4" name="data_bus"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="27" file="priorities.cpp"
+            idref="38" line="6">
+            <member_declarator_list column="27" file="priorities.cpp"
+              idref="40" line="6">
+              <declaration_specifiers column="27" file="priorities.cpp"
+                idref="42" line="6">
+                <builtin_type_specifier column="27"
+                  file="priorities.cpp" idref="44" length="0" line="6"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="46" line="6">
+                <declarator column="5" file="priorities.cpp" idref="48" line="6">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="50" line="6" name="trusted_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="19" file="priorities.cpp"
+            idref="52" line="7">
+            <member_declarator_list column="19" file="priorities.cpp"
+              idref="54" line="7">
+              <declaration_specifiers column="19" file="priorities.cpp"
+                idref="56" line="7">
+                <builtin_type_specifier column="19"
+                  file="priorities.cpp" idref="58" length="0" line="7"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="60" line="7">
+                <declarator column="5" file="priorities.cpp" idref="62" line="7">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="64" line="7" name="untrusted_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="21" file="priorities.cpp"
+            idref="66" line="8">
+            <member_declarator_list column="21" file="priorities.cpp"
+              idref="68" line="8">
+              <declaration_specifiers column="21" file="priorities.cpp"
+                idref="70" line="8">
+                <builtin_type_specifier column="21"
+                  file="priorities.cpp" idref="72" length="0" line="8"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="74" line="8">
+                <declarator column="5" file="priorities.cpp" idref="76" line="8">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="78" line="8" name="priority_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="22" file="priorities.cpp" idref="79" line="8" name="// 0 = low-priority, 1 = high-priority"/>
+          <member_declaration column="20" file="priorities.cpp"
+            idref="81" line="9">
+            <member_declarator_list column="20" file="priorities.cpp"
+              idref="83" line="9">
+              <declaration_specifiers column="20" file="priorities.cpp"
+                idref="85" line="9">
+                <builtin_type_specifier column="20"
+                  file="priorities.cpp" idref="87" length="0" line="9"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="89" line="9">
+                <declarator column="5" file="priorities.cpp" idref="91" line="9">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="93" line="9" name="trust_level_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <comment column="25" file="priorities.cpp" idref="94" line="9" name="// &lt;16 -> untrusted, >=16 -> trusted"/>
+          <member_declaration column="23" file="priorities.cpp"
+            idref="96" line="11">
+            <member_declarator_list column="23" file="priorities.cpp"
+              idref="98" line="11">
+              <declaration_specifiers column="23" file="priorities.cpp"
+                idref="100" line="11">
+                <builtin_type_specifier column="23"
+                  file="priorities.cpp" idref="102" length="0" line="11"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="104" line="11">
+                <declarator column="5" file="priorities.cpp" idref="106" line="11">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="108" line="11" name="critical_output"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="24" file="priorities.cpp"
+            idref="110" line="12">
+            <member_declarator_list column="24" file="priorities.cpp"
+              idref="112" line="12">
+              <declaration_specifiers column="24" file="priorities.cpp"
+                idref="114" line="12">
+                <builtin_type_specifier column="24"
+                  file="priorities.cpp" idref="116" length="0" line="12"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="118" line="12">
+                <declarator column="5" file="priorities.cpp" idref="120" line="12">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="122" line="12" name="routine_output"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="23" file="priorities.cpp"
+            idref="124" line="13">
+            <member_declarator_list column="23" file="priorities.cpp"
+              idref="126" line="13">
+              <declaration_specifiers column="23" file="priorities.cpp"
+                idref="128" line="13">
+                <builtin_type_specifier column="23"
+                  file="priorities.cpp" idref="130" length="0" line="13"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="132" line="13">
+                <declarator column="5" file="priorities.cpp" idref="134" line="13">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="136" line="13" name="status_log"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="19" file="priorities.cpp"
+            idref="138" line="15">
+            <member_declarator_list column="19" file="priorities.cpp"
+              idref="140" line="15">
+              <declaration_specifiers column="19" file="priorities.cpp"
+                idref="142" line="15">
+                <builtin_type_specifier column="19"
+                  file="priorities.cpp" idref="144" length="0" line="15"
+                  name="sc_event" sc_dt="true"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="146" line="15">
+                <declarator column="5" file="priorities.cpp" idref="148" line="15">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="150" line="15" name="high_prio_ev"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="26" file="priorities.cpp"
+                idref="152" line="15">
+                <declarator column="26" file="priorities.cpp"
+                  idref="154" line="15">
+                  <qualified_id column="26" file="priorities.cpp"
+                    idref="156" line="15" name="low_prio_ev"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="39" file="priorities.cpp"
+            idref="158" line="16">
+            <member_declarator_list column="39" file="priorities.cpp"
+              idref="160" line="16">
+              <declaration_specifiers column="39" file="priorities.cpp"
+                idref="162" line="16">
+                <builtin_type_specifier column="39"
+                  file="priorities.cpp" idref="164" length="0" line="16"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="priorities.cpp"
+                idref="166" line="16">
+                <declarator column="5" file="priorities.cpp" idref="168" line="16">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="170" line="16" name="trust_level"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="20" file="priorities.cpp"
+            idref="172" line="18">
+            <function_definition column="20" file="priorities.cpp"
+              idref="174" line="18">
+              <declaration_specifiers column="20" file="priorities.cpp"
+                idref="176" line="18">
+                <builtin_type_specifier column="20"
+                  file="priorities.cpp" idref="178" length="0" line="18"
+                  name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="priorities.cpp"
+                idref="180" line="18">
+                <qualified_id column="5" file="priorities.cpp"
+                  idref="182" line="18" name="task_dispatcher"/>
+              </function_declarator>
+              <block column="26" file="priorities.cpp" idref="184" line="18">
+                <block_statement column="28" file="priorities.cpp"
+                  idref="186" line="19">
+                  <while_statement column="28" file="priorities.cpp"
+                    idref="188" line="19">
+                    <primary_expression column="15"
+                      file="priorities.cpp" idref="192" line="19">
+                      <constant column="15" file="priorities.cpp"
+                        idref="194" line="19" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="priorities.cpp" idref="196" line="19">
+                      <block_statement column="22" file="priorities.cpp"
+                        idref="198" line="20">
+                        <systemCRoutine column="22"
+                          file="priorities.cpp" idref="202" line="20" name="wait">
+                          <arguments column="13" file="priorities.cpp"
+                            idref="204" line="20">
+                            <arguments_list column="17"
+                              file="priorities.cpp" idref="206" line="20">
+                              <primary_expression column="17"
+                                file="priorities.cpp" idref="210" line="20">
+                                <constant column="17"
+                                  file="priorities.cpp" idref="212"
+                                  line="20" value="1"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="priorities.cpp" idref="216" line="20">
+                                <constant column="19"
+                                  file="priorities.cpp" idref="218"
+                                  line="20" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="27" file="priorities.cpp"
+                        idref="220" line="22">
+                        <if_statement column="27" file="priorities.cpp"
+                          idref="222" line="22">
+                          <lt_node column="32" file="priorities.cpp"
+                            idref="230" line="22">
+                            <primary_expression column="16"
+                              file="priorities.cpp" idref="226" line="22">
+                              <id_expression column="17"
+                                file="priorities.cpp" idref="228"
+                                line="22" name="trust_level_in"/>
+                            </primary_expression>
+                            <primary_expression column="32"
+                              file="priorities.cpp" idref="234" line="22">
+                              <constant column="32"
+                                file="priorities.cpp" idref="236"
+                                line="22" value="16"/>
+                            </primary_expression>
+                          </lt_node>
+                          <block column="36" file="priorities.cpp"
+                            idref="238" line="23">
+                            <block_statement column="36"
+                              file="priorities.cpp" idref="240" line="23">
+                              <assignment column="17"
+                                file="priorities.cpp" idref="250" line="23">
+                                <primary_expression column="36"
+                                  file="priorities.cpp" idref="244" line="23">
+                                  <id_expression column="5"
+                                    file="priorities.cpp" idref="246"
+                                    line="23" name="trust_level"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="priorities.cpp" idref="248" line="23"/>
+                                <primary_expression column="17"
+                                  file="priorities.cpp" idref="254" line="23">
+                                  <constant column="17"
+                                    file="priorities.cpp" idref="256"
+                                    line="23" value="0"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="4" file="priorities.cpp"
+                            idref="258" line="25">
+                            <block_statement column="4"
+                              file="priorities.cpp" idref="260" line="25">
+                              <assignment column="17"
+                                file="priorities.cpp" idref="270" line="25">
+                                <primary_expression column="4"
+                                  file="priorities.cpp" idref="264" line="25">
+                                  <id_expression column="5"
+                                    file="priorities.cpp" idref="266"
+                                    line="25" name="trust_level"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="priorities.cpp" idref="268" line="25"/>
+                                <primary_expression column="17"
+                                  file="priorities.cpp" idref="274" line="25">
+                                  <constant column="17"
+                                    file="priorities.cpp" idref="276"
+                                    line="25" value="1"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="20" file="priorities.cpp"
+                        idref="278" line="27">
+                        <if_statement column="20" file="priorities.cpp"
+                          idref="280" line="27">
+                          <eq_node column="29" file="priorities.cpp"
+                            idref="288" line="27">
+                            <primary_expression column="16"
+                              file="priorities.cpp" idref="284" line="27">
+                              <id_expression column="17"
+                                file="priorities.cpp" idref="286"
+                                line="27" name="trust_level"/>
+                            </primary_expression>
+                            <primary_expression column="29"
+                              file="priorities.cpp" idref="292" line="27">
+                              <constant column="29"
+                                file="priorities.cpp" idref="294"
+                                line="27" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="33" file="priorities.cpp"
+                            idref="296" line="28">
+                            <block_statement column="33"
+                              file="priorities.cpp" idref="298" line="28">
+                              <postfix_expression column="33"
+                                file="priorities.cpp" idref="300" line="28">
+                                <primary_expression column="33"
+                                  file="priorities.cpp" idref="302" line="28">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="304"
+                                    line="28" name="data_bus"/>
+                                </primary_expression>
+                                <dereferencing_operator column="17"
+                                  file="priorities.cpp" idref="306"
+                                  line="28" name="&amp;"/>
+                                <id_expression column="26"
+                                  file="priorities.cpp" idref="308"
+                                  line="28" name="write"/>
+                                <arguments column="26"
+                                  file="priorities.cpp" idref="310" line="28">
+                                  <arguments_list column="31"
+                                    file="priorities.cpp" idref="312" line="28">
+                                    <primary_expression column="31"
+                                    file="priorities.cpp" idref="316" line="28">
+                                    <id_expression column="32"
+                                    file="priorities.cpp"
+                                    idref="318" line="28" name="untrusted_in"/>
+                                    </primary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </postfix_expression>
+                            </block_statement>
+                          </block>
+                          <block column="13" file="priorities.cpp"
+                            idref="320" line="30">
+                            <block_statement column="13"
+                              file="priorities.cpp" idref="322" line="30">
+                              <postfix_expression column="13"
+                                file="priorities.cpp" idref="324" line="30">
+                                <primary_expression column="13"
+                                  file="priorities.cpp" idref="326" line="30">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="328"
+                                    line="30" name="data_bus"/>
+                                </primary_expression>
+                                <dereferencing_operator column="17"
+                                  file="priorities.cpp" idref="330"
+                                  line="30" name="&amp;"/>
+                                <id_expression column="26"
+                                  file="priorities.cpp" idref="332"
+                                  line="30" name="write"/>
+                                <arguments column="26"
+                                  file="priorities.cpp" idref="334" line="30">
+                                  <arguments_list column="31"
+                                    file="priorities.cpp" idref="336" line="30">
+                                    <primary_expression column="31"
+                                    file="priorities.cpp" idref="340" line="30">
+                                    <id_expression column="32"
+                                    file="priorities.cpp"
+                                    idref="342" line="30" name="trusted_in"/>
+                                    </primary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </postfix_expression>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="43" file="priorities.cpp"
+                        idref="344" line="32">
+                        <if_statement column="43" file="priorities.cpp"
+                          idref="346" line="32">
+                          <eq_node column="29" file="priorities.cpp"
+                            idref="354" line="32">
+                            <primary_expression column="16"
+                              file="priorities.cpp" idref="350" line="32">
+                              <id_expression column="17"
+                                file="priorities.cpp" idref="352"
+                                line="32" name="priority_in"/>
+                            </primary_expression>
+                            <primary_expression column="29"
+                              file="priorities.cpp" idref="358" line="32">
+                              <constant column="29"
+                                file="priorities.cpp" idref="360"
+                                line="32" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="33" file="priorities.cpp"
+                            idref="362" line="33">
+                            <block_statement column="33"
+                              file="priorities.cpp" idref="364" line="33">
+                              <sc_notify column="33"
+                                file="priorities.cpp" idref="366"
+                                line="33" name="low_prio_ev">
+                                <arguments_list column="35"
+                                  file="priorities.cpp" idref="368" line="33">
+                                  <primary_expression column="35"
+                                    file="priorities.cpp" idref="372" line="33">
+                                    <constant column="35"
+                                    file="priorities.cpp" idref="374"
+                                    line="33" value="SC_ZERO_TIME"/>
+                                  </primary_expression>
+                                </arguments_list>
+                              </sc_notify>
+                            </block_statement>
+                          </block>
+                          <block column="13" file="priorities.cpp"
+                            idref="376" line="35">
+                            <block_statement column="13"
+                              file="priorities.cpp" idref="378" line="35">
+                              <sc_notify column="13"
+                                file="priorities.cpp" idref="380"
+                                line="35" name="high_prio_ev">
+                                <arguments_list column="36"
+                                  file="priorities.cpp" idref="382" line="35">
+                                  <primary_expression column="36"
+                                    file="priorities.cpp" idref="386" line="35">
+                                    <constant column="36"
+                                    file="priorities.cpp" idref="388"
+                                    line="35" value="SC_ZERO_TIME"/>
+                                  </primary_expression>
+                                </arguments_list>
+                              </sc_notify>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="50" file="priorities.cpp"
+                        idref="390" line="37">
+                        <assignment column="24" file="priorities.cpp"
+                          idref="400" line="37">
+                          <primary_expression column="50"
+                            file="priorities.cpp" idref="394" line="37">
+                            <id_expression column="13"
+                              file="priorities.cpp" idref="396"
+                              line="37" name="status_log"/>
+                          </primary_expression>
+                          <assignment_operator column="13"
+                            file="priorities.cpp" idref="398" line="37"/>
+                          <primary_expression column="24"
+                            file="priorities.cpp" idref="404" line="37">
+                            <id_expression column="26"
+                              file="priorities.cpp" idref="406"
+                              line="37" name="priority_in"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="37" file="priorities.cpp"
+                        idref="408" line="38">
+                        <systemCRoutine column="37"
+                          file="priorities.cpp" idref="412" line="38" name="wait">
+                          <arguments column="13" file="priorities.cpp"
+                            idref="414" line="38">
+                            <arguments_list column="17"
+                              file="priorities.cpp" idref="416" line="38">
+                              <primary_expression column="17"
+                                file="priorities.cpp" idref="420" line="38">
+                                <constant column="17"
+                                  file="priorities.cpp" idref="422"
+                                  line="38" value="4"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="priorities.cpp" idref="426" line="38">
+                                <constant column="19"
+                                  file="priorities.cpp" idref="428"
+                                  line="38" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="priorities.cpp"
+            idref="430" line="42">
+            <function_definition column="5" file="priorities.cpp"
+              idref="432" line="42">
+              <declaration_specifiers column="5" file="priorities.cpp"
+                idref="434" line="42">
+                <builtin_type_specifier column="5" file="priorities.cpp"
+                  idref="436" length="0" line="42" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="priorities.cpp"
+                idref="438" line="42">
+                <qualified_id column="5" file="priorities.cpp"
+                  idref="440" line="42" name="high_priority_handler"/>
+              </function_declarator>
+              <block column="32" file="priorities.cpp" idref="442" line="42">
+                <block_statement column="34" file="priorities.cpp"
+                  idref="444" line="43">
+                  <while_statement column="34" file="priorities.cpp"
+                    idref="446" line="43">
+                    <primary_expression column="15"
+                      file="priorities.cpp" idref="450" line="43">
+                      <constant column="15" file="priorities.cpp"
+                        idref="452" line="43" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="priorities.cpp" idref="454" line="43">
+                      <block_statement column="22" file="priorities.cpp"
+                        idref="456" line="44">
+                        <systemCRoutine column="22"
+                          file="priorities.cpp" idref="460" line="44" name="wait">
+                          <arguments column="13" file="priorities.cpp"
+                            idref="462" line="44">
+                            <arguments_list column="17"
+                              file="priorities.cpp" idref="464" line="44">
+                              <primary_expression column="17"
+                                file="priorities.cpp" idref="468" line="44">
+                                <id_expression column="18"
+                                  file="priorities.cpp" idref="470"
+                                  line="44" name="high_prio_ev"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="31" file="priorities.cpp"
+                        idref="472" line="45">
+                        <declaration column="31" file="priorities.cpp"
+                          idref="474" line="45">
+                          <init_declarator_list column="31"
+                            file="priorities.cpp" idref="476" line="45">
+                            <declaration_specifiers column="31"
+                              file="priorities.cpp" idref="478" line="45">
+                              <builtin_type_specifier column="31"
+                                file="priorities.cpp" idref="480"
+                                length="0" line="45" name="bool" sc_dt="false"/>
+                            </declaration_specifiers>
+                            <init_declarator column="4"
+                              file="priorities.cpp" idref="482" line="45">
+                              <declarator column="4"
+                                file="priorities.cpp" idref="484" line="45">
+                                <qualified_id column="4"
+                                  file="priorities.cpp" idref="486"
+                                  line="45" name="trusted"/>
+                              </declarator>
+                              <initializer column="17"
+                                file="priorities.cpp" idref="488" line="45">
+                                <eq_node column="31"
+                                  file="priorities.cpp" idref="496" line="45">
+                                  <primary_expression column="17"
+                                    file="priorities.cpp" idref="492" line="45">
+                                    <id_expression column="19"
+                                    file="priorities.cpp" idref="494"
+                                    line="45" name="trust_level"/>
+                                  </primary_expression>
+                                  <primary_expression column="31"
+                                    file="priorities.cpp" idref="500" line="45">
+                                    <constant column="31"
+                                    file="priorities.cpp" idref="502"
+                                    line="45" value="1"/>
+                                  </primary_expression>
+                                </eq_node>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="35" file="priorities.cpp"
+                        idref="504" line="46">
+                        <systemCRoutine column="35"
+                          file="priorities.cpp" idref="508" line="46" name="wait">
+                          <arguments column="4" file="priorities.cpp"
+                            idref="510" line="46">
+                            <arguments_list column="8"
+                              file="priorities.cpp" idref="512" line="46">
+                              <primary_expression column="8"
+                                file="priorities.cpp" idref="516" line="46">
+                                <constant column="8"
+                                  file="priorities.cpp" idref="518"
+                                  line="46" value="1"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="priorities.cpp" idref="522" line="46">
+                                <constant column="10"
+                                  file="priorities.cpp" idref="524"
+                                  line="46" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="18" file="priorities.cpp"
+                        idref="526" line="47">
+                        <if_statement column="18" file="priorities.cpp"
+                          idref="528" line="47">
+                          <primary_expression column="16"
+                            file="priorities.cpp" idref="532" line="47">
+                            <id_expression column="17"
+                              file="priorities.cpp" idref="534"
+                              line="47" name="trusted"/>
+                          </primary_expression>
+                          <block column="24" file="priorities.cpp"
+                            idref="536" line="48">
+                            <block_statement column="24"
+                              file="priorities.cpp" idref="538" line="48">
+                              <assignment column="33"
+                                file="priorities.cpp" idref="548" line="48">
+                                <primary_expression column="24"
+                                  file="priorities.cpp" idref="542" line="48">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="544"
+                                    line="48" name="critical_output"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="priorities.cpp" idref="546" line="48"/>
+                                <postfix_expression column="33"
+                                  file="priorities.cpp" idref="550" line="48">
+                                  <primary_expression column="33"
+                                    file="priorities.cpp" idref="552" line="48">
+                                    <id_expression column="35"
+                                    file="priorities.cpp" idref="554"
+                                    line="48" name="data_bus"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="35"
+                                    file="priorities.cpp" idref="556"
+                                    line="48" name="&amp;"/>
+                                  <id_expression column="44"
+                                    file="priorities.cpp" idref="558"
+                                    line="48" name="read"/>
+                                  <arguments column="44"
+                                    file="priorities.cpp" idref="560" line="48"/>
+                                </postfix_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="13" file="priorities.cpp"
+                            idref="562" line="50">
+                            <block_statement column="13"
+                              file="priorities.cpp" idref="564" line="50">
+                              <assignment column="32"
+                                file="priorities.cpp" idref="574" line="50">
+                                <primary_expression column="13"
+                                  file="priorities.cpp" idref="568" line="50">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="570"
+                                    line="50" name="routine_output"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="priorities.cpp" idref="572" line="50"/>
+                                <postfix_expression column="32"
+                                  file="priorities.cpp" idref="576" line="50">
+                                  <primary_expression column="32"
+                                    file="priorities.cpp" idref="578" line="50">
+                                    <id_expression column="34"
+                                    file="priorities.cpp" idref="580"
+                                    line="50" name="data_bus"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="34"
+                                    file="priorities.cpp" idref="582"
+                                    line="50" name="&amp;"/>
+                                  <id_expression column="43"
+                                    file="priorities.cpp" idref="584"
+                                    line="50" name="read"/>
+                                  <arguments column="43"
+                                    file="priorities.cpp" idref="586" line="50"/>
+                                </postfix_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="priorities.cpp"
+            idref="588" line="54">
+            <function_definition column="5" file="priorities.cpp"
+              idref="590" line="54">
+              <declaration_specifiers column="5" file="priorities.cpp"
+                idref="592" line="54">
+                <builtin_type_specifier column="5" file="priorities.cpp"
+                  idref="594" length="0" line="54" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="priorities.cpp"
+                idref="596" line="54">
+                <qualified_id column="5" file="priorities.cpp"
+                  idref="598" line="54" name="low_priority_handler"/>
+              </function_declarator>
+              <block column="31" file="priorities.cpp" idref="600" line="54">
+                <block_statement column="33" file="priorities.cpp"
+                  idref="602" line="55">
+                  <while_statement column="33" file="priorities.cpp"
+                    idref="604" line="55">
+                    <primary_expression column="15"
+                      file="priorities.cpp" idref="608" line="55">
+                      <constant column="15" file="priorities.cpp"
+                        idref="610" line="55" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="priorities.cpp" idref="612" line="55">
+                      <block_statement column="22" file="priorities.cpp"
+                        idref="614" line="56">
+                        <systemCRoutine column="22"
+                          file="priorities.cpp" idref="618" line="56" name="wait">
+                          <arguments column="13" file="priorities.cpp"
+                            idref="620" line="56">
+                            <arguments_list column="17"
+                              file="priorities.cpp" idref="622" line="56">
+                              <primary_expression column="17"
+                                file="priorities.cpp" idref="626" line="56">
+                                <id_expression column="18"
+                                  file="priorities.cpp" idref="628"
+                                  line="56" name="low_prio_ev"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="30" file="priorities.cpp"
+                        idref="630" line="57">
+                        <declaration column="30" file="priorities.cpp"
+                          idref="632" line="57">
+                          <init_declarator_list column="30"
+                            file="priorities.cpp" idref="634" line="57">
+                            <declaration_specifiers column="30"
+                              file="priorities.cpp" idref="636" line="57">
+                              <builtin_type_specifier column="30"
+                                file="priorities.cpp" idref="638"
+                                length="0" line="57" name="bool" sc_dt="false"/>
+                            </declaration_specifiers>
+                            <init_declarator column="4"
+                              file="priorities.cpp" idref="640" line="57">
+                              <declarator column="4"
+                                file="priorities.cpp" idref="642" line="57">
+                                <qualified_id column="4"
+                                  file="priorities.cpp" idref="644"
+                                  line="57" name="trusted"/>
+                              </declarator>
+                              <initializer column="17"
+                                file="priorities.cpp" idref="646" line="57">
+                                <eq_node column="31"
+                                  file="priorities.cpp" idref="654" line="57">
+                                  <primary_expression column="17"
+                                    file="priorities.cpp" idref="650" line="57">
+                                    <id_expression column="19"
+                                    file="priorities.cpp" idref="652"
+                                    line="57" name="trust_level"/>
+                                  </primary_expression>
+                                  <primary_expression column="31"
+                                    file="priorities.cpp" idref="658" line="57">
+                                    <constant column="31"
+                                    file="priorities.cpp" idref="660"
+                                    line="57" value="1"/>
+                                  </primary_expression>
+                                </eq_node>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="35" file="priorities.cpp"
+                        idref="662" line="58">
+                        <systemCRoutine column="35"
+                          file="priorities.cpp" idref="666" line="58" name="wait">
+                          <arguments column="4" file="priorities.cpp"
+                            idref="668" line="58">
+                            <arguments_list column="8"
+                              file="priorities.cpp" idref="670" line="58">
+                              <primary_expression column="8"
+                                file="priorities.cpp" idref="674" line="58">
+                                <constant column="8"
+                                  file="priorities.cpp" idref="676"
+                                  line="58" value="3"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="priorities.cpp" idref="680" line="58">
+                                <constant column="10"
+                                  file="priorities.cpp" idref="682"
+                                  line="58" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="18" file="priorities.cpp"
+                        idref="684" line="59">
+                        <if_statement column="18" file="priorities.cpp"
+                          idref="686" line="59">
+                          <primary_expression column="16"
+                            file="priorities.cpp" idref="690" line="59">
+                            <id_expression column="17"
+                              file="priorities.cpp" idref="692"
+                              line="59" name="trusted"/>
+                          </primary_expression>
+                          <block column="24" file="priorities.cpp"
+                            idref="694" line="60">
+                            <block_statement column="24"
+                              file="priorities.cpp" idref="696" line="60">
+                              <assignment column="33"
+                                file="priorities.cpp" idref="706" line="60">
+                                <primary_expression column="24"
+                                  file="priorities.cpp" idref="700" line="60">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="702"
+                                    line="60" name="critical_output"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="priorities.cpp" idref="704" line="60"/>
+                                <postfix_expression column="33"
+                                  file="priorities.cpp" idref="708" line="60">
+                                  <primary_expression column="33"
+                                    file="priorities.cpp" idref="710" line="60">
+                                    <id_expression column="35"
+                                    file="priorities.cpp" idref="712"
+                                    line="60" name="data_bus"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="35"
+                                    file="priorities.cpp" idref="714"
+                                    line="60" name="&amp;"/>
+                                  <id_expression column="44"
+                                    file="priorities.cpp" idref="716"
+                                    line="60" name="read"/>
+                                  <arguments column="44"
+                                    file="priorities.cpp" idref="718" line="60"/>
+                                </postfix_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="13" file="priorities.cpp"
+                            idref="720" line="62">
+                            <block_statement column="13"
+                              file="priorities.cpp" idref="722" line="62">
+                              <assignment column="32"
+                                file="priorities.cpp" idref="732" line="62">
+                                <primary_expression column="13"
+                                  file="priorities.cpp" idref="726" line="62">
+                                  <id_expression column="17"
+                                    file="priorities.cpp" idref="728"
+                                    line="62" name="routine_output"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="priorities.cpp" idref="730" line="62"/>
+                                <postfix_expression column="32"
+                                  file="priorities.cpp" idref="734" line="62">
+                                  <primary_expression column="32"
+                                    file="priorities.cpp" idref="736" line="62">
+                                    <id_expression column="34"
+                                    file="priorities.cpp" idref="738"
+                                    line="62" name="data_bus"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="34"
+                                    file="priorities.cpp" idref="740"
+                                    line="62" name="&amp;"/>
+                                  <id_expression column="43"
+                                    file="priorities.cpp" idref="742"
+                                    line="62" name="read"/>
+                                  <arguments column="43"
+                                    file="priorities.cpp" idref="744" line="62"/>
+                                </postfix_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="priorities.cpp"
+            idref="746" line="66"/>
+          <member_declaration column="5" file="priorities.cpp"
+            idref="748" line="66">
+            <ctor_definition column="5" file="priorities.cpp"
+              idref="750" line="66">
+              <qualified_id column="12" file="priorities.cpp"
+                idref="752" line="66" name="priorities"/>
+              <parameter_list column="23" file="priorities.cpp"
+                idref="754" line="66">
+                <parameter_declaration column="23" file="priorities.cpp"
+                  idref="756" line="66">
+                  <declaration_specifiers column="23"
+                    file="priorities.cpp" idref="758" line="66">
+                    <builtin_type_specifier column="23"
+                      file="priorities.cpp" idref="760" length="0"
+                      line="66" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="23" file="priorities.cpp"
+                    idref="762" line="66">
+                    <qualified_id column="23" file="priorities.cpp"
+                      idref="764" line="66" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="23" file="priorities.cpp"
+                idref="766" line="66">
+                <superclass_init column="23" file="priorities.cpp"
+                  idref="768" line="66">
+                  <declaration_specifiers column="23"
+                    file="priorities.cpp" idref="770" line="66">
+                    <builtin_type_specifier column="23"
+                      file="priorities.cpp" idref="772" length="0"
+                      line="66" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="23" file="priorities.cpp"
+                    idref="774" line="66">
+                    <primary_expression column="23"
+                      file="priorities.cpp" idref="776" line="66">
+                      <id_expression column="23" file="priorities.cpp"
+                        idref="778" line="66" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="23" file="priorities.cpp" idref="780" line="66">
+                <sc_thread_block column="25" file="priorities.cpp"
+                  idref="782" line="67">
+                  <sc_thread column="25" file="priorities.cpp"
+                    idref="784" line="67" name="task_dispatcher"/>
+                </sc_thread_block>
+                <sc_thread_block column="35" file="priorities.cpp"
+                  idref="786" line="68">
+                  <sc_thread column="35" file="priorities.cpp"
+                    idref="788" line="68" name="high_priority_handler"/>
+                </sc_thread_block>
+                <sc_thread_block column="41" file="priorities.cpp"
+                  idref="790" line="69">
+                  <sc_thread column="41" file="priorities.cpp"
+                    idref="792" line="69" name="low_priority_handler"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="priorities.cpp" idref="794" line="73">
+    <sc_main_declaration column="2" file="priorities.cpp" idref="796" line="73">
+      <declaration_specifiers column="1" file="priorities.cpp"
+        idref="798" line="73">
+        <builtin_type_specifier column="1" file="priorities.cpp"
+          idref="800" length="0" line="73" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="priorities.cpp" idref="802" line="73">
+        <qualified_id column="5" file="priorities.cpp" idref="804"
+          line="73" name="sc_main"/>
+        <parameter_list column="12" file="priorities.cpp" idref="806" line="73">
+          <parameter_declaration column="12" file="priorities.cpp"
+            idref="808" line="73">
+            <declaration_specifiers column="12" file="priorities.cpp"
+              idref="810" line="73">
+              <builtin_type_specifier column="12" file="priorities.cpp"
+                idref="812" length="0" line="73" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="priorities.cpp" idref="814" line="73">
+              <qualified_id column="13" file="priorities.cpp"
+                idref="816" line="73" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="priorities.cpp"
+            idref="818" line="73">
+            <declaration_specifiers column="21" file="priorities.cpp"
+              idref="820" line="73">
+              <builtin_type_specifier column="21" file="priorities.cpp"
+                idref="822" length="0" line="73" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="priorities.cpp" idref="824" line="73">
+              <ptr_operator column="23" file="priorities.cpp"
+                idref="826" line="73" name="*"/>
+              <declarator column="27" file="priorities.cpp" idref="828" line="73">
+                <qualified_id column="27" file="priorities.cpp"
+                  idref="830" line="73" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="29"
+                  file="priorities.cpp" idref="832" line="73"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="35" file="priorities.cpp" idref="834" line="73">
+        <block_statement column="37" file="priorities.cpp" idref="836" line="74">
+          <declaration column="37" file="priorities.cpp" idref="838" line="74">
+            <init_declarator_list column="37" file="priorities.cpp"
+              idref="840" line="74">
+              <declaration_specifiers column="37" file="priorities.cpp"
+                idref="842" line="74">
+                <qualified_type column="37" file="priorities.cpp"
+                  idref="844" line="74">
+                  <qualified_id column="37" file="priorities.cpp"
+                    idref="846" line="74" name="priorities"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="5" file="priorities.cpp"
+                idref="848" line="74">
+                <declarator column="5" file="priorities.cpp" idref="850" line="74">
+                  <qualified_id column="5" file="priorities.cpp"
+                    idref="852" line="74" name="prio"/>
+                </declarator>
+                <arguments_list column="20" file="priorities.cpp"
+                  idref="854" line="74">
+                  <primary_expression column="20" file="priorities.cpp"
+                    idref="858" line="74">
+                    <constant column="20" file="priorities.cpp"
+                      idref="860" line="74" value="&quot;prio&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="28" file="priorities.cpp" idref="862" line="75">
+          <declaration column="28" file="priorities.cpp" idref="864" line="75">
+            <init_declarator_list column="28" file="priorities.cpp"
+              idref="866" line="75">
+              <declaration_specifiers column="28" file="priorities.cpp"
+                idref="868" line="75">
+                <builtin_type_specifier column="28"
+                  file="priorities.cpp" idref="870" length="0" line="75"
+                  name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="14"
+                    file="priorities.cpp" idref="872" line="75">
+                    <builtin_type_specifier column="14"
+                      file="priorities.cpp" idref="874" length="0"
+                      line="75" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <init_declarator column="18" file="priorities.cpp"
+                idref="876" line="75">
+                <declarator column="18" file="priorities.cpp"
+                  idref="878" line="75">
+                  <qualified_id column="18" file="priorities.cpp"
+                    idref="880" line="75" name="bus"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="23" file="priorities.cpp" idref="882" line="76">
+          <postfix_expression column="23" file="priorities.cpp"
+            idref="884" line="76">
+            <primary_expression column="23" file="priorities.cpp"
+              idref="886" line="76">
+              <id_expression column="5" file="priorities.cpp"
+                idref="888" line="76" name="prio"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="priorities.cpp"
+              idref="890" line="76" name="&amp;"/>
+            <id_expression column="10" file="priorities.cpp" idref="892"
+              line="76" name="data_bus"/>
+            <arguments column="10" file="priorities.cpp" idref="894" line="76">
+              <arguments_list column="18" file="priorities.cpp"
+                idref="896" line="76">
+                <primary_expression column="18" file="priorities.cpp"
+                  idref="900" line="76">
+                  <id_expression column="19" file="priorities.cpp"
+                    idref="902" line="76" name="bus"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="priorities.cpp" idref="904" line="77">
+          <systemCRoutine column="23" file="priorities.cpp" idref="906"
+            line="77" name="sc_start">
+            <arguments column="5" file="priorities.cpp" idref="908" line="77"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="15" file="priorities.cpp" idref="910" line="78">
+          <return_statement column="15" file="priorities.cpp"
+            idref="912" line="78">
+            <primary_expression column="5" file="priorities.cpp"
+              idref="916" line="78">
+              <constant column="5" file="priorities.cpp" idref="918"
+                line="78" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

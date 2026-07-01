@@ -1,0 +1,108 @@
+Changes of KaSCPar for compatibility with JJTree und JavaCC in version 5.0:
+
+- all constant definitions from SCParserVisitor.java have been moved to
+  SCDumpVisitor.java and become static 
+
+########
+Changes in SC2AST.jjt 08/23/13 (delete [] support)
+########
+
+Added methods:
+void delete_array_expression() :
+{}
+{    ( "::" )? "delete" "[" "]" cast_expression()
+}
+
+Changes in method primary_expression:
+> LOOKAHEAD( ("::")? "delete" ("[ "]")? ) 
+> (
+>    delete_expression()
+> )
+
+< LOOKAHEAD( ("::")? "delete") 
+< (
+<   LOOKAHEAD(2) 
+<   delete_array_expression() 
+<   |
+<   delete_expression()
+< ) 
+
+Changes in method delete_expression():
+> {    ( "::" )? "delete" ( "[" "]" )? cast_expression()
+
+< {    ( "::" )? "delete" cast_expression()
+
+
+######## 
+Changes in SC2AST.jjt in ?? (for adding TLM support)
+########
+
+new tokens:
+
+< | < UINT64 : "uint64" >
+< | <TLM_SYNC_ENUM : "tlm_sync_enum">
+< | <TLM_INITIATOR_SOCKET : "tlm_initiator_socket">
+< | <TLM_TARGET_SOCKET : "tlm_target_socket">
+< | <PEQ_WITH_CB_AND_PHASE : "peq_with_cb_and_phase">
+< | <TLM_DMI : "tlm_dmi">
+< 
+
+in c_built_inTypes(SCPortTypes jjt) :
+<    <UINT64>
+<      {
+<       jjt.setName("uint64");
+<       m_isCBuiltInType = true;
+<      }
+<   |
+
+in systemCTypes(SCPortTypes jjt) :
+>  int size;
+<  int size = 1;
+(new jjtree version doesn't like uninitialized variables)
+
+<   |  
+<    t = <TLM_SYNC_ENUM>
+<   |
+<    t = <TLM_INITIATOR_SOCKET>  "<" ( size = constant_int() )? <COMMA> declaration_specifiers_with_declarator()  <COMMA> ( constant_int() )? ">"
+<      {
+<          jjt.setLength(size);
+<       }
+<    t = <TLM_TARGET_SOCKET>  "<" ( size = constant_int() )? <COMMA> declaration_specifiers_with_declarator()  <COMMA> ( constant_int() )? ">"
+<     {
+<          jjt.setLength(size);
+<       }
+<   |
+<    t = <PEQ_WITH_CB_AND_PHASE> "<" declaration_specifiers_with_declarator() <COMMA> declaration_specifiers_with_declarator() ">"
+
+in systemCKeyWords() :
+<   |   
+<    t = <TLM_SYNC_ENUM>
+<   |
+<    t = <TLM_INITIATOR_SOCKET> 
+<   |
+<    t = <TLM_TARGET_SOCKET> 
+<   |
+<    t = <TLM_DMI> 
+<   |
+<    t = <PEQ_WITH_CB_AND_PHASE>
+
+in sc_port_specifiers():
+  |
+    (
+        t = <TLM_INITIATOR_SOCKET>  "<" ( size = constant_int() )? <COMMA> sc_interface() (<COMMA> numberOfChanels = constant_int() )? ">"
+    )
+  |   
+    (
+        t = <TLM_TARGET_SOCKET>  "<" ( size = constant_int() )? <COMMA> sc_interface() (<COMMA> numberOfChanels = constant_int() )? ">"
+    )
+Changes for allowing namespaces of declarations and functions:
+
+in declaration_specifiers() :
+<    String name = null;
+<    [ LOOKAHEAD(scope_override_lookahead()) name = scope_override()  ]
+
+
+in sc_port_specifiers() :
+<    String name = null;
+<    [ LOOKAHEAD(scope_override_lookahead()) name = scope_override()  ]
+

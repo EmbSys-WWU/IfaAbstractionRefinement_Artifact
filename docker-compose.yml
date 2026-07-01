@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    image: java-cli-tool:latest
+    command: ["help"]
+    # Override command when running: docker compose run app <your-parameter>

@@ -1,0 +1,3 @@
+separate
+	(IN GVar[priorities prio;.int untrusted_in;]) -> (OUT GVar[priorities prio;.int routine_output;])
+	(IN GVar[priorities prio;.int trusted_in;]) -> (OUT GVar[priorities prio;.int critical_output;])

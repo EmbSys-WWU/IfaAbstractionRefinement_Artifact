@@ -1,0 +1,2842 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="31" line="44" name="/*&#xa;  Allocate user-defined action:&#xa;&#xa;  Allocate as many user-defined actions as possible. &#xa;  Note: We need to have at least usr1..usr6 action which are used in &#xa;  subsequent tests.&#xa;&#xa;*/"/>
+  <comment column="1" file="main.cpp" idref="32" line="31" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="main.cpp" idref="33" line="18" name="/*****************************************************************************&#xa;&#xa;  sc_report -- test error reporting, sepcifically which actions are selected&#xa;&#xa;  An important part of the sc_report functionality is to translate&#xa;  an reported tupel (id,severity) into a set of actions. This test&#xa;  is dedicated to this functionality. It uses user-defined actions and&#xa;  user-defined handler. &#xa;&#xa;  Original Author: Ulli Holtmann, Synopsys, Inc., Jan 2003&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="main.cpp" idref="34" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.4 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <external_declaration column="15" file="main.cpp" idref="36" line="53">
+    <declaration column="15" file="main.cpp" idref="38" line="53">
+      <init_declarator_list column="15" file="main.cpp" idref="40" line="53">
+        <declaration_specifiers column="15" file="main.cpp" idref="42" line="53">
+          <type_modifiers column="15" file="main.cpp" idref="44" line="53">
+            <type_qualifier column="15" file="main.cpp" idref="46"
+              line="53" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="48"
+            length="0" line="53" name="unsigned int" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="7" file="main.cpp" idref="50" line="53">
+          <declarator column="7" file="main.cpp" idref="52" line="53">
+            <qualified_id column="7" file="main.cpp" idref="54"
+              line="53" name="num_usr_actions"/>
+          </declarator>
+          <initializer column="32" file="main.cpp" idref="56" line="53">
+            <primary_expression column="32" file="main.cpp" idref="60" line="53">
+              <constant column="32" file="main.cpp" idref="62" line="53" value="6"/>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="35" file="main.cpp" idref="64" line="54">
+    <declaration column="35" file="main.cpp" idref="66" line="54">
+      <init_declarator_list column="35" file="main.cpp" idref="68" line="54">
+        <declaration_specifiers column="35" file="main.cpp" idref="70" line="54">
+          <builtin_type_specifier column="35" file="main.cpp" idref="72"
+            length="0" line="54" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="74" line="54">
+          <declarator column="1" file="main.cpp" idref="76" line="54">
+            <qualified_id column="1" file="main.cpp" idref="78"
+              line="54" name="usr_actions"/>
+            <declarator_suffixes arrayCounter="1" column="12"
+              file="main.cpp" idref="80" line="54">
+              <constant_expression column="23" file="main.cpp"
+                idref="82" line="54">
+                <primary_expression column="23" file="main.cpp"
+                  idref="86" line="54">
+                  <id_expression column="24" file="main.cpp" idref="88"
+                    line="54" name="num_usr_actions"/>
+                </primary_expression>
+              </constant_expression>
+            </declarator_suffixes>
+          </declarator>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="40" file="main.cpp" idref="90" line="56">
+    <declaration column="40" file="main.cpp" idref="92" line="56">
+      <init_declarator_list column="40" file="main.cpp" idref="94" line="56">
+        <declaration_specifiers column="40" file="main.cpp" idref="96" line="56">
+          <builtin_type_specifier column="40" file="main.cpp" idref="98"
+            length="0" line="56" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="100" line="56">
+          <declarator column="1" file="main.cpp" idref="102" line="56">
+            <ptr_operator column="1" file="main.cpp" idref="104"
+              line="56" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="106" line="56">
+              <qualified_id column="11" file="main.cpp" idref="108"
+                line="56" name="usr1"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="110" line="56">
+            <primary_expression column="32" file="main.cpp" idref="126" line="56">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="118" line="56">
+                <primary_expression column="18" file="main.cpp"
+                  idref="114" line="56">
+                  <id_expression column="20" file="main.cpp" idref="116"
+                    line="56" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="122" line="56">
+                  <constant column="31" file="main.cpp" idref="124"
+                    line="56" value="0"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="128" line="57">
+    <declaration column="34" file="main.cpp" idref="130" line="57">
+      <init_declarator_list column="34" file="main.cpp" idref="132" line="57">
+        <declaration_specifiers column="34" file="main.cpp" idref="134" line="57">
+          <builtin_type_specifier column="34" file="main.cpp"
+            idref="136" length="0" line="57" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="138" line="57">
+          <declarator column="1" file="main.cpp" idref="140" line="57">
+            <ptr_operator column="1" file="main.cpp" idref="142"
+              line="57" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="144" line="57">
+              <qualified_id column="11" file="main.cpp" idref="146"
+                line="57" name="usr2"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="148" line="57">
+            <primary_expression column="32" file="main.cpp" idref="164" line="57">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="156" line="57">
+                <primary_expression column="18" file="main.cpp"
+                  idref="152" line="57">
+                  <id_expression column="20" file="main.cpp" idref="154"
+                    line="57" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="160" line="57">
+                  <constant column="31" file="main.cpp" idref="162"
+                    line="57" value="1"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="166" line="58">
+    <declaration column="34" file="main.cpp" idref="168" line="58">
+      <init_declarator_list column="34" file="main.cpp" idref="170" line="58">
+        <declaration_specifiers column="34" file="main.cpp" idref="172" line="58">
+          <builtin_type_specifier column="34" file="main.cpp"
+            idref="174" length="0" line="58" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="176" line="58">
+          <declarator column="1" file="main.cpp" idref="178" line="58">
+            <ptr_operator column="1" file="main.cpp" idref="180"
+              line="58" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="182" line="58">
+              <qualified_id column="11" file="main.cpp" idref="184"
+                line="58" name="usr3"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="186" line="58">
+            <primary_expression column="32" file="main.cpp" idref="202" line="58">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="194" line="58">
+                <primary_expression column="18" file="main.cpp"
+                  idref="190" line="58">
+                  <id_expression column="20" file="main.cpp" idref="192"
+                    line="58" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="198" line="58">
+                  <constant column="31" file="main.cpp" idref="200"
+                    line="58" value="2"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="204" line="59">
+    <declaration column="34" file="main.cpp" idref="206" line="59">
+      <init_declarator_list column="34" file="main.cpp" idref="208" line="59">
+        <declaration_specifiers column="34" file="main.cpp" idref="210" line="59">
+          <builtin_type_specifier column="34" file="main.cpp"
+            idref="212" length="0" line="59" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="214" line="59">
+          <declarator column="1" file="main.cpp" idref="216" line="59">
+            <ptr_operator column="1" file="main.cpp" idref="218"
+              line="59" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="220" line="59">
+              <qualified_id column="11" file="main.cpp" idref="222"
+                line="59" name="usr4"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="224" line="59">
+            <primary_expression column="32" file="main.cpp" idref="240" line="59">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="232" line="59">
+                <primary_expression column="18" file="main.cpp"
+                  idref="228" line="59">
+                  <id_expression column="20" file="main.cpp" idref="230"
+                    line="59" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="236" line="59">
+                  <constant column="31" file="main.cpp" idref="238"
+                    line="59" value="3"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="242" line="60">
+    <declaration column="34" file="main.cpp" idref="244" line="60">
+      <init_declarator_list column="34" file="main.cpp" idref="246" line="60">
+        <declaration_specifiers column="34" file="main.cpp" idref="248" line="60">
+          <builtin_type_specifier column="34" file="main.cpp"
+            idref="250" length="0" line="60" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="252" line="60">
+          <declarator column="1" file="main.cpp" idref="254" line="60">
+            <ptr_operator column="1" file="main.cpp" idref="256"
+              line="60" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="258" line="60">
+              <qualified_id column="11" file="main.cpp" idref="260"
+                line="60" name="usr5"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="262" line="60">
+            <primary_expression column="32" file="main.cpp" idref="278" line="60">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="270" line="60">
+                <primary_expression column="18" file="main.cpp"
+                  idref="266" line="60">
+                  <id_expression column="20" file="main.cpp" idref="268"
+                    line="60" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="274" line="60">
+                  <constant column="31" file="main.cpp" idref="276"
+                    line="60" value="4"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="280" line="61">
+    <declaration column="34" file="main.cpp" idref="282" line="61">
+      <init_declarator_list column="34" file="main.cpp" idref="284" line="61">
+        <declaration_specifiers column="34" file="main.cpp" idref="286" line="61">
+          <builtin_type_specifier column="34" file="main.cpp"
+            idref="288" length="0" line="61" name="sc_actions" sc_dt="true"/>
+        </declaration_specifiers>
+        <init_declarator column="1" file="main.cpp" idref="290" line="61">
+          <declarator column="1" file="main.cpp" idref="292" line="61">
+            <ptr_operator column="1" file="main.cpp" idref="294"
+              line="61" name="&amp;"/>
+            <declarator column="11" file="main.cpp" idref="296" line="61">
+              <qualified_id column="11" file="main.cpp" idref="298"
+                line="61" name="usr6"/>
+            </declarator>
+          </declarator>
+          <initializer column="18" file="main.cpp" idref="300" line="61">
+            <primary_expression column="32" file="main.cpp" idref="316" line="61">
+              <arrayaccess_expression column="31" file="main.cpp"
+                idref="308" line="61">
+                <primary_expression column="18" file="main.cpp"
+                  idref="304" line="61">
+                  <id_expression column="20" file="main.cpp" idref="306"
+                    line="61" name="usr_actions"/>
+                </primary_expression>
+                <primary_expression column="31" file="main.cpp"
+                  idref="312" line="61">
+                  <constant column="31" file="main.cpp" idref="314"
+                    line="61" value="5"/>
+                </primary_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="34" file="main.cpp" idref="318" line="63">
+    <declaration column="34" file="main.cpp" idref="320" line="63">
+      <init_declarator_list column="34" file="main.cpp" idref="322" line="63">
+        <declaration_specifiers column="34" file="main.cpp" idref="324" line="63">
+          <type_modifiers column="34" file="main.cpp" idref="326" line="63">
+            <type_qualifier column="34" file="main.cpp" idref="328"
+              line="63" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="330"
+            length="0" line="63" name="char" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="7" file="main.cpp" idref="332" line="63">
+          <declarator column="7" file="main.cpp" idref="334" line="63">
+            <ptr_operator column="7" file="main.cpp" idref="336"
+              line="63" name="*"/>
+            <declarator column="11" file="main.cpp" idref="338" line="63">
+              <qualified_id column="11" file="main.cpp" idref="340"
+                line="63" name="id1"/>
+            </declarator>
+          </declarator>
+          <initializer column="17" file="main.cpp" idref="342" line="63">
+            <primary_expression column="17" file="main.cpp" idref="346" line="63">
+              <constant column="17" file="main.cpp" idref="348"
+                line="63" value="&quot;ID1&quot;"/>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="24" file="main.cpp" idref="350" line="64">
+    <declaration column="24" file="main.cpp" idref="352" line="64">
+      <init_declarator_list column="24" file="main.cpp" idref="354" line="64">
+        <declaration_specifiers column="24" file="main.cpp" idref="356" line="64">
+          <type_modifiers column="24" file="main.cpp" idref="358" line="64">
+            <type_qualifier column="24" file="main.cpp" idref="360"
+              line="64" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="362"
+            length="0" line="64" name="char" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="7" file="main.cpp" idref="364" line="64">
+          <declarator column="7" file="main.cpp" idref="366" line="64">
+            <ptr_operator column="7" file="main.cpp" idref="368"
+              line="64" name="*"/>
+            <declarator column="11" file="main.cpp" idref="370" line="64">
+              <qualified_id column="11" file="main.cpp" idref="372"
+                line="64" name="id2"/>
+            </declarator>
+          </declarator>
+          <initializer column="17" file="main.cpp" idref="374" line="64">
+            <primary_expression column="17" file="main.cpp" idref="378" line="64">
+              <constant column="17" file="main.cpp" idref="380"
+                line="64" value="&quot;ID2&quot;"/>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="24" file="main.cpp" idref="382" line="65">
+    <declaration column="24" file="main.cpp" idref="384" line="65">
+      <init_declarator_list column="24" file="main.cpp" idref="386" line="65">
+        <declaration_specifiers column="24" file="main.cpp" idref="388" line="65">
+          <type_modifiers column="24" file="main.cpp" idref="390" line="65">
+            <type_qualifier column="24" file="main.cpp" idref="392"
+              line="65" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="394"
+            length="0" line="65" name="char" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="7" file="main.cpp" idref="396" line="65">
+          <declarator column="7" file="main.cpp" idref="398" line="65">
+            <ptr_operator column="7" file="main.cpp" idref="400"
+              line="65" name="*"/>
+            <declarator column="11" file="main.cpp" idref="402" line="65">
+              <qualified_id column="11" file="main.cpp" idref="404"
+                line="65" name="id3"/>
+            </declarator>
+          </declarator>
+          <initializer column="17" file="main.cpp" idref="406" line="65">
+            <primary_expression column="17" file="main.cpp" idref="410" line="65">
+              <constant column="17" file="main.cpp" idref="412"
+                line="65" value="&quot;ID3&quot;"/>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="24" file="main.cpp" idref="414" line="66">
+    <declaration column="24" file="main.cpp" idref="416" line="66">
+      <init_declarator_list column="24" file="main.cpp" idref="418" line="66">
+        <declaration_specifiers column="24" file="main.cpp" idref="420" line="66">
+          <type_modifiers column="24" file="main.cpp" idref="422" line="66">
+            <type_qualifier column="24" file="main.cpp" idref="424"
+              line="66" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="1" file="main.cpp" idref="426"
+            length="0" line="66" name="char" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="7" file="main.cpp" idref="428" line="66">
+          <declarator column="7" file="main.cpp" idref="430" line="66">
+            <ptr_operator column="7" file="main.cpp" idref="432"
+              line="66" name="*"/>
+            <declarator column="11" file="main.cpp" idref="434" line="66">
+              <qualified_id column="11" file="main.cpp" idref="436"
+                line="66" name="id4"/>
+            </declarator>
+          </declarator>
+          <initializer column="17" file="main.cpp" idref="438" line="66">
+            <primary_expression column="17" file="main.cpp" idref="442" line="66">
+              <constant column="17" file="main.cpp" idref="444"
+                line="66" value="&quot;ID4&quot;"/>
+            </primary_expression>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="24" file="main.cpp" idref="446" line="69">
+    <function_definition column="24" file="main.cpp" idref="448" line="69">
+      <declaration_specifiers column="24" file="main.cpp" idref="450" line="69">
+        <builtin_type_specifier column="24" file="main.cpp" idref="452"
+          length="0" line="69" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="main.cpp" idref="454" line="69">
+        <qualified_id column="1" file="main.cpp" idref="456" line="69" name="allocate_user_actions"/>
+      </function_declarator>
+      <block column="29" file="main.cpp" idref="458" line="70">
+        <block_statement column="1" file="main.cpp" idref="460" line="71">
+          <declaration column="1" file="main.cpp" idref="462" line="71">
+            <init_declarator_list column="1" file="main.cpp" idref="464" line="71">
+              <declaration_specifiers column="1" file="main.cpp"
+                idref="466" line="71">
+                <builtin_type_specifier column="1" file="main.cpp"
+                  idref="468" length="0" line="71" name="sc_actions" sc_dt="true"/>
+              </declaration_specifiers>
+              <init_declarator column="5" file="main.cpp" idref="470" line="71">
+                <declarator column="5" file="main.cpp" idref="472" line="71">
+                  <qualified_id column="5" file="main.cpp" idref="474"
+                    line="71" name="usr"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="19" file="main.cpp" idref="476" line="72">
+          <for_statement column="19" file="main.cpp" idref="478" line="72">
+            <for_init column="9" file="main.cpp" idref="480" line="72">
+              <declaration column="9" file="main.cpp" idref="482" line="72">
+                <init_declarator_list column="9" file="main.cpp"
+                  idref="484" line="72">
+                  <declaration_specifiers column="9" file="main.cpp"
+                    idref="486" line="72">
+                    <builtin_type_specifier column="9" file="main.cpp"
+                      idref="488" length="0" line="72"
+                      name="unsigned int" sc_dt="false"/>
+                  </declaration_specifiers>
+                  <init_declarator column="19" file="main.cpp"
+                    idref="490" line="72">
+                    <declarator column="19" file="main.cpp" idref="492" line="72">
+                      <qualified_id column="19" file="main.cpp"
+                        idref="494" line="72" name="n"/>
+                    </declarator>
+                    <initializer column="24" file="main.cpp" idref="496" line="72">
+                      <primary_expression column="24" file="main.cpp"
+                        idref="500" line="72">
+                        <constant column="24" file="main.cpp"
+                          idref="502" line="72" value="0"/>
+                      </primary_expression>
+                    </initializer>
+                  </init_declarator>
+                </init_declarator_list>
+              </declaration>
+            </for_init>
+            <for_condition column="26" file="main.cpp" idref="504" line="72">
+              <lt_node column="29" file="main.cpp" idref="512" line="72">
+                <primary_expression column="26" file="main.cpp"
+                  idref="508" line="72">
+                  <id_expression column="28" file="main.cpp" idref="510"
+                    line="72" name="n"/>
+                </primary_expression>
+                <primary_expression column="29" file="main.cpp"
+                  idref="516" line="72">
+                  <constant column="29" file="main.cpp" idref="518"
+                    line="72" value="1000"/>
+                </primary_expression>
+              </lt_node>
+            </for_condition>
+            <for_update column="34" file="main.cpp" idref="520" line="72">
+              <statement_expression_list column="34" file="main.cpp"
+                idref="522" line="72">
+                <postincrement_node column="36" file="main.cpp"
+                  idref="530" line="72">
+                  <primary_expression column="34" file="main.cpp"
+                    idref="526" line="72">
+                    <id_expression column="36" file="main.cpp"
+                      idref="528" line="72" name="n"/>
+                  </primary_expression>
+                </postincrement_node>
+              </statement_expression_list>
+            </for_update>
+            <for_block column="39" file="main.cpp" idref="532" line="72">
+              <block column="39" file="main.cpp" idref="534" line="72">
+                <block_statement column="41" file="main.cpp" idref="536" line="73">
+                  <assignment column="6" file="main.cpp" idref="546" line="73">
+                    <primary_expression column="41" file="main.cpp"
+                      idref="540" line="73">
+                      <id_expression column="2" file="main.cpp"
+                        idref="542" line="73" name="usr"/>
+                    </primary_expression>
+                    <assignment_operator column="2" file="main.cpp"
+                      idref="544" line="73"/>
+                    <systemCRoutine column="6" file="main.cpp"
+                      idref="550" line="73" name="sc_report_handler::get_new_action_id">
+                      <arguments column="27" file="main.cpp" idref="552" line="73"/>
+                    </systemCRoutine>
+                  </assignment>
+                </block_statement>
+                <block_statement column="46" file="main.cpp" idref="554" line="74">
+                  <if_statement column="46" file="main.cpp" idref="556" line="74">
+                    <eq_node column="11" file="main.cpp" idref="564" line="74">
+                      <primary_expression column="5" file="main.cpp"
+                        idref="560" line="74">
+                        <id_expression column="7" file="main.cpp"
+                          idref="562" line="74" name="usr"/>
+                      </primary_expression>
+                      <primary_expression column="11" file="main.cpp"
+                        idref="568" line="74">
+                        <constant column="11" file="main.cpp"
+                          idref="570" line="74" value="SC_UNSPECIFIED"/>
+                      </primary_expression>
+                    </eq_node>
+                    <block column="29" file="main.cpp" idref="572" line="74">
+                      <block_statement column="31" file="main.cpp"
+                        idref="574" line="75">
+                        <output_stream column="31" file="main.cpp"
+                          idref="576" line="75" name="cout">
+                          <primary_expression column="11"
+                            file="main.cpp" idref="580" line="75">
+                            <constant column="11" file="main.cpp"
+                              idref="582" line="75" value="&quot;We got &quot;"/>
+                          </primary_expression>
+                          <primary_expression column="24"
+                            file="main.cpp" idref="586" line="75">
+                            <id_expression column="27" file="main.cpp"
+                              idref="588" line="75" name="n"/>
+                          </primary_expression>
+                          <primary_expression column="29"
+                            file="main.cpp" idref="592" line="75">
+                            <constant column="29" file="main.cpp"
+                              idref="594" line="75" value="&quot; user-defined actions\n&quot;"/>
+                          </primary_expression>
+                        </output_stream>
+                      </block_statement>
+                      <block_statement column="57" file="main.cpp"
+                        idref="596" line="76">
+                        <break_statement column="57" file="main.cpp"
+                          idref="598" line="76"/>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <comment column="2" file="main.cpp" idref="599"
+                  line="79" name="// is really new"/>
+                <comment column="2" file="main.cpp" idref="600"
+                  line="78" name="// make sure we don't get the same usr action again and that it"/>
+                <block_statement column="2" file="main.cpp" idref="602" line="80">
+                  <postfix_expression column="2" file="main.cpp"
+                    idref="604" line="80">
+                    <primary_expression column="2" file="main.cpp"
+                      idref="606" line="80">
+                      <id_expression column="2" file="main.cpp"
+                        idref="608" line="80" name="assert"/>
+                    </primary_expression>
+                    <arguments column="2" file="main.cpp" idref="610" line="80">
+                      <arguments_list column="9" file="main.cpp"
+                        idref="612" line="80">
+                        <and_node column="16" file="main.cpp"
+                          idref="724" line="82">
+                          <and_node column="58" file="main.cpp"
+                            idref="708" line="82">
+                            <and_node column="34" file="main.cpp"
+                              idref="692" line="81">
+                              <and_node column="15" file="main.cpp"
+                                idref="676" line="81">
+                                <and_node column="69" file="main.cpp"
+                                  idref="660" line="81">
+                                  <and_node column="52" file="main.cpp"
+                                    idref="644" line="80">
+                                    <and_node column="30"
+                                    file="main.cpp" idref="628" line="80">
+                                    <neq_node column="13"
+                                    file="main.cpp" idref="620" line="80">
+                                    <primary_expression column="9"
+                                    file="main.cpp" idref="616" line="80">
+                                    <id_expression column="10"
+                                    file="main.cpp" idref="618"
+                                    line="80" name="usr"/>
+                                    </primary_expression>
+                                    <primary_expression column="13"
+                                    file="main.cpp" idref="624" line="80">
+                                    <constant column="13"
+                                    file="main.cpp" idref="626"
+                                    line="80" value="SC_UNSPECIFIED"/>
+                                    </primary_expression>
+                                    </neq_node>
+                                    <neq_node column="36"
+                                    file="main.cpp" idref="636" line="80">
+                                    <primary_expression column="30"
+                                    file="main.cpp" idref="632" line="80">
+                                    <id_expression column="33"
+                                    file="main.cpp" idref="634"
+                                    line="80" name="usr"/>
+                                    </primary_expression>
+                                    <primary_expression column="36"
+                                    file="main.cpp" idref="640" line="80">
+                                    <constant column="36"
+                                    file="main.cpp" idref="642"
+                                    line="80" value="SC_DO_NOTHING"/>
+                                    </primary_expression>
+                                    </neq_node>
+                                    </and_node>
+                                    <neq_node column="58"
+                                    file="main.cpp" idref="652" line="80">
+                                    <primary_expression column="52"
+                                    file="main.cpp" idref="648" line="80">
+                                    <id_expression column="55"
+                                    file="main.cpp" idref="650"
+                                    line="80" name="usr"/>
+                                    </primary_expression>
+                                    <primary_expression column="58"
+                                    file="main.cpp" idref="656" line="80">
+                                    <constant column="58"
+                                    file="main.cpp" idref="658"
+                                    line="80" value="SC_THROW"/>
+                                    </primary_expression>
+                                    </neq_node>
+                                  </and_node>
+                                  <neq_node column="6" file="main.cpp"
+                                    idref="668" line="81">
+                                    <primary_expression column="69"
+                                    file="main.cpp" idref="664" line="81">
+                                    <id_expression column="3"
+                                    file="main.cpp" idref="666"
+                                    line="81" name="usr"/>
+                                    </primary_expression>
+                                    <primary_expression column="6"
+                                    file="main.cpp" idref="672" line="81">
+                                    <constant column="6"
+                                    file="main.cpp" idref="674"
+                                    line="81" value="SC_LOG"/>
+                                    </primary_expression>
+                                  </neq_node>
+                                </and_node>
+                                <neq_node column="21" file="main.cpp"
+                                  idref="684" line="81">
+                                  <primary_expression column="15"
+                                    file="main.cpp" idref="680" line="81">
+                                    <id_expression column="18"
+                                    file="main.cpp" idref="682"
+                                    line="81" name="usr"/>
+                                  </primary_expression>
+                                  <primary_expression column="21"
+                                    file="main.cpp" idref="688" line="81">
+                                    <constant column="21"
+                                    file="main.cpp" idref="690"
+                                    line="81" value="SC_DISPLAY"/>
+                                  </primary_expression>
+                                </neq_node>
+                              </and_node>
+                              <neq_node column="40" file="main.cpp"
+                                idref="700" line="81">
+                                <primary_expression column="34"
+                                  file="main.cpp" idref="696" line="81">
+                                  <id_expression column="37"
+                                    file="main.cpp" idref="698"
+                                    line="81" name="usr"/>
+                                </primary_expression>
+                                <primary_expression column="40"
+                                  file="main.cpp" idref="704" line="81">
+                                  <constant column="40" file="main.cpp"
+                                    idref="706" line="81" value="SC_CACHE_REPORT"/>
+                                </primary_expression>
+                              </neq_node>
+                            </and_node>
+                            <neq_node column="6" file="main.cpp"
+                              idref="716" line="82">
+                              <primary_expression column="58"
+                                file="main.cpp" idref="712" line="82">
+                                <id_expression column="3"
+                                  file="main.cpp" idref="714" line="82" name="usr"/>
+                              </primary_expression>
+                              <primary_expression column="6"
+                                file="main.cpp" idref="720" line="82">
+                                <constant column="6" file="main.cpp"
+                                  idref="722" line="82" value="SC_STOP"/>
+                              </primary_expression>
+                            </neq_node>
+                          </and_node>
+                          <neq_node column="22" file="main.cpp"
+                            idref="732" line="82">
+                            <primary_expression column="16"
+                              file="main.cpp" idref="728" line="82">
+                              <id_expression column="19" file="main.cpp"
+                                idref="730" line="82" name="usr"/>
+                            </primary_expression>
+                            <primary_expression column="22"
+                              file="main.cpp" idref="736" line="82">
+                              <constant column="22" file="main.cpp"
+                                idref="738" line="82" value="SC_ABORT"/>
+                            </primary_expression>
+                          </neq_node>
+                        </and_node>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="34" file="main.cpp" idref="740" line="83">
+                  <if_statement column="34" file="main.cpp" idref="742" line="83">
+                    <lt_node column="9" file="main.cpp" idref="750" line="83">
+                      <primary_expression column="5" file="main.cpp"
+                        idref="746" line="83">
+                        <id_expression column="7" file="main.cpp"
+                          idref="748" line="83" name="n"/>
+                      </primary_expression>
+                      <primary_expression column="9" file="main.cpp"
+                        idref="754" line="83">
+                        <id_expression column="11" file="main.cpp"
+                          idref="756" line="83" name="num_usr_actions"/>
+                      </primary_expression>
+                    </lt_node>
+                    <block column="27" file="main.cpp" idref="758" line="83">
+                      <comment column="6" file="main.cpp" idref="759"
+                        line="84" name="// save for later use"/>
+                      <block_statement column="29" file="main.cpp"
+                        idref="761" line="85">
+                        <assignment column="21" file="main.cpp"
+                          idref="781" line="85">
+                          <primary_expression column="18"
+                            file="main.cpp" idref="777" line="85">
+                            <arrayaccess_expression column="17"
+                              file="main.cpp" idref="769" line="85">
+                              <primary_expression column="29"
+                                file="main.cpp" idref="765" line="85">
+                                <id_expression column="6"
+                                  file="main.cpp" idref="767" line="85" name="usr_actions"/>
+                              </primary_expression>
+                              <primary_expression column="17"
+                                file="main.cpp" idref="773" line="85">
+                                <id_expression column="18"
+                                  file="main.cpp" idref="775" line="85" name="n"/>
+                              </primary_expression>
+                            </arrayaccess_expression>
+                          </primary_expression>
+                          <assignment_operator column="19"
+                            file="main.cpp" idref="779" line="85"/>
+                          <primary_expression column="21"
+                            file="main.cpp" idref="785" line="85">
+                            <id_expression column="23" file="main.cpp"
+                              idref="787" line="85" name="usr"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="26" file="main.cpp"
+                        idref="789" line="86">
+                        <for_statement column="26" file="main.cpp"
+                          idref="791" line="86">
+                          <for_init column="10" file="main.cpp"
+                            idref="793" line="86">
+                            <declaration column="10" file="main.cpp"
+                              idref="795" line="86">
+                              <init_declarator_list column="10"
+                                file="main.cpp" idref="797" line="86">
+                                <declaration_specifiers column="10"
+                                  file="main.cpp" idref="799" line="86">
+                                  <builtin_type_specifier column="10"
+                                    file="main.cpp" idref="801"
+                                    length="0" line="86"
+                                    name="unsigned int" sc_dt="false"/>
+                                </declaration_specifiers>
+                                <init_declarator column="20"
+                                  file="main.cpp" idref="803" line="86">
+                                  <declarator column="20"
+                                    file="main.cpp" idref="805" line="86">
+                                    <qualified_id column="20"
+                                    file="main.cpp" idref="807"
+                                    line="86" name="i"/>
+                                  </declarator>
+                                  <initializer column="25"
+                                    file="main.cpp" idref="809" line="86">
+                                    <primary_expression column="25"
+                                    file="main.cpp" idref="813" line="86">
+                                    <constant column="25"
+                                    file="main.cpp" idref="815"
+                                    line="86" value="0"/>
+                                    </primary_expression>
+                                  </initializer>
+                                </init_declarator>
+                              </init_declarator_list>
+                            </declaration>
+                          </for_init>
+                          <for_condition column="27" file="main.cpp"
+                            idref="817" line="86">
+                            <lt_node column="30" file="main.cpp"
+                              idref="825" line="86">
+                              <primary_expression column="27"
+                                file="main.cpp" idref="821" line="86">
+                                <id_expression column="29"
+                                  file="main.cpp" idref="823" line="86" name="i"/>
+                              </primary_expression>
+                              <primary_expression column="30"
+                                file="main.cpp" idref="829" line="86">
+                                <id_expression column="31"
+                                  file="main.cpp" idref="831" line="86" name="n"/>
+                              </primary_expression>
+                            </lt_node>
+                          </for_condition>
+                          <for_update column="32" file="main.cpp"
+                            idref="833" line="86">
+                            <statement_expression_list column="32"
+                              file="main.cpp" idref="835" line="86">
+                              <postincrement_node column="34"
+                                file="main.cpp" idref="843" line="86">
+                                <primary_expression column="32"
+                                  file="main.cpp" idref="839" line="86">
+                                  <id_expression column="34"
+                                    file="main.cpp" idref="841"
+                                    line="86" name="i"/>
+                                </primary_expression>
+                              </postincrement_node>
+                            </statement_expression_list>
+                          </for_update>
+                          <for_block column="37" file="main.cpp"
+                            idref="845" line="86">
+                            <block column="37" file="main.cpp"
+                              idref="847" line="86">
+                              <comment column="3" file="main.cpp"
+                                idref="848" line="87" name="// lso check that is is new"/>
+                              <block_statement column="39"
+                                file="main.cpp" idref="850" line="88">
+                                <postfix_expression column="39"
+                                  file="main.cpp" idref="852" line="88">
+                                  <primary_expression column="39"
+                                    file="main.cpp" idref="854" line="88">
+                                    <id_expression column="3"
+                                    file="main.cpp" idref="856"
+                                    line="88" name="assert"/>
+                                  </primary_expression>
+                                  <arguments column="3" file="main.cpp"
+                                    idref="858" line="88">
+                                    <arguments_list column="9"
+                                    file="main.cpp" idref="860" line="88">
+                                    <neq_node column="14"
+                                    file="main.cpp" idref="868" line="88">
+                                    <primary_expression column="9"
+                                    file="main.cpp" idref="864" line="88">
+                                    <id_expression column="11"
+                                    file="main.cpp" idref="866"
+                                    line="88" name="usr"/>
+                                    </primary_expression>
+                                    <primary_expression column="28"
+                                    file="main.cpp" idref="884" line="88">
+                                    <arrayaccess_expression
+                                    column="27" file="main.cpp"
+                                    idref="876" line="88">
+                                    <primary_expression
+                                    column="14"
+                                    file="main.cpp"
+                                    idref="872" line="88">
+                                    <id_expression column="16"
+                                    file="main.cpp"
+                                    idref="874" line="88" name="usr_actions"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="27"
+                                    file="main.cpp"
+                                    idref="880" line="88">
+                                    <id_expression column="28"
+                                    file="main.cpp"
+                                    idref="882" line="88" name="i"/>
+                                    </primary_expression>
+                                    </arrayaccess_expression>
+                                    </primary_expression>
+                                    </neq_node>
+                                    </arguments_list>
+                                  </arguments>
+                                </postfix_expression>
+                              </block_statement>
+                            </block>
+                          </for_block>
+                        </for_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+              </block>
+            </for_block>
+          </for_statement>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <external_declaration column="1" file="main.cpp" idref="886" line="95">
+    <declaration column="1" file="main.cpp" idref="888" line="95">
+      <init_declarator_list column="1" file="main.cpp" idref="890" line="95">
+        <declaration_specifiers column="1" file="main.cpp" idref="892" line="95">
+          <type_modifiers column="1" file="main.cpp" idref="894" line="95">
+            <storage_class_specifier column="1" file="main.cpp"
+              idref="896" line="95" name="static"/>
+          </type_modifiers>
+          <type_modifiers column="1" file="main.cpp" idref="898" line="95">
+            <type_qualifier column="1" file="main.cpp" idref="900"
+              line="95" name="const"/>
+          </type_modifiers>
+          <builtin_type_specifier column="8" file="main.cpp" idref="902"
+            length="0" line="95" name="char" sc_dt="false"/>
+        </declaration_specifiers>
+        <init_declarator column="14" file="main.cpp" idref="904" line="95">
+          <declarator column="14" file="main.cpp" idref="906" line="95">
+            <ptr_operator column="14" file="main.cpp" idref="908"
+              line="95" name="*"/>
+            <declarator column="18" file="main.cpp" idref="910" line="95">
+              <qualified_id column="18" file="main.cpp" idref="912"
+                line="95" name="severity2str"/>
+              <declarator_suffixes arrayCounter="1" column="20"
+                file="main.cpp" idref="914" line="95"/>
+            </declarator>
+          </declarator>
+          <initializer column="35" file="main.cpp" idref="916" line="95">
+            <array_initializer column="35" file="main.cpp" idref="918" line="95">
+              <initializer column="37" file="main.cpp" idref="920" line="96">
+                <primary_expression column="37" file="main.cpp"
+                  idref="924" line="96">
+                  <constant column="37" file="main.cpp" idref="926"
+                    line="96" value="&quot;INFO&quot;"/>
+                </primary_expression>
+              </initializer>
+              <initializer column="11" file="main.cpp" idref="928" line="96">
+                <primary_expression column="11" file="main.cpp"
+                  idref="932" line="96">
+                  <constant column="11" file="main.cpp" idref="934"
+                    line="96" value="&quot;WARNING&quot;"/>
+                </primary_expression>
+              </initializer>
+              <initializer column="22" file="main.cpp" idref="936" line="96">
+                <primary_expression column="22" file="main.cpp"
+                  idref="940" line="96">
+                  <constant column="22" file="main.cpp" idref="942"
+                    line="96" value="&quot;ERROR&quot;"/>
+                </primary_expression>
+              </initializer>
+              <initializer column="31" file="main.cpp" idref="944" line="96">
+                <primary_expression column="31" file="main.cpp"
+                  idref="948" line="96">
+                  <constant column="31" file="main.cpp" idref="950"
+                    line="96" value="&quot;FATAL&quot;"/>
+                </primary_expression>
+              </initializer>
+              <initializer column="40" file="main.cpp" idref="952" line="96">
+                <primary_expression column="40" file="main.cpp"
+                  idref="956" line="96">
+                  <constant column="40" file="main.cpp" idref="958"
+                    line="96" value="&quot;UNKNOWN_SEVERITY&quot;"/>
+                </primary_expression>
+              </initializer>
+            </array_initializer>
+          </initializer>
+        </init_declarator>
+      </init_declarator_list>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="959" line="99" name="// custom handler which is used to dump out reports and actions"/>
+  <external_declaration column="2" file="main.cpp" idref="961" line="100">
+    <function_definition column="2" file="main.cpp" idref="963" line="100">
+      <declaration_specifiers column="2" file="main.cpp" idref="965" line="100">
+        <builtin_type_specifier column="2" file="main.cpp" idref="967"
+          length="0" line="100" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="main.cpp" idref="969" line="100">
+        <qualified_id column="1" file="main.cpp" idref="971" line="100" name="dump_all_handler"/>
+        <parameter_list column="22" file="main.cpp" idref="973" line="100">
+          <parameter_declaration column="22" file="main.cpp" idref="975" line="100">
+            <declaration_specifiers column="22" file="main.cpp"
+              idref="977" line="100">
+              <type_modifiers column="22" file="main.cpp" idref="979" line="100">
+                <type_qualifier column="22" file="main.cpp" idref="981"
+                  line="100" name="const"/>
+              </type_modifiers>
+              <builtin_type_specifier column="24" file="main.cpp"
+                idref="983" length="0" line="100" name="sc_report" sc_dt="true"/>
+            </declaration_specifiers>
+            <declarator column="30" file="main.cpp" idref="985" line="100">
+              <ptr_operator column="30" file="main.cpp" idref="987"
+                line="100" name="&amp;"/>
+              <declarator column="39" file="main.cpp" idref="989" line="100">
+                <qualified_id column="39" file="main.cpp" idref="991"
+                  line="100" name="report"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="47" file="main.cpp" idref="993" line="100">
+            <declaration_specifiers column="47" file="main.cpp"
+              idref="995" line="100">
+              <type_modifiers column="47" file="main.cpp" idref="997" line="100">
+                <type_qualifier column="47" file="main.cpp" idref="999"
+                  line="100" name="const"/>
+              </type_modifiers>
+              <builtin_type_specifier column="49" file="main.cpp"
+                idref="1001" length="0" line="100" name="sc_actions" sc_dt="true"/>
+            </declaration_specifiers>
+            <declarator column="55" file="main.cpp" idref="1003" line="100">
+              <ptr_operator column="55" file="main.cpp" idref="1005"
+                line="100" name="&amp;"/>
+              <declarator column="65" file="main.cpp" idref="1007" line="100">
+                <qualified_id column="65" file="main.cpp" idref="1009"
+                  line="100" name="actions"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="74" file="main.cpp" idref="1011" line="101">
+        <comment column="5" file="main.cpp" idref="1012" line="102" name="// dump out report"/>
+        <block_statement column="1" file="main.cpp" idref="1014" line="103">
+          <output_stream column="1" file="main.cpp" idref="1016"
+            line="103" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="1020" line="103">
+              <constant column="10" file="main.cpp" idref="1022"
+                line="103" value="&quot;report: &quot;"/>
+            </primary_expression>
+            <postfix_expression column="24" file="main.cpp" idref="1024" line="103">
+              <primary_expression column="24" file="main.cpp"
+                idref="1026" line="103">
+                <id_expression column="27" file="main.cpp" idref="1028"
+                  line="103" name="report"/>
+              </primary_expression>
+              <dereferencing_operator column="27" file="main.cpp"
+                idref="1030" line="103" name="&amp;"/>
+              <id_expression column="34" file="main.cpp" idref="1032"
+                line="103" name="get_msg_type"/>
+              <arguments column="34" file="main.cpp" idref="1034" line="103"/>
+            </postfix_expression>
+            <primary_expression column="3" file="main.cpp" idref="1038" line="104">
+              <constant column="3" file="main.cpp" idref="1040"
+                line="104" value="&quot; &quot;"/>
+            </primary_expression>
+            <primary_expression column="47" file="main.cpp" idref="1062" line="104">
+              <arrayaccess_expression column="25" file="main.cpp"
+                idref="1048" line="104">
+                <primary_expression column="10" file="main.cpp"
+                  idref="1044" line="104">
+                  <id_expression column="13" file="main.cpp"
+                    idref="1046" line="104" name="severity2str"/>
+                </primary_expression>
+                <postfix_expression column="25" file="main.cpp"
+                  idref="1050" line="104">
+                  <primary_expression column="25" file="main.cpp"
+                    idref="1052" line="104">
+                    <id_expression column="27" file="main.cpp"
+                      idref="1054" line="104" name="report"/>
+                  </primary_expression>
+                  <dereferencing_operator column="27" file="main.cpp"
+                    idref="1056" line="104" name="&amp;"/>
+                  <id_expression column="34" file="main.cpp"
+                    idref="1058" line="104" name="get_severity"/>
+                  <arguments column="34" file="main.cpp" idref="1060" line="104"/>
+                </postfix_expression>
+              </arrayaccess_expression>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="50" file="main.cpp" idref="1064" line="105">
+          <output_stream column="50" file="main.cpp" idref="1066"
+            line="105" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="1070" line="105">
+              <constant column="10" file="main.cpp" idref="1072"
+                line="105" value="&quot; --> &quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="20" file="main.cpp" idref="1074" line="106">
+          <for_statement column="20" file="main.cpp" idref="1076" line="106">
+            <for_init column="9" file="main.cpp" idref="1078" line="106">
+              <declaration column="9" file="main.cpp" idref="1080" line="106">
+                <init_declarator_list column="9" file="main.cpp"
+                  idref="1082" line="106">
+                  <declaration_specifiers column="9" file="main.cpp"
+                    idref="1084" line="106">
+                    <builtin_type_specifier column="9" file="main.cpp"
+                      idref="1086" length="0" line="106" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                  <init_declarator column="10" file="main.cpp"
+                    idref="1088" line="106">
+                    <declarator column="10" file="main.cpp" idref="1090" line="106">
+                      <qualified_id column="10" file="main.cpp"
+                        idref="1092" line="106" name="n"/>
+                    </declarator>
+                    <initializer column="15" file="main.cpp"
+                      idref="1094" line="106">
+                      <primary_expression column="15" file="main.cpp"
+                        idref="1098" line="106">
+                        <constant column="15" file="main.cpp"
+                          idref="1100" line="106" value="0"/>
+                      </primary_expression>
+                    </initializer>
+                  </init_declarator>
+                </init_declarator_list>
+              </declaration>
+            </for_init>
+            <for_condition column="17" file="main.cpp" idref="1102" line="106">
+              <lt_node column="20" file="main.cpp" idref="1110" line="106">
+                <primary_expression column="17" file="main.cpp"
+                  idref="1106" line="106">
+                  <id_expression column="19" file="main.cpp"
+                    idref="1108" line="106" name="n"/>
+                </primary_expression>
+                <primary_expression column="20" file="main.cpp"
+                  idref="1114" line="106">
+                  <constant column="20" file="main.cpp" idref="1116"
+                    line="106" value="32"/>
+                </primary_expression>
+              </lt_node>
+            </for_condition>
+            <for_update column="23" file="main.cpp" idref="1118" line="106">
+              <statement_expression_list column="23" file="main.cpp"
+                idref="1120" line="106">
+                <postincrement_node column="25" file="main.cpp"
+                  idref="1128" line="106">
+                  <primary_expression column="23" file="main.cpp"
+                    idref="1124" line="106">
+                    <id_expression column="25" file="main.cpp"
+                      idref="1126" line="106" name="n"/>
+                  </primary_expression>
+                </postincrement_node>
+              </statement_expression_list>
+            </for_update>
+            <for_block column="28" file="main.cpp" idref="1130" line="106">
+              <block column="28" file="main.cpp" idref="1132" line="106">
+                <block_statement column="30" file="main.cpp"
+                  idref="1134" line="107">
+                  <declaration column="30" file="main.cpp" idref="1136" line="107">
+                    <init_declarator_list column="30" file="main.cpp"
+                      idref="1138" line="107">
+                      <declaration_specifiers column="30"
+                        file="main.cpp" idref="1140" line="107">
+                        <builtin_type_specifier column="30"
+                          file="main.cpp" idref="1142" length="0"
+                          line="107" name="sc_actions" sc_dt="true"/>
+                      </declaration_specifiers>
+                      <init_declarator column="2" file="main.cpp"
+                        idref="1144" line="107">
+                        <declarator column="2" file="main.cpp"
+                          idref="1146" line="107">
+                          <qualified_id column="2" file="main.cpp"
+                            idref="1148" line="107" name="action"/>
+                        </declarator>
+                        <initializer column="20" file="main.cpp"
+                          idref="1150" line="107">
+                          <bitwise_and_node column="30" file="main.cpp"
+                            idref="1158" line="107">
+                            <primary_expression column="20"
+                              file="main.cpp" idref="1154" line="107">
+                              <id_expression column="22" file="main.cpp"
+                                idref="1156" line="107" name="actions"/>
+                            </primary_expression>
+                            <left_shift_node column="33" file="main.cpp"
+                              idref="1166" line="107">
+                              <primary_expression column="30"
+                                file="main.cpp" idref="1162" line="107">
+                                <constant column="30" file="main.cpp"
+                                  idref="1164" line="107" value="1"/>
+                              </primary_expression>
+                              <primary_expression column="33"
+                                file="main.cpp" idref="1170" line="107">
+                                <id_expression column="35"
+                                  file="main.cpp" idref="1172"
+                                  line="107" name="n"/>
+                              </primary_expression>
+                            </left_shift_node>
+                          </bitwise_and_node>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="36" file="main.cpp"
+                  idref="1174" line="108">
+                  <if_statement column="36" file="main.cpp" idref="1176" line="108">
+                    <primary_expression column="5" file="main.cpp"
+                      idref="1180" line="108">
+                      <id_expression column="6" file="main.cpp"
+                        idref="1182" line="108" name="action"/>
+                    </primary_expression>
+                    <block column="12" file="main.cpp" idref="1184" line="108">
+                      <block_statement column="14" file="main.cpp"
+                        idref="1186" line="109">
+                        <output_stream column="14" file="main.cpp"
+                          idref="1188" line="109" name="cout">
+                          <primary_expression column="11"
+                            file="main.cpp" idref="1192" line="109">
+                            <constant column="11" file="main.cpp"
+                              idref="1194" line="109" value="&quot; &quot;"/>
+                          </primary_expression>
+                        </output_stream>
+                      </block_statement>
+                      <block_statement column="17" file="main.cpp"
+                        idref="1196" line="110">
+                        <switch_statement column="17" file="main.cpp"
+                          idref="1198" line="110">
+                          <primary_expression column="12"
+                            file="main.cpp" idref="1202" line="110">
+                            <id_expression column="13" file="main.cpp"
+                              idref="1204" line="110" name="action"/>
+                          </primary_expression>
+                          <switch_label column="21" file="main.cpp"
+                            idref="1206" line="111">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1208" line="111">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1212" line="111">
+                                <constant column="6" file="main.cpp"
+                                  idref="1214" line="111" value="SC_UNSPECIFIED"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="25" file="main.cpp"
+                            idref="1216" line="111">
+                            <output_stream column="25" file="main.cpp"
+                              idref="1218" line="111" name="cout">
+                              <primary_expression column="32"
+                                file="main.cpp" idref="1222" line="111">
+                                <constant column="32" file="main.cpp"
+                                  idref="1224" line="111" value="&quot;unspecified&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="48" file="main.cpp"
+                            idref="1226" line="111">
+                            <break_statement column="48" file="main.cpp"
+                              idref="1228" line="111"/>
+                          </block_statement>
+                          <switch_label column="55" file="main.cpp"
+                            idref="1230" line="112">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1232" line="112">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1236" line="112">
+                                <constant column="6" file="main.cpp"
+                                  idref="1238" line="112" value="SC_DO_NOTHING"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="24" file="main.cpp"
+                            idref="1240" line="112">
+                            <output_stream column="24" file="main.cpp"
+                              idref="1242" line="112" name="cout">
+                              <primary_expression column="31"
+                                file="main.cpp" idref="1246" line="112">
+                                <constant column="31" file="main.cpp"
+                                  idref="1248" line="112" value="&quot;do-nothing&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="46" file="main.cpp"
+                            idref="1250" line="112">
+                            <break_statement column="46" file="main.cpp"
+                              idref="1252" line="112"/>
+                          </block_statement>
+                          <switch_label column="53" file="main.cpp"
+                            idref="1254" line="113">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1256" line="113">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1260" line="113">
+                                <constant column="6" file="main.cpp"
+                                  idref="1262" line="113" value="SC_THROW"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="19" file="main.cpp"
+                            idref="1264" line="113">
+                            <output_stream column="19" file="main.cpp"
+                              idref="1266" line="113" name="cout">
+                              <primary_expression column="26"
+                                file="main.cpp" idref="1270" line="113">
+                                <constant column="26" file="main.cpp"
+                                  idref="1272" line="113" value="&quot;throw&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="36" file="main.cpp"
+                            idref="1274" line="113">
+                            <break_statement column="36" file="main.cpp"
+                              idref="1276" line="113"/>
+                          </block_statement>
+                          <switch_label column="43" file="main.cpp"
+                            idref="1278" line="114">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1280" line="114">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1284" line="114">
+                                <constant column="6" file="main.cpp"
+                                  idref="1286" line="114" value="SC_LOG"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="17" file="main.cpp"
+                            idref="1288" line="114">
+                            <output_stream column="17" file="main.cpp"
+                              idref="1290" line="114" name="cout">
+                              <primary_expression column="24"
+                                file="main.cpp" idref="1294" line="114">
+                                <constant column="24" file="main.cpp"
+                                  idref="1296" line="114" value="&quot;log&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="32" file="main.cpp"
+                            idref="1298" line="114">
+                            <break_statement column="32" file="main.cpp"
+                              idref="1300" line="114"/>
+                          </block_statement>
+                          <switch_label column="39" file="main.cpp"
+                            idref="1302" line="115">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1304" line="115">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1308" line="115">
+                                <constant column="6" file="main.cpp"
+                                  idref="1310" line="115" value="SC_DISPLAY"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="21" file="main.cpp"
+                            idref="1312" line="115">
+                            <output_stream column="21" file="main.cpp"
+                              idref="1314" line="115" name="cout">
+                              <primary_expression column="28"
+                                file="main.cpp" idref="1318" line="115">
+                                <constant column="28" file="main.cpp"
+                                  idref="1320" line="115" value="&quot;display&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="40" file="main.cpp"
+                            idref="1322" line="115">
+                            <break_statement column="40" file="main.cpp"
+                              idref="1324" line="115"/>
+                          </block_statement>
+                          <switch_label column="47" file="main.cpp"
+                            idref="1326" line="116">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1328" line="116">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1332" line="116">
+                                <constant column="6" file="main.cpp"
+                                  idref="1334" line="116" value="SC_CACHE_REPORT"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="26" file="main.cpp"
+                            idref="1336" line="116">
+                            <output_stream column="26" file="main.cpp"
+                              idref="1338" line="116" name="cout">
+                              <primary_expression column="33"
+                                file="main.cpp" idref="1342" line="116">
+                                <constant column="33" file="main.cpp"
+                                  idref="1344" line="116" value="&quot;cache-report&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="50" file="main.cpp"
+                            idref="1346" line="116">
+                            <break_statement column="50" file="main.cpp"
+                              idref="1348" line="116"/>
+                          </block_statement>
+                          <switch_label column="57" file="main.cpp"
+                            idref="1350" line="117">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1352" line="117">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1356" line="117">
+                                <constant column="6" file="main.cpp"
+                                  idref="1358" line="117" value="SC_INTERRUPT"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="23" file="main.cpp"
+                            idref="1360" line="117">
+                            <output_stream column="23" file="main.cpp"
+                              idref="1362" line="117" name="cout">
+                              <primary_expression column="30"
+                                file="main.cpp" idref="1366" line="117">
+                                <constant column="30" file="main.cpp"
+                                  idref="1368" line="117" value="&quot;interrupt&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="44" file="main.cpp"
+                            idref="1370" line="117">
+                            <break_statement column="44" file="main.cpp"
+                              idref="1372" line="117"/>
+                          </block_statement>
+                          <switch_label column="51" file="main.cpp"
+                            idref="1374" line="118">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1376" line="118">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1380" line="118">
+                                <constant column="6" file="main.cpp"
+                                  idref="1382" line="118" value="SC_STOP"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="18" file="main.cpp"
+                            idref="1384" line="118">
+                            <output_stream column="18" file="main.cpp"
+                              idref="1386" line="118" name="cout">
+                              <primary_expression column="25"
+                                file="main.cpp" idref="1390" line="118">
+                                <constant column="25" file="main.cpp"
+                                  idref="1392" line="118" value="&quot;stop&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="34" file="main.cpp"
+                            idref="1394" line="118">
+                            <break_statement column="34" file="main.cpp"
+                              idref="1396" line="118"/>
+                          </block_statement>
+                          <switch_label column="41" file="main.cpp"
+                            idref="1398" line="119">
+                            <constant_expression column="6"
+                              file="main.cpp" idref="1400" line="119">
+                              <primary_expression column="6"
+                                file="main.cpp" idref="1404" line="119">
+                                <constant column="6" file="main.cpp"
+                                  idref="1406" line="119" value="SC_ABORT"/>
+                              </primary_expression>
+                            </constant_expression>
+                          </switch_label>
+                          <block_statement column="19" file="main.cpp"
+                            idref="1408" line="119">
+                            <output_stream column="19" file="main.cpp"
+                              idref="1410" line="119" name="cout">
+                              <primary_expression column="26"
+                                file="main.cpp" idref="1414" line="119">
+                                <constant column="26" file="main.cpp"
+                                  idref="1416" line="119" value="&quot;abort&quot;"/>
+                              </primary_expression>
+                            </output_stream>
+                          </block_statement>
+                          <block_statement column="36" file="main.cpp"
+                            idref="1418" line="119">
+                            <break_statement column="36" file="main.cpp"
+                              idref="1420" line="119"/>
+                          </block_statement>
+                          <switch_label column="43" file="main.cpp"
+                            idref="1422" line="120"/>
+                          <block_statement column="13" file="main.cpp"
+                            idref="1424" line="121">
+                            <declaration column="13" file="main.cpp"
+                              idref="1426" line="121">
+                              <init_declarator_list column="13"
+                                file="main.cpp" idref="1428" line="121">
+                                <declaration_specifiers column="13"
+                                  file="main.cpp" idref="1430" line="121">
+                                  <builtin_type_specifier column="13"
+                                    file="main.cpp" idref="1432"
+                                    length="0" line="121" name="bool" sc_dt="false"/>
+                                </declaration_specifiers>
+                                <init_declarator column="3"
+                                  file="main.cpp" idref="1434" line="121">
+                                  <declarator column="3" file="main.cpp"
+                                    idref="1436" line="121">
+                                    <qualified_id column="3"
+                                    file="main.cpp" idref="1438"
+                                    line="121" name="found"/>
+                                  </declarator>
+                                  <initializer column="13"
+                                    file="main.cpp" idref="1440" line="121">
+                                    <primary_expression column="13"
+                                    file="main.cpp" idref="1444" line="121">
+                                    <constant column="13"
+                                    file="main.cpp" idref="1446"
+                                    line="121" value="false"/>
+                                    </primary_expression>
+                                  </initializer>
+                                </init_declarator>
+                              </init_declarator_list>
+                            </declaration>
+                          </block_statement>
+                          <block_statement column="19" file="main.cpp"
+                            idref="1448" line="122">
+                            <for_statement column="19" file="main.cpp"
+                              idref="1450" line="122">
+                              <for_init column="7" file="main.cpp"
+                                idref="1452" line="122">
+                                <declaration column="7" file="main.cpp"
+                                  idref="1454" line="122">
+                                  <init_declarator_list column="7"
+                                    file="main.cpp" idref="1456" line="122">
+                                    <declaration_specifiers column="7"
+                                    file="main.cpp" idref="1458" line="122">
+                                    <builtin_type_specifier column="7"
+                                    file="main.cpp" idref="1460"
+                                    length="0" line="122"
+                                    name="unsigned int" sc_dt="false"/>
+                                    </declaration_specifiers>
+                                    <init_declarator column="17"
+                                    file="main.cpp" idref="1462" line="122">
+                                    <declarator column="17"
+                                    file="main.cpp" idref="1464" line="122">
+                                    <qualified_id column="17"
+                                    file="main.cpp" idref="1466"
+                                    line="122" name="u"/>
+                                    </declarator>
+                                    <initializer column="22"
+                                    file="main.cpp" idref="1468" line="122">
+                                    <primary_expression column="22"
+                                    file="main.cpp" idref="1472" line="122">
+                                    <constant column="22"
+                                    file="main.cpp" idref="1474"
+                                    line="122" value="0"/>
+                                    </primary_expression>
+                                    </initializer>
+                                    </init_declarator>
+                                  </init_declarator_list>
+                                </declaration>
+                              </for_init>
+                              <for_condition column="24" file="main.cpp"
+                                idref="1476" line="122">
+                                <lt_node column="27" file="main.cpp"
+                                  idref="1484" line="122">
+                                  <primary_expression column="24"
+                                    file="main.cpp" idref="1480" line="122">
+                                    <id_expression column="26"
+                                    file="main.cpp" idref="1482"
+                                    line="122" name="u"/>
+                                  </primary_expression>
+                                  <primary_expression column="27"
+                                    file="main.cpp" idref="1488" line="122">
+                                    <id_expression column="28"
+                                    file="main.cpp" idref="1490"
+                                    line="122" name="num_usr_actions"/>
+                                  </primary_expression>
+                                </lt_node>
+                              </for_condition>
+                              <for_update column="43" file="main.cpp"
+                                idref="1492" line="122">
+                                <statement_expression_list column="43"
+                                  file="main.cpp" idref="1494" line="122">
+                                  <postincrement_node column="45"
+                                    file="main.cpp" idref="1502" line="122">
+                                    <primary_expression column="43"
+                                    file="main.cpp" idref="1498" line="122">
+                                    <id_expression column="45"
+                                    file="main.cpp" idref="1500"
+                                    line="122" name="u"/>
+                                    </primary_expression>
+                                  </postincrement_node>
+                                </statement_expression_list>
+                              </for_update>
+                              <for_block column="48" file="main.cpp"
+                                idref="1504" line="123">
+                                <block column="48" file="main.cpp"
+                                  idref="1506" line="123">
+                                  <block_statement column="48"
+                                    file="main.cpp" idref="1508" line="123">
+                                    <if_statement column="48"
+                                    file="main.cpp" idref="1510" line="123">
+                                    <eq_node column="18"
+                                    file="main.cpp" idref="1518" line="123">
+                                    <primary_expression column="10"
+                                    file="main.cpp" idref="1514" line="123">
+                                    <id_expression column="11"
+                                    file="main.cpp" idref="1516"
+                                    line="123" name="action"/>
+                                    </primary_expression>
+                                    <primary_expression column="33"
+                                    file="main.cpp" idref="1534" line="123">
+                                    <arrayaccess_expression
+                                    column="32" file="main.cpp"
+                                    idref="1526" line="123">
+                                    <primary_expression
+                                    column="18"
+                                    file="main.cpp"
+                                    idref="1522" line="123">
+                                    <id_expression column="21"
+                                    file="main.cpp"
+                                    idref="1524" line="123" name="usr_actions"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="32"
+                                    file="main.cpp"
+                                    idref="1530" line="123">
+                                    <id_expression column="33"
+                                    file="main.cpp"
+                                    idref="1532" line="123" name="u"/>
+                                    </primary_expression>
+                                    </arrayaccess_expression>
+                                    </primary_expression>
+                                    </eq_node>
+                                    <block column="35" file="main.cpp"
+                                    idref="1536" line="123">
+                                    <block_statement column="37"
+                                    file="main.cpp" idref="1538" line="124">
+                                    <output_stream column="37"
+                                    file="main.cpp" idref="1540"
+                                    line="124" name="cout">
+                                    <primary_expression
+                                    column="9" file="main.cpp"
+                                    idref="1544" line="124">
+                                    <constant column="9"
+                                    file="main.cpp"
+                                    idref="1546" line="124" value="&quot;usr&quot;"/>
+                                    </primary_expression>
+                                    <add_node column="22"
+                                    file="main.cpp"
+                                    idref="1554" line="124">
+                                    <primary_expression
+                                    column="18"
+                                    file="main.cpp"
+                                    idref="1550" line="124">
+                                    <id_expression
+                                    column="21"
+                                    file="main.cpp"
+                                    idref="1552"
+                                    line="124" name="u"/>
+                                    </primary_expression>
+                                    <primary_expression
+                                    column="22"
+                                    file="main.cpp"
+                                    idref="1558" line="124">
+                                    <constant column="22"
+                                    file="main.cpp"
+                                    idref="1560"
+                                    line="124" value="1"/>
+                                    </primary_expression>
+                                    </add_node>
+                                    </output_stream>
+                                    </block_statement>
+                                    <block_statement column="24"
+                                    file="main.cpp" idref="1562" line="125">
+                                    <assignment column="9"
+                                    file="main.cpp" idref="1572" line="125">
+                                    <primary_expression
+                                    column="24"
+                                    file="main.cpp"
+                                    idref="1566" line="125">
+                                    <id_expression column="4"
+                                    file="main.cpp"
+                                    idref="1568" line="125" name="found"/>
+                                    </primary_expression>
+                                    <assignment_operator
+                                    column="4" file="main.cpp"
+                                    idref="1570" line="125"/>
+                                    <primary_expression
+                                    column="9" file="main.cpp"
+                                    idref="1576" line="125">
+                                    <constant column="9"
+                                    file="main.cpp"
+                                    idref="1578" line="125" value="true"/>
+                                    </primary_expression>
+                                    </assignment>
+                                    </block_statement>
+                                    <block_statement column="14"
+                                    file="main.cpp" idref="1580" line="126">
+                                    <break_statement column="14"
+                                    file="main.cpp" idref="1582" line="126"/>
+                                    </block_statement>
+                                    </block>
+                                    </if_statement>
+                                  </block_statement>
+                                </block>
+                              </for_block>
+                            </for_statement>
+                          </block_statement>
+                          <block_statement column="7" file="main.cpp"
+                            idref="1584" line="128">
+                            <if_statement column="7" file="main.cpp"
+                              idref="1586" line="128">
+                              <unary_expression column="6"
+                                file="main.cpp" idref="1588" line="128">
+                                <unary_operator column="6"
+                                  file="main.cpp" idref="1590"
+                                  line="128" operator="not"/>
+                                <primary_expression column="7"
+                                  file="main.cpp" idref="1594" line="128">
+                                  <id_expression column="8"
+                                    file="main.cpp" idref="1596"
+                                    line="128" name="found"/>
+                                </primary_expression>
+                              </unary_expression>
+                              <block column="13" file="main.cpp"
+                                idref="1598" line="129">
+                                <block_statement column="13"
+                                  file="main.cpp" idref="1600" line="129">
+                                  <output_stream column="13"
+                                    file="main.cpp" idref="1602"
+                                    line="129" name="cout">
+                                    <primary_expression column="12"
+                                    file="main.cpp" idref="1606" line="129">
+                                    <constant column="12"
+                                    file="main.cpp" idref="1608"
+                                    line="129" value="&quot;UNKNOWN&quot;"/>
+                                    </primary_expression>
+                                  </output_stream>
+                                </block_statement>
+                              </block>
+                            </if_statement>
+                          </block_statement>
+                        </switch_statement>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+              </block>
+            </for_block>
+          </for_statement>
+        </block_statement>
+        <block_statement column="5" file="main.cpp" idref="1610" line="133">
+          <output_stream column="5" file="main.cpp" idref="1612"
+            line="133" name="cout">
+            <standart_manipulator column="10" file="main.cpp"
+              idref="1614" line="133" name="endl"/>
+          </output_stream>
+        </block_statement>
+        <block_statement column="17" file="main.cpp" idref="1616" line="134">
+          <output_stream column="17" file="main.cpp" idref="1618"
+            line="134" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="1622" line="134">
+              <constant column="10" file="main.cpp" idref="1624"
+                line="134" value="&quot; msg=&quot;"/>
+            </primary_expression>
+            <postfix_expression column="21" file="main.cpp" idref="1626" line="134">
+              <primary_expression column="21" file="main.cpp"
+                idref="1628" line="134">
+                <id_expression column="24" file="main.cpp" idref="1630"
+                  line="134" name="report"/>
+              </primary_expression>
+              <dereferencing_operator column="24" file="main.cpp"
+                idref="1632" line="134" name="&amp;"/>
+              <id_expression column="31" file="main.cpp" idref="1634"
+                line="134" name="get_msg"/>
+              <arguments column="31" file="main.cpp" idref="1636" line="134"/>
+            </postfix_expression>
+            <primary_expression column="3" file="main.cpp" idref="1640" line="135">
+              <constant column="3" file="main.cpp" idref="1642"
+                line="135" value="&quot; file=&quot;"/>
+            </primary_expression>
+            <postfix_expression column="15" file="main.cpp" idref="1644" line="135">
+              <primary_expression column="15" file="main.cpp"
+                idref="1646" line="135">
+                <id_expression column="18" file="main.cpp" idref="1648"
+                  line="135" name="report"/>
+              </primary_expression>
+              <dereferencing_operator column="18" file="main.cpp"
+                idref="1650" line="135" name="&amp;"/>
+              <id_expression column="25" file="main.cpp" idref="1652"
+                line="135" name="get_file_name"/>
+              <arguments column="25" file="main.cpp" idref="1654" line="135"/>
+            </postfix_expression>
+            <primary_expression column="3" file="main.cpp" idref="1658" line="136">
+              <constant column="3" file="main.cpp" idref="1660"
+                line="136" value="&quot; line &quot;"/>
+            </primary_expression>
+            <postfix_expression column="15" file="main.cpp" idref="1662" line="136">
+              <primary_expression column="15" file="main.cpp"
+                idref="1664" line="136">
+                <id_expression column="18" file="main.cpp" idref="1666"
+                  line="136" name="report"/>
+              </primary_expression>
+              <dereferencing_operator column="18" file="main.cpp"
+                idref="1668" line="136" name="&amp;"/>
+              <id_expression column="25" file="main.cpp" idref="1670"
+                line="136" name="get_line_number"/>
+              <arguments column="25" file="main.cpp" idref="1672" line="136"/>
+            </postfix_expression>
+            <primary_expression column="3" file="main.cpp" idref="1676" line="137">
+              <constant column="3" file="main.cpp" idref="1678"
+                line="137" value="&quot; time=&quot;"/>
+            </primary_expression>
+            <postfix_expression column="15" file="main.cpp" idref="1680" line="137">
+              <primary_expression column="15" file="main.cpp"
+                idref="1682" line="137">
+                <id_expression column="18" file="main.cpp" idref="1684"
+                  line="137" name="report"/>
+              </primary_expression>
+              <dereferencing_operator column="18" file="main.cpp"
+                idref="1686" line="137" name="&amp;"/>
+              <id_expression column="25" file="main.cpp" idref="1688"
+                line="137" name="get_time"/>
+              <arguments column="25" file="main.cpp" idref="1690" line="137"/>
+            </postfix_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="35" file="main.cpp" idref="1692" line="138">
+          <declaration column="35" file="main.cpp" idref="1694" line="138">
+            <init_declarator_list column="35" file="main.cpp"
+              idref="1696" line="138">
+              <declaration_specifiers column="35" file="main.cpp"
+                idref="1698" line="138">
+                <type_modifiers column="35" file="main.cpp" idref="1700" line="138">
+                  <type_qualifier column="35" file="main.cpp"
+                    idref="1702" line="138" name="const"/>
+                </type_modifiers>
+                <builtin_type_specifier column="3" file="main.cpp"
+                  idref="1704" length="0" line="138" name="char" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="9" file="main.cpp" idref="1706" line="138">
+                <declarator column="9" file="main.cpp" idref="1708" line="138">
+                  <ptr_operator column="9" file="main.cpp" idref="1710"
+                    line="138" name="*"/>
+                  <declarator column="13" file="main.cpp" idref="1712" line="138">
+                    <qualified_id column="13" file="main.cpp"
+                      idref="1714" line="138" name="name"/>
+                  </declarator>
+                </declarator>
+                <initializer column="20" file="main.cpp" idref="1716" line="138">
+                  <postfix_expression column="20" file="main.cpp"
+                    idref="1718" line="138">
+                    <primary_expression column="20" file="main.cpp"
+                      idref="1720" line="138">
+                      <id_expression column="22" file="main.cpp"
+                        idref="1722" line="138" name="report"/>
+                    </primary_expression>
+                    <dereferencing_operator column="22" file="main.cpp"
+                      idref="1724" line="138" name="&amp;"/>
+                    <id_expression column="29" file="main.cpp"
+                      idref="1726" line="138" name="get_process_name"/>
+                    <arguments column="29" file="main.cpp" idref="1728" line="138"/>
+                  </postfix_expression>
+                </initializer>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="47" file="main.cpp" idref="1730" line="139">
+          <output_stream column="47" file="main.cpp" idref="1732"
+            line="139" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="1736" line="139">
+              <constant column="10" file="main.cpp" idref="1738"
+                line="139" value="&quot; process=&quot;"/>
+            </primary_expression>
+            <primary_expression column="25" file="main.cpp" idref="1742" line="139">
+              <questionmark_expression column="28" file="main.cpp"
+                idref="1744" line="139">
+                <primary_expression column="28" file="main.cpp"
+                  idref="1748" line="139">
+                  <id_expression column="29" file="main.cpp"
+                    idref="1750" line="139" name="name"/>
+                </primary_expression>
+                <primary_expression column="34" file="main.cpp"
+                  idref="1754" line="139">
+                  <id_expression column="36" file="main.cpp"
+                    idref="1756" line="139" name="name"/>
+                </primary_expression>
+                <primary_expression column="41" file="main.cpp"
+                  idref="1760" line="139">
+                  <constant column="41" file="main.cpp" idref="1762"
+                    line="139" value="&quot;&lt;none>&quot;"/>
+                </primary_expression>
+              </questionmark_expression>
+            </primary_expression>
+            <standart_manipulator column="53" file="main.cpp"
+              idref="1764" line="139" name="endl"/>
+          </output_stream>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <comment column="1" file="main.cpp" idref="1765" line="143" name="/*&#xa;  Test selection schema  id x severity :&#xa;  &#xa;            ID&#xa;  Severity   1       2       3&#xa;&#xa;  info      usr2   usr1     usr5*   &#xa;  warning   usr3   usr1     usr3&#xa;  error     usr4   usr1     usr1*&#xa;  fatal     usr5   usr1     usr5&#xa;&#xa;  usr1..usr5 are user-defined actions&#xa;&#xa;  ID 1 selects by severity rule which has lowest priority,&#xa;  ID 2 selects by ID rule,&#xa;  ID 3 selects by  individual severity x ID rules (highest priority)&#xa;&#xa;*/"/>
+  <external_declaration column="1" file="main.cpp" idref="1767" line="161">
+    <function_definition column="1" file="main.cpp" idref="1769" line="161">
+      <declaration_specifiers column="1" file="main.cpp" idref="1771" line="161">
+        <builtin_type_specifier column="1" file="main.cpp" idref="1773"
+          length="0" line="161" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="main.cpp" idref="1775" line="161">
+        <qualified_id column="1" file="main.cpp" idref="1777" line="161" name="set_rules"/>
+      </function_declarator>
+      <block column="16" file="main.cpp" idref="1779" line="162">
+        <comment column="5" file="main.cpp" idref="1780" line="163" name="// set rule 1: by severity"/>
+        <block_statement column="1" file="main.cpp" idref="1782" line="164">
+          <systemCRoutine column="1" file="main.cpp" idref="1786"
+            line="164" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1788" line="164">
+              <arguments_list column="35" file="main.cpp" idref="1790" line="164">
+                <primary_expression column="35" file="main.cpp"
+                  idref="1794" line="164">
+                  <constant column="35" file="main.cpp" idref="1796"
+                    line="164" value="SC_INFO"/>
+                </primary_expression>
+                <primary_expression column="44" file="main.cpp"
+                  idref="1800" line="164">
+                  <id_expression column="46" file="main.cpp"
+                    idref="1802" line="164" name="usr2"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="52" file="main.cpp" idref="1804" line="165">
+          <systemCRoutine column="52" file="main.cpp" idref="1808"
+            line="165" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1810" line="165">
+              <arguments_list column="35" file="main.cpp" idref="1812" line="165">
+                <primary_expression column="35" file="main.cpp"
+                  idref="1816" line="165">
+                  <constant column="35" file="main.cpp" idref="1818"
+                    line="165" value="SC_WARNING"/>
+                </primary_expression>
+                <primary_expression column="47" file="main.cpp"
+                  idref="1822" line="165">
+                  <id_expression column="49" file="main.cpp"
+                    idref="1824" line="165" name="usr3"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="55" file="main.cpp" idref="1826" line="166">
+          <systemCRoutine column="55" file="main.cpp" idref="1830"
+            line="166" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1832" line="166">
+              <arguments_list column="35" file="main.cpp" idref="1834" line="166">
+                <primary_expression column="35" file="main.cpp"
+                  idref="1838" line="166">
+                  <constant column="35" file="main.cpp" idref="1840"
+                    line="166" value="SC_ERROR"/>
+                </primary_expression>
+                <primary_expression column="45" file="main.cpp"
+                  idref="1844" line="166">
+                  <id_expression column="47" file="main.cpp"
+                    idref="1846" line="166" name="usr4"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="53" file="main.cpp" idref="1848" line="167">
+          <systemCRoutine column="53" file="main.cpp" idref="1852"
+            line="167" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1854" line="167">
+              <arguments_list column="35" file="main.cpp" idref="1856" line="167">
+                <primary_expression column="35" file="main.cpp"
+                  idref="1860" line="167">
+                  <constant column="35" file="main.cpp" idref="1862"
+                    line="167" value="SC_FATAL"/>
+                </primary_expression>
+                <primary_expression column="45" file="main.cpp"
+                  idref="1866" line="167">
+                  <id_expression column="47" file="main.cpp"
+                    idref="1868" line="167" name="usr5"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="1869" line="169" name="// set rule 2: by id"/>
+        <block_statement column="53" file="main.cpp" idref="1871" line="170">
+          <systemCRoutine column="53" file="main.cpp" idref="1875"
+            line="170" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1877" line="170">
+              <arguments_list column="35" file="main.cpp" idref="1879" line="170">
+                <primary_expression column="35" file="main.cpp"
+                  idref="1883" line="170">
+                  <id_expression column="37" file="main.cpp"
+                    idref="1885" line="170" name="id2"/>
+                </primary_expression>
+                <primary_expression column="40" file="main.cpp"
+                  idref="1889" line="170">
+                  <id_expression column="42" file="main.cpp"
+                    idref="1891" line="170" name="usr1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="1892" line="172" name="// set rule 3: by (id,severity)"/>
+        <block_statement column="48" file="main.cpp" idref="1894" line="173">
+          <systemCRoutine column="48" file="main.cpp" idref="1898"
+            line="173" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1900" line="173">
+              <arguments_list column="36" file="main.cpp" idref="1902" line="173">
+                <primary_expression column="36" file="main.cpp"
+                  idref="1906" line="173">
+                  <id_expression column="38" file="main.cpp"
+                    idref="1908" line="173" name="id3"/>
+                </primary_expression>
+                <primary_expression column="41" file="main.cpp"
+                  idref="1912" line="173">
+                  <constant column="41" file="main.cpp" idref="1914"
+                    line="173" value="SC_INFO"/>
+                </primary_expression>
+                <primary_expression column="50" file="main.cpp"
+                  idref="1918" line="173">
+                  <id_expression column="52" file="main.cpp"
+                    idref="1920" line="173" name="usr5"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="58" file="main.cpp" idref="1922" line="174">
+          <systemCRoutine column="58" file="main.cpp" idref="1926"
+            line="174" name="sc_report_handler::set_actions">
+            <arguments column="24" file="main.cpp" idref="1928" line="174">
+              <arguments_list column="36" file="main.cpp" idref="1930" line="174">
+                <primary_expression column="36" file="main.cpp"
+                  idref="1934" line="174">
+                  <id_expression column="38" file="main.cpp"
+                    idref="1936" line="174" name="id3"/>
+                </primary_expression>
+                <primary_expression column="41" file="main.cpp"
+                  idref="1940" line="174">
+                  <constant column="41" file="main.cpp" idref="1942"
+                    line="174" value="SC_ERROR"/>
+                </primary_expression>
+                <primary_expression column="51" file="main.cpp"
+                  idref="1946" line="174">
+                  <id_expression column="53" file="main.cpp"
+                    idref="1948" line="174" name="usr1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <external_declaration column="1" file="main.cpp" idref="1950" line="176">
+    <function_definition column="1" file="main.cpp" idref="1952" line="176">
+      <declaration_specifiers column="1" file="main.cpp" idref="1954" line="176">
+        <builtin_type_specifier column="1" file="main.cpp" idref="1956"
+          length="0" line="176" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="main.cpp" idref="1958" line="176">
+        <qualified_id column="1" file="main.cpp" idref="1960" line="176" name="query_rules"/>
+        <parameter_list column="17" file="main.cpp" idref="1962" line="176">
+          <parameter_declaration column="17" file="main.cpp"
+            idref="1964" line="176">
+            <declaration_specifiers column="17" file="main.cpp"
+              idref="1966" line="176">
+              <type_modifiers column="17" file="main.cpp" idref="1968" line="176">
+                <type_qualifier column="17" file="main.cpp" idref="1970"
+                  line="176" name="const"/>
+              </type_modifiers>
+              <builtin_type_specifier column="19" file="main.cpp"
+                idref="1972" length="0" line="176" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="25" file="main.cpp" idref="1974" line="176">
+              <ptr_operator column="25" file="main.cpp" idref="1976"
+                line="176" name="*"/>
+              <declarator column="29" file="main.cpp" idref="1978" line="176">
+                <qualified_id column="29" file="main.cpp" idref="1980"
+                  line="176" name="id"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="34" file="main.cpp" idref="1982" line="177">
+        <block_statement column="1" file="main.cpp" idref="1984" line="178">
+          <systemCRoutine column="1" file="main.cpp" idref="1988"
+            line="178" name="sc_report_handler::report">
+            <arguments column="24" file="main.cpp" idref="1990" line="178">
+              <arguments_list column="30" file="main.cpp" idref="1992" line="178">
+                <primary_expression column="30" file="main.cpp"
+                  idref="1996" line="178">
+                  <constant column="30" file="main.cpp" idref="1998"
+                    line="178" value="SC_INFO"/>
+                </primary_expression>
+                <primary_expression column="39" file="main.cpp"
+                  idref="2002" line="178">
+                  <id_expression column="41" file="main.cpp"
+                    idref="2004" line="178" name="id"/>
+                </primary_expression>
+                <primary_expression column="43" file="main.cpp"
+                  idref="2008" line="178">
+                  <constant column="43" file="main.cpp" idref="2010"
+                    line="178" value="&quot;extra_msg_for_info&quot;"/>
+                </primary_expression>
+                <primary_expression column="65" file="main.cpp"
+                  idref="2014" line="178">
+                  <constant column="65" file="main.cpp" idref="2016"
+                    line="178" value="&quot;no_specific_file&quot;"/>
+                </primary_expression>
+                <primary_expression column="85" file="main.cpp"
+                  idref="2020" line="178">
+                  <constant column="85" file="main.cpp" idref="2022"
+                    line="178" value="0"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="89" file="main.cpp" idref="2024" line="179">
+          <systemCRoutine column="89" file="main.cpp" idref="2028"
+            line="179" name="sc_report_handler::report">
+            <arguments column="24" file="main.cpp" idref="2030" line="179">
+              <arguments_list column="30" file="main.cpp" idref="2032" line="179">
+                <primary_expression column="30" file="main.cpp"
+                  idref="2036" line="179">
+                  <constant column="30" file="main.cpp" idref="2038"
+                    line="179" value="SC_WARNING"/>
+                </primary_expression>
+                <primary_expression column="42" file="main.cpp"
+                  idref="2042" line="179">
+                  <id_expression column="44" file="main.cpp"
+                    idref="2044" line="179" name="id"/>
+                </primary_expression>
+                <primary_expression column="46" file="main.cpp"
+                  idref="2048" line="179">
+                  <constant column="46" file="main.cpp" idref="2050"
+                    line="179" value="&quot;extra_msg_for_warning&quot;"/>
+                </primary_expression>
+                <primary_expression column="71" file="main.cpp"
+                  idref="2054" line="179">
+                  <constant column="71" file="main.cpp" idref="2056"
+                    line="179" value="&quot;no_specific_file&quot;"/>
+                </primary_expression>
+                <primary_expression column="90" file="main.cpp"
+                  idref="2060" line="179">
+                  <constant column="90" file="main.cpp" idref="2062"
+                    line="179" value="1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="94" file="main.cpp" idref="2064" line="180">
+          <systemCRoutine column="94" file="main.cpp" idref="2068"
+            line="180" name="sc_report_handler::report">
+            <arguments column="24" file="main.cpp" idref="2070" line="180">
+              <arguments_list column="30" file="main.cpp" idref="2072" line="180">
+                <primary_expression column="30" file="main.cpp"
+                  idref="2076" line="180">
+                  <constant column="30" file="main.cpp" idref="2078"
+                    line="180" value="SC_ERROR"/>
+                </primary_expression>
+                <primary_expression column="40" file="main.cpp"
+                  idref="2082" line="180">
+                  <id_expression column="42" file="main.cpp"
+                    idref="2084" line="180" name="id"/>
+                </primary_expression>
+                <primary_expression column="44" file="main.cpp"
+                  idref="2088" line="180">
+                  <constant column="44" file="main.cpp" idref="2090"
+                    line="180" value="&quot;extra_msg_for_error&quot;"/>
+                </primary_expression>
+                <primary_expression column="67" file="main.cpp"
+                  idref="2094" line="180">
+                  <constant column="67" file="main.cpp" idref="2096"
+                    line="180" value="&quot;no_specific_file&quot;"/>
+                </primary_expression>
+                <primary_expression column="87" file="main.cpp"
+                  idref="2100" line="180">
+                  <constant column="87" file="main.cpp" idref="2102"
+                    line="180" value="2"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="91" file="main.cpp" idref="2104" line="181">
+          <systemCRoutine column="91" file="main.cpp" idref="2108"
+            line="181" name="sc_report_handler::report">
+            <arguments column="24" file="main.cpp" idref="2110" line="181">
+              <arguments_list column="30" file="main.cpp" idref="2112" line="181">
+                <primary_expression column="30" file="main.cpp"
+                  idref="2116" line="181">
+                  <constant column="30" file="main.cpp" idref="2118"
+                    line="181" value="SC_FATAL"/>
+                </primary_expression>
+                <primary_expression column="40" file="main.cpp"
+                  idref="2122" line="181">
+                  <id_expression column="42" file="main.cpp"
+                    idref="2124" line="181" name="id"/>
+                </primary_expression>
+                <primary_expression column="44" file="main.cpp"
+                  idref="2128" line="181">
+                  <constant column="44" file="main.cpp" idref="2130"
+                    line="181" value="&quot;extra_msg_for_fatal&quot;"/>
+                </primary_expression>
+                <primary_expression column="67" file="main.cpp"
+                  idref="2134" line="181">
+                  <constant column="67" file="main.cpp" idref="2136"
+                    line="181" value="&quot;no_specific_file&quot;"/>
+                </primary_expression>
+                <primary_expression column="87" file="main.cpp"
+                  idref="2140" line="181">
+                  <constant column="87" file="main.cpp" idref="2142"
+                    line="181" value="3"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="91" file="main.cpp" idref="2144" line="182">
+          <output_stream column="91" file="main.cpp" idref="2146"
+            line="182" name="cout">
+            <standart_manipulator column="10" file="main.cpp"
+              idref="2148" line="182" name="endl"/>
+          </output_stream>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <external_declaration column="1" file="main.cpp" idref="2150" line="184">
+    <function_definition column="1" file="main.cpp" idref="2152" line="184">
+      <declaration_specifiers column="1" file="main.cpp" idref="2154" line="184">
+        <builtin_type_specifier column="1" file="main.cpp" idref="2156"
+          length="0" line="184" name="void" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="1" file="main.cpp" idref="2158" line="184">
+        <qualified_id column="1" file="main.cpp" idref="2160" line="184" name="query_rules"/>
+      </function_declarator>
+      <block column="18" file="main.cpp" idref="2162" line="185">
+        <block_statement column="1" file="main.cpp" idref="2164" line="186">
+          <postfix_expression column="1" file="main.cpp" idref="2166" line="186">
+            <primary_expression column="1" file="main.cpp" idref="2168" line="186">
+              <id_expression column="5" file="main.cpp" idref="2170"
+                line="186" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2172" line="186">
+              <arguments_list column="16" file="main.cpp" idref="2174" line="186">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2178" line="186">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2180" line="186" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2182" line="187">
+          <postfix_expression column="23" file="main.cpp" idref="2184" line="187">
+            <primary_expression column="23" file="main.cpp" idref="2186" line="187">
+              <id_expression column="5" file="main.cpp" idref="2188"
+                line="187" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2190" line="187">
+              <arguments_list column="16" file="main.cpp" idref="2192" line="187">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2196" line="187">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2198" line="187" name="id2"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2200" line="188">
+          <postfix_expression column="23" file="main.cpp" idref="2202" line="188">
+            <primary_expression column="23" file="main.cpp" idref="2204" line="188">
+              <id_expression column="5" file="main.cpp" idref="2206"
+                line="188" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2208" line="188">
+              <arguments_list column="16" file="main.cpp" idref="2210" line="188">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2214" line="188">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2216" line="188" name="id3"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+      </block>
+    </function_definition>
+  </external_declaration>
+  <external_declaration column="1" file="main.cpp" idref="2218" line="192">
+    <sc_main_declaration column="1" file="main.cpp" idref="2220" line="192">
+      <declaration_specifiers column="1" file="main.cpp" idref="2222" line="192">
+        <builtin_type_specifier column="1" file="main.cpp" idref="2224"
+          length="0" line="192" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="main.cpp" idref="2226" line="192">
+        <qualified_id column="5" file="main.cpp" idref="2228" line="192" name="sc_main"/>
+        <parameter_list column="12" file="main.cpp" idref="2230" line="192">
+          <parameter_declaration column="12" file="main.cpp"
+            idref="2232" line="192">
+            <declaration_specifiers column="12" file="main.cpp"
+              idref="2234" line="192">
+              <builtin_type_specifier column="12" file="main.cpp"
+                idref="2236" length="0" line="192" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <abstract_declarator column="13" file="main.cpp"
+              idref="2238" line="192"/>
+          </parameter_declaration>
+          <parameter_declaration column="16" file="main.cpp"
+            idref="2240" line="192">
+            <declaration_specifiers column="16" file="main.cpp"
+              idref="2242" line="192">
+              <builtin_type_specifier column="16" file="main.cpp"
+                idref="2244" length="0" line="192" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <abstract_declarator column="17" file="main.cpp"
+              idref="2246" line="192">
+              <ptr_operator column="17" file="main.cpp" idref="2248"
+                line="192" name="*"/>
+              <abstract_declarator column="21" file="main.cpp"
+                idref="2250" line="192">
+                <ptr_operator column="21" file="main.cpp" idref="2252"
+                  line="192" name="*"/>
+                <abstract_declarator column="22" file="main.cpp"
+                  idref="2254" line="192"/>
+              </abstract_declarator>
+            </abstract_declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="23" file="main.cpp" idref="2256" line="193">
+        <block_statement column="1" file="main.cpp" idref="2258" line="194">
+          <postfix_expression column="1" file="main.cpp" idref="2260" line="194">
+            <primary_expression column="1" file="main.cpp" idref="2262" line="194">
+              <id_expression column="5" file="main.cpp" idref="2264"
+                line="194" name="allocate_user_actions"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2266" line="194"/>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="28" file="main.cpp" idref="2268" line="195">
+          <systemCRoutine column="28" file="main.cpp" idref="2270"
+            line="195" name="sc_report_handler::set_handler">
+            <arguments column="24" file="main.cpp" idref="2272" line="195">
+              <arguments_list column="35" file="main.cpp" idref="2274" line="195">
+                <unary_expression column="35" file="main.cpp"
+                  idref="2276" line="195">
+                  <unary_operator column="35" file="main.cpp"
+                    idref="2278" line="195" operator="ref"/>
+                  <primary_expression column="37" file="main.cpp"
+                    idref="2282" line="195">
+                    <id_expression column="38" file="main.cpp"
+                      idref="2284" line="195" name="dump_all_handler"/>
+                  </primary_expression>
+                </unary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2285" line="197" name="// disable automatic stop "/>
+        <block_statement column="56" file="main.cpp" idref="2287" line="198">
+          <systemCRoutine column="56" file="main.cpp" idref="2289"
+            line="198" name="sc_report_handler::stop_after">
+            <arguments column="24" file="main.cpp" idref="2291" line="198">
+              <arguments_list column="34" file="main.cpp" idref="2293" line="198">
+                <primary_expression column="34" file="main.cpp"
+                  idref="2297" line="198">
+                  <constant column="34" file="main.cpp" idref="2299"
+                    line="198" value="SC_ERROR"/>
+                </primary_expression>
+                <primary_expression column="44" file="main.cpp"
+                  idref="2303" line="198">
+                  <constant column="44" file="main.cpp" idref="2305"
+                    line="198" value="0"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="49" file="main.cpp" idref="2307" line="199">
+          <systemCRoutine column="49" file="main.cpp" idref="2309"
+            line="199" name="sc_report_handler::stop_after">
+            <arguments column="24" file="main.cpp" idref="2311" line="199">
+              <arguments_list column="34" file="main.cpp" idref="2313" line="199">
+                <primary_expression column="34" file="main.cpp"
+                  idref="2317" line="199">
+                  <constant column="34" file="main.cpp" idref="2319"
+                    line="199" value="SC_FATAL"/>
+                </primary_expression>
+                <primary_expression column="44" file="main.cpp"
+                  idref="2323" line="199">
+                  <constant column="44" file="main.cpp" idref="2325"
+                    line="199" value="0"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2326" line="202" name="// terminate the simulation."/>
+        <comment column="5" file="main.cpp" idref="2327" line="201" name="// Don't emit error|fatal for ID4 because this would "/>
+        <block_statement column="49" file="main.cpp" idref="2329" line="203">
+          <output_stream column="49" file="main.cpp" idref="2331"
+            line="203" name="cout">
+            <primary_expression column="12" file="main.cpp" idref="2335" line="203">
+              <constant column="12" file="main.cpp" idref="2337"
+                line="203" value="&quot;Default settings for ID4\n&quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="43" file="main.cpp" idref="2339" line="204">
+          <postfix_expression column="43" file="main.cpp" idref="2341" line="204">
+            <primary_expression column="43" file="main.cpp" idref="2343" line="204">
+              <id_expression column="7" file="main.cpp" idref="2345"
+                line="204" name="query_rules"/>
+            </primary_expression>
+            <arguments column="7" file="main.cpp" idref="2347" line="204">
+              <arguments_list column="18" file="main.cpp" idref="2349" line="204">
+                <primary_expression column="18" file="main.cpp"
+                  idref="2353" line="204">
+                  <id_expression column="20" file="main.cpp"
+                    idref="2355" line="204" name="id4"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2356" line="206" name="// check default setting of rules"/>
+        <block_statement column="25" file="main.cpp" idref="2358" line="207">
+          <output_stream column="25" file="main.cpp" idref="2360"
+            line="207" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="2364" line="207">
+              <constant column="10" file="main.cpp" idref="2366"
+                line="207" value="&quot;Specific settings for ID1..ID3\n&quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="47" file="main.cpp" idref="2368" line="208">
+          <postfix_expression column="47" file="main.cpp" idref="2370" line="208">
+            <primary_expression column="47" file="main.cpp" idref="2372" line="208">
+              <id_expression column="5" file="main.cpp" idref="2374"
+                line="208" name="set_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2376" line="208"/>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="16" file="main.cpp" idref="2378" line="209">
+          <postfix_expression column="16" file="main.cpp" idref="2380" line="209">
+            <primary_expression column="16" file="main.cpp" idref="2382" line="209">
+              <id_expression column="5" file="main.cpp" idref="2384"
+                line="209" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2386" line="209"/>
+          </postfix_expression>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2387" line="214" name="// - check return value of suppress(.)"/>
+        <comment column="5" file="main.cpp" idref="2388" line="213" name="// - check that suppress() restores old state"/>
+        <comment column="5" file="main.cpp" idref="2389" line="212" name="// - check which actions are emitted"/>
+        <comment column="5" file="main.cpp" idref="2390" line="211" name="// temporarily suppress usr4:"/>
+        <block_statement column="18" file="main.cpp" idref="2392" line="215">
+          <output_stream column="18" file="main.cpp" idref="2394"
+            line="215" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="2398" line="215">
+              <constant column="10" file="main.cpp" idref="2400"
+                line="215" value="&quot;temporarily suppress usr4\n&quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="42" file="main.cpp" idref="2402" line="216">
+          <systemCRoutine column="42" file="main.cpp" idref="2404"
+            line="216" name="sc_start">
+            <arguments column="5" file="main.cpp" idref="2406" line="216">
+              <arguments_list column="13" file="main.cpp" idref="2408" line="216">
+                <primary_expression column="13" file="main.cpp"
+                  idref="2412" line="216">
+                  <constant column="13" file="main.cpp" idref="2414"
+                    line="216" value="1"/>
+                </primary_expression>
+                <primary_expression column="16" file="main.cpp"
+                  idref="2418" line="216">
+                  <constant column="16" file="main.cpp" idref="2420"
+                    line="216" value="SC_NS"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="24" file="main.cpp" idref="2422" line="217">
+          <systemCRoutine column="24" file="main.cpp" idref="2424"
+            line="217" name="sc_report_handler::suppress">
+            <arguments column="24" file="main.cpp" idref="2426" line="217">
+              <arguments_list column="32" file="main.cpp" idref="2428" line="217">
+                <primary_expression column="32" file="main.cpp"
+                  idref="2432" line="217">
+                  <id_expression column="34" file="main.cpp"
+                    idref="2434" line="217" name="usr3"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="40" file="main.cpp" idref="2436" line="218">
+          <postfix_expression column="40" file="main.cpp" idref="2438" line="218">
+            <primary_expression column="40" file="main.cpp" idref="2440" line="218">
+              <id_expression column="5" file="main.cpp" idref="2442"
+                line="218" name="assert"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2444" line="218">
+              <arguments_list column="11" file="main.cpp" idref="2446" line="218">
+                <eq_node column="49" file="main.cpp" idref="2462" line="218">
+                  <systemCRoutine column="11" file="main.cpp"
+                    idref="2450" line="218" name="sc_report_handler::suppress">
+                    <arguments column="32" file="main.cpp" idref="2452" line="218">
+                      <arguments_list column="40" file="main.cpp"
+                        idref="2454" line="218">
+                        <primary_expression column="40" file="main.cpp"
+                          idref="2458" line="218">
+                          <id_expression column="42" file="main.cpp"
+                            idref="2460" line="218" name="usr4"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                  <primary_expression column="49" file="main.cpp"
+                    idref="2466" line="218">
+                    <id_expression column="52" file="main.cpp"
+                      idref="2468" line="218" name="usr3"/>
+                  </primary_expression>
+                </eq_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="58" file="main.cpp" idref="2470" line="219">
+          <postfix_expression column="58" file="main.cpp" idref="2472" line="219">
+            <primary_expression column="58" file="main.cpp" idref="2474" line="219">
+              <id_expression column="5" file="main.cpp" idref="2476"
+                line="219" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2478" line="219">
+              <arguments_list column="16" file="main.cpp" idref="2480" line="219">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2484" line="219">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2486" line="219" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2488" line="220">
+          <postfix_expression column="23" file="main.cpp" idref="2490" line="220">
+            <primary_expression column="23" file="main.cpp" idref="2492" line="220">
+              <id_expression column="5" file="main.cpp" idref="2494"
+                line="220" name="assert"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2496" line="220">
+              <arguments_list column="11" file="main.cpp" idref="2498" line="220">
+                <eq_node column="43" file="main.cpp" idref="2506" line="220">
+                  <systemCRoutine column="11" file="main.cpp"
+                    idref="2502" line="220" name="sc_report_handler::suppress">
+                    <arguments column="32" file="main.cpp" idref="2504" line="220"/>
+                  </systemCRoutine>
+                  <primary_expression column="43" file="main.cpp"
+                    idref="2510" line="220">
+                    <id_expression column="46" file="main.cpp"
+                      idref="2512" line="220" name="usr4"/>
+                  </primary_expression>
+                </eq_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="52" file="main.cpp" idref="2514" line="221">
+          <postfix_expression column="52" file="main.cpp" idref="2516" line="221">
+            <primary_expression column="52" file="main.cpp" idref="2518" line="221">
+              <id_expression column="5" file="main.cpp" idref="2520"
+                line="221" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2522" line="221">
+              <arguments_list column="16" file="main.cpp" idref="2524" line="221">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2528" line="221">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2530" line="221" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2531" line="223" name="// temporarily force usr1: same checking as with suppress"/>
+        <block_statement column="23" file="main.cpp" idref="2533" line="224">
+          <output_stream column="23" file="main.cpp" idref="2535"
+            line="224" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="2539" line="224">
+              <constant column="10" file="main.cpp" idref="2541"
+                line="224" value="&quot;temporarily force usr1\n&quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="39" file="main.cpp" idref="2543" line="225">
+          <systemCRoutine column="39" file="main.cpp" idref="2545"
+            line="225" name="sc_start">
+            <arguments column="5" file="main.cpp" idref="2547" line="225">
+              <arguments_list column="13" file="main.cpp" idref="2549" line="225">
+                <primary_expression column="13" file="main.cpp"
+                  idref="2553" line="225">
+                  <constant column="13" file="main.cpp" idref="2555"
+                    line="225" value="1"/>
+                </primary_expression>
+                <primary_expression column="16" file="main.cpp"
+                  idref="2559" line="225">
+                  <constant column="16" file="main.cpp" idref="2561"
+                    line="225" value="SC_NS"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="24" file="main.cpp" idref="2563" line="226">
+          <systemCRoutine column="24" file="main.cpp" idref="2565"
+            line="226" name="sc_report_handler::force">
+            <arguments column="24" file="main.cpp" idref="2567" line="226">
+              <arguments_list column="29" file="main.cpp" idref="2569" line="226">
+                <primary_expression column="29" file="main.cpp"
+                  idref="2573" line="226">
+                  <id_expression column="31" file="main.cpp"
+                    idref="2575" line="226" name="usr2"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="37" file="main.cpp" idref="2577" line="227">
+          <postfix_expression column="37" file="main.cpp" idref="2579" line="227">
+            <primary_expression column="37" file="main.cpp" idref="2581" line="227">
+              <id_expression column="5" file="main.cpp" idref="2583"
+                line="227" name="assert"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2585" line="227">
+              <arguments_list column="11" file="main.cpp" idref="2587" line="227">
+                <eq_node column="46" file="main.cpp" idref="2603" line="227">
+                  <systemCRoutine column="11" file="main.cpp"
+                    idref="2591" line="227" name="sc_report_handler::force">
+                    <arguments column="32" file="main.cpp" idref="2593" line="227">
+                      <arguments_list column="37" file="main.cpp"
+                        idref="2595" line="227">
+                        <primary_expression column="37" file="main.cpp"
+                          idref="2599" line="227">
+                          <id_expression column="39" file="main.cpp"
+                            idref="2601" line="227" name="usr1"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                  <primary_expression column="46" file="main.cpp"
+                    idref="2607" line="227">
+                    <id_expression column="49" file="main.cpp"
+                      idref="2609" line="227" name="usr2"/>
+                  </primary_expression>
+                </eq_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="55" file="main.cpp" idref="2611" line="228">
+          <postfix_expression column="55" file="main.cpp" idref="2613" line="228">
+            <primary_expression column="55" file="main.cpp" idref="2615" line="228">
+              <id_expression column="5" file="main.cpp" idref="2617"
+                line="228" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2619" line="228">
+              <arguments_list column="16" file="main.cpp" idref="2621" line="228">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2625" line="228">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2627" line="228" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2629" line="229">
+          <postfix_expression column="23" file="main.cpp" idref="2631" line="229">
+            <primary_expression column="23" file="main.cpp" idref="2633" line="229">
+              <id_expression column="5" file="main.cpp" idref="2635"
+                line="229" name="assert"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2637" line="229">
+              <arguments_list column="11" file="main.cpp" idref="2639" line="229">
+                <eq_node column="40" file="main.cpp" idref="2647" line="229">
+                  <systemCRoutine column="11" file="main.cpp"
+                    idref="2643" line="229" name="sc_report_handler::force">
+                    <arguments column="32" file="main.cpp" idref="2645" line="229"/>
+                  </systemCRoutine>
+                  <primary_expression column="40" file="main.cpp"
+                    idref="2651" line="229">
+                    <id_expression column="43" file="main.cpp"
+                      idref="2653" line="229" name="usr1"/>
+                  </primary_expression>
+                </eq_node>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="49" file="main.cpp" idref="2655" line="230">
+          <postfix_expression column="49" file="main.cpp" idref="2657" line="230">
+            <primary_expression column="49" file="main.cpp" idref="2659" line="230">
+              <id_expression column="5" file="main.cpp" idref="2661"
+                line="230" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2663" line="230">
+              <arguments_list column="16" file="main.cpp" idref="2665" line="230">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2669" line="230">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2671" line="230" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <comment column="5" file="main.cpp" idref="2672" line="232" name="// temporarily force usr1: same checking as with suppress"/>
+        <block_statement column="23" file="main.cpp" idref="2674" line="233">
+          <output_stream column="23" file="main.cpp" idref="2676"
+            line="233" name="cout">
+            <primary_expression column="10" file="main.cpp" idref="2680" line="233">
+              <constant column="10" file="main.cpp" idref="2682"
+                line="233" value="&quot;temporarily suppress {usr3,usr4} and force {usr1,usr3}\n&quot;"/>
+            </primary_expression>
+          </output_stream>
+        </block_statement>
+        <block_statement column="71" file="main.cpp" idref="2684" line="234">
+          <systemCRoutine column="71" file="main.cpp" idref="2686"
+            line="234" name="sc_start">
+            <arguments column="5" file="main.cpp" idref="2688" line="234">
+              <arguments_list column="13" file="main.cpp" idref="2690" line="234">
+                <primary_expression column="13" file="main.cpp"
+                  idref="2694" line="234">
+                  <constant column="13" file="main.cpp" idref="2696"
+                    line="234" value="1"/>
+                </primary_expression>
+                <primary_expression column="16" file="main.cpp"
+                  idref="2700" line="234">
+                  <constant column="16" file="main.cpp" idref="2702"
+                    line="234" value="SC_NS"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="24" file="main.cpp" idref="2704" line="235">
+          <systemCRoutine column="24" file="main.cpp" idref="2706"
+            line="235" name="sc_report_handler::force">
+            <arguments column="24" file="main.cpp" idref="2708" line="235">
+              <arguments_list column="30" file="main.cpp" idref="2710" line="235">
+                <bitwise_or_node column="36" file="main.cpp"
+                  idref="2718" line="235">
+                  <primary_expression column="30" file="main.cpp"
+                    idref="2714" line="235">
+                    <id_expression column="32" file="main.cpp"
+                      idref="2716" line="235" name="usr1"/>
+                  </primary_expression>
+                  <primary_expression column="36" file="main.cpp"
+                    idref="2722" line="235">
+                    <id_expression column="37" file="main.cpp"
+                      idref="2724" line="235" name="usr3"/>
+                  </primary_expression>
+                </bitwise_or_node>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="43" file="main.cpp" idref="2726" line="236">
+          <systemCRoutine column="43" file="main.cpp" idref="2728"
+            line="236" name="sc_report_handler::suppress">
+            <arguments column="24" file="main.cpp" idref="2730" line="236">
+              <arguments_list column="32" file="main.cpp" idref="2732" line="236">
+                <bitwise_or_node column="38" file="main.cpp"
+                  idref="2740" line="236">
+                  <primary_expression column="32" file="main.cpp"
+                    idref="2736" line="236">
+                    <id_expression column="34" file="main.cpp"
+                      idref="2738" line="236" name="usr3"/>
+                  </primary_expression>
+                  <primary_expression column="38" file="main.cpp"
+                    idref="2744" line="236">
+                    <id_expression column="39" file="main.cpp"
+                      idref="2746" line="236" name="usr4"/>
+                  </primary_expression>
+                </bitwise_or_node>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="45" file="main.cpp" idref="2748" line="237">
+          <postfix_expression column="45" file="main.cpp" idref="2750" line="237">
+            <primary_expression column="45" file="main.cpp" idref="2752" line="237">
+              <id_expression column="5" file="main.cpp" idref="2754"
+                line="237" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2756" line="237">
+              <arguments_list column="16" file="main.cpp" idref="2758" line="237">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2762" line="237">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2764" line="237" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2766" line="238">
+          <systemCRoutine column="23" file="main.cpp" idref="2768"
+            line="238" name="sc_report_handler::force">
+            <arguments column="24" file="main.cpp" idref="2770" line="238"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="31" file="main.cpp" idref="2772" line="239">
+          <systemCRoutine column="31" file="main.cpp" idref="2774"
+            line="239" name="sc_report_handler::suppress">
+            <arguments column="24" file="main.cpp" idref="2776" line="239"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="34" file="main.cpp" idref="2778" line="240">
+          <postfix_expression column="34" file="main.cpp" idref="2780" line="240">
+            <primary_expression column="34" file="main.cpp" idref="2782" line="240">
+              <id_expression column="5" file="main.cpp" idref="2784"
+                line="240" name="query_rules"/>
+            </primary_expression>
+            <arguments column="5" file="main.cpp" idref="2786" line="240">
+              <arguments_list column="16" file="main.cpp" idref="2788" line="240">
+                <primary_expression column="16" file="main.cpp"
+                  idref="2792" line="240">
+                  <id_expression column="18" file="main.cpp"
+                    idref="2794" line="240" name="id1"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="main.cpp" idref="2796" line="242">
+          <return_statement column="23" file="main.cpp" idref="2798" line="242">
+            <primary_expression column="5" file="main.cpp" idref="2802" line="242">
+              <constant column="5" file="main.cpp" idref="2804"
+                line="242" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

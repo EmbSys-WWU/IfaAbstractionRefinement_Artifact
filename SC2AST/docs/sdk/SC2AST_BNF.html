@@ -1,0 +1,1262 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>BNF for SC2AST.jj</TITLE>
+</HEAD>
+<BODY>
+<H1 ALIGN=CENTER>BNF for SC2AST.jj</H1>
+<H2 ALIGN=CENTER>NON-TERMINALS</H2>
+<TABLE>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod1">translation_unit</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod2">external_declaration</A> )* &lt;EOF&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod3">getID</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;ID&gt; | &lt;FZI_SIM_PRAGMA_SIGNAL_TYPE&gt; | &lt;FZI_SIM_PRAGMA_ITER_TYPE&gt; | &lt;SC_IO_MANIPULATORS&gt; | &lt;SC_IO_MANIPULATOR_WITH_PARAM&gt; | &lt;SC_REPORT_HANDLER_METHODS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod4">preprocessor_directive</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;PREPROCESSOR_OUTPUT&gt; ( "\\" )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod2">external_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod5">template_head</A> )? <A HREF="#prod6">declaration</A> | <A HREF="#prod7">enum_specifier</A> ( <A HREF="#prod8">init_declarator_list</A> )? ";" | <A HREF="#prod9">dtor_definition</A> | <A HREF="#prod10">ctor_definition</A> | <A HREF="#prod6">declaration</A> | <A HREF="#prod11">function_definition</A> | <A HREF="#prod12">conversion_function_decl_or_def</A> | <A HREF="#prod5">template_head</A> ( <A HREF="#prod10">ctor_definition</A> | <A HREF="#prod11">function_definition</A> | <A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod8">init_declarator_list</A> )? ";" ) | <A HREF="#prod6">declaration</A> | ";" | <A HREF="#prod4">preprocessor_directive</A> | <A HREF="#prod14">fzi_sim_directive</A> | <A HREF="#prod15">namespace_definition</A> | <A HREF="#prod16">sc_main_declaration</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod14">fzi_sim_directive</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;FZI_SIM_PRAGMA&gt; ( ( &lt;FZI_SIM_PRAGMA_ITER_TYPE&gt; <A HREF="#prod17">constant_int</A> <A HREF="#prod17">constant_int</A> ) | ( &lt;FZI_SIM_PRAGMA_SIGNAL_TYPE&gt; <A HREF="#prod3">getID</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod16">sc_main_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;INT&gt; &lt;SC_MAIN&gt; <A HREF="#prod18">pl</A> <A HREF="#prod19">parameter_list</A> <A HREF="#prod20">pr</A> ( "{" ( ( <A HREF="#prod21">sc_function_in_sc_main</A> ( ";" )? ) | <A HREF="#prod22">statement</A> )* "}" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod23">sc_spawn_routine_wrap</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod24">sc_spawn_routine</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod25">dyn_process_creation_block_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_FORK_MACRO&gt; <A HREF="#prod23">sc_spawn_routine_wrap</A> ( &lt;COMMA&gt; <A HREF="#prod23">sc_spawn_routine_wrap</A> )* ( &lt;COMMA&gt; )? &lt;SC_JOIN_MACRO&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod24">sc_spawn_routine</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_SPAWN_ROUTINE&gt; <A HREF="#prod26">expr_list</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod27">class_body</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod28">member_declaration</A> | <A HREF="#prod28">member_declaration</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod29">port_specifier_helper</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod30">namespace_name</A> &lt;SCOPE&gt; )? <A HREF="#prod31">sc_port_specifier</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod31">sc_port_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SC_IN&gt; | &lt;SC_OUT&gt; | &lt;SC_INOUT&gt; ) "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" ) | ( &lt;SC_IN_CLK&gt; | &lt;SC_OUT_CLK&gt; | &lt;SC_INOUT_CLK&gt; ) | ( &lt;SC_IN_RESOLVED&gt; | &lt;SC_OUT_RESOLVED&gt; | &lt;SC_INOUT_RESOLVED&gt; ) | ( ( &lt;SC_FIFO_IN&gt; | &lt;SC_FIFO_OUT&gt; ) "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" ) | ( ( ( &lt;SC_INMASTER&gt; | &lt;SC_OUTMASTER&gt; | &lt;SC_INOUTMASTER&gt; | &lt;SC_INSLAVE&gt; | &lt;SC_OUTSLAVE&gt; | &lt;SC_INOUTSLAVE&gt; ) "&lt;" ( <A HREF="#prod32">declaration_specifiers_with_declarator</A> )? &lt;COMMA&gt; <A HREF="#prod33">m_s_protocol_declaration</A> "&gt;" ) | ( ( &lt;SC_MASTER&gt; | &lt;SC_SLAVE&gt; ) "&lt;" ( <A HREF="#prod32">declaration_specifiers_with_declarator</A> )? "&gt;" ) ) | ( ( &lt;SC_IN_RV&gt; | &lt;SC_OUT_RV&gt; | &lt;SC_INOUT_RV&gt; ) "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" ) | ( &lt;SC_PORT&gt; "&lt;" <A HREF="#prod34">sc_interface</A> ( &lt;COMMA&gt; <A HREF="#prod17">constant_int</A> )? "&gt;" ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod33">m_s_protocol_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SC_NOHANDSHAKE&gt; | &lt;SC_ENABLEHANDSHAKE&gt; | &lt;SC_FULLHANDSHAKE&gt; ) "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" ) | ( &lt;SC_INDEXED&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod34">sc_interface</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod32">declaration_specifiers_with_declarator</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod35">c_built_inTypes</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;VOID&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;BOOL&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SIGNED&gt; )? &lt;CHAR&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;UNSIGNED&gt; &lt;CHAR&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SIGNED&gt; )? &lt;SHORT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;UNSIGNED&gt; &lt;SHORT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SIGNED&gt; )? &lt;LONG&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;UNSIGNED&gt; &lt;LONG&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SIGNED&gt; )? &lt;INT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SIGNED&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;UNSIGNED&gt; )? &lt;INT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;UNSIGNED&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;FLOAT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;DOUBLE&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod36">systemCTypes</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_BIT&gt; | &lt;SC_INT&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_UINT&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_BIGINT&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_BIGUINT&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_BIT_VECTOR&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_LOGIC_VECTOR&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_LOGIC&gt; | &lt;SC_FIXED&gt; <A HREF="#prod37">fixed_type_parse</A> | &lt;SC_UFIXED&gt; <A HREF="#prod37">fixed_type_parse</A> | &lt;SC_FIX&gt; | &lt;SC_UFIX&gt; | &lt;SC_FXNUM&gt; | &lt;SC_FIXED_FAST&gt; <A HREF="#prod37">fixed_type_parse</A> | &lt;SC_UFIXED_FAST&gt; <A HREF="#prod37">fixed_type_parse</A> | &lt;SC_FIX_FAST&gt; | &lt;SC_UFIX_FAST&gt; | &lt;SC_FXNUM_FAST&gt; | &lt;SC_FMT&gt; | &lt;SC_FXNUM_FAST_BITREF&gt; | &lt;SC_FXNUM_SUBREF&gt; | &lt;SC_FXNUM_FAST_SUBREF&gt; | &lt;SC_NUMREP&gt; | &lt;SC_FXTYPE_PARAMS&gt; | &lt;SC_FXTYPE_CONTEXT&gt; | &lt;SC_FXCAST_CONTEXT&gt; | &lt;SC_FXCAST_SWITCH&gt; | &lt;SC_FXNUM_BITREF&gt; | &lt;SC_SIGNAL&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_BUFFER&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_IN_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_OUT_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_NB_IN_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_B_IN_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_NB_OUT_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_B_OUT_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_CONTEXT&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_CONTEXT_BEGIN&gt; | &lt;SC_MODULE_NAME&gt; | &lt;SC_MODULE&gt; | &lt;SC_CHANNEL&gt; | &lt;SC_BEHAVIOR&gt; | &lt;SC_LOGIC_VECTOR_BASE&gt; | &lt;SC_SWITCH&gt; | &lt;SC_INTERFACE&gt; | &lt;SC_MUTEX_IF&gt; | &lt;SC_MUTEX&gt; | &lt;SC_SEMAPHORE_IF&gt; | &lt;SC_SEMAPHORE&gt; | &lt;SC_SIGNAL_IN_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SIGNAL_OUT_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SIGNAL_INOUT_IF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SIGNAL_RESOLVED&gt; | &lt;SC_SIGNAL_RV&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;VCD_T_TRACE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;WIF_T_TRACE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PHASH_BASE&gt; | &lt;SC_PHASH_BASE_ITER&gt; | &lt;SC_PHASH&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PHASH_ITER&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PDHASH&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PDHASH_ITER&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_STRHASH&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_STRHASH_ITER&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PLIST_BASE_ITER&gt; | &lt;SC_PLIST_BASE&gt; | &lt;SC_MEMPOOL&gt; | &lt;SC_MPOBJECT&gt; | &lt;SC_PPQ_BASE&gt; | &lt;SC_PPQ&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_CLOCK&gt; | &lt;SC_TIME&gt; | &lt;SC_JOIN&gt; | &lt;SC_LAMBDA&gt; | &lt;SC_LAMBDA_PTR&gt; | &lt;SC_LAMBDA_RAND&gt; | &lt;SC_LAMBDA_RAND_E&gt; | &lt;SC_PROCESS_CB&gt; | &lt;SC_EXPORT_REGISTRY&gt; | &lt;SC_PROCESS_CALL&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_BIND_PROXY&gt; | &lt;SC_MSG_DEF&gt; | &lt;SC_LAMBDA_RATOR_E&gt; | &lt;SC_ENC&gt; | &lt;SC_TRACE_PARAMS&gt; | &lt;SC_CURR_PROC_INFO&gt; | &lt;SC_TIME_PARAMS&gt; | &lt;SC_EVENT_TIMED&gt; | &lt;SC_TIME_UNIT&gt; | &lt;SC_EXPORT_BASE&gt; | &lt;SC_PORT_BASE&gt; | &lt;SC_PORT_REGISTRY&gt; | &lt;SC_PORT_B&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_NOHANDSHAKE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FULLHANDSHAKE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_ENABLEHANDSHAKE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_INDEXED&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_O_MODE&gt; | &lt;SC_Q_MODE&gt; | &lt;SC_OBJECT&gt; | &lt;SC_SPAWN_OBJECT_V&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SPAWN_OBJECT&gt; | &lt;SC_PROCESS_MONITOR&gt; | &lt;SC_PROCESS_HOST&gt; | &lt;SC_PROCESS_BASE&gt; | &lt;SC_RUNNABLE&gt; | &lt;SC_WATCH&gt; | &lt;SC_CLK_POS_CALLBACK&gt; | &lt;SC_CLK_NEG_CALLBACK&gt; | &lt;SC_CHECK&gt; | &lt;SC_STOP_MODE&gt; | &lt;SC_EVENT&gt; | &lt;SC_EVENT_LIST&gt; | &lt;SC_EVENT_OR_LIST&gt; | &lt;SC_EVENT_AND_LIST&gt; | &lt;SC_EVENT_QUEUE&gt; | &lt;SC_SPAWN_OPTIONS&gt; | &lt;SC_PROCESS_HANDLE&gt; | &lt;SC_PRIM_CHANNEL&gt; | &lt;SC_PRIM_CHANNEL_REG&gt; | &lt;SC_STRING&gt; | &lt;SC_PROXY&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_WITHOUT_CONTEXT&gt; | &lt;SC_GLOBAL&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_LOGIC_RESOLVE&gt; | &lt;SC_LV_RESOLVE&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_TRACE_FILE&gt; | &lt;VCD_TRACE_FILE&gt; | &lt;WIF_TRACE_FILE&gt; | &lt;ISDB_TRACE_FILE&gt; | &lt;SC_SEVERITY&gt; | &lt;SC_ACTION&gt; | &lt;SC_ACTIONS&gt; | &lt;SC_REPORT&gt; | &lt;SC_STRING_OLD&gt; | &lt;SC_BYTE_HEAP&gt; | &lt;SC_VPOOL&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PVECTOR&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SIMCONTEXT&gt; | &lt;SC_API_VERSION_STRING&gt; | &lt;SC_BITREF_R&gt; | &lt;SC_BITREF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SUBREF_R&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_SUBREF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_CONCREF_R&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_CONCREF&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> &lt;COMMA&gt; <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_COR&gt; | &lt;SC_COR_PKG&gt; | &lt;SC_METHOD_PROCESS&gt; | &lt;SC_PROCESS_B&gt; | &lt;SC_CURR_PROC_KIND&gt; | &lt;SC_SENSITIVE&gt; | &lt;SC_SENSITIVE_POS&gt; | &lt;SC_SENSITIVE_NEG&gt; | &lt;SC_LOGIC_VALUE_T&gt; | &lt;SC_ATTR_BASE&gt; | &lt;SC_ATTR_CLTN&gt; | &lt;SC_ATTRIBUTE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_BV_BASE&gt; | &lt;SC_EVENT_FINDER_T&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_EVENT_FINDER&gt; | &lt;SC_EVENT_QUEUE_IF&gt; | &lt;SC_FXNUM_FAST_OBSERVER&gt; | &lt;SC_FXNUM_OBSERVER&gt; | &lt;SC_FXVAL&gt; | &lt;SC_FXVAL_FAST&gt; | &lt;SC_FXVAL_FAST_OBSERVER&gt; | &lt;SC_FXVAL_OBSERVER&gt; | &lt;SC_INT_BASE&gt; | &lt;SC_LENGTH_CONTEXT&gt; | &lt;SC_PLIST_ITER&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_PLIST&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_UINT_BASE&gt; | &lt;SC_UNSIGNED&gt; | &lt;SC_SIGNED&gt; | &lt;SC_EXPORT&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_IN&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_OUT&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_INOUT&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_IN_CLK&gt; | &lt;SC_OUT_CLK&gt; | &lt;SC_INOUT_CLK&gt; | &lt;SC_IN_RESOLVED&gt; | &lt;SC_OUT_RESOLVED&gt; | &lt;SC_INOUT_RESOLVED&gt; | &lt;SC_FIFO_IN&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_FIFO_OUT&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_MASTER&gt; "&lt;" ( <A HREF="#prod32">declaration_specifiers_with_declarator</A> )? "&gt;" | &lt;SC_SLAVE&gt; "&lt;" ( <A HREF="#prod32">declaration_specifiers_with_declarator</A> )? "&gt;" | &lt;SCFX_IEEE_DOUBLE&gt; | &lt;SCFX_IEEE_FLOAT&gt; | &lt;SCFX_MANT&gt; | &lt;SCFX_MANT_REF&gt; | &lt;SCFX_PARAMS&gt; | &lt;SCFX_INDEX&gt; | &lt;SCFX_REP&gt; | &lt;SCFX_STRING&gt; | &lt;SCFX_INT_BITREF_R&gt; | &lt;SCFX_INT_BITREF&gt; | &lt;SCFX_INT_SUBREF_R&gt; | &lt;SCFX_INT_SUBREF&gt; | &lt;SC_LENGTH_PARAM&gt; | &lt;SC_SIGNED_BITREF_R&gt; | &lt;SC_SIGNED_BITREF&gt; | &lt;SC_SIGNED_SUBREF_R&gt; | &lt;SC_SIGNED_SUBREF&gt; | &lt;SC_UINT_BITREF_R&gt; | &lt;SC_UINT_BITREF&gt; | &lt;SC_UINT_SUBREF_R&gt; | &lt;SC_UINT_SUBREF&gt; | &lt;SC_UNSIGNED_BITREF_R&gt; | &lt;SC_UNSIGNED_BITREF&gt; | &lt;SC_UNSIGNED_SUBREF_R&gt; | &lt;SC_UNSIGNED_SUBREF&gt; | &lt;SC_CONCATREF&gt; | &lt;SC_CONCAT_BOOL&gt; | &lt;SC_VALUE_BASE&gt; | &lt;SC_GENERIC_BASE&gt; "&lt;" <A HREF="#prod32">declaration_specifiers_with_declarator</A> "&gt;" | &lt;SC_IN_RV&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_OUT_RV&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_INOUT_RV&gt; "&lt;" <A HREF="#prod17">constant_int</A> "&gt;" | &lt;SC_PORT&gt; "&lt;" <A HREF="#prod34">sc_interface</A> ( &lt;COMMA&gt; <A HREF="#prod17">constant_int</A> )? "&gt;" | ( ( &lt;SC_INMASTER&gt; | &lt;SC_OUTMASTER&gt; | &lt;SC_INOUTMASTER&gt; | &lt;SC_INSLAVE&gt; | &lt;SC_OUTSLAVE&gt; | &lt;SC_INOUTSLAVE&gt; ) "&lt;" ( <A HREF="#prod32">declaration_specifiers_with_declarator</A> )? &lt;COMMA&gt; <A HREF="#prod33">m_s_protocol_declaration</A> "&gt;" ) | &lt;SC_THREAD_HANDLE&gt; | &lt;SC_CTHREAD_HANDLE&gt; | &lt;SC_METHOD_HANDLE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod38">report_handler_scope</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_REPORT_HANDLER&gt; &lt;SCOPE&gt; <A HREF="#prod39">report_handler_method</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod39">report_handler_method</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_REPORT_HANDLER_METHODS&gt; <A HREF="#prod26">expr_list</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod37">fixed_type_parse</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"&lt;" <A HREF="#prod17">constant_int</A> &lt;COMMA&gt; <A HREF="#prod17">constant_int</A> ( &lt;COMMA&gt; &lt;FIXED_POINT_QUANTIZATION_TYPE&gt; )? ( &lt;COMMA&gt; &lt;FIXED_POINT_OVERFLOW_TYPE&gt; )? ( &lt;COMMA&gt; <A HREF="#prod17">constant_int</A> )? "&gt;"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod40">sc_wait_until_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_WAIT_UNTIL_ROUTINE&gt; <A HREF="#prod41">sc_wait_watching_statement</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod41">sc_wait_watching_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod26">expr_list</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod42">sc_slave</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_SLAVE_MACRO&gt; "(" <A HREF="#prod3">getID</A> &lt;COMMA&gt; <A HREF="#prod3">getID</A> ")"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod43">dont_initialize</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;DONT_INITIALIZE&gt; <A HREF="#prod26">expr_list</A> ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod44">sc_method</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_METHOD&gt; "(" <A HREF="#prod3">getID</A> ")"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod45">sc_thread</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_THREAD&gt; "(" <A HREF="#prod3">getID</A> ")"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod46">sc_report_macro</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_REPORT_INFO_MACRO&gt; | &lt;SC_REPORT_WARNING_MACRO&gt; | &lt;SC_REPORT_ERROR_MACRO&gt; | &lt;SC_REPORT_FATAL_MACRO&gt; ) <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod48">sc_cthread</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_CTHREAD&gt; "(" <A HREF="#prod49">clocked_thread</A> "," <A HREF="#prod50">clock</A> ( ( "." | "-&gt;" ) <A HREF="#prod51">edge</A> "(" ")" )? ")"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod49">clocked_thread</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod50">clock</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod51">edge</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod52">sc_watching_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_WATCHING_ROUTINE&gt; <A HREF="#prod41">sc_wait_watching_statement</A> ";" )+</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod53">delayed2</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;TRUETOK&gt; | &lt;FALSETOK&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod54">method_thread_fol_decl</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod55">sc_sensitive_expr</A> ( ( <A HREF="#prod43">dont_initialize</A> ) )? | ( <A HREF="#prod43">dont_initialize</A> ) ( <A HREF="#prod55">sc_sensitive_expr</A> )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod55">sc_sensitive_expr</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod56">sc_sensitive</A> )+</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod56">sc_sensitive</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SENSITIVE&gt; | &lt;SENSITIVE_POS&gt; | &lt;SENSITIVE_NEG&gt; ) ( &lt;SHIFTLEFT&gt; ( <A HREF="#prod57">qualified_id</A> | <A HREF="#prod58">postfix_expression</A> ) )+ ";" ) | ( ( &lt;SENSITIVE&gt; | &lt;SENSITIVE_POS&gt; | &lt;SENSITIVE_NEG&gt; ) <A HREF="#prod18">pl</A> ( <A HREF="#prod57">qualified_id</A> | <A HREF="#prod58">postfix_expression</A> ) <A HREF="#prod20">pr</A> ";" ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod59">sc_notify</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod3">getID</A> ( <A HREF="#prod18">pl</A> <A HREF="#prod20">pr</A> )? ( "-&gt;" | "." ) )* &lt;SC_NOTIFY&gt; <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod11">function_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod13">declaration_specifiers</A> <A HREF="#prod60">function_declarator</A> <A HREF="#prod61">func_decl_def</A> | <A HREF="#prod60">function_declarator</A> <A HREF="#prod61">func_decl_def</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod61">func_decl_def</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ";" | <A HREF="#prod62">compound_statement</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod63">linkage_specification</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"extern" &lt;STRING&gt; ( "{" ( <A HREF="#prod2">external_declaration</A> )* "}" ( ";" )? | <A HREF="#prod6">declaration</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod6">declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod8">init_declarator_list</A> )? ";" ) | <A HREF="#prod63">linkage_specification</A> | <A HREF="#prod64">alias_namespace_definition</A> | <A HREF="#prod65">using_declaration</A> | <A HREF="#prod66">using_directive</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod67">type_modifiers</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod68">storage_class_specifier</A> | <A HREF="#prod69">type_qualifier</A> | &lt;INLINE&gt; | &lt;VIRTUAL&gt; | &lt;FRIEND&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod13">declaration_specifiers</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod67">type_modifiers</A> )+ ( ( <A HREF="#prod70">builtin_type_specifier</A> ( ( <A HREF="#prod70">builtin_type_specifier</A> | <A HREF="#prod67">type_modifiers</A> ) )* | ( <A HREF="#prod71">qualified_type</A> | <A HREF="#prod72">class_specifier</A> | <A HREF="#prod7">enum_specifier</A> ) ( <A HREF="#prod67">type_modifiers</A> )* ) )? | <A HREF="#prod70">builtin_type_specifier</A> ( ( <A HREF="#prod70">builtin_type_specifier</A> | <A HREF="#prod67">type_modifiers</A> ) )* | ( <A HREF="#prod71">qualified_type</A> | <A HREF="#prod72">class_specifier</A> | <A HREF="#prod7">enum_specifier</A> ) ( <A HREF="#prod67">type_modifiers</A> )* )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod73">type_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod74">simple_type_specifier</A> | <A HREF="#prod72">class_specifier</A> | <A HREF="#prod7">enum_specifier</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod74">simple_type_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod70">builtin_type_specifier</A> | <A HREF="#prod71">qualified_type</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod75">scope_override_lookahead</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "::" | <A HREF="#prod3">getID</A> ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )? "::" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod77">scope_override</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "::" ) ( <A HREF="#prod3">getID</A> ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )? "::" )* | ( <A HREF="#prod3">getID</A> ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )? "::" )+ )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod57">qualified_id</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod77">scope_override</A> )? ( ( &lt;SC_WAIT_UNTIL_ROUTINE&gt; | &lt;SC_WATCHING_ROUTINE&gt; | &lt;SC_NEXT_TRIGGER&gt; | &lt;SC_NOTIFY&gt; | &lt;SC_WAIT_ROUTINE&gt; | &lt;SC_TRACE&gt; | &lt;DONT_INITIALIZE&gt; | &lt;SC_INITIALIZE&gt; | &lt;SC_ASSERT&gt; | &lt;SC_CYCLE&gt; | &lt;SC_SET_TIME_RESOLUTION&gt; | &lt;SC_GET_TIME_RESOLUTION&gt; | &lt;SC_SET_DEFAULT_TIME_UNIT&gt; | &lt;SC_GET_DEFAULT_TIME_UNIT&gt; | &lt;SC_STOP&gt; | &lt;SC_STOP_HERE_ROUTINE&gt; | &lt;SC_START&gt; | &lt;SC_TIME_STAMP&gt; | &lt;SC_CREATE_VCD_TRACE_FILE&gt; | &lt;SC_CLOSE_VCD_TRACE_FILE&gt; | &lt;SC_CREATE_WIF_TRACE_FILE&gt; | &lt;SC_CLOSE_WIF_TRACE_FILE&gt; | &lt;SC_CREATE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_ISDB_TRACE_FILE&gt; | &lt;SC_SPAWN_ROUTINE&gt; | &lt;SC_CREF_ROUTINE&gt; | &lt;SC_REF_ROUTINE&gt; | &lt;SC_BIND_ROUTINE&gt; | &lt;SC_MAIN_MAIN_ROUTINE&gt; | &lt;SC_ARGC_ROUTINE&gt; | &lt;SC_ARGV_ROUTINE&gt; | &lt;SC_START_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_END_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_SET_STOP_MODE_ROUTINE&gt; | &lt;SC_GEN_UNIQUE_NAME_ROUTINE&gt; | &lt;SC_SIMULATION_TIME_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_SIMCONTEXT_ROUTINE&gt; | &lt;SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_KIND_ROUTINE&gt; | &lt;SC_COPYRIGHT_ROUTINE&gt; | &lt;SC_VERSION_ROUTINE&gt; | &lt;SC_ABS_ROUTINE&gt; | &lt;SC_MAX_ROUTINE&gt; | &lt;SC_MIN_ROUTINE&gt; | <A HREF="#prod3">getID</A> ) ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )? | "operator" <A HREF="#prod78">optor</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod79">ptr_to_member</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod77">scope_override</A> "*"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod71">qualified_type</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod57">qualified_id</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod69">type_qualifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;CONST&gt; | &lt;VOLATILE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod68">storage_class_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;AUTO&gt; | &lt;REGISTER&gt; | &lt;STATIC&gt; | &lt;EXTERN&gt; | &lt;TYPEDEF&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod70">builtin_type_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod30">namespace_name</A> &lt;SCOPE&gt; )? <A HREF="#prod36">systemCTypes</A> | <A HREF="#prod35">c_built_inTypes</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod8">init_declarator_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod80">init_declarator</A> ( "," <A HREF="#prod80">init_declarator</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod80">init_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod81">declarator</A> ( "=" <A HREF="#prod82">initializer</A> | <A HREF="#prod18">pl</A> <A HREF="#prod47">expression_list</A> <A HREF="#prod20">pr</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod83">class_head</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( "struct" | "union" | "class" ) ( <A HREF="#prod3">getID</A> ( <A HREF="#prod84">base_clause</A> )? )? ) | ( ( ( &lt;SC_MODULE_MACRO&gt; | &lt;SC_PROTOCOL_MACRO&gt; ) <A HREF="#prod18">pl</A> <A HREF="#prod3">getID</A> <A HREF="#prod20">pr</A> ) ( <A HREF="#prod84">base_clause</A> )? ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod72">class_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SC_MODULE_MACRO&gt; | &lt;SC_PROTOCOL_MACRO&gt; ) <A HREF="#prod18">pl</A> <A HREF="#prod3">getID</A> <A HREF="#prod20">pr</A> ( <A HREF="#prod84">base_clause</A> )? "{" <A HREF="#prod27">class_body</A> "}" ) | ( ( "struct" | "union" | "class" ) ( "{" <A HREF="#prod27">class_body</A> "}" | <A HREF="#prod3">getID</A> ( <A HREF="#prod84">base_clause</A> )? "{" <A HREF="#prod27">class_body</A> "}" | <A HREF="#prod3">getID</A> ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )? ) ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod84">base_clause</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ":" <A HREF="#prod85">base_specifier</A> ( "," <A HREF="#prod85">base_specifier</A> )* )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod86">base_class_access_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;VIRTUAL&gt; ( <A HREF="#prod87">base_class_access_specifier_helper</A> )? | <A HREF="#prod87">base_class_access_specifier_helper</A> ( &lt;VIRTUAL&gt; )? )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod85">base_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod86">base_class_access_specifier</A> ( <A HREF="#prod77">scope_override</A> )? ( <A HREF="#prod36">systemCTypes</A> | <A HREF="#prod3">getID</A> ) ( "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;" )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod88">access_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;PUBLIC&gt; | &lt;PROTECTED&gt; | &lt;PRIVATE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod87">base_class_access_specifier_helper</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;PUBLIC&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;PROTECTED&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;PRIVATE&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod89">bit_field_member_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod73">type_specifier</A> ( <A HREF="#prod81">declarator</A> )? &lt;COLON&gt; <A HREF="#prod90">constant_expression</A> &lt;SEMICOLON&gt; (  )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod28">member_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod89">bit_field_member_declaration</A> | ( <A HREF="#prod29">port_specifier_helper</A> ( <A HREF="#prod91">member_declarator_list</A> )? ";" ) | ( <A HREF="#prod5">template_head</A> )? <A HREF="#prod6">declaration</A> | <A HREF="#prod6">declaration</A> | <A HREF="#prod7">enum_specifier</A> ( <A HREF="#prod91">member_declarator_list</A> )? ";" | <A HREF="#prod12">conversion_function_decl_or_def</A> | <A HREF="#prod9">dtor_definition</A> | <A HREF="#prod92">dtor_ctor_decl_spec</A> <A HREF="#prod93">simple_dtor_declarator</A> ";" | <A HREF="#prod10">ctor_definition</A> | ( <A HREF="#prod92">dtor_ctor_decl_spec</A> <A HREF="#prod94">ctor_declarator</A> ";" ) | <A HREF="#prod11">function_definition</A> | ( <A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod91">member_declarator_list</A> )? ";" ) | <A HREF="#prod60">function_declarator</A> ";" | <A HREF="#prod57">qualified_id</A> ";" | <A HREF="#prod88">access_specifier</A> ":" | ";" | <A HREF="#prod95">sc_has_process_declaration</A> ";" | <A HREF="#prod96">sc_map_to_target_declaration</A> ( ";" )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod91">member_declarator_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod97">member_declarator</A> ( "," <A HREF="#prod97">member_declarator</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod97">member_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod81">declarator</A> ( ( "=" <A HREF="#prod82">initializer</A> | <A HREF="#prod18">pl</A> <A HREF="#prod47">expression_list</A> <A HREF="#prod20">pr</A> ) )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod12">conversion_function_decl_or_def</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod77">scope_override</A> )? "operator" <A HREF="#prod13">declaration_specifiers</A> ( "*" | "&amp;" )? <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A> ( <A HREF="#prod69">type_qualifier</A> )? ( <A HREF="#prod98">exception_spec</A> )? <A HREF="#prod61">func_decl_def</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod7">enum_specifier</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"enum" ( "{" <A HREF="#prod99">enumerator_list</A> "}" | <A HREF="#prod3">getID</A> ( "{" <A HREF="#prod99">enumerator_list</A> "}" )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod99">enumerator_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod100">enumerator</A> ( "," <A HREF="#prod100">enumerator</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod100">enumerator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A> ( "=" <A HREF="#prod90">constant_expression</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod101">ptr_operator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "&amp;" <A HREF="#prod102">cv_qualifier_seq</A> | "*" <A HREF="#prod102">cv_qualifier_seq</A> | <A HREF="#prod79">ptr_to_member</A> <A HREF="#prod102">cv_qualifier_seq</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod102">cv_qualifier_seq</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "const" ( "volatile" )? | "volatile" ( "const" )? ) )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod81">declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod101">ptr_operator</A> <A HREF="#prod81">declarator</A> | <A HREF="#prod103">direct_declarator</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod103">direct_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"~" <A HREF="#prod3">getID</A> ( <A HREF="#prod104">declarator_suffixes</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod18">pl</A> <A HREF="#prod81">declarator</A> <A HREF="#prod20">pr</A> ( <A HREF="#prod104">declarator_suffixes</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod57">qualified_id</A> ( <A HREF="#prod104">declarator_suffixes</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod104">declarator_suffixes</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "[" ( <A HREF="#prod90">constant_expression</A> )? "]" )+ | <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A> ( <A HREF="#prod69">type_qualifier</A> )? ( <A HREF="#prod98">exception_spec</A> )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod105">function_declarator_lookahead</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod101">ptr_operator</A> )* <A HREF="#prod57">qualified_id</A> <A HREF="#prod18">pl</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod60">function_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod101">ptr_operator</A> <A HREF="#prod60">function_declarator</A> | <A HREF="#prod106">function_direct_declarator</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod106">function_direct_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod57">qualified_id</A> <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A> ( <A HREF="#prod69">type_qualifier</A> )? ( <A HREF="#prod98">exception_spec</A> )? ( "=" &lt;OCTALINT&gt; )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod92">dtor_ctor_decl_spec</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod107">dtor_ctor_decl_spec_helper1</A> ( <A HREF="#prod108">dtor_ctor_decl_spec_helper2</A> )? ( <A HREF="#prod109">dtor_ctor_decl_spec_helper3</A> )? | <A HREF="#prod108">dtor_ctor_decl_spec_helper2</A> ( <A HREF="#prod107">dtor_ctor_decl_spec_helper1</A> )? ( <A HREF="#prod109">dtor_ctor_decl_spec_helper3</A> )? | <A HREF="#prod109">dtor_ctor_decl_spec_helper3</A> ( <A HREF="#prod107">dtor_ctor_decl_spec_helper1</A> )? ( <A HREF="#prod108">dtor_ctor_decl_spec_helper2</A> )? )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod107">dtor_ctor_decl_spec_helper1</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;VIRTUAL&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod108">dtor_ctor_decl_spec_helper2</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;INLINE&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod109">dtor_ctor_decl_spec_helper3</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;EXPLICIT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod9">dtor_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod5">template_head</A> )? <A HREF="#prod92">dtor_ctor_decl_spec</A> <A HREF="#prod110">dtor_declarator</A> <A HREF="#prod62">compound_statement</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod111">local_watching_block</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;W_BEGIN&gt; ( <A HREF="#prod52">sc_watching_list</A> )? &lt;W_DO&gt; ( <A HREF="#prod22">statement</A> )* &lt;W_ESCAPE&gt; ( <A HREF="#prod22">statement</A> )* &lt;W_END&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod10">ctor_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod92">dtor_ctor_decl_spec</A> <A HREF="#prod94">ctor_declarator</A> ( <A HREF="#prod98">exception_spec</A> )? ( ";" | ( <A HREF="#prod112">ctor_initializer</A> )? ( "{" ( ( <A HREF="#prod44">sc_method</A> ( ";" )? ( <A HREF="#prod54">method_thread_fol_decl</A> )? ) | ( <A HREF="#prod45">sc_thread</A> ( ";" )? ( <A HREF="#prod54">method_thread_fol_decl</A> )? ) | ( <A HREF="#prod48">sc_cthread</A> ( ";" )? ( <A HREF="#prod52">sc_watching_list</A> )? ) | <A HREF="#prod42">sc_slave</A> ( ";" )? | <A HREF="#prod22">statement</A> )* "}" ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod113">ctor_declarator_lookahead</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( &lt;SC_CTOR&gt; <A HREF="#prod18">pl</A> <A HREF="#prod57">qualified_id</A> ) | ( <A HREF="#prod57">qualified_id</A> <A HREF="#prod18">pl</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod94">ctor_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod57">qualified_id</A> <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A> ( <A HREF="#prod98">exception_spec</A> )? ) | &lt;SC_CTOR&gt; <A HREF="#prod18">pl</A> <A HREF="#prod57">qualified_id</A> <A HREF="#prod20">pr</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod112">ctor_initializer</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>":" <A HREF="#prod114">superclass_init</A> ( "," <A HREF="#prod114">superclass_init</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod114">superclass_init</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod57">qualified_id</A> | <A HREF="#prod13">declaration_specifiers</A> ) <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod110">dtor_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod77">scope_override</A> )? <A HREF="#prod93">simple_dtor_declarator</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod93">simple_dtor_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"~" (  ) <A HREF="#prod3">getID</A> <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod19">parameter_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod115">parameter_declaration_list</A> ( ( "," )? <A HREF="#prod116">ellipsis_parameter</A> )? | <A HREF="#prod116">ellipsis_parameter</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod116">ellipsis_parameter</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"..."</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod115">parameter_declaration_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod117">parameter_declaration</A> ( "," <A HREF="#prod117">parameter_declaration</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod117">parameter_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod81">declarator</A> | <A HREF="#prod118">abstract_declarator</A> ) ( "=" <A HREF="#prod119">assignment_expression</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod32">declaration_specifiers_with_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod101">ptr_operator</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod82">initializer</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "{" <A HREF="#prod82">initializer</A> ( ( "," <A HREF="#prod82">initializer</A> ) )* ( "," )? "}" ) | <A HREF="#prod119">assignment_expression</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod120">type_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod13">declaration_specifiers</A> <A HREF="#prod118">abstract_declarator</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod118">abstract_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod18">pl</A> <A HREF="#prod118">abstract_declarator</A> <A HREF="#prod20">pr</A> ( <A HREF="#prod121">abstract_declarator_suffix</A> )+ | ( "[" ( <A HREF="#prod90">constant_expression</A> )? "]" )+ | <A HREF="#prod101">ptr_operator</A> <A HREF="#prod118">abstract_declarator</A> ) )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod121">abstract_declarator_suffix</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "[" ( <A HREF="#prod90">constant_expression</A> )? "]" | <A HREF="#prod18">pl</A> ( <A HREF="#prod19">parameter_list</A> )? <A HREF="#prod20">pr</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod5">template_head</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"template" "&lt;" <A HREF="#prod122">template_parameter_list</A> "&gt;"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod122">template_parameter_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod123">template_parameter</A> ( "," <A HREF="#prod123">template_parameter</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod123">template_parameter</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "class" | "typename" ) <A HREF="#prod3">getID</A> | <A HREF="#prod117">parameter_declaration</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod124">template_id</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A> "&lt;" <A HREF="#prod76">template_argument_list</A> "&gt;"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod76">template_argument_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod125">template_argument</A> ( "," <A HREF="#prod125">template_argument</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod125">template_argument</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod120">type_name</A> | <A HREF="#prod126">shift_expression</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod127">statement_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod22">statement</A> )+</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod22">statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod128">sc_map_to_target</A> ( ";" )? | ( ( <A HREF="#prod30">namespace_name</A> &lt;SCOPE&gt; )? <A HREF="#prod129">output_stream</A> ) | <A HREF="#prod6">declaration</A> | <A HREF="#prod130">expression</A> ";" | <A HREF="#prod62">compound_statement</A> | <A HREF="#prod131">selection_statement</A> | <A HREF="#prod132">jump_statement</A> | ";" | <A HREF="#prod133">try_block</A> | <A HREF="#prod134">throw_statement</A> | <A HREF="#prod135">labeled_statement</A> | <A HREF="#prod136">iteration_statement</A> | <A HREF="#prod59">sc_notify</A> ";" | <A HREF="#prod111">local_watching_block</A> | <A HREF="#prod25">dyn_process_creation_block_declaration</A> | <A HREF="#prod46">sc_report_macro</A> | <A HREF="#prod14">fzi_sim_directive</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod137">rstatement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod128">sc_map_to_target</A> ( ";" )? | <A HREF="#prod129">output_stream</A> | <A HREF="#prod6">declaration</A> | <A HREF="#prod130">expression</A> ";" | <A HREF="#prod131">selection_statement</A> | <A HREF="#prod132">jump_statement</A> | ";" | <A HREF="#prod133">try_block</A> | <A HREF="#prod134">throw_statement</A> | <A HREF="#prod135">labeled_statement</A> | <A HREF="#prod136">iteration_statement</A> | <A HREF="#prod59">sc_notify</A> ";" | <A HREF="#prod111">local_watching_block</A> | <A HREF="#prod25">dyn_process_creation_block_declaration</A> | <A HREF="#prod46">sc_report_macro</A> | <A HREF="#prod14">fzi_sim_directive</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod135">labeled_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A> ":" <A HREF="#prod22">statement</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod62">compound_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"{" ( <A HREF="#prod127">statement_list</A> )? "}"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod138">cf_block</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod62">compound_statement</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod137">rstatement</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod131">selection_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "if" <A HREF="#prod18">pl</A> <A HREF="#prod130">expression</A> <A HREF="#prod20">pr</A> <A HREF="#prod138">cf_block</A> ( "else" <A HREF="#prod138">cf_block</A> )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "switch" <A HREF="#prod18">pl</A> <A HREF="#prod130">expression</A> <A HREF="#prod20">pr</A> "{" ( <A HREF="#prod139">switch_label</A> ( <A HREF="#prod22">statement</A> )* )* "}" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod139">switch_label</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "case" <A HREF="#prod90">constant_expression</A> ":" | "default" ":" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod136">iteration_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "while" <A HREF="#prod18">pl</A> <A HREF="#prod130">expression</A> <A HREF="#prod20">pr</A> <A HREF="#prod138">cf_block</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "do" <A HREF="#prod138">cf_block</A> "while" <A HREF="#prod18">pl</A> <A HREF="#prod130">expression</A> <A HREF="#prod20">pr</A> ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "for" <A HREF="#prod18">pl</A> ( ( <A HREF="#prod6">declaration</A> | <A HREF="#prod130">expression</A> ";" | ";" ) ) ( ( ( <A HREF="#prod130">expression</A> )? ";" ) ) ( ( ( <A HREF="#prod130">expression</A> )? ) ) <A HREF="#prod20">pr</A> ( <A HREF="#prod138">cf_block</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod132">jump_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "goto" <A HREF="#prod3">getID</A> ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "continue" ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "break" ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "return" ( <A HREF="#prod130">expression</A> )? ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod133">try_block</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"try" <A HREF="#prod62">compound_statement</A> ( <A HREF="#prod140">handler</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod140">handler</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "catch" <A HREF="#prod18">pl</A> <A HREF="#prod141">exception_declaration</A> <A HREF="#prod20">pr</A> <A HREF="#prod62">compound_statement</A> | "finally" <A HREF="#prod62">compound_statement</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod141">exception_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod115">parameter_declaration_list</A> | "..." )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod134">throw_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"throw" ( <A HREF="#prod119">assignment_expression</A> )? ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod130">expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod119">assignment_expression</A> ( "," <A HREF="#prod119">assignment_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod119">assignment_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod142">conditional_expression</A> ( <A HREF="#prod143">assignment_operator</A> <A HREF="#prod119">assignment_expression</A> | <A HREF="#prod144">assignment_expression_operator</A> <A HREF="#prod119">assignment_expression</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod143">assignment_operator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"="</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod144">assignment_expression_operator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;TIMESEQUAL&gt; | &lt;DIVIDEEQUAL&gt; | &lt;MODEQUAL&gt; | &lt;PLUSEQUAL&gt; | &lt;MINUSEQUAL&gt; | &lt;BITWISEANDEQUAL&gt; | &lt;BITWISEXOREQUAL&gt; | &lt;BITWISEOREQUAL&gt; | &lt;SHIFTLEFTEQUAL&gt; | &lt;SHIFTRIGHTEQUAL&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod142">conditional_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod145">logical_or_expression</A> "?" <A HREF="#prod142">conditional_expression</A> ":" <A HREF="#prod142">conditional_expression</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod145">logical_or_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod90">constant_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod142">conditional_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod145">logical_or_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod146">logical_and_expression</A> ( "||" <A HREF="#prod146">logical_and_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod146">logical_and_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod147">inclusive_or_expression</A> ( "&amp;&amp;" <A HREF="#prod147">inclusive_or_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod147">inclusive_or_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod148">exclusive_or_expression</A> ( "|" <A HREF="#prod148">exclusive_or_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod148">exclusive_or_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod149">and_expression</A> ( "^" <A HREF="#prod149">and_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod149">and_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod150">equality_expression</A> ( "&amp;" <A HREF="#prod150">equality_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod150">equality_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod151">relational_expression</A> ( "!=" <A HREF="#prod151">relational_expression</A> | "==" <A HREF="#prod151">relational_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod151">relational_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod126">shift_expression</A> ( ( "&lt;" <A HREF="#prod126">shift_expression</A> | "&gt;" <A HREF="#prod126">shift_expression</A> | "&lt;=" <A HREF="#prod126">shift_expression</A> | "&gt;=" <A HREF="#prod126">shift_expression</A> ) )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod126">shift_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod152">additive_expression</A> ( ( "&lt;&lt;" <A HREF="#prod152">additive_expression</A> ) | "&gt;&gt;" <A HREF="#prod152">additive_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod152">additive_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod153">multiplicative_expression</A> ( ( "+" <A HREF="#prod153">multiplicative_expression</A> | "-" <A HREF="#prod153">multiplicative_expression</A> ) )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod153">multiplicative_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod154">pm_expression</A> ( ( "*" <A HREF="#prod154">pm_expression</A> | "/" <A HREF="#prod154">pm_expression</A> | "%" <A HREF="#prod154">pm_expression</A> ) )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod154">pm_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod155">cast_expression</A> ( ".*" <A HREF="#prod155">cast_expression</A> | "-&gt;*" <A HREF="#prod155">cast_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod155">cast_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod18">pl</A> <A HREF="#prod120">type_name</A> <A HREF="#prod20">pr</A> <A HREF="#prod155">cast_expression</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod156">unary_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod156">unary_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"++" <A HREF="#prod156">unary_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"--" <A HREF="#prod156">unary_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod157">unary_operator</A> <A HREF="#prod155">cast_expression</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"sizeof" ( <A HREF="#prod18">pl</A> <A HREF="#prod120">type_name</A> <A HREF="#prod20">pr</A> | <A HREF="#prod156">unary_expression</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( <A HREF="#prod158">sc_function_in_statement</A> <A HREF="#prod159">postfix_expression_helper</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod58">postfix_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod160">new_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "::" ) )? "new" ( <A HREF="#prod18">pl</A> <A HREF="#prod120">type_name</A> <A HREF="#prod20">pr</A> | ( <A HREF="#prod18">pl</A> <A HREF="#prod47">expression_list</A> <A HREF="#prod20">pr</A> )? ( <A HREF="#prod18">pl</A> <A HREF="#prod120">type_name</A> <A HREF="#prod20">pr</A> | <A HREF="#prod161">new_type_id</A> ) ) ( <A HREF="#prod162">new_initializer</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod161">new_type_id</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod163">new_declarator</A> )?</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod163">new_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod164">direct_new_declarator</A> | <A HREF="#prod101">ptr_operator</A> <A HREF="#prod102">cv_qualifier_seq</A> ( <A HREF="#prod163">new_declarator</A> )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod164">direct_new_declarator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "[" <A HREF="#prod130">expression</A> "]" )+</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod162">new_initializer</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod165">delete_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "::" )? "delete" ( "[" "]" )? <A HREF="#prod155">cast_expression</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod157">unary_operator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "&amp;" | "*" | "+" | "-" | "~" | "!" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod26">expr_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod166">dereferencing_operator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "." | "-&gt;" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod159">postfix_expression_helper</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( "[" <A HREF="#prod130">expression</A> "]" | ( <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A> ) | <A HREF="#prod166">dereferencing_operator</A> <A HREF="#prod167">id_expression</A> | <A HREF="#prod166">dereferencing_operator</A> <A HREF="#prod167">id_expression</A> | "++" | "--" ) )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod58">postfix_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod168">primary_expression</A> <A HREF="#prod159">postfix_expression_helper</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod74">simple_type_specifier</A> <A HREF="#prod18">pl</A> ( <A HREF="#prod47">expression_list</A> )? <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod21">sc_function_in_sc_main</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SC_CYCLE&gt; | &lt;SC_ASSERT&gt; | &lt;SC_START&gt; | &lt;SC_SET_TIME_RESOLUTION&gt; | &lt;SC_SET_DEFAULT_TIME_UNIT&gt; | &lt;SC_TRACE&gt; | &lt;SC_CREATE_VCD_TRACE_FILE&gt; | &lt;SC_CREATE_WIF_TRACE_FILE&gt; | &lt;SC_CREATE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_WIF_TRACE_FILE&gt; | &lt;SC_CLOSE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_VCD_TRACE_FILE&gt; | &lt;SC_BIND_ROUTINE&gt; | &lt;SC_REF_ROUTINE&gt; | &lt;SC_CREF_ROUTINE&gt; | &lt;SC_SET_STOP_MODE_ROUTINE&gt; | &lt;SC_GEN_UNIQUE_NAME_ROUTINE&gt; | &lt;SC_ABS_ROUTINE&gt; | &lt;SC_MAX_ROUTINE&gt; | &lt;SC_MIN_ROUTINE&gt; | &lt;SC_STOP_HERE_ROUTINE&gt; ) <A HREF="#prod26">expr_list</A> ) | ( ( &lt;SC_INITIALIZE&gt; | &lt;SC_STOP&gt; | &lt;SC_GET_TIME_RESOLUTION&gt; | &lt;SC_GET_DEFAULT_TIME_UNIT&gt; | &lt;SC_TIME_STAMP&gt; | &lt;SC_START_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_END_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_SIMULATION_TIME_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_SIMCONTEXT_ROUTINE&gt; | &lt;SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_KIND_ROUTINE&gt; | &lt;SC_COPYRIGHT_ROUTINE&gt; | &lt;SC_VERSION_ROUTINE&gt; ) <A HREF="#prod18">pl</A> <A HREF="#prod20">pr</A> ) | <A HREF="#prod24">sc_spawn_routine</A> | <A HREF="#prod38">report_handler_scope</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod158">sc_function_in_statement</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( ( &lt;SC_STOP&gt; | &lt;SC_GET_TIME_RESOLUTION&gt; | &lt;SC_GET_DEFAULT_TIME_UNIT&gt; | &lt;SC_TIME_STAMP&gt; | &lt;SC_ARGC_ROUTINE&gt; | &lt;SC_ARGV_ROUTINE&gt; | &lt;SC_START_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_END_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_SIMULATION_TIME_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_SIMCONTEXT_ROUTINE&gt; | &lt;SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_KIND_ROUTINE&gt; | &lt;SC_COPYRIGHT_ROUTINE&gt; | &lt;SC_VERSION_ROUTINE&gt; | &lt;SC_STOP_HERE_ROUTINE&gt; ) <A HREF="#prod18">pl</A> <A HREF="#prod20">pr</A> ) | ( ( &lt;SC_ASSERT&gt; | &lt;SC_SET_TIME_RESOLUTION&gt; | &lt;SC_SET_DEFAULT_TIME_UNIT&gt; | &lt;SC_WAIT_ROUTINE&gt; | &lt;SC_NEXT_TRIGGER&gt; | &lt;SC_TRACE&gt; | &lt;SC_CREATE_VCD_TRACE_FILE&gt; | &lt;SC_CREATE_WIF_TRACE_FILE&gt; | &lt;SC_CREATE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_WIF_TRACE_FILE&gt; | &lt;SC_CLOSE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_VCD_TRACE_FILE&gt; | &lt;SC_BIND_ROUTINE&gt; | &lt;SC_REF_ROUTINE&gt; | &lt;SC_CREF_ROUTINE&gt; | &lt;SC_MAIN_MAIN_ROUTINE&gt; | &lt;SC_SET_STOP_MODE_ROUTINE&gt; | &lt;SC_GEN_UNIQUE_NAME_ROUTINE&gt; | &lt;SC_ABS_ROUTINE&gt; | &lt;SC_MAX_ROUTINE&gt; | &lt;SC_MIN_ROUTINE&gt; ) <A HREF="#prod26">expr_list</A> ) | <A HREF="#prod40">sc_wait_until_statement</A> | <A HREF="#prod24">sc_spawn_routine</A> | <A HREF="#prod38">report_handler_scope</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod169">systemCKeyWords</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_WAIT_UNTIL_ROUTINE&gt; | &lt;SC_WATCHING_ROUTINE&gt; | &lt;SC_WAIT_ROUTINE&gt; | &lt;SC_NEXT_TRIGGER&gt; | &lt;SC_ASSERT&gt; | &lt;SC_CYCLE&gt; | &lt;SC_INITIALIZE&gt; | &lt;SC_SET_TIME_RESOLUTION&gt; | &lt;SC_GET_TIME_RESOLUTION&gt; | &lt;SC_SET_DEFAULT_TIME_UNIT&gt; | &lt;SC_GET_DEFAULT_TIME_UNIT&gt; | &lt;SC_INTERFACE&gt; | &lt;SC_INT&gt; | &lt;SC_UINT&gt; | &lt;SC_BIGINT&gt; | &lt;SC_BIGUINT&gt; | &lt;SC_IN&gt; | &lt;SC_OUT&gt; | &lt;SC_INOUT&gt; | &lt;SC_FIFO_IN&gt; | &lt;SC_FIFO_OUT&gt; | &lt;SC_EVENT&gt; | &lt;SC_EVENT_LIST&gt; | &lt;SC_EVENT_OR_LIST&gt; | &lt;SC_EVENT_AND_LIST&gt; | &lt;SC_EVENT_QUEUE&gt; | &lt;SC_BIT&gt; | &lt;SC_BITREF_R&gt; | &lt;SC_BITREF&gt; | &lt;SC_SUBREF_R&gt; | &lt;SC_SUBREF&gt; | &lt;SC_CONCREF_R&gt; | &lt;SC_CONCREF&gt; | &lt;SC_BIT_VECTOR&gt; | &lt;SC_LOGIC&gt; | &lt;SC_LOGIC_VECTOR&gt; | &lt;SC_LOGIC_VECTOR_BASE&gt; | &lt;SC_FIXED&gt; | &lt;SC_UFIXED&gt; | &lt;SC_FIX&gt; | &lt;SC_FXNUM&gt; | &lt;SC_UFIX&gt; | &lt;SC_PROXY&gt; | &lt;SC_WITHOUT_CONTEXT&gt; | &lt;SC_GLOBAL&gt; | &lt;SC_FIXED_FAST&gt; | &lt;SC_UFIXED_FAST&gt; | &lt;SC_FIX_FAST&gt; | &lt;SC_UFIX_FAST&gt; | &lt;SC_FXNUM_FAST&gt; | &lt;SC_FXNUM_FAST_BITREF&gt; | &lt;SC_FXNUM_SUBREF&gt; | &lt;SC_FXNUM_FAST_SUBREF&gt; | &lt;SENSITIVE&gt; | &lt;SENSITIVE_POS&gt; | &lt;SENSITIVE_NEG&gt; | &lt;SC_FMT&gt; | &lt;SC_NUMREP&gt; | &lt;SC_FXTYPE_PARAMS&gt; | &lt;SC_FXTYPE_CONTEXT&gt; | &lt;SC_FXCAST_SWITCH&gt; | &lt;SC_FXNUM_BITREF&gt; | &lt;SC_FXCAST_CONTEXT&gt; | &lt;SC_SIGNAL&gt; | &lt;SC_BUFFER&gt; | &lt;SC_FIFO&gt; | &lt;SC_FIFO_IN_IF&gt; | &lt;SC_FIFO_OUT_IF&gt; | &lt;SC_FIFO_NB_IN_IF&gt; | &lt;SC_FIFO_B_IN_IF&gt; | &lt;SC_FIFO_NB_OUT_IF&gt; | &lt;SC_FIFO_B_OUT_IF&gt; | &lt;SC_CONTEXT_BEGIN&gt; | &lt;SC_MODULE_NAME&gt; | &lt;SC_MODULE&gt; | &lt;SC_CHANNEL&gt; | &lt;SC_BEHAVIOR&gt; | &lt;SC_SWITCH&gt; | &lt;SC_CONTEXT&gt; | &lt;SC_PORT&gt; | &lt;SC_MUTEX_IF&gt; | &lt;SC_SEMAPHORE_IF&gt; | &lt;SC_MUTEX&gt; | &lt;SC_SEMAPHORE&gt; | &lt;SC_SIGNAL_IN_IF&gt; | &lt;SC_SIGNAL_OUT_IF&gt; | &lt;SC_SIGNAL_INOUT_IF&gt; | &lt;SC_IN_CLK&gt; | &lt;SC_OUT_CLK&gt; | &lt;SC_INOUT_CLK&gt; | &lt;SC_IN_RESOLVED&gt; | &lt;SC_OUT_RESOLVED&gt; | &lt;SC_INOUT_RESOLVED&gt; | &lt;SC_IN_RV&gt; | &lt;SC_INOUT_RV&gt; | &lt;SC_OUT_RV&gt; | &lt;SC_SIGNAL_RESOLVED&gt; | &lt;SC_SIGNAL_RV&gt; | &lt;VCD_T_TRACE&gt; | &lt;WIF_T_TRACE&gt; | &lt;SC_PHASH_BASE&gt; | &lt;SC_PHASH_BASE_ITER&gt; | &lt;SC_PHASH&gt; | &lt;SC_PHASH_ITER&gt; | &lt;SC_PDHASH&gt; | &lt;SC_PDHASH_ITER&gt; | &lt;SC_STRHASH&gt; | &lt;SC_STRHASH_ITER&gt; | &lt;SC_PLIST_BASE_ITER&gt; | &lt;SC_PLIST_BASE&gt; | &lt;SC_PLIST_ITER&gt; | &lt;SC_PLIST&gt; | &lt;SC_MEMPOOL&gt; | &lt;SC_MPOBJECT&gt; | &lt;SC_PPQ_BASE&gt; | &lt;SC_PPQ&gt; | &lt;SC_CLOCK&gt; | &lt;SC_JOIN&gt; | &lt;SC_LAMBDA&gt; | &lt;SC_LAMBDA_PTR&gt; | &lt;SC_LAMBDA_RAND&gt; | &lt;SC_BIND_PROXY&gt; | &lt;SC_MSG_DEF&gt; | &lt;SC_LAMBDA_RATOR_E&gt; | &lt;SC_LAMBDA_RAND_E&gt; | &lt;SC_ENC&gt; | &lt;SC_TRACE_PARAMS&gt; | &lt;SC_CURR_PROC_INFO&gt; | &lt;SC_TIME_PARAMS&gt; | &lt;SC_CTHREAD_HANDLE&gt; | &lt;SC_THREAD_HANDLE&gt; | &lt;SC_METHOD_HANDLE&gt; | &lt;SC_EXPORT_REGISTRY&gt; | &lt;SC_PROCESS_CB&gt; | &lt;SC_PROCESS_CALL&gt; | &lt;SC_TIME&gt; | &lt;SC_TIME_UNIT&gt; | &lt;SC_TIME_STAMP&gt; | &lt;SC_MASTER&gt; | &lt;SC_INMASTER&gt; | &lt;SC_OUTMASTER&gt; | &lt;SC_INOUTMASTER&gt; | &lt;SC_EXPORT_BASE&gt; | &lt;SC_PORT_BASE&gt; | &lt;SC_PORT_REGISTRY&gt; | &lt;SC_PORT_B&gt; | &lt;SC_SLAVE&gt; | &lt;SC_INSLAVE&gt; | &lt;SC_OUTSLAVE&gt; | &lt;SC_INOUTSLAVE&gt; | &lt;SC_NOHANDSHAKE&gt; | &lt;SC_ENABLEHANDSHAKE&gt; | &lt;SC_FULLHANDSHAKE&gt; | &lt;SC_INDEXED&gt; | &lt;SC_O_MODE&gt; | &lt;SC_Q_MODE&gt; | &lt;SC_OBJECT&gt; | &lt;SC_PROCESS_MONITOR&gt; | &lt;SC_PROCESS_HOST&gt; | &lt;SC_SPAWN_OBJECT&gt; | &lt;SC_SPAWN_OBJECT_V&gt; | &lt;SC_PROCESS_BASE&gt; | &lt;SC_RUNNABLE&gt; | &lt;SC_WATCH&gt; | &lt;SC_CLK_POS_CALLBACK&gt; | &lt;SC_CLK_NEG_CALLBACK&gt; | &lt;SC_CHECK&gt; | &lt;SC_PRIM_CHANNEL&gt; | &lt;SC_PRIM_CHANNEL_REG&gt; | &lt;SC_START&gt; | &lt;SC_LOGIC_RESOLVE&gt; | &lt;SC_LV_RESOLVE&gt; | &lt;SC_STOP&gt; | &lt;SC_STRING&gt; | &lt;DONT_INITIALIZE&gt; | &lt;SC_TRACE&gt; | &lt;SC_TRACE_FILE&gt; | &lt;VCD_TRACE_FILE&gt; | &lt;WIF_TRACE_FILE&gt; | &lt;ISDB_TRACE_FILE&gt; | &lt;SC_CREATE_VCD_TRACE_FILE&gt; | &lt;SC_CREATE_WIF_TRACE_FILE&gt; | &lt;SC_CREATE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_WIF_TRACE_FILE&gt; | &lt;SC_CLOSE_ISDB_TRACE_FILE&gt; | &lt;SC_CLOSE_VCD_TRACE_FILE&gt; | &lt;SC_SPAWN_OPTIONS&gt; | &lt;SC_PROCESS_HANDLE&gt; | &lt;SC_SPAWN_ROUTINE&gt; | &lt;SC_BIND_ROUTINE&gt; | &lt;SC_REF_ROUTINE&gt; | &lt;SC_CREF_ROUTINE&gt; | &lt;SC_EXPORT&gt; | &lt;SC_SEVERITY&gt; | &lt;SC_ACTION&gt; | &lt;SC_ACTIONS&gt; | &lt;SC_REPORT_HANDLER&gt; | &lt;SC_REPORT&gt; | &lt;SC_MAIN_MAIN_ROUTINE&gt; | &lt;SC_ARGC_ROUTINE&gt; | &lt;SC_ARGV_ROUTINE&gt; | &lt;SC_START_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_END_OF_SIMULATION_INVOKED_ROUTINE&gt; | &lt;SC_STOP_MODE&gt; | &lt;SC_SET_STOP_MODE_ROUTINE&gt; | &lt;SC_GEN_UNIQUE_NAME_ROUTINE&gt; | &lt;SC_SIMCONTEXT&gt; | &lt;SC_API_VERSION_STRING&gt; | &lt;SC_COR&gt; | &lt;SC_COR_PKG&gt; | &lt;SC_EVENT_TIMED&gt; | &lt;SC_METHOD_PROCESS&gt; | &lt;SC_SIMULATION_TIME_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_SIMCONTEXT_ROUTINE&gt; | &lt;SC_PROCESS_B&gt; | &lt;SC_CURR_PROC_KIND&gt; | &lt;SC_GET_LAST_CREATED_PROCESS_HANDLE_ROUTINE&gt; | &lt;SC_GET_CURR_PROCESS_KIND_ROUTINE&gt; | &lt;SC_MAP_TO_TARGET_INIT_MACRO&gt; | &lt;SC_MAP_TO_TARGET_MACRO&gt; | &lt;SC_SENSITIVE&gt; | &lt;SC_SENSITIVE_POS&gt; | &lt;SC_SENSITIVE_NEG&gt; | &lt;SC_MAIN&gt; | &lt;SC_VERSION_ROUTINE&gt; | &lt;SC_COPYRIGHT_ROUTINE&gt; | &lt;SC_MAX_ROUTINE&gt; | &lt;SC_MIN_ROUTINE&gt; | &lt;SC_STOP_HERE_ROUTINE&gt; | &lt;SC_LOGIC_VALUE_T&gt; | &lt;SC_LOGIC_CONSTANT&gt; | &lt;SC_MAX_NUM_DELTA_CYCLES&gt; | &lt;SC_ATTR_BASE&gt; | &lt;SC_ATTR_CLTN&gt; | &lt;SC_ATTRIBUTE&gt; | &lt;SC_BV_BASE&gt; | &lt;SC_EVENT_FINDER_T&gt; | &lt;SC_EVENT_FINDER&gt; | &lt;SC_EVENT_QUEUE_IF&gt; | &lt;SC_FXNUM_FAST_OBSERVER&gt; | &lt;SC_FXNUM_OBSERVER&gt; | &lt;SC_FXVAL&gt; | &lt;SC_FXVAL_FAST&gt; | &lt;SC_FXVAL_FAST_OBSERVER&gt; | &lt;SC_FXVAL_OBSERVER&gt; | &lt;SC_INT_BASE&gt; | &lt;SC_LENGTH_CONTEXT&gt; | &lt;SC_STRING_OLD&gt; | &lt;SC_LENGTH_PARAM&gt; | &lt;SC_UINT_BASE&gt; | &lt;SC_UNSIGNED&gt; | &lt;SC_SIGNED&gt; | &lt;SC_BYTE_HEAP&gt; | &lt;SC_VPOOL&gt; | &lt;SC_PVECTOR&gt; | &lt;SCFX_IEEE_DOUBLE&gt; | &lt;SCFX_IEEE_FLOAT&gt; | &lt;SCFX_MANT&gt; | &lt;SCFX_MANT_REF&gt; | &lt;SCFX_PARAMS&gt; | &lt;SCFX_INDEX&gt; | &lt;SCFX_REP&gt; | &lt;SCFX_STRING&gt; | &lt;SCFX_INT_BITREF_R&gt; | &lt;SCFX_INT_BITREF&gt; | &lt;SCFX_INT_SUBREF_R&gt; | &lt;SCFX_INT_SUBREF&gt; | &lt;SC_SIGNED_BITREF_R&gt; | &lt;SC_SIGNED_BITREF&gt; | &lt;SC_SIGNED_SUBREF_R&gt; | &lt;SC_SIGNED_SUBREF&gt; | &lt;SC_UINT_BITREF_R&gt; | &lt;SC_UINT_BITREF&gt; | &lt;SC_UINT_SUBREF_R&gt; | &lt;SC_UINT_SUBREF&gt; | &lt;SC_UNSIGNED_BITREF_R&gt; | &lt;SC_UNSIGNED_BITREF&gt; | &lt;SC_UNSIGNED_SUBREF_R&gt; | &lt;SC_UNSIGNED_SUBREF&gt; | &lt;SC_CONCATREF&gt; | &lt;SC_CONCAT_BOOL&gt; | &lt;SC_VALUE_BASE&gt; | &lt;SC_GENERIC_BASE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod167">id_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod77">scope_override</A> )? ( ( <A HREF="#prod3">getID</A> | <A HREF="#prod169">systemCKeyWords</A> )  | "operator" <A HREF="#prod78">optor</A> | "~" <A HREF="#prod3">getID</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod168">primary_expression</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "this" | <A HREF="#prod18">pl</A> <A HREF="#prod130">expression</A> <A HREF="#prod20">pr</A> | <A HREF="#prod160">new_expression</A> | <A HREF="#prod165">delete_expression</A> | <A HREF="#prod167">id_expression</A> | <A HREF="#prod170">constant</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod47">expression_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod119">assignment_expression</A> ( "," <A HREF="#prod119">assignment_expression</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod170">constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;OCTALINT&gt; | &lt;OCTALLONG&gt; | &lt;DECIMALINT&gt; | &lt;DECIMALLONG&gt; | &lt;HEXADECIMALINT&gt; | &lt;HEXADECIMALLONG&gt; | &lt;UNSIGNED_OCTALINT&gt; | &lt;UNSIGNED_OCTALLONG&gt; | &lt;UNSIGNED_DECIMALINT&gt; | &lt;UNSIGNED_DECIMALLONG&gt; | &lt;UNSIGNED_HEXADECIMALINT&gt; | &lt;UNSIGNED_HEXADECIMALLONG&gt; | &lt;CHARACTER&gt; | &lt;STRING&gt; | &lt;FLOATONE&gt; | &lt;FLOATTWO&gt; | <A HREF="#prod171">boolean_literal</A> | <A HREF="#prod172">sc_constants</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod172">sc_constants</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod173">sc_time_constant</A> | <A HREF="#prod174">sc_fp_quantization_constants</A> | <A HREF="#prod175">sc_fp_overflow_constants</A> | <A HREF="#prod176">sc_context_begin_constant</A> | <A HREF="#prod177">sc_switch_constant</A> | <A HREF="#prod178">sc_fmt_constant</A> | <A HREF="#prod179">sc_numrep_constant</A> | <A HREF="#prod180">sc_lambda_rand_e_constant</A> | <A HREF="#prod181">sc_enc_constants</A> | <A HREF="#prod182">sc_action_constant</A> | <A HREF="#prod183">sc_severity_constant</A> | <A HREF="#prod184">sc_stop_mode_constant</A> | <A HREF="#prod185">sc_curr_proc_kind_constant</A> | <A HREF="#prod186">sc_logic_value_t_constant</A> | &lt;SC_LOGIC_CONSTANT&gt; | &lt;SC_MAX_NUM_DELTA_CYCLES&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod176">sc_context_begin_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_CONTEXT_BEGIN_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod178">sc_fmt_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_FMT_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod180">sc_lambda_rand_e_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_LAMBDA_RAND_E_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod181">sc_enc_constants</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_ENC_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod179">sc_numrep_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_NUMREP_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod183">sc_severity_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_SEVERITY_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod185">sc_curr_proc_kind_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_CURR_PROC_KIND_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod184">sc_stop_mode_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_STOP_MODE_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod182">sc_action_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_ACTION_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod186">sc_logic_value_t_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_LOGIC_VALUE_T_CONSTANT&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod177">sc_switch_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_SWITCH_CONSTANTS&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod173">sc_time_constant</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_TIME_CONSTANTS&gt; | &lt;SC_ZERO_TIME&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod174">sc_fp_quantization_constants</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;FIXED_POINT_QUANTIZATION_TYPE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod175">sc_fp_overflow_constants</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;FIXED_POINT_OVERFLOW_TYPE&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod17">constant_int</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;OCTALINT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;DECIMALINT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;HEXADECIMALINT&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod171">boolean_literal</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;TRUETOK&gt; | &lt;FALSETOK&gt; )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod78">optor</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( "new" ( "[" "]" )? | "delete" ( "[" "]" )? | "+" | "-" | "*" | "/" | "%" | "^" | "&amp;" | "|" | "~" | "!" | "=" | "&lt;" | "&gt;" | "+=" | "-=" | "*=" | "/=" | "%=" | "^=" | "&amp;=" | "|=" | "&lt;&lt;" | "&gt;&gt;" | "&gt;&gt;=" | "&lt;&lt;=" | "==" | "!=" | "&lt;=" | "&gt;=" | "&amp;&amp;" | "||" | "++" | "--" | "," | "-&gt;*" | "-&gt;" | <A HREF="#prod18">pl</A> <A HREF="#prod20">pr</A> | "[" "]" | <A HREF="#prod13">declaration_specifiers</A> ( ( "*" | "&amp;" ) )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod98">exception_spec</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"throw" <A HREF="#prod18">pl</A> <A HREF="#prod187">exception_list</A> <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod187">exception_list</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod120">type_name</A> ( "," <A HREF="#prod120">type_name</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod129">output_stream</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;COUT&gt; | &lt;CERR&gt; ) ( ( "." <A HREF="#prod58">postfix_expression</A> &lt;SEMICOLON&gt; ) | ( <A HREF="#prod188">standart_output_stream_helper</A> ( <A HREF="#prod188">standart_output_stream_helper</A> )* &lt;SEMICOLON&gt; ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod188">standart_output_stream_helper</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"&lt;&lt;" ( ( <A HREF="#prod189">standart_manipulator</A> | <A HREF="#prod130">expression</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod189">standart_manipulator</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SC_IO_MANIPULATORS&gt; | &lt;SC_IO_MANIPULATOR_WITH_PARAM&gt; <A HREF="#prod18">pl</A> <A HREF="#prod47">expression_list</A> <A HREF="#prod20">pr</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod18">pl</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"("</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod20">pr</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>")"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod95">sc_has_process_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_HAS_PROCESS&gt; <A HREF="#prod18">pl</A> <A HREF="#prod3">getID</A> <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod96">sc_map_to_target_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_MAP_TO_TARGET_INIT_MACRO&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod128">sc_map_to_target</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;SC_MAP_TO_TARGET_MACRO&gt; <A HREF="#prod18">pl</A> <A HREF="#prod3">getID</A> &lt;COMMA&gt; &lt;STRING&gt; &lt;COMMA&gt; ( <A HREF="#prod17">constant_int</A> | <A HREF="#prod3">getID</A> ) <A HREF="#prod20">pr</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod15">namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod190">named_namespace_definition</A> | <A HREF="#prod191">unnamed_namespace_definition</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod190">named_namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod192">original_namespace_definition</A> | <A HREF="#prod193">extended_namespace_definition</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod192">original_namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;NAMESPACE&gt; <A HREF="#prod3">getID</A> "{" <A HREF="#prod194">namespace_body</A> "}"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod193">extended_namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;NAMESPACE&gt; <A HREF="#prod3">getID</A> "{" <A HREF="#prod194">namespace_body</A> "}"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod191">unnamed_namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;NAMESPACE&gt; "{" <A HREF="#prod194">namespace_body</A> "}"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod195">namespace_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod5">template_head</A> )? <A HREF="#prod6">declaration</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod7">enum_specifier</A> ( <A HREF="#prod8">init_declarator_list</A> )? ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod9">dtor_definition</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod10">ctor_definition</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod11">function_definition</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod12">conversion_function_decl_or_def</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod5">template_head</A> ( <A HREF="#prod10">ctor_definition</A> | <A HREF="#prod11">function_definition</A> | <A HREF="#prod13">declaration_specifiers</A> ( <A HREF="#prod8">init_declarator_list</A> )? ";" )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod6">declaration</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod4">preprocessor_directive</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod14">fzi_sim_directive</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod15">namespace_definition</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>|</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod16">sc_main_declaration</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod194">namespace_body</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod195">namespace_declaration</A> )*</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod64">alias_namespace_definition</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;NAMESPACE&gt; <A HREF="#prod3">getID</A> &lt;ASSIGNEQUAL&gt; <A HREF="#prod196">namespace_qualified_spec</A> ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod196">namespace_qualified_spec</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( &lt;SCOPE&gt; )? ( <A HREF="#prod197">complicated_name_spec</A> )? <A HREF="#prod30">namespace_name</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod65">using_declaration</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( ( &lt;USING&gt; ( &lt;TYPENAME&gt; )? <A HREF="#prod197">complicated_name_spec</A> ) | ( &lt;USING&gt; &lt;SCOPE&gt; ) ) <A HREF="#prod198">not_qualified_id</A> ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod66">using_directive</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>&lt;USING&gt; &lt;NAMESPACE&gt; <A HREF="#prod196">namespace_qualified_spec</A> ";"</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod199">class_or_namespace_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod200">class_name</A> | <A HREF="#prod30">namespace_name</A> ) &lt;SCOPE&gt;</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod197">complicated_name_spec</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod199">class_or_namespace_name</A> ( ( <A HREF="#prod197">complicated_name_spec</A> )? ) | ( &lt;TEMPLATE&gt; <A HREF="#prod197">complicated_name_spec</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod201">complicated_name_spec_without_template</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod199">class_or_namespace_name</A> ( ( <A HREF="#prod197">complicated_name_spec</A> )? )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod30">namespace_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod202">original_namespace_name</A> | <A HREF="#prod203">alias_namespace_name</A> )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod202">original_namespace_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod203">alias_namespace_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod198">not_qualified_id</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE><A HREF="#prod3">getID</A></TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod200">class_name</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>( <A HREF="#prod124">template_id</A> | ( <A HREF="#prod198">not_qualified_id</A> ) )</TD>
+</TR>
+<TR>
+<TD ALIGN=RIGHT VALIGN=BASELINE><A NAME="prod204">comment</A></TD>
+<TD ALIGN=CENTER VALIGN=BASELINE>::=</TD>
+<TD ALIGN=LEFT VALIGN=BASELINE>"`"</TD>
+</TR>
+</TABLE>
+</BODY>
+</HTML>

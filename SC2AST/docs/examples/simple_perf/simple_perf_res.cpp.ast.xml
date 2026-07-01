@@ -1,0 +1,2509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <declaration idref="4">
+      <declaration_specifiers idref="8">
+        <class_specifier extSCModule="false" idref="10" keyword="class" name="time_t"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="14" file="user.h" idref="12" line="5">
+    <declaration column="14" file="user.h" idref="14" line="5">
+      <declaration_specifiers column="14" file="user.h" idref="18" line="5">
+        <class_specifier column="14" extSCModule="false" file="user.h"
+          idref="20" keyword="class" line="5" name="FILE"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="12" file="user.h" idref="22" line="6">
+    <declaration column="12" file="user.h" idref="24" line="6">
+      <declaration_specifiers column="12" file="user.h" idref="28" line="6">
+        <class_specifier column="12" extSCModule="false" file="user.h"
+          idref="30" keyword="class" line="6" name="ostream"/>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <comment column="1" file="simple_perf.cpp" idref="31" line="74" name="/*****************************************************************************&#xa;&#xa;  MODIFICATION LOG - modifiers, enter your name, affiliation, date and&#xa;  changes you are making here.&#xa;&#xa;      Name, Affiliation, Date:&#xa;  Description of Modification:&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="simple_perf.cpp" idref="32" line="18" name="/*****************************************************************************&#xa;&#xa;  simple_fifo.cpp -- SystemC 2.0 Performance Modeling Example.&#xa;&#xa;                     This example is derived from the design presented within&#xa;                     &quot;An Introduction to System Level Modeling in SystemC 2.0&quot;&#xa;                     By Stuart Swan, Cadence Design Systems.&#xa;                     Available at www.systemc.org&#xa;&#xa;                     The system being modeled has a producer block that&#xa;                     sends characters to a consumer block via a fifo.&#xa;                     The fifo will suspend the producer or consumer as&#xa;                     necessary to insure all characters are reliably&#xa;                     delivered.&#xa;&#xa;                     The consumer block will consume exactly one&#xa;                     character every 100 ns unless it is suspended&#xa;                     waiting for input from the fifo.&#xa;&#xa;                     The producer block produces between one and&#xa;                     19 characters every 1000 ns unless it is&#xa;                     suspended waiting to write to the fifo.&#xa;                     On average, the producer block produces&#xa;                     one character every 100 ns (unless suspended by&#xa;                     the fifo) since a random linear distribution is &#xa;                     used for the character count.&#xa;&#xa;                     If the fifo size is sufficiently large, the average&#xa;                     transfer time per character will approach 100 ns&#xa;                     since the producer and consumer will rarely be&#xa;                     blocked. However, as the fifo size decreases,&#xa;                     the average transfer time will increase because&#xa;                     the producer will sometimes be suspended when&#xa;                     it writes (due to a full fifo) and the consumer&#xa;                     will sometimes be suspended when it reads &#xa;                     (due to an empty fifo).&#xa;&#xa;                     The fifo size can be set via a command line argument&#xa;                     when running this program. By default, the fifo size&#xa;                     is 10. When the design is simulated, one hundred&#xa;                     thousand characters are transferred from the &#xa;                     producer to the consumer and then performance&#xa;                     statistics are displayed.&#xa;&#xa;                     Using this system level model, determine the size&#xa;                     of the fifo needed to sustain:&#xa;&#xa;                     A) An average transfer time of 110 ns per character&#xa;                     B) An average transfer time of 105 ns per character&#xa;&#xa;                     Hint: The answer to (A) is between 10 and 20.&#xa;&#xa;  Original Author: Stuart Swan, Cadence Design Systems, 2001-06-18&#xa;&#xa; *****************************************************************************/"/>
+  <comment column="1" file="simple_perf.cpp" idref="33" line="1" name="/*****************************************************************************&#xa;&#xa;  The following code is derived, directly or indirectly, from the SystemC&#xa;  source code Copyright (c) 1996-2004 by all Contributors.&#xa;  All Rights reserved.&#xa;&#xa;  The contents of this file are subject to the restrictions and limitations&#xa;  set forth in the SystemC Open Source License Version 2.3 (the &quot;License&quot;);&#xa;  You may not use this file except in compliance with such restrictions and&#xa;  limitations. You may obtain instructions on how to receive a copy of the&#xa;  License at http://www.systemc.org/. Software distributed by Contributors&#xa;  under the License is distributed on an &quot;AS IS&quot; basis, WITHOUT WARRANTY OF&#xa;  ANY KIND, either express or implied. See the License for the specific&#xa;  language governing rights and limitations under the License.&#xa;&#xa; *****************************************************************************/"/>
+  <external_declaration column="15" file="simple_perf.cpp" idref="35" line="87">
+    <declaration column="15" file="simple_perf.cpp" idref="37" line="87">
+      <declaration_specifiers column="15" file="simple_perf.cpp"
+        idref="41" line="87">
+        <class_specifier column="15" extSCModule="false"
+          file="simple_perf.cpp" idref="43" keyword="class" line="87" name="write_if">
+          <base_clause column="7" file="simple_perf.cpp" idref="45" line="87">
+            <base_specifier column="16" file="simple_perf.cpp"
+              idref="47" length="0" line="87" name="sc_interface" sc_dt="true">
+              <base_class_access_specifier column="16"
+                file="simple_perf.cpp" idref="49" line="87" name="virtual public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="51" line="89">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="53" line="89" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="55" line="90">
+            <function_definition column="9" file="simple_perf.cpp"
+              idref="57" line="90">
+              <declaration_specifiers column="9" file="simple_perf.cpp"
+                idref="59" line="90">
+                <type_modifiers column="9" file="simple_perf.cpp"
+                  idref="61" line="90"/>
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="63" length="0" line="90"
+                  name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="13" file="simple_perf.cpp"
+                idref="65" line="90">
+                <qualified_id column="13" file="simple_perf.cpp"
+                  idref="67" line="90" name="write"/>
+                <parameter_list column="23" file="simple_perf.cpp"
+                  idref="69" line="90">
+                  <parameter_declaration column="23"
+                    file="simple_perf.cpp" idref="71" line="90">
+                    <declaration_specifiers column="23"
+                      file="simple_perf.cpp" idref="73" line="90">
+                      <builtin_type_specifier column="23"
+                        file="simple_perf.cpp" idref="75" length="0"
+                        line="90" name="char" sc_dt="false"/>
+                    </declaration_specifiers>
+                    <abstract_declarator column="24"
+                      file="simple_perf.cpp" idref="77" line="90"/>
+                  </parameter_declaration>
+                </parameter_list>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="33" file="simple_perf.cpp"
+            idref="79" line="91">
+            <function_definition column="33" file="simple_perf.cpp"
+              idref="81" line="91">
+              <declaration_specifiers column="33" file="simple_perf.cpp"
+                idref="83" line="91">
+                <type_modifiers column="33" file="simple_perf.cpp"
+                  idref="85" line="91"/>
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="87" length="0" line="91"
+                  name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="13" file="simple_perf.cpp"
+                idref="89" line="91">
+                <qualified_id column="13" file="simple_perf.cpp"
+                  idref="91" line="91" name="reset"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="93" line="94">
+    <declaration column="2" file="simple_perf.cpp" idref="95" line="94">
+      <declaration_specifiers column="2" file="simple_perf.cpp"
+        idref="99" line="94">
+        <class_specifier column="2" extSCModule="false"
+          file="simple_perf.cpp" idref="101" keyword="class" line="94" name="read_if">
+          <base_clause column="7" file="simple_perf.cpp" idref="103" line="94">
+            <base_specifier column="15" file="simple_perf.cpp"
+              idref="105" length="0" line="94" name="sc_interface" sc_dt="true">
+              <base_class_access_specifier column="15"
+                file="simple_perf.cpp" idref="107" line="94" name="virtual public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="109" line="96">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="111" line="96" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="113" line="97">
+            <function_definition column="9" file="simple_perf.cpp"
+              idref="115" line="97">
+              <declaration_specifiers column="9" file="simple_perf.cpp"
+                idref="117" line="97">
+                <type_modifiers column="9" file="simple_perf.cpp"
+                  idref="119" line="97"/>
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="121" length="0"
+                  line="97" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="13" file="simple_perf.cpp"
+                idref="123" line="97">
+                <qualified_id column="13" file="simple_perf.cpp"
+                  idref="125" line="97" name="read"/>
+                <parameter_list column="22" file="simple_perf.cpp"
+                  idref="127" line="97">
+                  <parameter_declaration column="22"
+                    file="simple_perf.cpp" idref="129" line="97">
+                    <declaration_specifiers column="22"
+                      file="simple_perf.cpp" idref="131" line="97">
+                      <builtin_type_specifier column="22"
+                        file="simple_perf.cpp" idref="133" length="0"
+                        line="97" name="char" sc_dt="false"/>
+                    </declaration_specifiers>
+                    <abstract_declarator column="23"
+                      file="simple_perf.cpp" idref="135" line="97">
+                      <ptr_operator column="23" file="simple_perf.cpp"
+                        idref="137" line="97" name="&amp;"/>
+                      <abstract_declarator column="28"
+                        file="simple_perf.cpp" idref="139" line="97"/>
+                    </abstract_declarator>
+                  </parameter_declaration>
+                </parameter_list>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="34" file="simple_perf.cpp"
+            idref="141" line="98">
+            <function_definition column="34" file="simple_perf.cpp"
+              idref="143" line="98">
+              <declaration_specifiers column="34" file="simple_perf.cpp"
+                idref="145" line="98">
+                <type_modifiers column="34" file="simple_perf.cpp"
+                  idref="147" line="98"/>
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="149" length="0"
+                  line="98" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="13" file="simple_perf.cpp"
+                idref="151" line="98">
+                <qualified_id column="13" file="simple_perf.cpp"
+                  idref="153" line="98" name="num_available"/>
+              </function_declarator>
+            </function_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="155" line="101">
+    <declaration column="2" file="simple_perf.cpp" idref="157" line="101">
+      <declaration_specifiers column="2" file="simple_perf.cpp"
+        idref="161" line="101">
+        <class_specifier column="2" extSCModule="true"
+          file="simple_perf.cpp" idref="163" keyword="class" line="101" name="fifo">
+          <base_clause column="7" file="simple_perf.cpp" idref="165" line="101">
+            <base_specifier column="12" file="simple_perf.cpp"
+              idref="167" length="0" line="101" name="sc_channel" sc_dt="true">
+              <base_class_access_specifier column="12"
+                file="simple_perf.cpp" idref="169" line="101" name="public"/>
+            </base_specifier>
+            <base_specifier column="31" file="simple_perf.cpp"
+              idref="171" length="0" line="101" name="write_if" sc_dt="false">
+              <base_class_access_specifier column="31"
+                file="simple_perf.cpp" idref="173" line="101" name="public"/>
+            </base_specifier>
+            <base_specifier column="48" file="simple_perf.cpp"
+              idref="175" length="0" line="101" name="read_if" sc_dt="false">
+              <base_class_access_specifier column="48"
+                file="simple_perf.cpp" idref="177" line="101" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="179" line="103">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="181" line="103" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="183" line="104">
+            <ctor_definition column="9" file="simple_perf.cpp"
+              idref="185" line="104">
+              <qualified_id column="9" file="simple_perf.cpp"
+                idref="187" line="104" name="fifo"/>
+              <parameter_list column="9" file="simple_perf.cpp"
+                idref="189" line="104">
+                <parameter_declaration column="9" file="simple_perf.cpp"
+                  idref="191" line="104">
+                  <declaration_specifiers column="9"
+                    file="simple_perf.cpp" idref="193" line="104">
+                    <builtin_type_specifier column="9"
+                      file="simple_perf.cpp" idref="195" length="0"
+                      line="104" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="10" file="simple_perf.cpp"
+                    idref="197" line="104">
+                    <qualified_id column="10" file="simple_perf.cpp"
+                      idref="199" line="104" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+                <parameter_declaration column="29"
+                  file="simple_perf.cpp" idref="201" line="104">
+                  <declaration_specifiers column="29"
+                    file="simple_perf.cpp" idref="203" line="104">
+                    <builtin_type_specifier column="29"
+                      file="simple_perf.cpp" idref="205" length="0"
+                      line="104" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                  <declarator column="31" file="simple_perf.cpp"
+                    idref="207" line="104">
+                    <qualified_id column="31" file="simple_perf.cpp"
+                      idref="209" line="104" name="size_"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="40" file="simple_perf.cpp"
+                idref="211" line="104">
+                <superclass_init column="42" file="simple_perf.cpp"
+                  idref="213" line="104">
+                  <declaration_specifiers column="42"
+                    file="simple_perf.cpp" idref="215" line="104">
+                    <builtin_type_specifier column="42"
+                      file="simple_perf.cpp" idref="217" length="0"
+                      line="104" name="sc_channel" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="54" file="simple_perf.cpp"
+                    idref="219" line="104">
+                    <primary_expression column="54"
+                      file="simple_perf.cpp" idref="223" line="104">
+                      <id_expression column="55" file="simple_perf.cpp"
+                        idref="225" line="104" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="60" file="simple_perf.cpp"
+                  idref="227" line="104">
+                  <qualified_id column="60" file="simple_perf.cpp"
+                    idref="229" line="104" name="size"/>
+                  <arguments_list column="66" file="simple_perf.cpp"
+                    idref="231" line="104">
+                    <primary_expression column="66"
+                      file="simple_perf.cpp" idref="235" line="104">
+                      <id_expression column="67" file="simple_perf.cpp"
+                        idref="237" line="104" name="size_"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="72" file="simple_perf.cpp" idref="239" line="105">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="241" line="106">
+                  <assignment column="7" file="simple_perf.cpp"
+                    idref="251" line="106">
+                    <primary_expression column="5"
+                      file="simple_perf.cpp" idref="245" line="106">
+                      <id_expression column="2" file="simple_perf.cpp"
+                        idref="247" line="106" name="data"/>
+                    </primary_expression>
+                    <assignment_operator column="2"
+                      file="simple_perf.cpp" idref="249" line="106"/>
+                    <primary_expression column="7"
+                      file="simple_perf.cpp" idref="255" line="106">
+                      <new_expression column="7" file="simple_perf.cpp"
+                        idref="257" line="106">
+                        <new_type_id column="9" file="simple_perf.cpp"
+                          idref="259" line="106">
+                          <declaration_specifiers column="9"
+                            file="simple_perf.cpp" idref="261" line="106">
+                            <builtin_type_specifier column="9"
+                              file="simple_perf.cpp" idref="263"
+                              length="0" line="106" name="char" sc_dt="false"/>
+                          </declaration_specifiers>
+                          <new_declarator column="13"
+                            file="simple_perf.cpp" idref="265" line="106">
+                            <direct_new_declarator column="13"
+                              file="simple_perf.cpp" idref="267" line="106">
+                              <primary_expression column="17"
+                                file="simple_perf.cpp" idref="271" line="106">
+                                <id_expression column="18"
+                                  file="simple_perf.cpp" idref="273"
+                                  line="106" name="size"/>
+                              </primary_expression>
+                            </direct_new_declarator>
+                          </new_declarator>
+                        </new_type_id>
+                      </new_expression>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="23" file="simple_perf.cpp"
+                  idref="275" line="107">
+                  <assignment column="15" file="simple_perf.cpp"
+                    idref="285" line="107">
+                    <primary_expression column="23"
+                      file="simple_perf.cpp" idref="279" line="107">
+                      <id_expression column="2" file="simple_perf.cpp"
+                        idref="281" line="107" name="num_elements"/>
+                    </primary_expression>
+                    <assignment_operator column="2"
+                      file="simple_perf.cpp" idref="283" line="107"/>
+                    <assignment column="23" file="simple_perf.cpp"
+                      idref="295" line="107">
+                      <primary_expression column="15"
+                        file="simple_perf.cpp" idref="289" line="107">
+                        <id_expression column="17"
+                          file="simple_perf.cpp" idref="291" line="107" name="first"/>
+                      </primary_expression>
+                      <assignment_operator column="17"
+                        file="simple_perf.cpp" idref="293" line="107"/>
+                      <primary_expression column="23"
+                        file="simple_perf.cpp" idref="299" line="107">
+                        <constant column="23" file="simple_perf.cpp"
+                          idref="301" line="107" value="0"/>
+                      </primary_expression>
+                    </assignment>
+                  </assignment>
+                </block_statement>
+                <block_statement column="26" file="simple_perf.cpp"
+                  idref="303" line="108">
+                  <assignment column="11" file="simple_perf.cpp"
+                    idref="313" line="108">
+                    <primary_expression column="26"
+                      file="simple_perf.cpp" idref="307" line="108">
+                      <id_expression column="2" file="simple_perf.cpp"
+                        idref="309" line="108" name="num_read"/>
+                    </primary_expression>
+                    <assignment_operator column="2"
+                      file="simple_perf.cpp" idref="311" line="108"/>
+                    <assignment column="22" file="simple_perf.cpp"
+                      idref="323" line="108">
+                      <primary_expression column="11"
+                        file="simple_perf.cpp" idref="317" line="108">
+                        <id_expression column="13"
+                          file="simple_perf.cpp" idref="319" line="108" name="max_used"/>
+                      </primary_expression>
+                      <assignment_operator column="13"
+                        file="simple_perf.cpp" idref="321" line="108"/>
+                      <assignment column="32" file="simple_perf.cpp"
+                        idref="333" line="108">
+                        <primary_expression column="22"
+                          file="simple_perf.cpp" idref="327" line="108">
+                          <id_expression column="24"
+                            file="simple_perf.cpp" idref="329"
+                            line="108" name="average"/>
+                        </primary_expression>
+                        <assignment_operator column="24"
+                          file="simple_perf.cpp" idref="331" line="108"/>
+                        <primary_expression column="32"
+                          file="simple_perf.cpp" idref="337" line="108">
+                          <constant column="32" file="simple_perf.cpp"
+                            idref="339" line="108" value="0"/>
+                        </primary_expression>
+                      </assignment>
+                    </assignment>
+                  </assignment>
+                </block_statement>
+                <block_statement column="35" file="simple_perf.cpp"
+                  idref="341" line="109">
+                  <assignment column="19" file="simple_perf.cpp"
+                    idref="351" line="109">
+                    <primary_expression column="35"
+                      file="simple_perf.cpp" idref="345" line="109">
+                      <id_expression column="9" file="simple_perf.cpp"
+                        idref="347" line="109" name="last_time"/>
+                    </primary_expression>
+                    <assignment_operator column="9"
+                      file="simple_perf.cpp" idref="349" line="109"/>
+                    <primary_expression column="19"
+                      file="simple_perf.cpp" idref="355" line="109">
+                      <constant column="19" file="simple_perf.cpp"
+                        idref="357" line="109" value="SC_ZERO_TIME"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="359" line="112">
+            <dtor_definition column="5" file="simple_perf.cpp"
+              idref="361" line="112">
+              <dtor_declarator column="5" file="simple_perf.cpp"
+                idref="363" line="112">
+                <simple_dtor_declarator column="5"
+                  file="simple_perf.cpp" idref="365" line="112"/>
+              </dtor_declarator>
+              <block column="11" file="simple_perf.cpp" idref="367" line="113">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="369" line="114">
+                  <primary_expression column="5" file="simple_perf.cpp"
+                    idref="373" line="114">
+                    <delete_expression column="5" file="simple_perf.cpp"
+                      idref="375" line="114">
+                      <primary_expression column="14"
+                        file="simple_perf.cpp" idref="379" line="114">
+                        <id_expression column="16"
+                          file="simple_perf.cpp" idref="381" line="114" name="data"/>
+                      </primary_expression>
+                    </delete_expression>
+                  </primary_expression>
+                </block_statement>
+                <block_statement column="20" file="simple_perf.cpp"
+                  idref="383" line="116">
+                  <output_stream column="20" file="simple_perf.cpp"
+                    idref="385" line="116" name="cout">
+                    <standart_manipulator column="12"
+                      file="simple_perf.cpp" idref="387" line="116" name="endl"/>
+                    <primary_expression column="20"
+                      file="simple_perf.cpp" idref="391" line="116">
+                      <constant column="20" file="simple_perf.cpp"
+                        idref="393" line="116" value="&quot;Fifo size is: &quot;"/>
+                    </primary_expression>
+                    <primary_expression column="40"
+                      file="simple_perf.cpp" idref="397" line="116">
+                      <id_expression column="43" file="simple_perf.cpp"
+                        idref="399" line="116" name="size"/>
+                    </primary_expression>
+                    <standart_manipulator column="48"
+                      file="simple_perf.cpp" idref="401" line="116" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="55" file="simple_perf.cpp"
+                  idref="403" line="117">
+                  <output_stream column="55" file="simple_perf.cpp"
+                    idref="405" line="117" name="cout">
+                    <primary_expression column="12"
+                      file="simple_perf.cpp" idref="409" line="117">
+                      <constant column="12" file="simple_perf.cpp"
+                        idref="411" line="117" value="&quot;Average fifo fill depth: &quot;"/>
+                    </primary_expression>
+                    <div_node column="19" file="simple_perf.cpp"
+                      idref="427" line="118">
+                      <postfix_expression column="43"
+                        file="simple_perf.cpp" idref="413" line="118">
+                        <simple_type_specifier column="43"
+                          file="simple_perf.cpp" idref="415" line="118">
+                          <builtin_type_specifier column="43"
+                            file="simple_perf.cpp" idref="417"
+                            length="0" line="118" name="double" sc_dt="false"/>
+                        </simple_type_specifier>
+                        <arguments_list column="9"
+                          file="simple_perf.cpp" idref="419" line="118">
+                          <primary_expression column="9"
+                            file="simple_perf.cpp" idref="423" line="118">
+                            <id_expression column="10"
+                              file="simple_perf.cpp" idref="425"
+                              line="118" name="average"/>
+                          </primary_expression>
+                        </arguments_list>
+                      </postfix_expression>
+                      <primary_expression column="19"
+                        file="simple_perf.cpp" idref="431" line="118">
+                        <id_expression column="21"
+                          file="simple_perf.cpp" idref="433" line="118" name="num_read"/>
+                      </primary_expression>
+                    </div_node>
+                    <standart_manipulator column="30"
+                      file="simple_perf.cpp" idref="435" line="118" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="37" file="simple_perf.cpp"
+                  idref="437" line="119">
+                  <output_stream column="37" file="simple_perf.cpp"
+                    idref="439" line="119" name="cout">
+                    <primary_expression column="12"
+                      file="simple_perf.cpp" idref="443" line="119">
+                      <constant column="12" file="simple_perf.cpp"
+                        idref="445" line="119" value="&quot;Maximum fifo fill depth: &quot;"/>
+                    </primary_expression>
+                    <primary_expression column="43"
+                      file="simple_perf.cpp" idref="449" line="119">
+                      <id_expression column="46" file="simple_perf.cpp"
+                        idref="451" line="119" name="max_used"/>
+                    </primary_expression>
+                    <standart_manipulator column="55"
+                      file="simple_perf.cpp" idref="453" line="119" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="62" file="simple_perf.cpp"
+                  idref="455" line="120">
+                  <output_stream column="62" file="simple_perf.cpp"
+                    idref="457" line="120" name="cout">
+                    <primary_expression column="12"
+                      file="simple_perf.cpp" idref="461" line="120">
+                      <constant column="12" file="simple_perf.cpp"
+                        idref="463" line="120" value="&quot;Average transfer time per character: &quot;"/>
+                    </primary_expression>
+                    <div_node column="16" file="simple_perf.cpp"
+                      idref="471" line="121">
+                      <primary_expression column="3"
+                        file="simple_perf.cpp" idref="467" line="121">
+                        <id_expression column="6" file="simple_perf.cpp"
+                          idref="469" line="121" name="last_time"/>
+                      </primary_expression>
+                      <primary_expression column="16"
+                        file="simple_perf.cpp" idref="475" line="121">
+                        <id_expression column="18"
+                          file="simple_perf.cpp" idref="477" line="121" name="num_read"/>
+                      </primary_expression>
+                    </div_node>
+                    <standart_manipulator column="27"
+                      file="simple_perf.cpp" idref="479" line="121" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="34" file="simple_perf.cpp"
+                  idref="481" line="122">
+                  <output_stream column="34" file="simple_perf.cpp"
+                    idref="483" line="122" name="cout">
+                    <primary_expression column="12"
+                      file="simple_perf.cpp" idref="487" line="122">
+                      <constant column="12" file="simple_perf.cpp"
+                        idref="489" line="122" value="&quot;Total characters transferred: &quot;"/>
+                    </primary_expression>
+                    <primary_expression column="48"
+                      file="simple_perf.cpp" idref="493" line="122">
+                      <id_expression column="51" file="simple_perf.cpp"
+                        idref="495" line="122" name="num_read"/>
+                    </primary_expression>
+                    <standart_manipulator column="60"
+                      file="simple_perf.cpp" idref="497" line="122" name="endl"/>
+                  </output_stream>
+                </block_statement>
+                <block_statement column="67" file="simple_perf.cpp"
+                  idref="499" line="123">
+                  <output_stream column="67" file="simple_perf.cpp"
+                    idref="501" line="123" name="cout">
+                    <primary_expression column="12"
+                      file="simple_perf.cpp" idref="505" line="123">
+                      <constant column="12" file="simple_perf.cpp"
+                        idref="507" line="123" value="&quot;Total time: &quot;"/>
+                    </primary_expression>
+                    <primary_expression column="30"
+                      file="simple_perf.cpp" idref="511" line="123">
+                      <id_expression column="33" file="simple_perf.cpp"
+                        idref="513" line="123" name="last_time"/>
+                    </primary_expression>
+                    <standart_manipulator column="43"
+                      file="simple_perf.cpp" idref="515" line="123" name="endl"/>
+                  </output_stream>
+                </block_statement>
+              </block>
+            </dtor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="517" line="126">
+            <function_definition column="5" file="simple_perf.cpp"
+              idref="519" line="126">
+              <declaration_specifiers column="5" file="simple_perf.cpp"
+                idref="521" line="126">
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="523" length="0"
+                  line="126" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="525" line="126">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="527" line="126" name="write"/>
+                <parameter_list column="15" file="simple_perf.cpp"
+                  idref="529" line="126">
+                  <parameter_declaration column="15"
+                    file="simple_perf.cpp" idref="531" line="126">
+                    <declaration_specifiers column="15"
+                      file="simple_perf.cpp" idref="533" line="126">
+                      <builtin_type_specifier column="15"
+                        file="simple_perf.cpp" idref="535" length="0"
+                        line="126" name="char" sc_dt="false"/>
+                    </declaration_specifiers>
+                    <declarator column="16" file="simple_perf.cpp"
+                      idref="537" line="126">
+                      <qualified_id column="16" file="simple_perf.cpp"
+                        idref="539" line="126" name="c"/>
+                    </declarator>
+                  </parameter_declaration>
+                </parameter_list>
+              </function_declarator>
+              <block column="22" file="simple_perf.cpp" idref="541" line="126">
+                <block_statement column="24" file="simple_perf.cpp"
+                  idref="543" line="127">
+                  <if_statement column="24" file="simple_perf.cpp"
+                    idref="545" line="127">
+                    <eq_node column="24" file="simple_perf.cpp"
+                      idref="553" line="127">
+                      <primary_expression column="10"
+                        file="simple_perf.cpp" idref="549" line="127">
+                        <id_expression column="11"
+                          file="simple_perf.cpp" idref="551" line="127" name="num_elements"/>
+                      </primary_expression>
+                      <primary_expression column="24"
+                        file="simple_perf.cpp" idref="557" line="127">
+                        <id_expression column="27"
+                          file="simple_perf.cpp" idref="559" line="127" name="size"/>
+                      </primary_expression>
+                    </eq_node>
+                    <block column="31" file="simple_perf.cpp"
+                      idref="561" line="128">
+                      <block_statement column="31"
+                        file="simple_perf.cpp" idref="563" line="128">
+                        <systemCRoutine column="31"
+                          file="simple_perf.cpp" idref="567" line="128" name="wait">
+                          <arguments column="9" file="simple_perf.cpp"
+                            idref="569" line="128">
+                            <arguments_list column="13"
+                              file="simple_perf.cpp" idref="571" line="128">
+                              <primary_expression column="13"
+                                file="simple_perf.cpp" idref="575" line="128">
+                                <id_expression column="14"
+                                  file="simple_perf.cpp" idref="577"
+                                  line="128" name="read_event"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="25" file="simple_perf.cpp"
+                  idref="579" line="130">
+                  <assignment column="43" file="simple_perf.cpp"
+                    idref="619" line="130">
+                    <primary_expression column="37"
+                      file="simple_perf.cpp" idref="615" line="130">
+                      <arrayaccess_expression column="11"
+                        file="simple_perf.cpp" idref="587" line="130">
+                        <primary_expression column="25"
+                          file="simple_perf.cpp" idref="583" line="130">
+                          <id_expression column="7"
+                            file="simple_perf.cpp" idref="585"
+                            line="130" name="data"/>
+                        </primary_expression>
+                        <mod_node column="35" file="simple_perf.cpp"
+                          idref="607" line="130">
+                          <primary_expression column="11"
+                            file="simple_perf.cpp" idref="591" line="130">
+                            <add_node column="19" file="simple_perf.cpp"
+                              idref="599" line="130">
+                              <primary_expression column="12"
+                                file="simple_perf.cpp" idref="595" line="130">
+                                <id_expression column="13"
+                                  file="simple_perf.cpp" idref="597"
+                                  line="130" name="first"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="simple_perf.cpp" idref="603" line="130">
+                                <id_expression column="21"
+                                  file="simple_perf.cpp" idref="605"
+                                  line="130" name="num_elements"/>
+                              </primary_expression>
+                            </add_node>
+                          </primary_expression>
+                          <primary_expression column="35"
+                            file="simple_perf.cpp" idref="611" line="130">
+                            <id_expression column="37"
+                              file="simple_perf.cpp" idref="613"
+                              line="130" name="size"/>
+                          </primary_expression>
+                        </mod_node>
+                      </arrayaccess_expression>
+                    </primary_expression>
+                    <assignment_operator column="41"
+                      file="simple_perf.cpp" idref="617" line="130"/>
+                    <primary_expression column="43"
+                      file="simple_perf.cpp" idref="623" line="130">
+                      <id_expression column="45" file="simple_perf.cpp"
+                        idref="625" line="130" name="c"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="46" file="simple_perf.cpp"
+                  idref="627" line="131">
+                  <preincrement_node column="7" file="simple_perf.cpp"
+                    idref="629" line="131">
+                    <primary_expression column="7"
+                      file="simple_perf.cpp" idref="633" line="131">
+                      <id_expression column="10" file="simple_perf.cpp"
+                        idref="635" line="131" name="num_elements"/>
+                    </primary_expression>
+                  </preincrement_node>
+                </block_statement>
+                <block_statement column="22" file="simple_perf.cpp"
+                  idref="637" line="132">
+                  <sc_notify column="22" file="simple_perf.cpp"
+                    idref="639" line="132" name="write_event"/>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="641" line="135">
+            <function_definition column="5" file="simple_perf.cpp"
+              idref="643" line="135">
+              <declaration_specifiers column="5" file="simple_perf.cpp"
+                idref="645" line="135">
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="647" length="0"
+                  line="135" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="649" line="135">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="651" line="135" name="read"/>
+                <parameter_list column="14" file="simple_perf.cpp"
+                  idref="653" line="135">
+                  <parameter_declaration column="14"
+                    file="simple_perf.cpp" idref="655" line="135">
+                    <declaration_specifiers column="14"
+                      file="simple_perf.cpp" idref="657" line="135">
+                      <builtin_type_specifier column="14"
+                        file="simple_perf.cpp" idref="659" length="0"
+                        line="135" name="char" sc_dt="false"/>
+                    </declaration_specifiers>
+                    <declarator column="15" file="simple_perf.cpp"
+                      idref="661" line="135">
+                      <ptr_operator column="15" file="simple_perf.cpp"
+                        idref="663" line="135" name="&amp;"/>
+                      <declarator column="20" file="simple_perf.cpp"
+                        idref="665" line="135">
+                        <qualified_id column="20" file="simple_perf.cpp"
+                          idref="667" line="135" name="c"/>
+                      </declarator>
+                    </declarator>
+                  </parameter_declaration>
+                </parameter_list>
+              </function_declarator>
+              <block column="22" file="simple_perf.cpp" idref="669" line="135">
+                <block_statement column="23" file="simple_perf.cpp"
+                  idref="671" line="136">
+                  <assignment column="17" file="simple_perf.cpp"
+                    idref="681" line="136">
+                    <primary_expression column="23"
+                      file="simple_perf.cpp" idref="675" line="136">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="677" line="136" name="last_time"/>
+                    </primary_expression>
+                    <assignment_operator column="7"
+                      file="simple_perf.cpp" idref="679" line="136"/>
+                    <systemCRoutine column="17" file="simple_perf.cpp"
+                      idref="685" line="136" name="sc_time_stamp">
+                      <arguments column="32" file="simple_perf.cpp"
+                        idref="687" line="136"/>
+                    </systemCRoutine>
+                  </assignment>
+                </block_statement>
+                <block_statement column="34" file="simple_perf.cpp"
+                  idref="689" line="137">
+                  <if_statement column="34" file="simple_perf.cpp"
+                    idref="691" line="137">
+                    <eq_node column="24" file="simple_perf.cpp"
+                      idref="699" line="137">
+                      <primary_expression column="10"
+                        file="simple_perf.cpp" idref="695" line="137">
+                        <id_expression column="11"
+                          file="simple_perf.cpp" idref="697" line="137" name="num_elements"/>
+                      </primary_expression>
+                      <primary_expression column="24"
+                        file="simple_perf.cpp" idref="703" line="137">
+                        <constant column="24" file="simple_perf.cpp"
+                          idref="705" line="137" value="0"/>
+                      </primary_expression>
+                    </eq_node>
+                    <block column="28" file="simple_perf.cpp"
+                      idref="707" line="138">
+                      <block_statement column="28"
+                        file="simple_perf.cpp" idref="709" line="138">
+                        <systemCRoutine column="28"
+                          file="simple_perf.cpp" idref="713" line="138" name="wait">
+                          <arguments column="9" file="simple_perf.cpp"
+                            idref="715" line="138">
+                            <arguments_list column="13"
+                              file="simple_perf.cpp" idref="717" line="138">
+                              <primary_expression column="13"
+                                file="simple_perf.cpp" idref="721" line="138">
+                                <id_expression column="14"
+                                  file="simple_perf.cpp" idref="723"
+                                  line="138" name="write_event"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="26" file="simple_perf.cpp"
+                  idref="725" line="140">
+                  <postfix_expression column="26" file="simple_perf.cpp"
+                    idref="727" line="140">
+                    <primary_expression column="26"
+                      file="simple_perf.cpp" idref="729" line="140">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="731" line="140" name="compute_stats"/>
+                    </primary_expression>
+                    <arguments column="7" file="simple_perf.cpp"
+                      idref="733" line="140"/>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="22" file="simple_perf.cpp"
+                  idref="735" line="142">
+                  <assignment column="9" file="simple_perf.cpp"
+                    idref="745" line="142">
+                    <primary_expression column="22"
+                      file="simple_perf.cpp" idref="739" line="142">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="741" line="142" name="c"/>
+                    </primary_expression>
+                    <assignment_operator column="7"
+                      file="simple_perf.cpp" idref="743" line="142"/>
+                    <primary_expression column="16"
+                      file="simple_perf.cpp" idref="761" line="142">
+                      <arrayaccess_expression column="15"
+                        file="simple_perf.cpp" idref="753" line="142">
+                        <primary_expression column="9"
+                          file="simple_perf.cpp" idref="749" line="142">
+                          <id_expression column="11"
+                            file="simple_perf.cpp" idref="751"
+                            line="142" name="data"/>
+                        </primary_expression>
+                        <primary_expression column="15"
+                          file="simple_perf.cpp" idref="757" line="142">
+                          <id_expression column="16"
+                            file="simple_perf.cpp" idref="759"
+                            line="142" name="first"/>
+                        </primary_expression>
+                      </arrayaccess_expression>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="22" file="simple_perf.cpp"
+                  idref="763" line="143">
+                  <predecrement_node column="7" file="simple_perf.cpp"
+                    idref="765" line="143">
+                    <primary_expression column="7"
+                      file="simple_perf.cpp" idref="769" line="143">
+                      <id_expression column="10" file="simple_perf.cpp"
+                        idref="771" line="143" name="num_elements"/>
+                    </primary_expression>
+                  </predecrement_node>
+                </block_statement>
+                <block_statement column="22" file="simple_perf.cpp"
+                  idref="773" line="144">
+                  <assignment column="13" file="simple_perf.cpp"
+                    idref="783" line="144">
+                    <primary_expression column="22"
+                      file="simple_perf.cpp" idref="777" line="144">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="779" line="144" name="first"/>
+                    </primary_expression>
+                    <assignment_operator column="7"
+                      file="simple_perf.cpp" idref="781" line="144"/>
+                    <mod_node column="27" file="simple_perf.cpp"
+                      idref="803" line="144">
+                      <primary_expression column="13"
+                        file="simple_perf.cpp" idref="787" line="144">
+                        <add_node column="22" file="simple_perf.cpp"
+                          idref="795" line="144">
+                          <primary_expression column="15"
+                            file="simple_perf.cpp" idref="791" line="144">
+                            <id_expression column="16"
+                              file="simple_perf.cpp" idref="793"
+                              line="144" name="first"/>
+                          </primary_expression>
+                          <primary_expression column="22"
+                            file="simple_perf.cpp" idref="799" line="144">
+                            <constant column="22" file="simple_perf.cpp"
+                              idref="801" line="144" value="1"/>
+                          </primary_expression>
+                        </add_node>
+                      </primary_expression>
+                      <primary_expression column="27"
+                        file="simple_perf.cpp" idref="807" line="144">
+                        <id_expression column="29"
+                          file="simple_perf.cpp" idref="809" line="144" name="size"/>
+                      </primary_expression>
+                    </mod_node>
+                  </assignment>
+                </block_statement>
+                <block_statement column="33" file="simple_perf.cpp"
+                  idref="811" line="145">
+                  <sc_notify column="33" file="simple_perf.cpp"
+                    idref="813" line="145" name="read_event"/>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="815" line="148">
+            <function_definition column="5" file="simple_perf.cpp"
+              idref="817" line="148">
+              <declaration_specifiers column="5" file="simple_perf.cpp"
+                idref="819" line="148">
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="821" length="0"
+                  line="148" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="823" line="148">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="825" line="148" name="reset"/>
+              </function_declarator>
+              <block column="16" file="simple_perf.cpp" idref="827" line="148">
+                <block_statement column="18" file="simple_perf.cpp"
+                  idref="829" line="148">
+                  <assignment column="33" file="simple_perf.cpp"
+                    idref="839" line="148">
+                    <primary_expression column="18"
+                      file="simple_perf.cpp" idref="833" line="148">
+                      <id_expression column="20" file="simple_perf.cpp"
+                        idref="835" line="148" name="num_elements"/>
+                    </primary_expression>
+                    <assignment_operator column="20"
+                      file="simple_perf.cpp" idref="837" line="148"/>
+                    <assignment column="41" file="simple_perf.cpp"
+                      idref="849" line="148">
+                      <primary_expression column="33"
+                        file="simple_perf.cpp" idref="843" line="148">
+                        <id_expression column="35"
+                          file="simple_perf.cpp" idref="845" line="148" name="first"/>
+                      </primary_expression>
+                      <assignment_operator column="35"
+                        file="simple_perf.cpp" idref="847" line="148"/>
+                      <primary_expression column="41"
+                        file="simple_perf.cpp" idref="853" line="148">
+                        <constant column="41" file="simple_perf.cpp"
+                          idref="855" line="148" value="0"/>
+                      </primary_expression>
+                    </assignment>
+                  </assignment>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="46" file="simple_perf.cpp"
+            idref="857" line="150">
+            <function_definition column="46" file="simple_perf.cpp"
+              idref="859" line="150">
+              <declaration_specifiers column="46" file="simple_perf.cpp"
+                idref="861" line="150">
+                <builtin_type_specifier column="46"
+                  file="simple_perf.cpp" idref="863" length="0"
+                  line="150" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="865" line="150">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="867" line="150" name="num_available"/>
+              </function_declarator>
+              <block column="23" file="simple_perf.cpp" idref="869" line="150">
+                <block_statement column="25" file="simple_perf.cpp"
+                  idref="871" line="150">
+                  <return_statement column="25" file="simple_perf.cpp"
+                    idref="873" line="150">
+                    <primary_expression column="27"
+                      file="simple_perf.cpp" idref="877" line="150">
+                      <id_expression column="34" file="simple_perf.cpp"
+                        idref="879" line="150" name="num_elements"/>
+                    </primary_expression>
+                  </return_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="47" file="simple_perf.cpp"
+            idref="881" line="152">
+            <access_specifier column="47" file="simple_perf.cpp"
+              idref="883" line="152" name="private"/>
+          </member_declaration>
+          <member_declaration column="10" file="simple_perf.cpp"
+            idref="885" line="153">
+            <member_declarator_list column="10" file="simple_perf.cpp"
+              idref="887" line="153">
+              <declaration_specifiers column="10" file="simple_perf.cpp"
+                idref="889" line="153">
+                <builtin_type_specifier column="10"
+                  file="simple_perf.cpp" idref="891" length="0"
+                  line="153" name="char" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="893" line="153">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="895" line="153">
+                  <ptr_operator column="5" file="simple_perf.cpp"
+                    idref="897" line="153" name="*"/>
+                  <declarator column="10" file="simple_perf.cpp"
+                    idref="899" line="153">
+                    <qualified_id column="10" file="simple_perf.cpp"
+                      idref="901" line="153" name="data"/>
+                  </declarator>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="15" file="simple_perf.cpp"
+            idref="903" line="154">
+            <member_declarator_list column="15" file="simple_perf.cpp"
+              idref="905" line="154">
+              <declaration_specifiers column="15" file="simple_perf.cpp"
+                idref="907" line="154">
+                <builtin_type_specifier column="15"
+                  file="simple_perf.cpp" idref="909" length="0"
+                  line="154" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="911" line="154">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="913" line="154">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="915" line="154" name="num_elements"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="21" file="simple_perf.cpp"
+                idref="917" line="154">
+                <declarator column="21" file="simple_perf.cpp"
+                  idref="919" line="154">
+                  <qualified_id column="21" file="simple_perf.cpp"
+                    idref="921" line="154" name="first"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="28" file="simple_perf.cpp"
+            idref="923" line="155">
+            <member_declarator_list column="28" file="simple_perf.cpp"
+              idref="925" line="155">
+              <declaration_specifiers column="28" file="simple_perf.cpp"
+                idref="927" line="155">
+                <builtin_type_specifier column="28"
+                  file="simple_perf.cpp" idref="929" length="0"
+                  line="155" name="sc_event" sc_dt="true"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="931" line="155">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="933" line="155">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="935" line="155" name="write_event"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="25" file="simple_perf.cpp"
+                idref="937" line="155">
+                <declarator column="25" file="simple_perf.cpp"
+                  idref="939" line="155">
+                  <qualified_id column="25" file="simple_perf.cpp"
+                    idref="941" line="155" name="read_event"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="37" file="simple_perf.cpp"
+            idref="943" line="156">
+            <member_declarator_list column="37" file="simple_perf.cpp"
+              idref="945" line="156">
+              <declaration_specifiers column="37" file="simple_perf.cpp"
+                idref="947" line="156">
+                <builtin_type_specifier column="37"
+                  file="simple_perf.cpp" idref="949" length="0"
+                  line="156" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="951" line="156">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="953" line="156">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="955" line="156" name="size"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="13" file="simple_perf.cpp"
+                idref="957" line="156">
+                <declarator column="13" file="simple_perf.cpp"
+                  idref="959" line="156">
+                  <qualified_id column="13" file="simple_perf.cpp"
+                    idref="961" line="156" name="num_read"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="23" file="simple_perf.cpp"
+                idref="963" line="156">
+                <declarator column="23" file="simple_perf.cpp"
+                  idref="965" line="156">
+                  <qualified_id column="23" file="simple_perf.cpp"
+                    idref="967" line="156" name="max_used"/>
+                </declarator>
+              </member_declarator>
+              <member_declarator column="33" file="simple_perf.cpp"
+                idref="969" line="156">
+                <declarator column="33" file="simple_perf.cpp"
+                  idref="971" line="156">
+                  <qualified_id column="33" file="simple_perf.cpp"
+                    idref="973" line="156" name="average"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="42" file="simple_perf.cpp"
+            idref="975" line="157">
+            <member_declarator_list column="42" file="simple_perf.cpp"
+              idref="977" line="157">
+              <declaration_specifiers column="42" file="simple_perf.cpp"
+                idref="979" line="157">
+                <builtin_type_specifier column="42"
+                  file="simple_perf.cpp" idref="981" length="0"
+                  line="157" name="sc_time" sc_dt="true"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="983" line="157">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="985" line="157">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="987" line="157" name="last_time"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="22" file="simple_perf.cpp"
+            idref="989" line="159">
+            <function_definition column="22" file="simple_perf.cpp"
+              idref="991" line="159">
+              <declaration_specifiers column="22" file="simple_perf.cpp"
+                idref="993" line="159">
+                <builtin_type_specifier column="22"
+                  file="simple_perf.cpp" idref="995" length="0"
+                  line="159" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="997" line="159">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="999" line="159" name="compute_stats"/>
+              </function_declarator>
+              <block column="24" file="simple_perf.cpp" idref="1001" line="160">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="1003" line="161">
+                  <expression_assignment column="15"
+                    file="simple_perf.cpp" idref="1013" line="161">
+                    <primary_expression column="5"
+                      file="simple_perf.cpp" idref="1007" line="161">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="1009" line="161" name="average"/>
+                    </primary_expression>
+                    <assignment_expression_operator column="7"
+                      file="simple_perf.cpp" idref="1011" line="161" name="+="/>
+                    <primary_expression column="15"
+                      file="simple_perf.cpp" idref="1017" line="161">
+                      <id_expression column="18" file="simple_perf.cpp"
+                        idref="1019" line="161" name="num_elements"/>
+                    </primary_expression>
+                  </expression_assignment>
+                </block_statement>
+                <block_statement column="30" file="simple_perf.cpp"
+                  idref="1021" line="163">
+                  <if_statement column="30" file="simple_perf.cpp"
+                    idref="1023" line="163">
+                    <gt_node column="24" file="simple_perf.cpp"
+                      idref="1031" line="163">
+                      <primary_expression column="10"
+                        file="simple_perf.cpp" idref="1027" line="163">
+                        <id_expression column="11"
+                          file="simple_perf.cpp" idref="1029" line="163" name="num_elements"/>
+                      </primary_expression>
+                      <primary_expression column="24"
+                        file="simple_perf.cpp" idref="1035" line="163">
+                        <id_expression column="26"
+                          file="simple_perf.cpp" idref="1037" line="163" name="max_used"/>
+                      </primary_expression>
+                    </gt_node>
+                    <block column="34" file="simple_perf.cpp"
+                      idref="1039" line="164">
+                      <block_statement column="34"
+                        file="simple_perf.cpp" idref="1041" line="164">
+                        <assignment column="19" file="simple_perf.cpp"
+                          idref="1051" line="164">
+                          <primary_expression column="34"
+                            file="simple_perf.cpp" idref="1045" line="164">
+                            <id_expression column="10"
+                              file="simple_perf.cpp" idref="1047"
+                              line="164" name="max_used"/>
+                          </primary_expression>
+                          <assignment_operator column="10"
+                            file="simple_perf.cpp" idref="1049" line="164"/>
+                          <primary_expression column="19"
+                            file="simple_perf.cpp" idref="1055" line="164">
+                            <id_expression column="21"
+                              file="simple_perf.cpp" idref="1057"
+                              line="164" name="num_elements"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                    </block>
+                  </if_statement>
+                </block_statement>
+                <block_statement column="33" file="simple_perf.cpp"
+                  idref="1059" line="166">
+                  <preincrement_node column="7" file="simple_perf.cpp"
+                    idref="1061" line="166">
+                    <primary_expression column="7"
+                      file="simple_perf.cpp" idref="1065" line="166">
+                      <id_expression column="9" file="simple_perf.cpp"
+                        idref="1067" line="166" name="num_read"/>
+                    </primary_expression>
+                  </preincrement_node>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="1069" line="170">
+    <declaration column="2" file="simple_perf.cpp" idref="1071" line="170">
+      <declaration_specifiers column="2" file="simple_perf.cpp"
+        idref="1075" line="170">
+        <class_specifier column="2" extSCModule="true"
+          file="simple_perf.cpp" idref="1077" keyword="class" line="170" name="producer">
+          <base_clause column="7" file="simple_perf.cpp" idref="1079" line="170">
+            <base_specifier column="16" file="simple_perf.cpp"
+              idref="1081" length="0" line="170" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="16"
+                file="simple_perf.cpp" idref="1083" line="170" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="1085" line="172">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="1087" line="172" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="1089" line="173">
+            <member_declarator_list column="9" file="simple_perf.cpp"
+              idref="1091" line="173">
+              <sc_port_specifier column="9" file="simple_perf.cpp"
+                idref="1093" line="173" name="sc_port" numOfChanels="1">
+                <declaration_specifiers column="12"
+                  file="simple_perf.cpp" idref="1095" line="173">
+                  <qualified_type column="12" file="simple_perf.cpp"
+                    idref="1097" line="173">
+                    <qualified_id column="12" file="simple_perf.cpp"
+                      idref="1099" line="173" name="write_if"/>
+                  </qualified_type>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="21" file="simple_perf.cpp"
+                idref="1101" line="173">
+                <declarator column="21" file="simple_perf.cpp"
+                  idref="1103" line="173">
+                  <qualified_id column="21" file="simple_perf.cpp"
+                    idref="1105" line="173" name="out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="26" file="simple_perf.cpp"
+            idref="1107" line="175"/>
+          <member_declaration column="29" file="simple_perf.cpp"
+            idref="1109" line="177">
+            <ctor_definition column="29" file="simple_perf.cpp"
+              idref="1111" line="177">
+              <qualified_id column="29" file="simple_perf.cpp"
+                idref="1113" line="177" name="producer"/>
+              <parameter_list column="13" file="simple_perf.cpp"
+                idref="1115" line="177">
+                <parameter_declaration column="13"
+                  file="simple_perf.cpp" idref="1117" line="177">
+                  <declaration_specifiers column="13"
+                    file="simple_perf.cpp" idref="1119" line="177">
+                    <builtin_type_specifier column="13"
+                      file="simple_perf.cpp" idref="1121" length="0"
+                      line="177" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="14" file="simple_perf.cpp"
+                    idref="1123" line="177">
+                    <qualified_id column="14" file="simple_perf.cpp"
+                      idref="1125" line="177" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="33" file="simple_perf.cpp"
+                idref="1127" line="177">
+                <superclass_init column="35" file="simple_perf.cpp"
+                  idref="1129" line="177">
+                  <declaration_specifiers column="35"
+                    file="simple_perf.cpp" idref="1131" line="177">
+                    <builtin_type_specifier column="35"
+                      file="simple_perf.cpp" idref="1133" length="0"
+                      line="177" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="46" file="simple_perf.cpp"
+                    idref="1135" line="177">
+                    <primary_expression column="46"
+                      file="simple_perf.cpp" idref="1139" line="177">
+                      <id_expression column="47" file="simple_perf.cpp"
+                        idref="1141" line="177" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="51" file="simple_perf.cpp" idref="1143" line="178">
+                <sc_thread_block column="5" file="simple_perf.cpp"
+                  idref="1145" line="179">
+                  <sc_thread column="5" file="simple_perf.cpp"
+                    idref="1147" line="179" name="main"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="1149" line="182">
+            <function_definition column="5" file="simple_perf.cpp"
+              idref="1151" line="182">
+              <declaration_specifiers column="5" file="simple_perf.cpp"
+                idref="1153" line="182">
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="1155" length="0"
+                  line="182" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="1157" line="182">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="1159" line="182" name="main"/>
+              </function_declarator>
+              <block column="15" file="simple_perf.cpp" idref="1161" line="183">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="1163" line="184">
+                  <declaration column="5" file="simple_perf.cpp"
+                    idref="1165" line="184">
+                    <init_declarator_list column="5"
+                      file="simple_perf.cpp" idref="1167" line="184">
+                      <declaration_specifiers column="5"
+                        file="simple_perf.cpp" idref="1169" line="184">
+                        <type_modifiers column="5"
+                          file="simple_perf.cpp" idref="1171" line="184">
+                          <type_qualifier column="5"
+                            file="simple_perf.cpp" idref="1173"
+                            line="184" name="const"/>
+                        </type_modifiers>
+                        <builtin_type_specifier column="7"
+                          file="simple_perf.cpp" idref="1175" length="0"
+                          line="184" name="char" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="13"
+                        file="simple_perf.cpp" idref="1177" line="184">
+                        <declarator column="13" file="simple_perf.cpp"
+                          idref="1179" line="184">
+                          <ptr_operator column="13"
+                            file="simple_perf.cpp" idref="1181"
+                            line="184" name="*"/>
+                          <declarator column="18" file="simple_perf.cpp"
+                            idref="1183" line="184">
+                            <qualified_id column="18"
+                              file="simple_perf.cpp" idref="1185"
+                              line="184" name="str"/>
+                          </declarator>
+                        </declarator>
+                        <initializer column="23" file="simple_perf.cpp"
+                          idref="1187" line="185">
+                          <primary_expression column="23"
+                            file="simple_perf.cpp" idref="1191" line="185">
+                            <constant column="23" file="simple_perf.cpp"
+                              idref="1193" line="185" value="&quot;Visit www.systemc.org and see what SystemC can do for you today!\n&quot;"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="70" file="simple_perf.cpp"
+                  idref="1195" line="186">
+                  <declaration column="70" file="simple_perf.cpp"
+                    idref="1197" line="186">
+                    <init_declarator_list column="70"
+                      file="simple_perf.cpp" idref="1199" line="186">
+                      <declaration_specifiers column="70"
+                        file="simple_perf.cpp" idref="1201" line="186">
+                        <type_modifiers column="70"
+                          file="simple_perf.cpp" idref="1203" line="186">
+                          <type_qualifier column="70"
+                            file="simple_perf.cpp" idref="1205"
+                            line="186" name="const"/>
+                        </type_modifiers>
+                        <builtin_type_specifier column="7"
+                          file="simple_perf.cpp" idref="1207" length="0"
+                          line="186" name="char" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="13"
+                        file="simple_perf.cpp" idref="1209" line="186">
+                        <declarator column="13" file="simple_perf.cpp"
+                          idref="1211" line="186">
+                          <ptr_operator column="13"
+                            file="simple_perf.cpp" idref="1213"
+                            line="186" name="*"/>
+                          <declarator column="18" file="simple_perf.cpp"
+                            idref="1215" line="186">
+                            <qualified_id column="18"
+                              file="simple_perf.cpp" idref="1217"
+                              line="186" name="p"/>
+                          </declarator>
+                        </declarator>
+                        <initializer column="21" file="simple_perf.cpp"
+                          idref="1219" line="186">
+                          <primary_expression column="21"
+                            file="simple_perf.cpp" idref="1223" line="186">
+                            <id_expression column="23"
+                              file="simple_perf.cpp" idref="1225"
+                              line="186" name="str"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="26" file="simple_perf.cpp"
+                  idref="1227" line="187">
+                  <declaration column="26" file="simple_perf.cpp"
+                    idref="1229" line="187">
+                    <init_declarator_list column="26"
+                      file="simple_perf.cpp" idref="1231" line="187">
+                      <declaration_specifiers column="26"
+                        file="simple_perf.cpp" idref="1233" line="187">
+                        <builtin_type_specifier column="26"
+                          file="simple_perf.cpp" idref="1235" length="0"
+                          line="187" name="int" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="7" file="simple_perf.cpp"
+                        idref="1237" line="187">
+                        <declarator column="7" file="simple_perf.cpp"
+                          idref="1239" line="187">
+                          <qualified_id column="7"
+                            file="simple_perf.cpp" idref="1241"
+                            line="187" name="total"/>
+                        </declarator>
+                        <initializer column="17" file="simple_perf.cpp"
+                          idref="1243" line="187">
+                          <primary_expression column="17"
+                            file="simple_perf.cpp" idref="1247" line="187">
+                            <constant column="17" file="simple_perf.cpp"
+                              idref="1249" line="187" value="100000"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="25" file="simple_perf.cpp"
+                  idref="1251" line="189">
+                  <while_statement column="25" file="simple_perf.cpp"
+                    idref="1253" line="189">
+                    <primary_expression column="13"
+                      file="simple_perf.cpp" idref="1257" line="189">
+                      <constant column="13" file="simple_perf.cpp"
+                        idref="1259" line="189" value="true"/>
+                    </primary_expression>
+                    <block column="18" file="simple_perf.cpp"
+                      idref="1261" line="190">
+                      <block_statement column="7" file="simple_perf.cpp"
+                        idref="1263" line="191">
+                        <declaration column="7" file="simple_perf.cpp"
+                          idref="1265" line="191">
+                          <init_declarator_list column="7"
+                            file="simple_perf.cpp" idref="1267" line="191">
+                            <declaration_specifiers column="7"
+                              file="simple_perf.cpp" idref="1269" line="191">
+                              <builtin_type_specifier column="7"
+                                file="simple_perf.cpp" idref="1271"
+                                length="0" line="191" name="int" sc_dt="false"/>
+                            </declaration_specifiers>
+                            <init_declarator column="2"
+                              file="simple_perf.cpp" idref="1273" line="191">
+                              <declarator column="2"
+                                file="simple_perf.cpp" idref="1275" line="191">
+                                <qualified_id column="2"
+                                  file="simple_perf.cpp" idref="1277"
+                                  line="191" name="i"/>
+                              </declarator>
+                              <initializer column="8"
+                                file="simple_perf.cpp" idref="1279" line="191">
+                                <add_node column="12"
+                                  file="simple_perf.cpp" idref="1287" line="191">
+                                  <primary_expression column="8"
+                                    file="simple_perf.cpp" idref="1283" line="191">
+                                    <constant column="8"
+                                    file="simple_perf.cpp"
+                                    idref="1285" line="191" value="1"/>
+                                  </primary_expression>
+                                  <postfix_expression column="12"
+                                    file="simple_perf.cpp" idref="1289" line="191">
+                                    <simple_type_specifier column="12"
+                                    file="simple_perf.cpp"
+                                    idref="1291" line="191">
+                                    <builtin_type_specifier
+                                    column="12"
+                                    file="simple_perf.cpp"
+                                    idref="1293" length="0"
+                                    line="191" name="int" sc_dt="false"/>
+                                    </simple_type_specifier>
+                                    <arguments_list column="17"
+                                    file="simple_perf.cpp"
+                                    idref="1295" line="191">
+                                    <div_node column="32"
+                                    file="simple_perf.cpp"
+                                    idref="1313" line="191">
+                                    <mul_node column="23"
+                                    file="simple_perf.cpp"
+                                    idref="1303" line="191">
+                                    <primary_expression
+                                    column="17"
+                                    file="simple_perf.cpp"
+                                    idref="1299" line="191">
+                                    <constant column="17"
+                                    file="simple_perf.cpp"
+                                    idref="1301" line="191" value="19.0"/>
+                                    </primary_expression>
+                                    <postfix_expression
+                                    column="23"
+                                    file="simple_perf.cpp"
+                                    idref="1305" line="191">
+                                    <primary_expression
+                                    column="23"
+                                    file="simple_perf.cpp"
+                                    idref="1307" line="191">
+                                    <id_expression column="25"
+                                    file="simple_perf.cpp"
+                                    idref="1309" line="191" name="rand"/>
+                                    </primary_expression>
+                                    <arguments column="25"
+                                    file="simple_perf.cpp"
+                                    idref="1311" line="191"/>
+                                    </postfix_expression>
+                                    </mul_node>
+                                    <primary_expression column="32"
+                                    file="simple_perf.cpp"
+                                    idref="1317" line="191">
+                                    <id_expression column="34"
+                                    file="simple_perf.cpp"
+                                    idref="1319" line="191" name="RAND_MAX"/>
+                                    </primary_expression>
+                                    </div_node>
+                                    </arguments_list>
+                                  </postfix_expression>
+                                </add_node>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <comment column="45" file="simple_perf.cpp"
+                        idref="1320" line="191" name="//  1 &lt;= i &lt;= 19"/>
+                      <block_statement column="43"
+                        file="simple_perf.cpp" idref="1322" line="193">
+                        <while_statement column="43"
+                          file="simple_perf.cpp" idref="1324" line="193">
+                          <ge_node column="13" file="simple_perf.cpp"
+                            idref="1334" line="193">
+                            <predecrement_node column="9"
+                              file="simple_perf.cpp" idref="1326" line="193">
+                              <primary_expression column="9"
+                                file="simple_perf.cpp" idref="1330" line="193">
+                                <id_expression column="11"
+                                  file="simple_perf.cpp" idref="1332"
+                                  line="193" name="i"/>
+                              </primary_expression>
+                            </predecrement_node>
+                            <primary_expression column="13"
+                              file="simple_perf.cpp" idref="1338" line="193">
+                              <constant column="13"
+                                file="simple_perf.cpp" idref="1340"
+                                line="193" value="0"/>
+                            </primary_expression>
+                          </ge_node>
+                          <block column="17" file="simple_perf.cpp"
+                            idref="1342" line="194">
+                            <block_statement column="2"
+                              file="simple_perf.cpp" idref="1344" line="195">
+                              <postfix_expression column="2"
+                                file="simple_perf.cpp" idref="1346" line="195">
+                                <primary_expression column="2"
+                                  file="simple_perf.cpp" idref="1348" line="195">
+                                  <id_expression column="11"
+                                    file="simple_perf.cpp" idref="1350"
+                                    line="195" name="out"/>
+                                </primary_expression>
+                                <dereferencing_operator column="11"
+                                  file="simple_perf.cpp" idref="1352"
+                                  line="195" name="*"/>
+                                <id_expression column="16"
+                                  file="simple_perf.cpp" idref="1354"
+                                  line="195" name="write"/>
+                                <arguments column="16"
+                                  file="simple_perf.cpp" idref="1356" line="195">
+                                  <arguments_list column="21"
+                                    file="simple_perf.cpp" idref="1358" line="195">
+                                    <unary_expression column="21"
+                                    file="simple_perf.cpp"
+                                    idref="1360" line="195">
+                                    <unary_operator column="21"
+                                    file="simple_perf.cpp"
+                                    idref="1362" line="195" operator="pointer"/>
+                                    <postincrement_node column="23"
+                                    file="simple_perf.cpp"
+                                    idref="1370" line="195">
+                                    <primary_expression column="22"
+                                    file="simple_perf.cpp"
+                                    idref="1366" line="195">
+                                    <id_expression column="23"
+                                    file="simple_perf.cpp"
+                                    idref="1368" line="195" name="p"/>
+                                    </primary_expression>
+                                    </postincrement_node>
+                                    </unary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </postfix_expression>
+                            </block_statement>
+                            <block_statement column="27"
+                              file="simple_perf.cpp" idref="1372" line="196">
+                              <if_statement column="27"
+                                file="simple_perf.cpp" idref="1374" line="196">
+                                <unary_expression column="7"
+                                  file="simple_perf.cpp" idref="1376" line="196">
+                                  <unary_operator column="7"
+                                    file="simple_perf.cpp" idref="1378"
+                                    line="196" operator="not"/>
+                                  <unary_expression column="8"
+                                    file="simple_perf.cpp" idref="1380" line="196">
+                                    <unary_operator column="8"
+                                    file="simple_perf.cpp"
+                                    idref="1382" line="196" operator="pointer"/>
+                                    <primary_expression column="9"
+                                    file="simple_perf.cpp"
+                                    idref="1386" line="196">
+                                    <id_expression column="10"
+                                    file="simple_perf.cpp"
+                                    idref="1388" line="196" name="p"/>
+                                    </primary_expression>
+                                  </unary_expression>
+                                </unary_expression>
+                                <block column="11"
+                                  file="simple_perf.cpp" idref="1390" line="196">
+                                  <block_statement column="11"
+                                    file="simple_perf.cpp" idref="1392" line="196">
+                                    <assignment column="15"
+                                    file="simple_perf.cpp"
+                                    idref="1402" line="196">
+                                    <primary_expression column="11"
+                                    file="simple_perf.cpp"
+                                    idref="1396" line="196">
+                                    <id_expression column="13"
+                                    file="simple_perf.cpp"
+                                    idref="1398" line="196" name="p"/>
+                                    </primary_expression>
+                                    <assignment_operator column="13"
+                                    file="simple_perf.cpp"
+                                    idref="1400" line="196"/>
+                                    <primary_expression column="15"
+                                    file="simple_perf.cpp"
+                                    idref="1406" line="196">
+                                    <id_expression column="17"
+                                    file="simple_perf.cpp"
+                                    idref="1408" line="196" name="str"/>
+                                    </primary_expression>
+                                    </assignment>
+                                  </block_statement>
+                                </block>
+                              </if_statement>
+                            </block_statement>
+                            <block_statement column="20"
+                              file="simple_perf.cpp" idref="1410" line="197">
+                              <predecrement_node column="4"
+                                file="simple_perf.cpp" idref="1412" line="197">
+                                <primary_expression column="4"
+                                  file="simple_perf.cpp" idref="1416" line="197">
+                                  <id_expression column="7"
+                                    file="simple_perf.cpp" idref="1418"
+                                    line="197" name="total"/>
+                                </primary_expression>
+                              </predecrement_node>
+                            </block_statement>
+                          </block>
+                        </while_statement>
+                      </block_statement>
+                      <block_statement column="2" file="simple_perf.cpp"
+                        idref="1420" line="200">
+                        <if_statement column="2" file="simple_perf.cpp"
+                          idref="1422" line="200">
+                          <le_node column="12" file="simple_perf.cpp"
+                            idref="1430" line="200">
+                            <primary_expression column="5"
+                              file="simple_perf.cpp" idref="1426" line="200">
+                              <id_expression column="6"
+                                file="simple_perf.cpp" idref="1428"
+                                line="200" name="total"/>
+                            </primary_expression>
+                            <primary_expression column="12"
+                              file="simple_perf.cpp" idref="1434" line="200">
+                              <constant column="12"
+                                file="simple_perf.cpp" idref="1436"
+                                line="200" value="0"/>
+                            </primary_expression>
+                          </le_node>
+                          <block column="16" file="simple_perf.cpp"
+                            idref="1438" line="201">
+                            <block_statement column="16"
+                              file="simple_perf.cpp" idref="1440" line="201">
+                              <break_statement column="16"
+                                file="simple_perf.cpp" idref="1442" line="201"/>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="9" file="simple_perf.cpp"
+                        idref="1444" line="203">
+                        <systemCRoutine column="9"
+                          file="simple_perf.cpp" idref="1448" line="203" name="wait">
+                          <arguments column="2" file="simple_perf.cpp"
+                            idref="1450" line="203">
+                            <arguments_list column="6"
+                              file="simple_perf.cpp" idref="1452" line="203">
+                              <primary_expression column="6"
+                                file="simple_perf.cpp" idref="1456" line="203">
+                                <constant column="6"
+                                  file="simple_perf.cpp" idref="1458"
+                                  line="203" value="1000"/>
+                              </primary_expression>
+                              <primary_expression column="11"
+                                file="simple_perf.cpp" idref="1462" line="203">
+                                <constant column="11"
+                                  file="simple_perf.cpp" idref="1464"
+                                  line="203" value="SC_NS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="1466" line="208">
+    <declaration column="2" file="simple_perf.cpp" idref="1468" line="208">
+      <declaration_specifiers column="2" file="simple_perf.cpp"
+        idref="1472" line="208">
+        <class_specifier column="2" extSCModule="true"
+          file="simple_perf.cpp" idref="1474" keyword="class" line="208" name="consumer">
+          <base_clause column="7" file="simple_perf.cpp" idref="1476" line="208">
+            <base_specifier column="16" file="simple_perf.cpp"
+              idref="1478" length="0" line="208" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="16"
+                file="simple_perf.cpp" idref="1480" line="208" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="1482" line="210">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="1484" line="210" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="1486" line="211">
+            <member_declarator_list column="9" file="simple_perf.cpp"
+              idref="1488" line="211">
+              <sc_port_specifier column="9" file="simple_perf.cpp"
+                idref="1490" line="211" name="sc_port" numOfChanels="1">
+                <declaration_specifiers column="12"
+                  file="simple_perf.cpp" idref="1492" line="211">
+                  <qualified_type column="12" file="simple_perf.cpp"
+                    idref="1494" line="211">
+                    <qualified_id column="12" file="simple_perf.cpp"
+                      idref="1496" line="211" name="read_if"/>
+                  </qualified_type>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="20" file="simple_perf.cpp"
+                idref="1498" line="211">
+                <declarator column="20" file="simple_perf.cpp"
+                  idref="1500" line="211">
+                  <qualified_id column="20" file="simple_perf.cpp"
+                    idref="1502" line="211" name="in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="24" file="simple_perf.cpp"
+            idref="1504" line="213"/>
+          <member_declaration column="29" file="simple_perf.cpp"
+            idref="1506" line="215">
+            <ctor_definition column="29" file="simple_perf.cpp"
+              idref="1508" line="215">
+              <qualified_id column="29" file="simple_perf.cpp"
+                idref="1510" line="215" name="consumer"/>
+              <parameter_list column="13" file="simple_perf.cpp"
+                idref="1512" line="215">
+                <parameter_declaration column="13"
+                  file="simple_perf.cpp" idref="1514" line="215">
+                  <declaration_specifiers column="13"
+                    file="simple_perf.cpp" idref="1516" line="215">
+                    <builtin_type_specifier column="13"
+                      file="simple_perf.cpp" idref="1518" length="0"
+                      line="215" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="14" file="simple_perf.cpp"
+                    idref="1520" line="215">
+                    <qualified_id column="14" file="simple_perf.cpp"
+                      idref="1522" line="215" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="33" file="simple_perf.cpp"
+                idref="1524" line="215">
+                <superclass_init column="35" file="simple_perf.cpp"
+                  idref="1526" line="215">
+                  <declaration_specifiers column="35"
+                    file="simple_perf.cpp" idref="1528" line="215">
+                    <builtin_type_specifier column="35"
+                      file="simple_perf.cpp" idref="1530" length="0"
+                      line="215" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="46" file="simple_perf.cpp"
+                    idref="1532" line="215">
+                    <primary_expression column="46"
+                      file="simple_perf.cpp" idref="1536" line="215">
+                      <id_expression column="47" file="simple_perf.cpp"
+                        idref="1538" line="215" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="51" file="simple_perf.cpp" idref="1540" line="216">
+                <sc_thread_block column="5" file="simple_perf.cpp"
+                  idref="1542" line="217">
+                  <sc_thread column="5" file="simple_perf.cpp"
+                    idref="1544" line="217" name="main"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+          <member_declaration column="5" file="simple_perf.cpp"
+            idref="1546" line="220">
+            <function_definition column="5" file="simple_perf.cpp"
+              idref="1548" line="220">
+              <declaration_specifiers column="5" file="simple_perf.cpp"
+                idref="1550" line="220">
+                <builtin_type_specifier column="5"
+                  file="simple_perf.cpp" idref="1552" length="0"
+                  line="220" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="simple_perf.cpp"
+                idref="1554" line="220">
+                <qualified_id column="5" file="simple_perf.cpp"
+                  idref="1556" line="220" name="main"/>
+              </function_declarator>
+              <block column="15" file="simple_perf.cpp" idref="1558" line="221">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="1560" line="222">
+                  <declaration column="5" file="simple_perf.cpp"
+                    idref="1562" line="222">
+                    <init_declarator_list column="5"
+                      file="simple_perf.cpp" idref="1564" line="222">
+                      <declaration_specifiers column="5"
+                        file="simple_perf.cpp" idref="1566" line="222">
+                        <builtin_type_specifier column="5"
+                          file="simple_perf.cpp" idref="1568" length="0"
+                          line="222" name="char" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="7" file="simple_perf.cpp"
+                        idref="1570" line="222">
+                        <declarator column="7" file="simple_perf.cpp"
+                          idref="1572" line="222">
+                          <qualified_id column="7"
+                            file="simple_perf.cpp" idref="1574"
+                            line="222" name="c"/>
+                        </declarator>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="13" file="simple_perf.cpp"
+                  idref="1576" line="224">
+                  <while_statement column="13" file="simple_perf.cpp"
+                    idref="1578" line="224">
+                    <primary_expression column="13"
+                      file="simple_perf.cpp" idref="1582" line="224">
+                      <constant column="13" file="simple_perf.cpp"
+                        idref="1584" line="224" value="true"/>
+                    </primary_expression>
+                    <block column="18" file="simple_perf.cpp"
+                      idref="1586" line="224">
+                      <block_statement column="20"
+                        file="simple_perf.cpp" idref="1588" line="225">
+                        <postfix_expression column="20"
+                          file="simple_perf.cpp" idref="1590" line="225">
+                          <primary_expression column="20"
+                            file="simple_perf.cpp" idref="1592" line="225">
+                            <id_expression column="9"
+                              file="simple_perf.cpp" idref="1594"
+                              line="225" name="in"/>
+                          </primary_expression>
+                          <dereferencing_operator column="9"
+                            file="simple_perf.cpp" idref="1596"
+                            line="225" name="*"/>
+                          <id_expression column="13"
+                            file="simple_perf.cpp" idref="1598"
+                            line="225" name="read"/>
+                          <arguments column="13" file="simple_perf.cpp"
+                            idref="1600" line="225">
+                            <arguments_list column="17"
+                              file="simple_perf.cpp" idref="1602" line="225">
+                              <primary_expression column="17"
+                                file="simple_perf.cpp" idref="1606" line="225">
+                                <id_expression column="18"
+                                  file="simple_perf.cpp" idref="1608"
+                                  line="225" name="c"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </postfix_expression>
+                      </block_statement>
+                      <block_statement column="20"
+                        file="simple_perf.cpp" idref="1610" line="226">
+                        <systemCRoutine column="20"
+                          file="simple_perf.cpp" idref="1614" line="226" name="wait">
+                          <arguments column="2" file="simple_perf.cpp"
+                            idref="1616" line="226">
+                            <arguments_list column="6"
+                              file="simple_perf.cpp" idref="1618" line="226">
+                              <primary_expression column="6"
+                                file="simple_perf.cpp" idref="1622" line="226">
+                                <constant column="6"
+                                  file="simple_perf.cpp" idref="1624"
+                                  line="226" value="100"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="simple_perf.cpp" idref="1628" line="226">
+                                <constant column="10"
+                                  file="simple_perf.cpp" idref="1630"
+                                  line="226" value="SC_NS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="1632" line="231">
+    <declaration column="2" file="simple_perf.cpp" idref="1634" line="231">
+      <declaration_specifiers column="2" file="simple_perf.cpp"
+        idref="1638" line="231">
+        <class_specifier column="2" extSCModule="true"
+          file="simple_perf.cpp" idref="1640" keyword="class" line="231" name="top">
+          <base_clause column="7" file="simple_perf.cpp" idref="1642" line="231">
+            <base_specifier column="11" file="simple_perf.cpp"
+              idref="1644" length="0" line="231" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="11"
+                file="simple_perf.cpp" idref="1646" line="231" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="1" file="simple_perf.cpp"
+            idref="1648" line="233">
+            <access_specifier column="1" file="simple_perf.cpp"
+              idref="1650" line="233" name="public"/>
+          </member_declaration>
+          <member_declaration column="9" file="simple_perf.cpp"
+            idref="1652" line="234">
+            <member_declarator_list column="9" file="simple_perf.cpp"
+              idref="1654" line="234">
+              <declaration_specifiers column="9" file="simple_perf.cpp"
+                idref="1656" line="234">
+                <qualified_type column="9" file="simple_perf.cpp"
+                  idref="1658" line="234">
+                  <qualified_id column="9" file="simple_perf.cpp"
+                    idref="1660" line="234" name="fifo"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="1662" line="234">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="1664" line="234">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="1666" line="234" name="fifo_inst"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="19" file="simple_perf.cpp"
+            idref="1668" line="235">
+            <member_declarator_list column="19" file="simple_perf.cpp"
+              idref="1670" line="235">
+              <declaration_specifiers column="19" file="simple_perf.cpp"
+                idref="1672" line="235">
+                <qualified_type column="19" file="simple_perf.cpp"
+                  idref="1674" line="235">
+                  <qualified_id column="19" file="simple_perf.cpp"
+                    idref="1676" line="235" name="producer"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="1678" line="235">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="1680" line="235">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="1682" line="235" name="prod_inst"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="23" file="simple_perf.cpp"
+            idref="1684" line="236">
+            <member_declarator_list column="23" file="simple_perf.cpp"
+              idref="1686" line="236">
+              <declaration_specifiers column="23" file="simple_perf.cpp"
+                idref="1688" line="236">
+                <qualified_type column="23" file="simple_perf.cpp"
+                  idref="1690" line="236">
+                  <qualified_id column="23" file="simple_perf.cpp"
+                    idref="1692" line="236" name="consumer"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <member_declarator column="5" file="simple_perf.cpp"
+                idref="1694" line="236">
+                <declarator column="5" file="simple_perf.cpp"
+                  idref="1696" line="236">
+                  <qualified_id column="5" file="simple_perf.cpp"
+                    idref="1698" line="236" name="cons_inst"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="23" file="simple_perf.cpp"
+            idref="1700" line="238">
+            <ctor_definition column="23" file="simple_perf.cpp"
+              idref="1702" line="238">
+              <qualified_id column="23" file="simple_perf.cpp"
+                idref="1704" line="238" name="top"/>
+              <parameter_list column="8" file="simple_perf.cpp"
+                idref="1706" line="238">
+                <parameter_declaration column="8" file="simple_perf.cpp"
+                  idref="1708" line="238">
+                  <declaration_specifiers column="8"
+                    file="simple_perf.cpp" idref="1710" line="238">
+                    <builtin_type_specifier column="8"
+                      file="simple_perf.cpp" idref="1712" length="0"
+                      line="238" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="9" file="simple_perf.cpp"
+                    idref="1714" line="238">
+                    <qualified_id column="9" file="simple_perf.cpp"
+                      idref="1716" line="238" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+                <parameter_declaration column="28"
+                  file="simple_perf.cpp" idref="1718" line="238">
+                  <declaration_specifiers column="28"
+                    file="simple_perf.cpp" idref="1720" line="238">
+                    <builtin_type_specifier column="28"
+                      file="simple_perf.cpp" idref="1722" length="0"
+                      line="238" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                  <declarator column="30" file="simple_perf.cpp"
+                    idref="1724" line="238">
+                    <qualified_id column="30" file="simple_perf.cpp"
+                      idref="1726" line="238" name="size"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="38" file="simple_perf.cpp"
+                idref="1728" line="238">
+                <superclass_init column="40" file="simple_perf.cpp"
+                  idref="1730" line="239">
+                  <declaration_specifiers column="40"
+                    file="simple_perf.cpp" idref="1732" line="239">
+                    <builtin_type_specifier column="40"
+                      file="simple_perf.cpp" idref="1734" length="0"
+                      line="239" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="18" file="simple_perf.cpp"
+                    idref="1736" line="239">
+                    <primary_expression column="18"
+                      file="simple_perf.cpp" idref="1740" line="239">
+                      <id_expression column="19" file="simple_perf.cpp"
+                        idref="1742" line="239" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="25" file="simple_perf.cpp"
+                  idref="1744" line="240">
+                  <qualified_id column="25" file="simple_perf.cpp"
+                    idref="1746" line="240" name="fifo_inst"/>
+                  <arguments_list column="11" file="simple_perf.cpp"
+                    idref="1748" line="240">
+                    <primary_expression column="11"
+                      file="simple_perf.cpp" idref="1752" line="240">
+                      <constant column="11" file="simple_perf.cpp"
+                        idref="1754" line="240" value="&quot;Fifo1&quot;"/>
+                    </primary_expression>
+                    <primary_expression column="19"
+                      file="simple_perf.cpp" idref="1758" line="240">
+                      <id_expression column="21" file="simple_perf.cpp"
+                        idref="1760" line="240" name="size"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="27" file="simple_perf.cpp"
+                  idref="1762" line="241">
+                  <qualified_id column="27" file="simple_perf.cpp"
+                    idref="1764" line="241" name="prod_inst"/>
+                  <arguments_list column="11" file="simple_perf.cpp"
+                    idref="1766" line="241">
+                    <primary_expression column="11"
+                      file="simple_perf.cpp" idref="1770" line="241">
+                      <constant column="11" file="simple_perf.cpp"
+                        idref="1772" line="241" value="&quot;Producer1&quot;"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+                <superclass_init column="25" file="simple_perf.cpp"
+                  idref="1774" line="242">
+                  <qualified_id column="25" file="simple_perf.cpp"
+                    idref="1776" line="242" name="cons_inst"/>
+                  <arguments_list column="11" file="simple_perf.cpp"
+                    idref="1778" line="242">
+                    <primary_expression column="11"
+                      file="simple_perf.cpp" idref="1782" line="242">
+                      <constant column="11" file="simple_perf.cpp"
+                        idref="1784" line="242" value="&quot;Consumer1&quot;"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="23" file="simple_perf.cpp" idref="1786" line="243">
+                <block_statement column="5" file="simple_perf.cpp"
+                  idref="1788" line="244">
+                  <postfix_expression column="5" file="simple_perf.cpp"
+                    idref="1790" line="244">
+                    <primary_expression column="5"
+                      file="simple_perf.cpp" idref="1792" line="244">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="1794" line="244" name="prod_inst"/>
+                    </primary_expression>
+                    <dereferencing_operator column="7"
+                      file="simple_perf.cpp" idref="1796" line="244" name="&amp;"/>
+                    <id_expression column="17" file="simple_perf.cpp"
+                      idref="1798" line="244" name="out"/>
+                    <arguments column="17" file="simple_perf.cpp"
+                      idref="1800" line="244">
+                      <arguments_list column="20" file="simple_perf.cpp"
+                        idref="1802" line="244">
+                        <primary_expression column="20"
+                          file="simple_perf.cpp" idref="1806" line="244">
+                          <id_expression column="21"
+                            file="simple_perf.cpp" idref="1808"
+                            line="244" name="fifo_inst"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+                <block_statement column="31" file="simple_perf.cpp"
+                  idref="1810" line="245">
+                  <postfix_expression column="31" file="simple_perf.cpp"
+                    idref="1812" line="245">
+                    <primary_expression column="31"
+                      file="simple_perf.cpp" idref="1814" line="245">
+                      <id_expression column="7" file="simple_perf.cpp"
+                        idref="1816" line="245" name="cons_inst"/>
+                    </primary_expression>
+                    <dereferencing_operator column="7"
+                      file="simple_perf.cpp" idref="1818" line="245" name="&amp;"/>
+                    <id_expression column="17" file="simple_perf.cpp"
+                      idref="1820" line="245" name="in"/>
+                    <arguments column="17" file="simple_perf.cpp"
+                      idref="1822" line="245">
+                      <arguments_list column="19" file="simple_perf.cpp"
+                        idref="1824" line="245">
+                        <primary_expression column="19"
+                          file="simple_perf.cpp" idref="1828" line="245">
+                          <id_expression column="20"
+                            file="simple_perf.cpp" idref="1830"
+                            line="245" name="fifo_inst"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </block_statement>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="simple_perf.cpp" idref="1832" line="249">
+    <sc_main_declaration column="2" file="simple_perf.cpp" idref="1834" line="249">
+      <declaration_specifiers column="1" file="simple_perf.cpp"
+        idref="1836" line="249">
+        <builtin_type_specifier column="1" file="simple_perf.cpp"
+          idref="1838" length="0" line="249" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="simple_perf.cpp"
+        idref="1840" line="249">
+        <qualified_id column="5" file="simple_perf.cpp" idref="1842"
+          line="249" name="sc_main"/>
+        <parameter_list column="13" file="simple_perf.cpp" idref="1844" line="249">
+          <parameter_declaration column="13" file="simple_perf.cpp"
+            idref="1846" line="249">
+            <declaration_specifiers column="13" file="simple_perf.cpp"
+              idref="1848" line="249">
+              <builtin_type_specifier column="13" file="simple_perf.cpp"
+                idref="1850" length="0" line="249" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="14" file="simple_perf.cpp" idref="1852" line="249">
+              <qualified_id column="14" file="simple_perf.cpp"
+                idref="1854" line="249" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="23" file="simple_perf.cpp"
+            idref="1856" line="249">
+            <declaration_specifiers column="23" file="simple_perf.cpp"
+              idref="1858" line="249">
+              <builtin_type_specifier column="23" file="simple_perf.cpp"
+                idref="1860" length="0" line="249" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="25" file="simple_perf.cpp" idref="1862" line="249">
+              <ptr_operator column="25" file="simple_perf.cpp"
+                idref="1864" line="249" name="*"/>
+              <declarator column="30" file="simple_perf.cpp"
+                idref="1866" line="249">
+                <qualified_id column="30" file="simple_perf.cpp"
+                  idref="1868" line="249" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="31"
+                  file="simple_perf.cpp" idref="1870" line="249"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="37" file="simple_perf.cpp" idref="1872" line="250">
+        <block_statement column="1" file="simple_perf.cpp" idref="1874" line="251">
+          <declaration column="1" file="simple_perf.cpp" idref="1876" line="251">
+            <init_declarator_list column="1" file="simple_perf.cpp"
+              idref="1878" line="251">
+              <declaration_specifiers column="1" file="simple_perf.cpp"
+                idref="1880" line="251">
+                <builtin_type_specifier column="1"
+                  file="simple_perf.cpp" idref="1882" length="0"
+                  line="251" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <init_declarator column="3" file="simple_perf.cpp"
+                idref="1884" line="251">
+                <declarator column="3" file="simple_perf.cpp"
+                  idref="1886" line="251">
+                  <qualified_id column="3" file="simple_perf.cpp"
+                    idref="1888" line="251" name="size"/>
+                </declarator>
+                <initializer column="12" file="simple_perf.cpp"
+                  idref="1890" line="251">
+                  <primary_expression column="12" file="simple_perf.cpp"
+                    idref="1894" line="251">
+                    <constant column="12" file="simple_perf.cpp"
+                      idref="1896" line="251" value="10"/>
+                  </primary_expression>
+                </initializer>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="16" file="simple_perf.cpp" idref="1898" line="253">
+          <if_statement column="16" file="simple_perf.cpp" idref="1900" line="253">
+            <gt_node column="12" file="simple_perf.cpp" idref="1908" line="253">
+              <primary_expression column="6" file="simple_perf.cpp"
+                idref="1904" line="253">
+                <id_expression column="7" file="simple_perf.cpp"
+                  idref="1906" line="253" name="argc"/>
+              </primary_expression>
+              <primary_expression column="12" file="simple_perf.cpp"
+                idref="1912" line="253">
+                <constant column="12" file="simple_perf.cpp"
+                  idref="1914" line="253" value="1"/>
+              </primary_expression>
+            </gt_node>
+            <block column="15" file="simple_perf.cpp" idref="1916" line="254">
+              <block_statement column="15" file="simple_perf.cpp"
+                idref="1918" line="254">
+                <assignment column="10" file="simple_perf.cpp"
+                  idref="1928" line="254">
+                  <primary_expression column="15" file="simple_perf.cpp"
+                    idref="1922" line="254">
+                    <id_expression column="5" file="simple_perf.cpp"
+                      idref="1924" line="254" name="size"/>
+                  </primary_expression>
+                  <assignment_operator column="5" file="simple_perf.cpp"
+                    idref="1926" line="254"/>
+                  <postfix_expression column="10" file="simple_perf.cpp"
+                    idref="1930" line="254">
+                    <primary_expression column="10"
+                      file="simple_perf.cpp" idref="1932" line="254">
+                      <id_expression column="12" file="simple_perf.cpp"
+                        idref="1934" line="254" name="atoi"/>
+                    </primary_expression>
+                    <arguments column="12" file="simple_perf.cpp"
+                      idref="1936" line="254">
+                      <arguments_list column="16" file="simple_perf.cpp"
+                        idref="1938" line="254">
+                        <primary_expression column="22"
+                          file="simple_perf.cpp" idref="1954" line="254">
+                          <arrayaccess_expression column="21"
+                            file="simple_perf.cpp" idref="1946" line="254">
+                            <primary_expression column="16"
+                              file="simple_perf.cpp" idref="1942" line="254">
+                              <id_expression column="17"
+                                file="simple_perf.cpp" idref="1944"
+                                line="254" name="argv"/>
+                            </primary_expression>
+                            <primary_expression column="21"
+                              file="simple_perf.cpp" idref="1950" line="254">
+                              <constant column="21"
+                                file="simple_perf.cpp" idref="1952"
+                                line="254" value="1"/>
+                            </primary_expression>
+                          </arrayaccess_expression>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </postfix_expression>
+                </assignment>
+              </block_statement>
+            </block>
+          </if_statement>
+        </block_statement>
+        <block_statement column="25" file="simple_perf.cpp" idref="1956" line="256">
+          <if_statement column="25" file="simple_perf.cpp" idref="1958" line="256">
+            <lt_node column="12" file="simple_perf.cpp" idref="1966" line="256">
+              <primary_expression column="6" file="simple_perf.cpp"
+                idref="1962" line="256">
+                <id_expression column="7" file="simple_perf.cpp"
+                  idref="1964" line="256" name="size"/>
+              </primary_expression>
+              <primary_expression column="12" file="simple_perf.cpp"
+                idref="1970" line="256">
+                <constant column="12" file="simple_perf.cpp"
+                  idref="1972" line="256" value="1"/>
+              </primary_expression>
+            </lt_node>
+            <block column="15" file="simple_perf.cpp" idref="1974" line="257">
+              <block_statement column="15" file="simple_perf.cpp"
+                idref="1976" line="257">
+                <assignment column="10" file="simple_perf.cpp"
+                  idref="1986" line="257">
+                  <primary_expression column="15" file="simple_perf.cpp"
+                    idref="1980" line="257">
+                    <id_expression column="5" file="simple_perf.cpp"
+                      idref="1982" line="257" name="size"/>
+                  </primary_expression>
+                  <assignment_operator column="5" file="simple_perf.cpp"
+                    idref="1984" line="257"/>
+                  <primary_expression column="10" file="simple_perf.cpp"
+                    idref="1990" line="257">
+                    <constant column="10" file="simple_perf.cpp"
+                      idref="1992" line="257" value="1"/>
+                  </primary_expression>
+                </assignment>
+              </block_statement>
+            </block>
+          </if_statement>
+        </block_statement>
+        <block_statement column="13" file="simple_perf.cpp" idref="1994" line="259">
+          <if_statement column="13" file="simple_perf.cpp" idref="1996" line="259">
+            <gt_node column="12" file="simple_perf.cpp" idref="2004" line="259">
+              <primary_expression column="6" file="simple_perf.cpp"
+                idref="2000" line="259">
+                <id_expression column="7" file="simple_perf.cpp"
+                  idref="2002" line="259" name="size"/>
+              </primary_expression>
+              <primary_expression column="12" file="simple_perf.cpp"
+                idref="2008" line="259">
+                <constant column="12" file="simple_perf.cpp"
+                  idref="2010" line="259" value="100000"/>
+              </primary_expression>
+            </gt_node>
+            <block column="20" file="simple_perf.cpp" idref="2012" line="260">
+              <block_statement column="20" file="simple_perf.cpp"
+                idref="2014" line="260">
+                <assignment column="10" file="simple_perf.cpp"
+                  idref="2024" line="260">
+                  <primary_expression column="20" file="simple_perf.cpp"
+                    idref="2018" line="260">
+                    <id_expression column="5" file="simple_perf.cpp"
+                      idref="2020" line="260" name="size"/>
+                  </primary_expression>
+                  <assignment_operator column="5" file="simple_perf.cpp"
+                    idref="2022" line="260"/>
+                  <primary_expression column="10" file="simple_perf.cpp"
+                    idref="2028" line="260">
+                    <constant column="10" file="simple_perf.cpp"
+                      idref="2030" line="260" value="100000"/>
+                  </primary_expression>
+                </assignment>
+              </block_statement>
+            </block>
+          </if_statement>
+        </block_statement>
+        <block_statement column="18" file="simple_perf.cpp" idref="2032" line="262">
+          <declaration column="18" file="simple_perf.cpp" idref="2034" line="262">
+            <init_declarator_list column="18" file="simple_perf.cpp"
+              idref="2036" line="262">
+              <declaration_specifiers column="18" file="simple_perf.cpp"
+                idref="2038" line="262">
+                <qualified_type column="18" file="simple_perf.cpp"
+                  idref="2040" line="262">
+                  <qualified_id column="18" file="simple_perf.cpp"
+                    idref="2042" line="262" name="top"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="3" file="simple_perf.cpp"
+                idref="2044" line="262">
+                <declarator column="3" file="simple_perf.cpp"
+                  idref="2046" line="262">
+                  <qualified_id column="3" file="simple_perf.cpp"
+                    idref="2048" line="262" name="top1"/>
+                </declarator>
+                <arguments_list column="11" file="simple_perf.cpp"
+                  idref="2050" line="262">
+                  <primary_expression column="11" file="simple_perf.cpp"
+                    idref="2054" line="262">
+                    <constant column="11" file="simple_perf.cpp"
+                      idref="2056" line="262" value="&quot;Top1&quot;"/>
+                  </primary_expression>
+                  <primary_expression column="18" file="simple_perf.cpp"
+                    idref="2060" line="262">
+                    <id_expression column="20" file="simple_perf.cpp"
+                      idref="2062" line="262" name="size"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="25" file="simple_perf.cpp" idref="2064" line="263">
+          <systemCRoutine column="25" file="simple_perf.cpp"
+            idref="2066" line="263" name="sc_start">
+            <arguments column="3" file="simple_perf.cpp" idref="2068" line="263">
+              <arguments_list column="11" file="simple_perf.cpp"
+                idref="2070" line="263">
+                <unary_expression column="11" file="simple_perf.cpp"
+                  idref="2072" line="263">
+                  <unary_operator column="11" file="simple_perf.cpp"
+                    idref="2074" line="263" operator="minnus"/>
+                  <primary_expression column="12" file="simple_perf.cpp"
+                    idref="2078" line="263">
+                    <constant column="12" file="simple_perf.cpp"
+                      idref="2080" line="263" value="1"/>
+                  </primary_expression>
+                </unary_expression>
+              </arguments_list>
+            </arguments>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="15" file="simple_perf.cpp" idref="2082" line="264">
+          <return_statement column="15" file="simple_perf.cpp"
+            idref="2084" line="264">
+            <primary_expression column="3" file="simple_perf.cpp"
+              idref="2088" line="264">
+              <constant column="3" file="simple_perf.cpp" idref="2090"
+                line="264" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>
