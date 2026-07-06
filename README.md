@@ -26,7 +26,7 @@ To test your setup, you can analyze the examples from the paper by running the `
 ## Replicate experiments
 
 All examples used in the paper can be executed via the Docker image.
-If you want to simply run all examples at once and measure their performance, you can run `./eval_examples`. This produces the results listed in the Evaluation section of the paper.
+If you want to simply run all examples at once and measure their performance, you can run `./eval_examples`. This produces the results listed in the Evaluation section of the paper. Note that the last two examples ("Transmitters" run without exploration refinement) may run out of memory.
 
 To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"` (or other options for other refinement strategies, see table below, and with `<test-case-directory>` and `<test-case>` replaced appropriately).
 To evaluate its performance parameters, add the option `-e` to the java call. This will lead to longer execution times (because the analysis is performed multiple times).
