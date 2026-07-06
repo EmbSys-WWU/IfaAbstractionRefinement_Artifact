@@ -16,9 +16,8 @@ Most of the examples (with the exception of "Transmitters" when run without expl
 ## Setup
 
 - Install and set up Docker (for details see https://www.docker.com/get-started/).
-- Load the provided Docker image by running `docker load -i docker_image.tar` in the main directory (`IfaAbstractionRefinement_Artifact`).
+- Load the provided Docker image by running `docker load -i docker_image.tar` in the main directory (`IfaAbstractionRefinement_Artifact`), or build the Docker image by yourself (see Building the Docker image).
 - The provided Docker image should be fully functional and can now be run.
-- If you wish to build the Docker image by yourself (for example to evaluate more than a few of your own programs), see Building the Docker image.
 
 ## Test instructions
 
