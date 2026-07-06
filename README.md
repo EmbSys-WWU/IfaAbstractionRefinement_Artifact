@@ -4,10 +4,10 @@
 
 This repository contains the implementation of our approach to abstraction refinement for information flow security in embedded systems.
 
-All examples are included in the IfaAbstractionRefinement/testdata directory. (In the docker image they can be found under /app/testdata.)
+All examples are included in the IfaAbstractionRefinement/testdata directory. (In the Docker image they can be found under /app/testdata.)
 
-The program is intended to be executed inside a docker image.
-Further information regarding the creation and usage of a docker image is provided below.
+The program is intended to be executed inside a Docker image.
+Further information regarding the creation and usage of a Docker image is provided below.
 
 ## Hardware requirements
 
@@ -15,9 +15,10 @@ Most of the examples (with the exception of "Transmitters" when run without expl
 
 ## Setup
 
-- Install and set up docker (for details see https://www.docker.com/get-started/).
-- The provided docker image should be fully functional and can now be run.
-- If you wish to build the docker image by yourself (for example to evaluate more than a few of your own programs), see Building the docker image.
+- Install and set up Docker (for details see https://www.docker.com/get-started/).
+- Load the provided Docker image by running `docker load -i docker_image.tar` in the main directory (`IfaAbstractionRefinement_Artifact`).
+- The provided Docker image should be fully functional and can now be run.
+- If you wish to build the Docker image by yourself (for example to evaluate more than a few of your own programs), see Building the Docker image.
 
 ## Test instructions
 
@@ -25,7 +26,7 @@ To test your setup, you can analyze the examples from the paper by running the `
 
 ## Replicate experiments
 
-All examples used in the paper can be executed via the docker image.
+All examples used in the paper can be executed via the Docker image.
 If you want to simply run all examples at once and measure their performance, you can run `./eval_examples`. This produces the results listed in the Evaluation section of the paper.
 
 To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"` (or other options for other refinement strategies, see table below, and with `<test-case-directory>` and `<test-case>` replaced appropriately).
@@ -203,9 +204,9 @@ The following options are available:
 - If an initial abstraction is provided via `-a` or `-b`, the abstraction type declared in that file (`variables` or `assignments`) determines the type used throughout the subsequent analysis. Otherwise, `assignments` is used.
 
 
-## Building the docker image yourself
+## Building the Docker image
 
 - Clone the repository locally.
 - If desired, add your own program files to SysCIR/testdata, so they are available in the image.
-- Build the image of this container using `docker build -t artifact .` in the `IfaAbstractionRefinement_Artifact` directory.
+- Build the image of this container using `docker build -t artifact .` in the main directory (`IfaAbstractionRefinement_Artifact`).
 This step might take a few minutes and will download the necessary dependencies for the Docker image. These dependencies are gcc, g++, lightweight Java, Maven, and the dependencies and plugins listed in `SC2AST/pom.xml` and `IfaAbstractionRefinement/pom.xml`.
