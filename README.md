@@ -26,14 +26,14 @@ To test your setup, you can analyze the examples from the paper by running the `
 ## Replicate experiments
 
 All examples used in the paper can be executed via the docker image.
-To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"` (or other options for other refinement strategies, see table below).
+If you want to simply run all examples at once and measure their performance, you can run `./eval_examples`. This produces the results listed in the Evaluation section of the paper.
+
+To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"` (or other options for other refinement strategies, see table below, and with `<test-case-directory>` and `<test-case>` replaced appropriately).
 To evaluate its performance parameters, add the option `-e` to the java call. This will lead to longer execution times (because the analysis is performed multiple times).
-The results are printed to the command line. With the option `-o <path>`, you can specify an output file for the results. In non-evaluation mode, this file also contains additional information such as complete SDGs.
+The results are printed to the command line. With the option `-o <path>`, you can specify an output file for the results. In non-evaluation mode, this file also contains additional information such as complete SysCDGs.
 
 Alternatively, you can run the container and open a command line by executing `docker run --rm --name artifact -it artifact`.
 Then, you can run the examples via `java -jar /app/AbstractionRefinement.jar -b <path-to-file>/<name> -s -ic` (potentially with `-e` added), which allows you to view the log files that are generated during evaluation after the evaluation terminated.
-
-If you want to simply run or evaluate all examples at once, you can run `./run_examples` or `./eval_examples`, respectively.
 
 ## Analyze other systems
 
@@ -207,5 +207,5 @@ The following options are available:
 
 - Clone the repository locally.
 - If desired, add your own program files to SysCIR/testdata, so they are available in the image.
-- Build the image of this container using `docker build -t artifact .` in the `SEFM26_Contribution` directory.
+- Build the image of this container using `docker build -t artifact .` in the `IfaAbstractionRefinement_Artifact` directory.
 This step might take a few minutes and will download the necessary dependencies for the Docker image. These dependencies are gcc, g++, lightweight Java, Maven, and the dependencies and plugins listed in `SC2AST/pom.xml` and `IfaAbstractionRefinement/pom.xml`.
