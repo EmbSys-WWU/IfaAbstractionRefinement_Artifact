@@ -28,5 +28,9 @@ COPY SC2AST/release/sc2ast.jar /app/sc2ast.jar
 #COPY --from=builder /app/SC2AST/target/*.jar /app/SC2AST.jar
 COPY --from=builder /app/IfaAbstractionRefinement/target/AbstractionRefinement.jar /app/AbstractionRefinement.jar
 
+# Copy the runner scripts into the image and make them executable
+COPY run_examples eval_examples ./
+RUN chmod +x run_examples eval_examples
+
 # Set the entrypoint to a shell
 ENTRYPOINT ["/bin/bash"]

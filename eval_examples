@@ -1,7 +1,8 @@
 #!/bin/sh
 set -eu
 
-IMAGE="${IMAGE:-artifact}"
+# This script runs *inside* the Docker container, e.g. via:
+#   docker run --rm --name artifact artifact -c "./eval_examples"
 
 JAVA="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
 
@@ -15,7 +16,7 @@ run_case() {
     echo "Case:    $label"
     echo "============================================================"
 
-    docker run --rm "$IMAGE" -c "$JAVA $args -e"
+    $JAVA $args -e
 
     echo
 }

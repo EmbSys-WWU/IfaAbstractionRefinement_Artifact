@@ -1,7 +1,10 @@
 #!/bin/sh
 set -eu
 
-# Run from the top-level artifact directory
+# This script runs *inside* the Docker container, e.g. via:
+#   docker run --rm --name artifact artifact -c "./run_examples"
+
+JAVA="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
 
 run_example() {
     name="$1"
@@ -15,12 +18,7 @@ run_example() {
     echo "Policy: $POLICY"
     echo "============================================================"
 
-    docker run --rm --name artifact artifact -c \
-        "java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF \
-            -jar /app/AbstractionRefinement.jar \
-            -m $MODEL \
-            -p $POLICY \
-            -s -ic"
+    $JAVA -m "$MODEL" -p "$POLICY" -s -ic
 
     echo
 }
