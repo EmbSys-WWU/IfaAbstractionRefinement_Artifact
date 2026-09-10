@@ -91,8 +91,10 @@ If your abstract syntax tree, policy, and predefined abstraction files (so far a
 
 If you want to keep the logs from the execution or save the `.ast.xml`, you can use `docker cp artifact:/app/<path>/<file> <path-to-file-on-disk>/<file>` in a separate terminal while the container is still running. Note that containers started with `--rm` are removed after they terminate.
 
-Please note that the implementation is a prototype, and many features of SystemC are not supported (e.g. arrays, pointers, or specified initialization).
-Systems using such features will likely encounter exceptions.
+Please note that the implementation is a prototype, and not all features of SystemC are supported.
+Since the paper was submitted, rudimentary support for **arrays, pointers, and references** has been added.
+Pointer arithmetic and dynamic allocation are not supported, and neither is specified initialization.
+Systems using those features will likely encounter exceptions or unexpected behaviour.
 
 ### Specification of policies
 

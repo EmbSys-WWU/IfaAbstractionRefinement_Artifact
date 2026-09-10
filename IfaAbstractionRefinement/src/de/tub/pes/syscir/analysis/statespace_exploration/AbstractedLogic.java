@@ -1,6 +1,8 @@
 package de.tub.pes.syscir.analysis.statespace_exploration;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Interface to implement arithmetic operations on AbstractedValues.
@@ -28,13 +30,16 @@ public interface AbstractedLogic {
      * @return the least upper bound of the abstracted values
      */
     default AbstractedValue union(AbstractedValue... values) {
-        if (values.length <= 0)
+        if (values.length <= 0) {
             throw new IllegalArgumentException("Zero elements for union");
+        }
         AbstractedValue out = values[0];
-        if (values.length == 1)
+        if (values.length == 1) {
             return out;
-        for (int i = 1; i < values.length; i++)
+        }
+        for (int i = 1; i < values.length; i++) {
             out = union(out, values[i]);
+        }
         return out;
     }
 
@@ -111,11 +116,12 @@ public interface AbstractedLogic {
         INCREMENT("++", AbstractedLogic::increment),
         DECREMENT("--", AbstractedLogic::decrement);
 
-        private static final HashMap<String, UnaryOperation> operations = new HashMap<>();
+        private static final Map<String, UnaryOperation> operations = new LinkedHashMap<>();
         static {
             for (UnaryOperation op : UnaryOperation.values()) {
-                if (op.symbol != null)
+                if (op.symbol != null) {
                     operations.put(op.symbol, op);
+                }
             }
         }
 
@@ -169,8 +175,9 @@ public interface AbstractedLogic {
         private static final HashMap<String, BinaryOperation> operations = new HashMap<>();
         static {
             for (BinaryOperation op : BinaryOperation.values()) {
-                if (op.symbol != null)
+                if (op.symbol != null) {
                     operations.put(op.symbol, op);
+                }
             }
         }
 

@@ -66,6 +66,20 @@ class sc_fifox : sc_prim_channel{
       free = free -1;
 
       request_update();
+    }        
+    
+    char nb_write(char val) {
+      if( size - num_readable - num_written == 0 ) {
+        return false;
+      }
+      num_written = num_written + 1;
+ 
+      buf[wi] = val;
+      wi = ( wi + 1 ) % size;
+      free = free -1;
+
+      request_update();
+      return true;
     }
     
     
@@ -160,3 +174,4 @@ class myfifo :
 };
 
 */
+
