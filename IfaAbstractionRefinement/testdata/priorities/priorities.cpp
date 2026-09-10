@@ -1,5 +1,26 @@
 #include <systemc.h>
 
+// Secure case study in which values of different trust levels are carried over
+// one shared bus and handled with different timing behaviour.
+//
+// The dispatcher derives a trust level from trust_level_in, places the matching
+// value on the bus, and wakes either the high- or the low-priority handler
+// depending on priority_in. Each handler samples trust_level into a local flag
+// and routes the bus value to critical_output or routine_output accordingly.
+// The priority therefore selects *which* handler runs (and hence the timing),
+// while the trust level selects *where* the value ends up; the two are
+// independent, and every value reaches an output of its own level.
+//
+// The example needs no exploration refinement, but reports a false positive
+// without information flow refinement: with trust_level unknown, both branches
+// of both handlers look reachable for every bus value, so untrusted_in appears
+// to flow to critical_output. It is the plain instance of Figure 3b of the
+// paper -- the violating path is cut by a controlling node (if (trusted)) whose
+// own data dependencies (trust_level) are enough to resolve it.
+//
+// The policy is a "separate" policy: each input must reach the output of its
+// own level, and neither may reach the other's.
+
 SC_MODULE(priorities) {
     sc_inout<int> data_bus;
 

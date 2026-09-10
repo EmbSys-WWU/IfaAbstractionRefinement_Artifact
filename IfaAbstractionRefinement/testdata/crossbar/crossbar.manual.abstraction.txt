@@ -1,0 +1,3 @@
+variables
+global xb.config
+global xb.dest

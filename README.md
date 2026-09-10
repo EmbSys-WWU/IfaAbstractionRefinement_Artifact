@@ -25,8 +25,13 @@ To test your setup, you can analyze the examples from the paper by running the `
 
     docker run --rm --name artifact artifact -c "./run_examples"
 
-The expected result is that the provided examples are analyzed and the tool
-prints the results without uncaught exceptions.
+The expected result is that the provided examples are analyzed and the tool prints the results without uncaught exceptions.
+For each example the script prints the expected outcome next to the result.
+Note that some examples are deliberately **insecure**: for those, reporting a violating path is the correct result, not a failure.
+
+To run only some of the examples, pass their names:
+
+    docker run --rm --name artifact artifact -c "./run_examples arbiter scrubber"
 
 ## Replicate experiments
 
@@ -35,10 +40,38 @@ If you want to simply run all examples at once and measure their performance, ru
 
     docker run --rm --name artifact artifact -c "./eval_examples"
 
-This produces the results listed in the Evaluation section of the paper. Note that the last examples ("Transmitters" run without exploration refinement) may run out of memory.
+This produces the results listed in the Evaluation section of the paper.
+For every example it runs the full grid of analysis configurations (no refinement, each exploration heuristic on its own and both combined, and cumulative resp. non-cumulative information flow refinement with and without exploration refinement), followed by a baseline run against the hand-written "expert" abstraction with no automated refinement at all.
 
-To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"`
-(or other options for other refinement strategies, see table below, and with `<test-case-directory>` and `<test-case>` replaced appropriately).
+As with `run_examples`, you can restrict the run to individual examples:
+
+    docker run --rm --name artifact artifact -c "./eval_examples arbiter"
+
+Note that the last examples ("Transmitters" and "Leaky Transmitters" run without exploration refinement) are expected to run out of memory on docker. The script reports those cases and continues.
+
+### Running the evaluation without Docker
+
+The `eval_native` script runs the same evaluation grid directly on the host JVM:
+
+    ./eval_native
+
+It builds the analysis jar with Maven if it is not present yet, installs the transformer configuration next to it, and then runs the examples. It requires a JDK (25 or newer) on the `PATH`.
+
+This is useful because under Docker it is the *container* memory limit, and not only `-Xmx`, that decides whether a memory-hungry example runs out of memory.
+Specifically, the "Transmitters" examples should not run out of memory this way, even without exploration refinement.
+`eval_native` also accepts a list of examples.
+
+### Heap size
+
+All three scripts pass an explicit `-Xmx` to the JVM, so that the memory behaviour is reproducible rather than dependent on the default heap of the machine. The defaults are 1 GB for the two Docker scripts and 42 GB for
+`eval_native`; override them with the `HEAP` environment variable, e.g.
+
+    docker run --rm --name artifact -e HEAP=4g artifact -c "./eval_examples"
+    HEAP=8g ./eval_native
+
+1 GB is enough for every configuration except "Transmitters" without exploration refinement.
+
+To run the analysis on one example, use the command `docker run --rm --name artifact artifact -c "java -jar /app/AbstractionRefinement.jar -b /app/testdata/<test-case-directory>/<test-case> -s -ic"` (or other options for other refinement strategies, see table below, and with `<test-case-directory>` and `<test-case>` replaced appropriately).
 
 Alternatively, you can run the container and open a command line by executing `docker run --rm --name artifact -it artifact`.
 Then, you can run the examples via `java -jar /app/AbstractionRefinement.jar -b <path-to-file>/<name> -s -ic` (potentially with `-e` added), which allows you to view the log files that are generated during evaluation after the evaluation terminated.
@@ -196,8 +229,8 @@ The following options are available:
 | `-m`   | `--model`               | path        | Path to the `.ast.xml` file of the system model. |
 | `-p`   | `--policy`              | path        | Path to the policy file to check. If omitted, no policy is checked. |
 | `-a`   | `--abstraction`         | path        | Path to a predefined initial abstraction to use. |
-| `-s`   | `--splitters`           | (none)      | Enable the splitters heuristic for exploration refinement. |
-| `-d`   | `--partial-descendants` | integer     | Enable the partial descendants heuristic for exploration refinement with the given threshold. |
+| `-s`   | `--splitters`           | (none)      | Enable the splitters heuristic for exploration refinement. May be combined with `-d`. |
+| `-d`   | `--partial-descendants` | integer     | Enable the partial descendants heuristic for exploration refinement with the given threshold. May be combined with `-s`. |
 | `-ic`  | `--cumulative-ifr`      | (none)      | Enable cumulative information flow refinement. |
 | `-in`  | `--non-cumulative-ifr`  | (none)      | Enable non-cumulative information flow refinement. |
 | `-o`   | `--out`                 | path        | Path to the file where the output should be written. If the file already exists, it is removed and overwritten. |
@@ -207,6 +240,17 @@ The following options are available:
 
 - Exactly one model source must be given: either `-m` **or** `-b`.
 - If any of `-s`, `-d`, `-ic`, or `-in` is specified, automated abstraction refinement is enabled. If neither `-s` nor `-d` is specified, exploration refinement uses `SimpleConditionTracking.NONE`.
+- `-s` and `-d` are **not** mutually exclusive; the two exploration heuristics select the abstraction as follows:
+
+  | Options | Exploration refinement |
+  |---------|------------------------|
+  | neither | none (`SimpleConditionTracking.NONE`) |
+  | `-s` | splitters only |
+  | `-d <n>` | partial descendants only, with threshold `n` |
+  | `-s -d <n>` | both heuristics at once: the abstraction is refined whenever *either* the splitters criterion or the partial descendants threshold `n` triggers |
+
+  For example, `-s -d 1000` runs both heuristics with a partial descendants
+  threshold of 1000.
 - Options `-ic` and `-in` are mutually exclusive. If either is specified, a policy file must be provided via `-p` or `-b`.
 - If an initial abstraction is provided via `-a` or `-b`, the abstraction type declared in that file (`variables` or `assignments`) determines the type used throughout the subsequent analysis. Otherwise, `assignments` is used.
 

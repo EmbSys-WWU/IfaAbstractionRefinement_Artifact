@@ -1,0 +1,4 @@
+variables
+local rate_adapt.low_task/gap
+local rate_adapt.high_task/gap
+local rate_adapt.monitor/gap

@@ -1,5 +1,30 @@
 #include <systemc.h>
 
+// Secure case study in which the shared bus is allocated dynamically rather
+// than by a fixed schedule.
+//
+// The reader claims the bus for whichever party arbiter_in selects, records the
+// current owner in flag, and hands the transfer on to a processing stage after
+// 1 ms. That stage transforms the bus value and then wakes the writer belonging
+// to the recorded owner, which copies the value to its own output. A request
+// for neither party is simply skipped.
+//
+// Timeline of one transfer:
+//   t = 3 : reader claims the bus and sets flag
+//   t = 4 : process transforms the bus value and notifies the owner's event
+//   t = 5 : the matching writer copies the bus to its output
+//   t = 6 : the reader claims the bus again
+//
+// This is the one case study in which exploration refinement alone already
+// removes the spurious flow, without any information flow refinement. The
+// reason is that flag -- the register that discriminates confidential from
+// public transfers -- also decides *which event is notified*, and therefore
+// which process becomes runnable. Leaving it unknown changes the scheduler
+// state at the end of the atomic block, which is exactly the criterion of the
+// splitters heuristic, so flag is tracked as a side effect of reducing the
+// state space. The additional states this introduces are needed to prove
+// security anyway.
+
 SC_MODULE(arbiter) {
 
 	int arbiter_in;

@@ -8,6 +8,7 @@ import de.tub.pes.syscir.analysis.abstraction_refinement.RefinementConfig.Splitt
 import de.tub.pes.syscir.analysis.abstraction_refinement.evaluation.EvaluationEngine;
 import de.tub.pes.syscir.analysis.abstraction_refinement.evaluation.EvaluationEngine.EvaluationTask;
 import de.tub.pes.syscir.analysis.abstraction_refinement.evaluation.EvaluationEngine.Measure;
+import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.ExpressionCrawler.InsufficientValueTrackingException;
 import de.tub.pes.syscir.analysis.util.TeeOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -216,7 +217,13 @@ public class Main {
         if (config.initialAbstraction() != null) {
             System.out.println("Using initial abstraction: " + config.initialAbstraction());
         }
-        config.run();
+        try {
+            config.run();
+        } catch (InsufficientValueTrackingException e) {
+            System.out.println("Failure: the given abstraction is insufficient to evaluate " + e.getMessage()
+                    + " (the value of " + e.getValue() + " is not tracked). "
+                    + "Enable exploration refinement (-s and/or -d) or extend the initial abstraction.");
+        }
     }
 
     public static void eval(RefinementConfig config, PrintStream out) {

@@ -229,13 +229,13 @@ public class InformationFlowRefinement {
         }
         
         if (result != null) {
-            this.config.log().selectPathRefinement(path, result.pathNode(), null, result.sources());
+            this.config.log().selectPathRefinement(path, result.pathNode(), result.candidateNode(), result.sources());
             return result.sources();
         }
         return null;
     }
-    
-    private record RefinementCandidate(SdgNode pathNode, Sources sources) {}
+
+    private record RefinementCandidate(SdgNode pathNode, SdgNode candidateNode, Sources sources) {}
     
     private RefinementCandidate selectRefinementSources(Iterable<Sources> skipSubsets, Iterable<Sources> skipSupersets,
             SdgPath path, Function<SdgNode, Iterable<SdgNode>> candidatesProvider,
@@ -250,7 +250,7 @@ public class InformationFlowRefinement {
                         || supersetOfIndex(effectingSources, skipSupersets) >= 0) {
                     continue;
                 }
-                return new RefinementCandidate(pathNode, effectingSources);
+                return new RefinementCandidate(pathNode, nodeCandidate, effectingSources);
             }
         }
         return null;

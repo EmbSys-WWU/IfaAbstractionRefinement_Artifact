@@ -94,8 +94,12 @@ public class PrintRefinementLog extends StreamRefinementLog {
         if (controlDependence == null) {
             this.out.println("Trying all sources of " + pathNode + ": " + refinement);
         } else {
-            this.out.println(
-                    "Trying sources of " + pathNode + "'s control dependence " + controlDependence + ": " + refinement);
+            // The influencing node is the control condition of pathNode for the first two
+            // selection strategies of the path resolution heuristic, and an arbitrary node of
+            // pathNode's backwards slice for the third one; printing it makes visible which
+            // strategy produced this candidate.
+            this.out.println("Trying sources of " + pathNode + " via influencing node " + controlDependence + ": "
+                    + refinement);
         }
     }
 

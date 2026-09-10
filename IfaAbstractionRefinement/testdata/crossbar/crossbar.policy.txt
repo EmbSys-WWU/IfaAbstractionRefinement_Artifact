@@ -1,0 +1,2 @@
+forbid
+	(IN GVar[crossbar xb;.int high_in;]) -> (OUT GVar[crossbar xb;.int low_out;])

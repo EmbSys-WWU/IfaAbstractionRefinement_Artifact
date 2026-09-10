@@ -1,0 +1,7 @@
+variables
+LVar[leaky_transmitter.monitor.int backoff;]
+local leaky_transmitter.high_transmitter/backoff
+local leaky_transmitter.low_transmitter/backoff
+LVar[leaky_transmitter.monitor:[1, 1].handle_backoff.int bo;]
+LVar[leaky_transmitter.high_transmitter:[1, 1].handle_backoff.int bo;]
+LVar[leaky_transmitter.low_transmitter:[1, 1].handle_backoff.int bo;]

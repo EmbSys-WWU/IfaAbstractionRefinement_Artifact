@@ -1,10 +1,34 @@
 #!/bin/sh
-set -eu
-
+# Runs every example shipped with this artifact through the fully automatic
+# analysis (splitters + cumulative information flow refinement) and prints the
+# result together with the expected outcome.
+#
 # This script runs *inside* the Docker container, e.g. via:
 #   docker run --rm --name artifact artifact -c "./run_examples"
+#
+# Without arguments every example is run; otherwise only the named ones, e.g.
+#   docker run --rm --name artifact artifact -c "./run_examples arbiter scrubber"
+#
+# Environment variables:
+#   HEAP  value passed to java -Xmx  (default: 1g)
 
-JAVA="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
+set -u
+
+HEAP="${HEAP:-1g}"
+
+JAVA="java -Xmx$HEAP -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
+
+failed=""
+
+# The insecure designs contain a genuine information flow, which the refinement
+# must NOT remove: reporting a possible flow is the correct result for them.
+expectation_for() {
+    case "$1" in
+        leaky_slots|timing_leak|leaky_transmitters)
+            echo "insecure - a violating path must be reported" ;;
+        *)  echo "secure - no forbidden information flow must be reported" ;;
+    esac
+}
 
 run_example() {
     name="$1"
@@ -14,16 +38,30 @@ run_example() {
 
     echo "============================================================"
     echo "Running example: $name"
-    echo "Model:  $MODEL"
-    echo "Policy: $POLICY"
+    echo "Model:    $MODEL"
+    echo "Policy:   $POLICY"
+    echo "Expected: $(expectation_for "$name")"
     echo "============================================================"
 
-    $JAVA -m "$MODEL" -p "$POLICY" -s -ic
+    if ! $JAVA -m "$MODEL" -p "$POLICY" -s -ic; then
+        echo "*** $name did not terminate normally ***"
+        failed="$failed $name"
+    fi
 
     echo
 }
 
-run_example "priorities"
-run_example "many_slots"
-run_example "arbiter"
-run_example "transmitters"
+# Cheap examples first, the two transmitter designs last.
+ALL_EXAMPLES="priorities many_slots arbiter crossbar scrubber rate_adapt
+              leaky_slots timing_leak transmitters leaky_transmitters"
+
+for ex in ${*:-$ALL_EXAMPLES}; do
+    run_example "$ex"
+done
+
+if [ -n "$failed" ]; then
+    echo "Examples that did not terminate normally:$failed"
+    exit 1
+fi
+
+echo "All examples terminated normally."

@@ -1,124 +1,108 @@
 #!/bin/sh
-set -eu
-
+# Runs every example in evaluation mode (-e) through the full grid of analysis
+# configurations, and finally against the hand-written ("expert") abstractions.
+#
 # This script runs *inside* the Docker container, e.g. via:
 #   docker run --rm --name artifact artifact -c "./eval_examples"
+#
+# Without arguments every example is run; otherwise only the named ones, e.g.
+#   docker run --rm --name artifact artifact -c "./eval_examples arbiter"
+#
+# For a run directly on the host JVM, without Docker, use ./eval_native.
+#
+# Cases that exhaust the heap are expected for some configurations (notably the
+# transmitter designs without exploration refinement); the script reports them
+# and continues.
+#
+# Environment variables:
+#   HEAP  value passed to java -Xmx         (default: 1g)
+#   PD    partial descendants threshold     (default: 1000)
 
-JAVA="java -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
+set -u
+
+HEAP="${HEAP:-1g}"
+PD="${PD:-1000}"
+
+JAVA="java -Xmx$HEAP -Dorg.apache.logging.log4j.simplelog.StatusLogger.level=OFF -jar /app/AbstractionRefinement.jar"
+
+TESTDATA="/app/testdata"
 
 run_case() {
     name="$1"
     label="$2"
-    args="$3"
+    shift 2
 
     echo "============================================================"
     echo "Example: $name"
     echo "Case:    $label"
     echo "============================================================"
 
-    $JAVA $args -e
+    $JAVA "$@" -e         || echo "*** case did not terminate normally (out of memory is expected for some cases) ***"
 
     echo
 }
 
-run_standard_example() {
+# The full configuration grid, identical for every example.
+run_grid() {
     name="$1"
 
-    MODEL="/app/testdata/$name/$name.ast.xml"
-    POLICY="/app/testdata/$name/$name.policy.txt"
+    MODEL="$TESTDATA/$name/$name.ast.xml"
+    POLICY="$TESTDATA/$name/$name.policy.txt"
 
-    run_case "$name" \
-        "without refinement, without policy" \
-        "-m $MODEL"
+    # Exploration refinement only (no policy, no information flow refinement).
+    run_case "$name" "without refinement, without policy"         -m "$MODEL"
+    run_case "$name" "partial descendants threshold $PD, without policy"         -m "$MODEL" -d "$PD"
+    run_case "$name" "splitters, without policy"         -m "$MODEL" -s
+    run_case "$name" "splitters and partial descendants $PD, without policy"         -m "$MODEL" -s -d "$PD"
 
-    run_case "$name" \
-        "partial descendants threshold 1000, without policy" \
-        "-m $MODEL -d 1000"
+    # Policy checking without information flow refinement.
+    run_case "$name" "with policy, without any refinement"         -m "$MODEL" -p "$POLICY"
+    run_case "$name" "with policy, splitters, without information-flow refinement"         -m "$MODEL" -p "$POLICY" -s
 
-    run_case "$name" \
-        "splitters, without policy" \
-        "-m $MODEL -s"
+    # Information flow refinement without exploration refinement.
+    run_case "$name" "policy, cumulative IFR, without exploration refinement"         -m "$MODEL" -p "$POLICY" -ic
+    run_case "$name" "policy, non-cumulative IFR, without exploration refinement"         -m "$MODEL" -p "$POLICY" -in
 
-    run_case "$name" \
-        "splitters and policy, without information-flow refinement" \
-        "-m $MODEL -p $POLICY -s"
-
-    run_case "$name" \
-        "splitters, policy, cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -s -ic"
-
-    run_case "$name" \
-        "splitters, policy, non-cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -s -in"
+    # Information flow refinement combined with exploration refinement.
+    run_case "$name" "splitters, policy, cumulative information-flow refinement"         -m "$MODEL" -p "$POLICY" -s -ic
+    run_case "$name" "splitters, policy, non-cumulative information-flow refinement"         -m "$MODEL" -p "$POLICY" -s -in
+    run_case "$name" "partial descendants $PD, policy, cumulative information-flow refinement"         -m "$MODEL" -p "$POLICY" -d "$PD" -ic
+    run_case "$name" "splitters and partial descendants $PD, policy, cumulative information-flow refinement"         -m "$MODEL" -p "$POLICY" -s -d "$PD" -ic
 }
 
-run_arbiter() {
-    name="arbiter"
-
-    MODEL="/app/testdata/$name/$name.ast.xml"
-    POLICY="/app/testdata/$name/$name.policy.txt"
-
-    run_case "$name" \
-        "without refinement, without policy" \
-        "-m $MODEL"
-
-    run_case "$name" \
-        "partial descendants threshold 1000, without policy" \
-        "-m $MODEL -d 1000"
-
-    run_case "$name" \
-        "splitters, without policy" \
-        "-m $MODEL -s"
-
-    run_case "$name" \
-        "with policy, without any refinement" \
-        "-m $MODEL -p $POLICY"
-
-    run_case "$name" \
-        "with policy, cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -ic"
-
-    run_case "$name" \
-        "with policy, non-cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -in"
+# Transmitters ships its hand-written abstraction under a different name.
+abstraction_for() {
+    case "$1" in
+        transmitters) echo "$TESTDATA/transmitters/transmitters_variables.abstraction.txt" ;;
+        *)            echo "$TESTDATA/$1/$1.manual.abstraction.txt" ;;
+    esac
 }
 
-run_transmitters() {
-    name="transmitters"
+# Baseline: the hand-written abstraction, with no automated refinement at all.
+run_expert_baseline() {
+    name="$1"
+    abstraction="$(abstraction_for "$name")"
 
-    MODEL="/app/testdata/$name/$name.ast.xml"
-    POLICY="/app/testdata/$name/$name.policy.txt"
+    [ -f "$abstraction" ] || return 0
 
-    run_case "$name" \
-        "partial descendants threshold 1000, without policy" \
-        "-m $MODEL -d 1000"
-
-    run_case "$name" \
-        "splitters, without policy" \
-        "-m $MODEL -s"
-
-    run_case "$name" \
-        "splitters and policy, without information-flow refinement" \
-        "-m $MODEL -p $POLICY -s"
-
-    run_case "$name" \
-        "splitters, policy, cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -s -ic"
-
-    run_case "$name" \
-        "splitters, policy, non-cumulative information-flow refinement" \
-        "-m $MODEL -p $POLICY -s -in"
-
-    run_case "$name" \
-        "without refinement, without policy" \
-        "-m $MODEL"
-
-    run_case "$name" \
-        "without refinement, with policy" \
-        "-m $MODEL -p $POLICY"
+    run_case "$name" "expert abstraction, no automated refinement"         -m "$TESTDATA/$name/$name.ast.xml"         -p "$TESTDATA/$name/$name.policy.txt"         -a "$abstraction"
 }
 
-run_standard_example "priorities"
-run_standard_example "many_slots"
-run_arbiter
-run_transmitters
+# Cheap examples first, the two transmitter designs last.
+ALL_EXAMPLES="priorities many_slots arbiter crossbar scrubber rate_adapt
+              leaky_slots timing_leak transmitters leaky_transmitters"
+
+EXAMPLES="${*:-$ALL_EXAMPLES}"
+
+for ex in $EXAMPLES; do
+    run_grid "$ex"
+done
+
+echo "############################################################"
+echo "# Expert-abstraction baseline"
+echo "############################################################"
+echo
+
+for ex in $EXAMPLES; do
+    run_expert_baseline "$ex"
+done
