@@ -41,6 +41,18 @@ public class PrintRefinementLog extends StreamRefinementLog {
     }
 
     @Override
+    public void abstractionInsufficient(InsufficientValueTrackingException exception, boolean refinementEnabled) {
+        String expression = exception.getMessage().strip();
+        if (refinementEnabled) {
+            this.out.println("Failure: the abstraction is insufficient to evaluate '" + expression
+                    + "', and exploration refinement could not make the required value known.");
+        } else {
+            this.out.println("Failure: the abstraction is insufficient to evaluate '" + expression
+                    + "'. Enable exploration refinement (-s and/or -d) or extend the initial abstraction.");
+        }
+    }
+
+    @Override
     public void unknownControlCondition(Expression condition, AbstractedValue value) {}
 
     @Override
@@ -94,8 +106,12 @@ public class PrintRefinementLog extends StreamRefinementLog {
         if (controlDependence == null) {
             this.out.println("Trying all sources of " + pathNode + ": " + refinement);
         } else {
-            this.out.println(
-                    "Trying sources of " + pathNode + "'s control dependence " + controlDependence + ": " + refinement);
+            // The influencing node is the control condition of pathNode for the first two
+            // selection strategies of the path resolution heuristic, and an arbitrary node of
+            // pathNode's backwards slice for the third one; printing it makes visible which
+            // strategy produced this candidate.
+            this.out.println("Trying sources of " + pathNode + " via influencing node " + controlDependence + ": "
+                    + refinement);
         }
     }
 

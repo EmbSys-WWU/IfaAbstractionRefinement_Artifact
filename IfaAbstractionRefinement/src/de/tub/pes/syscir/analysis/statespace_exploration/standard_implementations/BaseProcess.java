@@ -152,10 +152,10 @@ public abstract class BaseProcess extends ExpressionCrawler implements AnalyzedP
                 throw new ExplorationAbortedException();
             }
 
-
             ProcessTransitionResult nextToHandle = new ProcessTransitionResult(
                     transitionsToHandle.firstEntry().getKey(), transitionsToHandle.pollFirstEntry().getValue());
             SmallStepResult nextTransitions = makeSmallStep(nextToHandle);
+
             if (nextTransitions.endOfStep()) {
                 // store resulting transitions
                 for (TransitionResult transition : nextTransitions.transitions()) {

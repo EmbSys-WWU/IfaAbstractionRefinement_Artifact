@@ -30,6 +30,16 @@ public interface RefinementLog {
     void insufficientTracking(InsufficientValueTrackingException exception);
 
     /**
+     * Note that the analysis had to stop because a value needed to continue the exploration (for
+     * example the delay of a wait-statement) is unknown under the abstraction and could not be made
+     * known.
+     *
+     * @param exception describes the expression that could not be evaluated
+     * @param refinementEnabled whether automated refinement was active (and still could not help)
+     */
+    default void abstractionInsufficient(InsufficientValueTrackingException exception, boolean refinementEnabled) {}
+
+    /**
      * Note that a control condition is unknown with SimpleConditionTracking.ALL
      */
     void unknownControlCondition(Expression condition, AbstractedValue value);

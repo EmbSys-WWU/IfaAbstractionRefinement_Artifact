@@ -1,0 +1,8 @@
+# Shell scripts are copied into the Linux Docker image and executed there.
+# Without this they are checked out with CRLF on Windows (core.autocrlf=true is
+# the Git for Windows default), and the image then fails with
+#   /bin/sh^M: bad interpreter: No such file or directory
+run_examples   text eol=lf
+eval_examples  text eol=lf
+eval_native    text eol=lf
+*.sh           text eol=lf

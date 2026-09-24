@@ -1,0 +1,2 @@
+forbid
+	(IN GVar[rate_adapt ra;.int high_in;]) -> (OUT GVar[rate_adapt ra;.int low_out;])

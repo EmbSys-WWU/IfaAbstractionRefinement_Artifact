@@ -35,6 +35,7 @@ public class CustomAbstractedPolicyChecker extends TrackedExplorationBase {
         StateSpaceExploration exploration =
                 new SequentialStateSpaceExploration(scheduler, cfgLikeRecord, Set.of(initialState));
         exploration.run();
+        this.config.log().explorableAbstractionFound(exploration, this.trackedElements);
         Sdg sdg = SdgFromInterleavingCfg.create(cfgLikeRecord);
         this.config.log().sdgComputed(exploration, sdg);
 

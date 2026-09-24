@@ -1,0 +1,4 @@
+variables
+global prio.trust_level
+local high_priority_handler/trusted
+local low_priority_handler/trusted

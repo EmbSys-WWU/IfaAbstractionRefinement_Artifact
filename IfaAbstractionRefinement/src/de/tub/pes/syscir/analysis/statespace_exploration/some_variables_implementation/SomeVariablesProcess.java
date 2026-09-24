@@ -1,8 +1,5 @@
 package de.tub.pes.syscir.analysis.statespace_exploration.some_variables_implementation;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import de.tub.pes.syscir.analysis.statespace_exploration.AbstractedLogic;
 import de.tub.pes.syscir.analysis.statespace_exploration.AbstractedValue;
 import de.tub.pes.syscir.analysis.statespace_exploration.EventBlocker.Event;
@@ -11,6 +8,7 @@ import de.tub.pes.syscir.analysis.statespace_exploration.ProcessState;
 import de.tub.pes.syscir.analysis.statespace_exploration.ProcessTransitionResult;
 import de.tub.pes.syscir.analysis.statespace_exploration.Scheduler;
 import de.tub.pes.syscir.analysis.statespace_exploration.TransitionResult;
+import de.tub.pes.syscir.analysis.statespace_exploration.some_variables_implementation.SomeVariablesExpressionHandler.AccessedVariablesInformation;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.BaseProcess;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.GlobalVariable;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.Interceptor;
@@ -21,6 +19,8 @@ import de.tub.pes.syscir.sc_model.expressions.FunctionCallExpression;
 import de.tub.pes.syscir.sc_model.variables.SCClassInstance;
 import de.tub.pes.syscir.sc_model.variables.SCEvent;
 import de.tub.pes.syscir.sc_model.variables.SCPortEvent;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Process implementation storing the values of some variables and providing no additional
@@ -69,7 +69,9 @@ public class SomeVariablesProcess extends BaseProcess {
         Set<Event> result = new LinkedHashSet<>();
 
         for (SCEvent scEvent : getSCProcess().getSensitivity()) {
-            AbstractedValue eventValue = getEventValue(globalState, scEvent);
+            // the readVariables are not relevant here, since we only want to find the events on which the
+            // process is statically sensitive
+            AbstractedValue eventValue = getEventValue(globalState, scEvent, new AccessedVariablesInformation());
             if (!eventValue.isDetermined()) {
                 throw new InsufficientValueTrackingException(eventValue);
             }
@@ -87,20 +89,21 @@ public class SomeVariablesProcess extends BaseProcess {
      *
      * @param globalState the global state
      * @param scEvent the SysCIR variable for the event on which the process is statically sensitive
+     * @param readVariables the information about which variables have been read in the current
+     *        transition
      * @return the (abstracted) event value
      */
-    public AbstractedValue getEventValue(SomeVariablesGlobalState globalState, SCEvent scEvent) {
+    public AbstractedValue getEventValue(SomeVariablesGlobalState globalState, SCEvent scEvent,
+            AccessedVariablesInformation readVariables) {
+        GlobalVariable<?, ?> var;
         if (!(scEvent instanceof SCPortEvent portEvent)) {
-            GlobalVariable<?, ?> gv = new GlobalVariable<>(getSCClassInstance(), scEvent);
-            AbstractedValue eventValue = this.interceptor.variables().readGlobalVariable(globalState, gv,
-                    globalState.getValue(gv, this.logic::unknown));
-            if (!eventValue.isDetermined()) {
-                throw new InsufficientValueTrackingException(eventValue);
-            }
-            return eventValue;
+            var = new GlobalVariable<>(getSCClassInstance(), scEvent);
+        } else {
+            var = this.expressionHandler.getEventVariable(portEvent);
         }
 
-        return this.expressionHandler.getEventValue(globalState, this.expressionHandler.getEventVariable(portEvent));
+        // since var is a global variable, we can pass null for the local state (not nice, but ok)
+        return this.expressionHandler.getVariableValue(globalState, null, var, readVariables);
     }
 
     @Override

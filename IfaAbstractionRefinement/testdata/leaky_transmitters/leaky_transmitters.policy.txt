@@ -1,0 +1,2 @@
+forbid
+	(IN GVar[leaky_transmitter bt;.int high_in;]) -> (OUT GVar[leaky_transmitter bt;.int low_out;])

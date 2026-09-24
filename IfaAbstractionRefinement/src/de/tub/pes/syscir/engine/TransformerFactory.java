@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
@@ -249,7 +250,14 @@ public class TransformerFactory {
 	 *            Path to location of config folder to use
 	 */
 	public void changeConfigLocationToJarLocation() throws IOException {
-		File tmp = new File(TransformerFactory.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		// Resolve via URI rather than via the URL path: the latter is percent-encoded, so any
+		// space in the installation path would arrive here as "%20" and the lookup would fail.
+		File tmp;
+		try {
+			tmp = new File(TransformerFactory.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+		} catch (URISyntaxException e) {
+			tmp = new File(TransformerFactory.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+		}
 		String location = tmp.getParentFile().getPath() + "/config/";
 		File f = new File(location);
 		if (f.exists() && f.isDirectory()) {

@@ -5,7 +5,6 @@ import de.tub.pes.syscir.analysis.util.HashCachingLockableObject;
 import de.tub.pes.syscir.analysis.util.TriFunction;
 import de.tub.pes.syscir.analysis.util.WrappedSCClassInstance;
 import de.tub.pes.syscir.analysis.util.WrappedSCFunction;
-import de.tub.pes.syscir.sc_model.SCClass;
 import de.tub.pes.syscir.sc_model.SCMODIFIER;
 import de.tub.pes.syscir.sc_model.SCPROCESSTYPE;
 import de.tub.pes.syscir.sc_model.SCProcess;
@@ -81,46 +80,31 @@ public class ConsideredState extends HashCachingLockableObject {
         GlobalState globalState = globalStateConstructor.apply(new LinkedHashMap<>(), new LinkedHashSet<>(), false);
         
         Map<AnalyzedProcess, ProcessState> processStates = new LinkedHashMap<>();
-        
-        for (List<String> processName : system.getProcessNamesToInitialize()) {
-            if (processName.size() != 2) {
-                throw new UnsupportedOperationException("nested modlues are not supported yet");
-            }
-            
-            SCClassInstance instance = system.getInstanceByName(processName.get(0));
-            SCClass clazz = instance.getSCClass();
-            SCProcess scProcess = null;
-            for (SCProcess candidate : clazz.getProcesses()) {
-                if (candidate.getName().equals(processName.get(1))) {
-                    scProcess = candidate;
-                    break;
+
+        for (SCClassInstance instance : system.getInstances()) {
+            for (SCProcess scProcess : instance.getSCClass().getProcesses()) {
+                AnalyzedProcess process = processConstructor.apply(system, scProcess, instance);
+
+                ProcessBlocker waitingFor;
+                if (scProcess.getType() == SCPROCESSTYPE.SCMETHOD
+                        && scProcess.getModifier().contains(SCMODIFIER.DONTINITIALIZE)) {
+                    Set<Event> sensitivities = initialSensitivitiesGetter.apply(process, globalState);
+                    waitingFor = new EventBlocker(sensitivities, true, null);
+                } else {
+                    waitingFor = null;
                 }
+
+                List<List<AbstractedValue>> expressionValues = new ArrayList<>();
+                expressionValues.add(new ArrayList<>());
+
+                List<EvaluationContext> executionStack =
+                        List.of(new EvaluationContext(WrappedSCFunction.getWrapped(scProcess.getFunction()),
+                                new ArrayList<>(), -1, expressionValues,
+                                determinedValueConstructor.apply(new WrappedSCClassInstance(instance))));
+
+                ProcessState processState = processStateConstructor.apply(waitingFor, executionStack);
+                processStates.put(process, processState);
             }
-            
-            if (scProcess == null) {
-                throw new RuntimeException("process " + processName + " not found");
-            }
-            
-            AnalyzedProcess process = processConstructor.apply(system, scProcess, instance);
-            
-            ProcessBlocker waitingFor;
-            if (scProcess.getType() == SCPROCESSTYPE.SCMETHOD
-                    && scProcess.getModifier().contains(SCMODIFIER.DONTINITIALIZE)) {
-                Set<Event> sensitivities = initialSensitivitiesGetter.apply(process, globalState);
-                waitingFor = new EventBlocker(sensitivities, true, null);
-            } else {
-                waitingFor = null;
-            }
-            
-            List<List<AbstractedValue>> expressionValues = new ArrayList<>();
-            expressionValues.add(new ArrayList<>());
-            
-            List<EvaluationContext> executionStack = List.of(
-                    new EvaluationContext(WrappedSCFunction.getWrapped(scProcess.getFunction()), new ArrayList<>(), -1,
-                            expressionValues, determinedValueConstructor.apply(new WrappedSCClassInstance(instance))));
-            
-            ProcessState processState = processStateConstructor.apply(waitingFor, executionStack);
-            processStates.put(process, processState);
         }
         
         ConsideredState result = new ConsideredState(globalState, processStates);

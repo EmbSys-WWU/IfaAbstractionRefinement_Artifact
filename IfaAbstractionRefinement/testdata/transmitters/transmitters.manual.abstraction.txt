@@ -1,0 +1,7 @@
+variables
+local backoff_transmitter.low_transmitter/backoff
+local backoff_transmitter.high_transmitter/backoff
+local backoff_transmitter.monitor/backoff
+LVar[backoff_transmitter.low_transmitter:[1, 1].handle_backoff.int bo;]
+LVar[backoff_transmitter.high_transmitter:[1, 1].handle_backoff.int bo;]
+LVar[backoff_transmitter.monitor:[1, 1].handle_backoff.int bo;]

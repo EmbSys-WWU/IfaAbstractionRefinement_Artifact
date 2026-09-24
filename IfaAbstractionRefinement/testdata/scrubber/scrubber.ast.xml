@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <comment column="1" file="scrubber.cpp" idref="3" line="23" name="//   t = 4, 8, 12, ... : val = low_in      t = 5, 9, 13, ... : phase 1, forwarded"/>
+    <comment column="1" file="scrubber.cpp" idref="4" line="22" name="//   t = 2, 6, 10, ... : val = high_in     t = 3, 7, 11, ... : phase 0, scrubbed"/>
+    <comment column="1" file="scrubber.cpp" idref="5" line="21" name="// Timeline (sink runs every 2 ms with alternating phase):"/>
+    <comment column="1" file="scrubber.cpp" idref="6" line="20" name="//"/>
+    <comment column="1" file="scrubber.cpp" idref="7" line="19" name="// node."/>
+    <comment column="1" file="scrubber.cpp" idref="8" line="18" name="// the path resolution heuristic: tracking all dependencies of a dependency"/>
+    <comment column="1" file="scrubber.cpp" idref="9" line="17" name="// Resolving this therefore requires the third and rarest selection strategy of"/>
+    <comment column="1" file="scrubber.cpp" idref="10" line="16" name="//"/>
+    <comment column="1" file="scrubber.cpp" idref="11" line="15" name="// backwards slice of low_out = data."/>
+    <comment column="1" file="scrubber.cpp" idref="12" line="14" name="// overwrite (data = 5) is not itself on the path; it only appears in the"/>
+    <comment column="1" file="scrubber.cpp" idref="13" line="13" name="// val is confidential, which kills the perceived data dependency. That"/>
+    <comment column="1" file="scrubber.cpp" idref="14" line="12" name="// however, overwrites data with a constant in exactly those rounds in which"/>
+    <comment column="1" file="scrubber.cpp" idref="15" line="11" name="// has a controlling node whose value would resolve anything. The sink,"/>
+    <comment column="1" file="scrubber.cpp" idref="16" line="10" name="//   high_in -> val -> data = 2 * val -> low_out = data"/>
+    <comment column="1" file="scrubber.cpp" idref="17" line="9" name="// Neither write is guarded by a condition, so no node on the path"/>
+    <comment column="1" file="scrubber.cpp" idref="18" line="8" name="// confidential one in the even rounds and the public one in the odd rounds."/>
+    <comment column="1" file="scrubber.cpp" idref="19" line="7" name="// Two independent sources publish into the shared register val: the"/>
+    <comment column="1" file="scrubber.cpp" idref="20" line="6" name="//"/>
+    <comment column="1" file="scrubber.cpp" idref="21" line="5" name="// its own nodes, but by a dependency of one of its dependency nodes."/>
+    <comment column="1" file="scrubber.cpp" idref="22" line="4" name="// the potentially violating path is not cut by a controlling node of any of"/>
+    <comment column="1" file="scrubber.cpp" idref="23" line="3" name="// Secure case study that realises the situation of Figure 3d of the paper:"/>
+    <declaration idref="25">
+      <declaration_specifiers idref="29">
+        <class_specifier extSCModule="true" idref="31" keyword="class" name="scrubber">
+          <base_clause column="19" file="scrubber.cpp" idref="33" line="24">
+            <base_specifier column="19" file="scrubber.cpp" idref="35"
+              length="0" line="24" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="19"
+                file="scrubber.cpp" idref="37" line="24" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="19" file="scrubber.cpp" idref="39" line="24">
+            <access_specifier column="19" file="scrubber.cpp" idref="41"
+              line="24" name="public"/>
+          </member_declaration>
+          <member_declaration column="21" file="scrubber.cpp" idref="43" line="26">
+            <member_declarator_list column="21" file="scrubber.cpp"
+              idref="45" line="26">
+              <declaration_specifiers column="21" file="scrubber.cpp"
+                idref="47" line="26">
+                <builtin_type_specifier column="21" file="scrubber.cpp"
+                  idref="49" length="0" line="26" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="2" file="scrubber.cpp"
+                idref="51" line="26">
+                <declarator column="2" file="scrubber.cpp" idref="53" line="26">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="55" line="26" name="low_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="12" file="scrubber.cpp" idref="57" line="27">
+            <member_declarator_list column="12" file="scrubber.cpp"
+              idref="59" line="27">
+              <declaration_specifiers column="12" file="scrubber.cpp"
+                idref="61" line="27">
+                <builtin_type_specifier column="12" file="scrubber.cpp"
+                  idref="63" length="0" line="27" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="2" file="scrubber.cpp"
+                idref="65" line="27">
+                <declarator column="2" file="scrubber.cpp" idref="67" line="27">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="69" line="27" name="high_in"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="13" file="scrubber.cpp" idref="71" line="29">
+            <member_declarator_list column="13" file="scrubber.cpp"
+              idref="73" line="29">
+              <declaration_specifiers column="13" file="scrubber.cpp"
+                idref="75" line="29">
+                <builtin_type_specifier column="13" file="scrubber.cpp"
+                  idref="77" length="0" line="29" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="2" file="scrubber.cpp"
+                idref="79" line="29">
+                <declarator column="2" file="scrubber.cpp" idref="81" line="29">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="83" line="29" name="val"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="9" file="scrubber.cpp" idref="85" line="30">
+            <member_declarator_list column="9" file="scrubber.cpp"
+              idref="87" line="30">
+              <declaration_specifiers column="9" file="scrubber.cpp"
+                idref="89" line="30">
+                <builtin_type_specifier column="9" file="scrubber.cpp"
+                  idref="91" length="0" line="30" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="2" file="scrubber.cpp"
+                idref="93" line="30">
+                <declarator column="2" file="scrubber.cpp" idref="95" line="30">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="97" line="30" name="data"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="10" file="scrubber.cpp" idref="99" line="32">
+            <member_declarator_list column="10" file="scrubber.cpp"
+              idref="101" line="32">
+              <declaration_specifiers column="10" file="scrubber.cpp"
+                idref="103" line="32">
+                <builtin_type_specifier column="10" file="scrubber.cpp"
+                  idref="105" length="0" line="32" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="2" file="scrubber.cpp"
+                idref="107" line="32">
+                <declarator column="2" file="scrubber.cpp" idref="109" line="32">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="111" line="32" name="low_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="13" file="scrubber.cpp"
+            idref="113" line="34">
+            <function_definition column="13" file="scrubber.cpp"
+              idref="115" line="34">
+              <declaration_specifiers column="13" file="scrubber.cpp"
+                idref="117" line="34">
+                <builtin_type_specifier column="13" file="scrubber.cpp"
+                  idref="119" length="0" line="34" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="scrubber.cpp"
+                idref="121" line="34">
+                <qualified_id column="2" file="scrubber.cpp" idref="123"
+                  line="34" name="high_source"/>
+              </function_declarator>
+              <block column="19" file="scrubber.cpp" idref="125" line="34">
+                <block_statement column="21" file="scrubber.cpp"
+                  idref="127" line="35">
+                  <while_statement column="21" file="scrubber.cpp"
+                    idref="129" line="35">
+                    <primary_expression column="9" file="scrubber.cpp"
+                      idref="133" line="35">
+                      <constant column="9" file="scrubber.cpp"
+                        idref="135" line="35" value="true"/>
+                    </primary_expression>
+                    <block column="14" file="scrubber.cpp" idref="137" line="35">
+                      <block_statement column="16" file="scrubber.cpp"
+                        idref="139" line="36">
+                        <systemCRoutine column="16" file="scrubber.cpp"
+                          idref="143" line="36" name="wait">
+                          <arguments column="4" file="scrubber.cpp"
+                            idref="145" line="36">
+                            <arguments_list column="8"
+                              file="scrubber.cpp" idref="147" line="36">
+                              <primary_expression column="8"
+                                file="scrubber.cpp" idref="151" line="36">
+                                <constant column="8" file="scrubber.cpp"
+                                  idref="153" line="36" value="2"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="scrubber.cpp" idref="157" line="36">
+                                <constant column="10"
+                                  file="scrubber.cpp" idref="159"
+                                  line="36" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="18" file="scrubber.cpp"
+                        idref="161" line="37">
+                        <assignment column="8" file="scrubber.cpp"
+                          idref="171" line="37">
+                          <primary_expression column="18"
+                            file="scrubber.cpp" idref="165" line="37">
+                            <id_expression column="4"
+                              file="scrubber.cpp" idref="167" line="37" name="val"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="scrubber.cpp" idref="169" line="37"/>
+                          <primary_expression column="8"
+                            file="scrubber.cpp" idref="175" line="37">
+                            <id_expression column="10"
+                              file="scrubber.cpp" idref="177" line="37" name="high_in"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="17" file="scrubber.cpp"
+                        idref="179" line="38">
+                        <systemCRoutine column="17" file="scrubber.cpp"
+                          idref="183" line="38" name="wait">
+                          <arguments column="4" file="scrubber.cpp"
+                            idref="185" line="38">
+                            <arguments_list column="8"
+                              file="scrubber.cpp" idref="187" line="38">
+                              <primary_expression column="8"
+                                file="scrubber.cpp" idref="191" line="38">
+                                <constant column="8" file="scrubber.cpp"
+                                  idref="193" line="38" value="2"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="scrubber.cpp" idref="197" line="38">
+                                <constant column="10"
+                                  file="scrubber.cpp" idref="199"
+                                  line="38" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="scrubber.cpp" idref="201" line="42">
+            <function_definition column="2" file="scrubber.cpp"
+              idref="203" line="42">
+              <declaration_specifiers column="2" file="scrubber.cpp"
+                idref="205" line="42">
+                <builtin_type_specifier column="2" file="scrubber.cpp"
+                  idref="207" length="0" line="42" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="scrubber.cpp"
+                idref="209" line="42">
+                <qualified_id column="2" file="scrubber.cpp" idref="211"
+                  line="42" name="low_source"/>
+              </function_declarator>
+              <block column="18" file="scrubber.cpp" idref="213" line="42">
+                <block_statement column="20" file="scrubber.cpp"
+                  idref="215" line="43">
+                  <systemCRoutine column="20" file="scrubber.cpp"
+                    idref="219" line="43" name="wait">
+                    <arguments column="3" file="scrubber.cpp"
+                      idref="221" line="43">
+                      <arguments_list column="7" file="scrubber.cpp"
+                        idref="223" line="43">
+                        <primary_expression column="7"
+                          file="scrubber.cpp" idref="227" line="43">
+                          <constant column="7" file="scrubber.cpp"
+                            idref="229" line="43" value="4"/>
+                        </primary_expression>
+                        <primary_expression column="9"
+                          file="scrubber.cpp" idref="233" line="43">
+                          <constant column="9" file="scrubber.cpp"
+                            idref="235" line="43" value="SC_MS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="17" file="scrubber.cpp"
+                  idref="237" line="44">
+                  <while_statement column="17" file="scrubber.cpp"
+                    idref="239" line="44">
+                    <primary_expression column="9" file="scrubber.cpp"
+                      idref="243" line="44">
+                      <constant column="9" file="scrubber.cpp"
+                        idref="245" line="44" value="true"/>
+                    </primary_expression>
+                    <block column="14" file="scrubber.cpp" idref="247" line="44">
+                      <block_statement column="16" file="scrubber.cpp"
+                        idref="249" line="45">
+                        <assignment column="8" file="scrubber.cpp"
+                          idref="259" line="45">
+                          <primary_expression column="16"
+                            file="scrubber.cpp" idref="253" line="45">
+                            <id_expression column="4"
+                              file="scrubber.cpp" idref="255" line="45" name="val"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="scrubber.cpp" idref="257" line="45"/>
+                          <primary_expression column="8"
+                            file="scrubber.cpp" idref="263" line="45">
+                            <id_expression column="10"
+                              file="scrubber.cpp" idref="265" line="45" name="low_in"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="16" file="scrubber.cpp"
+                        idref="267" line="46">
+                        <systemCRoutine column="16" file="scrubber.cpp"
+                          idref="271" line="46" name="wait">
+                          <arguments column="4" file="scrubber.cpp"
+                            idref="273" line="46">
+                            <arguments_list column="8"
+                              file="scrubber.cpp" idref="275" line="46">
+                              <primary_expression column="8"
+                                file="scrubber.cpp" idref="279" line="46">
+                                <constant column="8" file="scrubber.cpp"
+                                  idref="281" line="46" value="4"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="scrubber.cpp" idref="285" line="46">
+                                <constant column="10"
+                                  file="scrubber.cpp" idref="287"
+                                  line="46" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="scrubber.cpp" idref="289" line="50">
+            <function_definition column="2" file="scrubber.cpp"
+              idref="291" line="50">
+              <declaration_specifiers column="2" file="scrubber.cpp"
+                idref="293" line="50">
+                <builtin_type_specifier column="2" file="scrubber.cpp"
+                  idref="295" length="0" line="50" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="2" file="scrubber.cpp"
+                idref="297" line="50">
+                <qualified_id column="2" file="scrubber.cpp" idref="299"
+                  line="50" name="sink"/>
+              </function_declarator>
+              <block column="12" file="scrubber.cpp" idref="301" line="50">
+                <block_statement column="14" file="scrubber.cpp"
+                  idref="303" line="51">
+                  <declaration column="14" file="scrubber.cpp"
+                    idref="305" line="51">
+                    <init_declarator_list column="14"
+                      file="scrubber.cpp" idref="307" line="51">
+                      <declaration_specifiers column="14"
+                        file="scrubber.cpp" idref="309" line="51">
+                        <builtin_type_specifier column="14"
+                          file="scrubber.cpp" idref="311" length="0"
+                          line="51" name="int" sc_dt="false"/>
+                      </declaration_specifiers>
+                      <init_declarator column="3" file="scrubber.cpp"
+                        idref="313" line="51">
+                        <declarator column="3" file="scrubber.cpp"
+                          idref="315" line="51">
+                          <qualified_id column="3" file="scrubber.cpp"
+                            idref="317" line="51" name="phase"/>
+                        </declarator>
+                        <initializer column="13" file="scrubber.cpp"
+                          idref="319" line="51">
+                          <primary_expression column="13"
+                            file="scrubber.cpp" idref="323" line="51">
+                            <constant column="13" file="scrubber.cpp"
+                              idref="325" line="51" value="0"/>
+                          </primary_expression>
+                        </initializer>
+                      </init_declarator>
+                    </init_declarator_list>
+                  </declaration>
+                </block_statement>
+                <block_statement column="16" file="scrubber.cpp"
+                  idref="327" line="52">
+                  <systemCRoutine column="16" file="scrubber.cpp"
+                    idref="331" line="52" name="wait">
+                    <arguments column="3" file="scrubber.cpp"
+                      idref="333" line="52">
+                      <arguments_list column="7" file="scrubber.cpp"
+                        idref="335" line="52">
+                        <primary_expression column="7"
+                          file="scrubber.cpp" idref="339" line="52">
+                          <constant column="7" file="scrubber.cpp"
+                            idref="341" line="52" value="3"/>
+                        </primary_expression>
+                        <primary_expression column="9"
+                          file="scrubber.cpp" idref="345" line="52">
+                          <constant column="9" file="scrubber.cpp"
+                            idref="347" line="52" value="SC_MS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="17" file="scrubber.cpp"
+                  idref="349" line="53">
+                  <while_statement column="17" file="scrubber.cpp"
+                    idref="351" line="53">
+                    <primary_expression column="9" file="scrubber.cpp"
+                      idref="355" line="53">
+                      <constant column="9" file="scrubber.cpp"
+                        idref="357" line="53" value="true"/>
+                    </primary_expression>
+                    <block column="14" file="scrubber.cpp" idref="359" line="53">
+                      <block_statement column="16" file="scrubber.cpp"
+                        idref="361" line="54">
+                        <assignment column="9" file="scrubber.cpp"
+                          idref="371" line="54">
+                          <primary_expression column="16"
+                            file="scrubber.cpp" idref="365" line="54">
+                            <id_expression column="4"
+                              file="scrubber.cpp" idref="367" line="54" name="data"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="scrubber.cpp" idref="369" line="54"/>
+                          <mul_node column="13" file="scrubber.cpp"
+                            idref="379" line="54">
+                            <primary_expression column="9"
+                              file="scrubber.cpp" idref="375" line="54">
+                              <constant column="9" file="scrubber.cpp"
+                                idref="377" line="54" value="2"/>
+                            </primary_expression>
+                            <primary_expression column="13"
+                              file="scrubber.cpp" idref="383" line="54">
+                              <id_expression column="15"
+                                file="scrubber.cpp" idref="385"
+                                line="54" name="val"/>
+                            </primary_expression>
+                          </mul_node>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="18" file="scrubber.cpp"
+                        idref="387" line="55">
+                        <if_statement column="18" file="scrubber.cpp"
+                          idref="389" line="55">
+                          <eq_node column="14" file="scrubber.cpp"
+                            idref="397" line="55">
+                            <primary_expression column="7"
+                              file="scrubber.cpp" idref="393" line="55">
+                              <id_expression column="8"
+                                file="scrubber.cpp" idref="395"
+                                line="55" name="phase"/>
+                            </primary_expression>
+                            <primary_expression column="14"
+                              file="scrubber.cpp" idref="401" line="55">
+                              <constant column="14" file="scrubber.cpp"
+                                idref="403" line="55" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="18" file="scrubber.cpp"
+                            idref="405" line="55">
+                            <block_statement column="20"
+                              file="scrubber.cpp" idref="407" line="56">
+                              <assignment column="10"
+                                file="scrubber.cpp" idref="417" line="56">
+                                <primary_expression column="20"
+                                  file="scrubber.cpp" idref="411" line="56">
+                                  <id_expression column="5"
+                                    file="scrubber.cpp" idref="413"
+                                    line="56" name="data"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="scrubber.cpp" idref="415" line="56"/>
+                                <primary_expression column="10"
+                                  file="scrubber.cpp" idref="421" line="56">
+                                  <constant column="10"
+                                    file="scrubber.cpp" idref="423"
+                                    line="56" value="5"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="4" file="scrubber.cpp"
+                        idref="425" line="58">
+                        <assignment column="12" file="scrubber.cpp"
+                          idref="435" line="58">
+                          <primary_expression column="4"
+                            file="scrubber.cpp" idref="429" line="58">
+                            <id_expression column="4"
+                              file="scrubber.cpp" idref="431" line="58" name="low_out"/>
+                          </primary_expression>
+                          <assignment_operator column="4"
+                            file="scrubber.cpp" idref="433" line="58"/>
+                          <primary_expression column="12"
+                            file="scrubber.cpp" idref="439" line="58">
+                            <id_expression column="14"
+                              file="scrubber.cpp" idref="441" line="58" name="data"/>
+                          </primary_expression>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="18" file="scrubber.cpp"
+                        idref="443" line="59">
+                        <if_statement column="18" file="scrubber.cpp"
+                          idref="445" line="59">
+                          <eq_node column="14" file="scrubber.cpp"
+                            idref="453" line="59">
+                            <primary_expression column="7"
+                              file="scrubber.cpp" idref="449" line="59">
+                              <id_expression column="8"
+                                file="scrubber.cpp" idref="451"
+                                line="59" name="phase"/>
+                            </primary_expression>
+                            <primary_expression column="14"
+                              file="scrubber.cpp" idref="457" line="59">
+                              <constant column="14" file="scrubber.cpp"
+                                idref="459" line="59" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="18" file="scrubber.cpp"
+                            idref="461" line="60">
+                            <block_statement column="18"
+                              file="scrubber.cpp" idref="463" line="60">
+                              <assignment column="11"
+                                file="scrubber.cpp" idref="473" line="60">
+                                <primary_expression column="18"
+                                  file="scrubber.cpp" idref="467" line="60">
+                                  <id_expression column="5"
+                                    file="scrubber.cpp" idref="469"
+                                    line="60" name="phase"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="scrubber.cpp" idref="471" line="60"/>
+                                <primary_expression column="11"
+                                  file="scrubber.cpp" idref="477" line="60">
+                                  <constant column="11"
+                                    file="scrubber.cpp" idref="479"
+                                    line="60" value="1"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="4" file="scrubber.cpp"
+                            idref="481" line="62">
+                            <block_statement column="4"
+                              file="scrubber.cpp" idref="483" line="62">
+                              <assignment column="11"
+                                file="scrubber.cpp" idref="493" line="62">
+                                <primary_expression column="4"
+                                  file="scrubber.cpp" idref="487" line="62">
+                                  <id_expression column="5"
+                                    file="scrubber.cpp" idref="489"
+                                    line="62" name="phase"/>
+                                </primary_expression>
+                                <assignment_operator column="5"
+                                  file="scrubber.cpp" idref="491" line="62"/>
+                                <primary_expression column="11"
+                                  file="scrubber.cpp" idref="497" line="62">
+                                  <constant column="11"
+                                    file="scrubber.cpp" idref="499"
+                                    line="62" value="0"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="14" file="scrubber.cpp"
+                        idref="501" line="63">
+                        <systemCRoutine column="14" file="scrubber.cpp"
+                          idref="505" line="63" name="wait">
+                          <arguments column="4" file="scrubber.cpp"
+                            idref="507" line="63">
+                            <arguments_list column="8"
+                              file="scrubber.cpp" idref="509" line="63">
+                              <primary_expression column="8"
+                                file="scrubber.cpp" idref="513" line="63">
+                                <constant column="8" file="scrubber.cpp"
+                                  idref="515" line="63" value="2"/>
+                              </primary_expression>
+                              <primary_expression column="10"
+                                file="scrubber.cpp" idref="519" line="63">
+                                <constant column="10"
+                                  file="scrubber.cpp" idref="521"
+                                  line="63" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="2" file="scrubber.cpp" idref="523" line="67"/>
+          <member_declaration column="2" file="scrubber.cpp" idref="525" line="67">
+            <ctor_definition column="2" file="scrubber.cpp" idref="527" line="67">
+              <qualified_id column="9" file="scrubber.cpp" idref="529"
+                line="67" name="scrubber"/>
+              <parameter_list column="18" file="scrubber.cpp"
+                idref="531" line="67">
+                <parameter_declaration column="18" file="scrubber.cpp"
+                  idref="533" line="67">
+                  <declaration_specifiers column="18"
+                    file="scrubber.cpp" idref="535" line="67">
+                    <builtin_type_specifier column="18"
+                      file="scrubber.cpp" idref="537" length="0"
+                      line="67" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="18" file="scrubber.cpp"
+                    idref="539" line="67">
+                    <qualified_id column="18" file="scrubber.cpp"
+                      idref="541" line="67" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="18" file="scrubber.cpp"
+                idref="543" line="67">
+                <superclass_init column="18" file="scrubber.cpp"
+                  idref="545" line="67">
+                  <declaration_specifiers column="18"
+                    file="scrubber.cpp" idref="547" line="67">
+                    <builtin_type_specifier column="18"
+                      file="scrubber.cpp" idref="549" length="0"
+                      line="67" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="18" file="scrubber.cpp"
+                    idref="551" line="67">
+                    <primary_expression column="18" file="scrubber.cpp"
+                      idref="553" line="67">
+                      <id_expression column="18" file="scrubber.cpp"
+                        idref="555" line="67" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="18" file="scrubber.cpp" idref="557" line="67">
+                <sc_thread_block column="20" file="scrubber.cpp"
+                  idref="559" line="68">
+                  <sc_thread column="20" file="scrubber.cpp" idref="561"
+                    line="68" name="high_source"/>
+                </sc_thread_block>
+                <sc_thread_block column="25" file="scrubber.cpp"
+                  idref="563" line="69">
+                  <sc_thread column="25" file="scrubber.cpp" idref="565"
+                    line="69" name="low_source"/>
+                </sc_thread_block>
+                <sc_thread_block column="24" file="scrubber.cpp"
+                  idref="567" line="70">
+                  <sc_thread column="24" file="scrubber.cpp" idref="569"
+                    line="70" name="sink"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="scrubber.cpp" idref="571" line="75">
+    <sc_main_declaration column="2" file="scrubber.cpp" idref="573" line="75">
+      <declaration_specifiers column="1" file="scrubber.cpp" idref="575" line="75">
+        <builtin_type_specifier column="1" file="scrubber.cpp"
+          idref="577" length="0" line="75" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="scrubber.cpp" idref="579" line="75">
+        <qualified_id column="5" file="scrubber.cpp" idref="581"
+          line="75" name="sc_main"/>
+        <parameter_list column="12" file="scrubber.cpp" idref="583" line="75">
+          <parameter_declaration column="12" file="scrubber.cpp"
+            idref="585" line="75">
+            <declaration_specifiers column="12" file="scrubber.cpp"
+              idref="587" line="75">
+              <builtin_type_specifier column="12" file="scrubber.cpp"
+                idref="589" length="0" line="75" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="scrubber.cpp" idref="591" line="75">
+              <qualified_id column="13" file="scrubber.cpp" idref="593"
+                line="75" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="scrubber.cpp"
+            idref="595" line="75">
+            <declaration_specifiers column="21" file="scrubber.cpp"
+              idref="597" line="75">
+              <builtin_type_specifier column="21" file="scrubber.cpp"
+                idref="599" length="0" line="75" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="scrubber.cpp" idref="601" line="75">
+              <ptr_operator column="23" file="scrubber.cpp" idref="603"
+                line="75" name="*"/>
+              <declarator column="27" file="scrubber.cpp" idref="605" line="75">
+                <qualified_id column="27" file="scrubber.cpp"
+                  idref="607" line="75" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="29"
+                  file="scrubber.cpp" idref="609" line="75"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="35" file="scrubber.cpp" idref="611" line="75">
+        <block_statement column="37" file="scrubber.cpp" idref="613" line="76">
+          <declaration column="37" file="scrubber.cpp" idref="615" line="76">
+            <init_declarator_list column="37" file="scrubber.cpp"
+              idref="617" line="76">
+              <declaration_specifiers column="37" file="scrubber.cpp"
+                idref="619" line="76">
+                <qualified_type column="37" file="scrubber.cpp"
+                  idref="621" line="76">
+                  <qualified_id column="37" file="scrubber.cpp"
+                    idref="623" line="76" name="scrubber"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="2" file="scrubber.cpp"
+                idref="625" line="76">
+                <declarator column="2" file="scrubber.cpp" idref="627" line="76">
+                  <qualified_id column="2" file="scrubber.cpp"
+                    idref="629" line="76" name="sc"/>
+                </declarator>
+                <arguments_list column="13" file="scrubber.cpp"
+                  idref="631" line="76">
+                  <primary_expression column="13" file="scrubber.cpp"
+                    idref="635" line="76">
+                    <constant column="13" file="scrubber.cpp"
+                      idref="637" line="76" value="&quot;sc&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="19" file="scrubber.cpp" idref="639" line="78">
+          <systemCRoutine column="19" file="scrubber.cpp" idref="641"
+            line="78" name="sc_start">
+            <arguments column="2" file="scrubber.cpp" idref="643" line="78"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="12" file="scrubber.cpp" idref="645" line="79">
+          <return_statement column="12" file="scrubber.cpp" idref="647" line="79">
+            <primary_expression column="2" file="scrubber.cpp"
+              idref="651" line="79">
+              <constant column="2" file="scrubber.cpp" idref="653"
+                line="79" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

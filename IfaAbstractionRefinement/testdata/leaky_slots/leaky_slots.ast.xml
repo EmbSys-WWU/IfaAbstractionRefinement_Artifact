@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<INTERNAL>
+  <external_declaration idref="2">
+    <comment column="1" file="leaky_slots.cpp" idref="3" line="7" name="// abstraction refinement may remove."/>
+    <comment column="1" file="leaky_slots.cpp" idref="4" line="6" name="// low_out. This is a genuine (non-spurious) information flow that no"/>
+    <comment column="1" file="leaky_slots.cpp" idref="5" line="5" name="// announced on the type bus as a public value, so the consumer copies it to"/>
+    <comment column="1" file="leaky_slots.cpp" idref="6" line="4" name="// The producer mislabels the last slot: the confidential value high_in_b is"/>
+    <comment column="1" file="leaky_slots.cpp" idref="7" line="3" name="// Insecure variant of the &quot;many slots&quot; case study."/>
+    <declaration idref="9">
+      <declaration_specifiers idref="13">
+        <class_specifier extSCModule="true" idref="15" keyword="class" name="leaky_slots">
+          <base_clause column="22" file="leaky_slots.cpp" idref="17" line="8">
+            <base_specifier column="22" file="leaky_slots.cpp"
+              idref="19" length="0" line="8" name="sc_module" sc_dt="true">
+              <base_class_access_specifier column="22"
+                file="leaky_slots.cpp" idref="21" line="8" name="public"/>
+            </base_specifier>
+          </base_clause>
+          <member_declaration column="22" file="leaky_slots.cpp"
+            idref="23" line="8">
+            <access_specifier column="22" file="leaky_slots.cpp"
+              idref="25" line="8" name="public"/>
+          </member_declaration>
+          <member_declaration column="24" file="leaky_slots.cpp"
+            idref="27" line="9">
+            <member_declarator_list column="24" file="leaky_slots.cpp"
+              idref="29" line="9">
+              <sc_port_specifier column="24" file="leaky_slots.cpp"
+                idref="31" line="9" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="13"
+                  file="leaky_slots.cpp" idref="33" line="9">
+                  <builtin_type_specifier column="13"
+                    file="leaky_slots.cpp" idref="35" length="0"
+                    line="9" name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="leaky_slots.cpp"
+                idref="37" line="9">
+                <declarator column="17" file="leaky_slots.cpp"
+                  idref="39" line="9">
+                  <qualified_id column="17" file="leaky_slots.cpp"
+                    idref="41" line="9" name="data_bus"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="27" file="leaky_slots.cpp"
+            idref="43" line="10">
+            <member_declarator_list column="27" file="leaky_slots.cpp"
+              idref="45" line="10">
+              <sc_port_specifier column="27" file="leaky_slots.cpp"
+                idref="47" line="10" name="sc_inout" numOfChanels="1">
+                <declaration_specifiers column="13"
+                  file="leaky_slots.cpp" idref="49" line="10">
+                  <builtin_type_specifier column="13"
+                    file="leaky_slots.cpp" idref="51" length="0"
+                    line="10" name="int" sc_dt="false"/>
+                </declaration_specifiers>
+              </sc_port_specifier>
+              <member_declarator column="17" file="leaky_slots.cpp"
+                idref="53" line="10">
+                <declarator column="17" file="leaky_slots.cpp"
+                  idref="55" line="10">
+                  <qualified_id column="17" file="leaky_slots.cpp"
+                    idref="57" line="10" name="type_bus"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="27" file="leaky_slots.cpp"
+            idref="59" line="12">
+            <member_declarator_list column="27" file="leaky_slots.cpp"
+              idref="61" line="12">
+              <declaration_specifiers column="27" file="leaky_slots.cpp"
+                idref="63" line="12">
+                <builtin_type_specifier column="27"
+                  file="leaky_slots.cpp" idref="65" length="0" line="12"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="67" line="12">
+                <declarator column="5" file="leaky_slots.cpp" idref="69" line="12">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="71" line="12" name="low_in_a"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="leaky_slots.cpp"
+            idref="73" line="13">
+            <member_declarator_list column="17" file="leaky_slots.cpp"
+              idref="75" line="13">
+              <declaration_specifiers column="17" file="leaky_slots.cpp"
+                idref="77" line="13">
+                <builtin_type_specifier column="17"
+                  file="leaky_slots.cpp" idref="79" length="0" line="13"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="81" line="13">
+                <declarator column="5" file="leaky_slots.cpp" idref="83" line="13">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="85" line="13" name="low_in_b"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="leaky_slots.cpp"
+            idref="87" line="14">
+            <member_declarator_list column="17" file="leaky_slots.cpp"
+              idref="89" line="14">
+              <declaration_specifiers column="17" file="leaky_slots.cpp"
+                idref="91" line="14">
+                <builtin_type_specifier column="17"
+                  file="leaky_slots.cpp" idref="93" length="0" line="14"
+                  name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="95" line="14">
+                <declarator column="5" file="leaky_slots.cpp" idref="97" line="14">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="99" line="14" name="high_in_a"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="18" file="leaky_slots.cpp"
+            idref="101" line="15">
+            <member_declarator_list column="18" file="leaky_slots.cpp"
+              idref="103" line="15">
+              <declaration_specifiers column="18" file="leaky_slots.cpp"
+                idref="105" line="15">
+                <builtin_type_specifier column="18"
+                  file="leaky_slots.cpp" idref="107" length="0"
+                  line="15" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="109" line="15">
+                <declarator column="5" file="leaky_slots.cpp"
+                  idref="111" line="15">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="113" line="15" name="high_in_b"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="18" file="leaky_slots.cpp"
+            idref="115" line="17">
+            <member_declarator_list column="18" file="leaky_slots.cpp"
+              idref="117" line="17">
+              <declaration_specifiers column="18" file="leaky_slots.cpp"
+                idref="119" line="17">
+                <builtin_type_specifier column="18"
+                  file="leaky_slots.cpp" idref="121" length="0"
+                  line="17" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="123" line="17">
+                <declarator column="5" file="leaky_slots.cpp"
+                  idref="125" line="17">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="127" line="17" name="low_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="16" file="leaky_slots.cpp"
+            idref="129" line="18">
+            <member_declarator_list column="16" file="leaky_slots.cpp"
+              idref="131" line="18">
+              <declaration_specifiers column="16" file="leaky_slots.cpp"
+                idref="133" line="18">
+                <builtin_type_specifier column="16"
+                  file="leaky_slots.cpp" idref="135" length="0"
+                  line="18" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="137" line="18">
+                <declarator column="5" file="leaky_slots.cpp"
+                  idref="139" line="18">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="141" line="18" name="high_out"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="17" file="leaky_slots.cpp"
+            idref="143" line="20">
+            <member_declarator_list column="17" file="leaky_slots.cpp"
+              idref="145" line="20">
+              <declaration_specifiers column="17" file="leaky_slots.cpp"
+                idref="147" line="20">
+                <builtin_type_specifier column="17"
+                  file="leaky_slots.cpp" idref="149" length="0"
+                  line="20" name="int" sc_dt="false"/>
+              </declaration_specifiers>
+              <member_declarator column="5" file="leaky_slots.cpp"
+                idref="151" line="20">
+                <declarator column="5" file="leaky_slots.cpp"
+                  idref="153" line="20">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="155" line="20" name="slot"/>
+                </declarator>
+              </member_declarator>
+            </member_declarator_list>
+          </member_declaration>
+          <member_declaration column="13" file="leaky_slots.cpp"
+            idref="157" line="22">
+            <function_definition column="13" file="leaky_slots.cpp"
+              idref="159" line="22">
+              <declaration_specifiers column="13" file="leaky_slots.cpp"
+                idref="161" line="22">
+                <builtin_type_specifier column="13"
+                  file="leaky_slots.cpp" idref="163" length="0"
+                  line="22" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="leaky_slots.cpp"
+                idref="165" line="22">
+                <qualified_id column="5" file="leaky_slots.cpp"
+                  idref="167" line="22" name="producer"/>
+              </function_declarator>
+              <block column="19" file="leaky_slots.cpp" idref="169" line="22">
+                <block_statement column="21" file="leaky_slots.cpp"
+                  idref="171" line="23">
+                  <assignment column="14" file="leaky_slots.cpp"
+                    idref="181" line="23">
+                    <primary_expression column="21"
+                      file="leaky_slots.cpp" idref="175" line="23">
+                      <id_expression column="9" file="leaky_slots.cpp"
+                        idref="177" line="23" name="slot"/>
+                    </primary_expression>
+                    <assignment_operator column="9"
+                      file="leaky_slots.cpp" idref="179" line="23"/>
+                    <primary_expression column="14"
+                      file="leaky_slots.cpp" idref="185" line="23">
+                      <constant column="14" file="leaky_slots.cpp"
+                        idref="187" line="23" value="0"/>
+                    </primary_expression>
+                  </assignment>
+                </block_statement>
+                <block_statement column="17" file="leaky_slots.cpp"
+                  idref="189" line="24">
+                  <while_statement column="17" file="leaky_slots.cpp"
+                    idref="191" line="24">
+                    <primary_expression column="15"
+                      file="leaky_slots.cpp" idref="195" line="24">
+                      <constant column="15" file="leaky_slots.cpp"
+                        idref="197" line="24" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="leaky_slots.cpp"
+                      idref="199" line="24">
+                      <block_statement column="22"
+                        file="leaky_slots.cpp" idref="201" line="25">
+                        <systemCRoutine column="22"
+                          file="leaky_slots.cpp" idref="205" line="25" name="wait">
+                          <arguments column="13" file="leaky_slots.cpp"
+                            idref="207" line="25">
+                            <arguments_list column="17"
+                              file="leaky_slots.cpp" idref="209" line="25">
+                              <primary_expression column="17"
+                                file="leaky_slots.cpp" idref="213" line="25">
+                                <constant column="17"
+                                  file="leaky_slots.cpp" idref="215"
+                                  line="25" value="2"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="leaky_slots.cpp" idref="219" line="25">
+                                <constant column="19"
+                                  file="leaky_slots.cpp" idref="221"
+                                  line="25" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                      <block_statement column="27"
+                        file="leaky_slots.cpp" idref="223" line="27">
+                        <if_statement column="27" file="leaky_slots.cpp"
+                          idref="225" line="27">
+                          <eq_node column="22" file="leaky_slots.cpp"
+                            idref="233" line="27">
+                            <primary_expression column="16"
+                              file="leaky_slots.cpp" idref="229" line="27">
+                              <id_expression column="17"
+                                file="leaky_slots.cpp" idref="231"
+                                line="27" name="slot"/>
+                            </primary_expression>
+                            <primary_expression column="22"
+                              file="leaky_slots.cpp" idref="237" line="27">
+                              <constant column="22"
+                                file="leaky_slots.cpp" idref="239"
+                                line="27" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="26" file="leaky_slots.cpp"
+                            idref="241" line="27">
+                            <block_statement column="28"
+                              file="leaky_slots.cpp" idref="243" line="28">
+                              <postfix_expression column="28"
+                                file="leaky_slots.cpp" idref="245" line="28">
+                                <primary_expression column="28"
+                                  file="leaky_slots.cpp" idref="247" line="28">
+                                  <id_expression column="17"
+                                    file="leaky_slots.cpp" idref="249"
+                                    line="28" name="data_bus"/>
+                                </primary_expression>
+                                <dereferencing_operator column="17"
+                                  file="leaky_slots.cpp" idref="251"
+                                  line="28" name="&amp;"/>
+                                <id_expression column="26"
+                                  file="leaky_slots.cpp" idref="253"
+                                  line="28" name="write"/>
+                                <arguments column="26"
+                                  file="leaky_slots.cpp" idref="255" line="28">
+                                  <arguments_list column="31"
+                                    file="leaky_slots.cpp" idref="257" line="28">
+                                    <primary_expression column="31"
+                                    file="leaky_slots.cpp" idref="261" line="28">
+                                    <id_expression column="32"
+                                    file="leaky_slots.cpp"
+                                    idref="263" line="28" name="low_in_a"/>
+                                    </primary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </postfix_expression>
+                            </block_statement>
+                            <block_statement column="41"
+                              file="leaky_slots.cpp" idref="265" line="29">
+                              <postfix_expression column="41"
+                                file="leaky_slots.cpp" idref="267" line="29">
+                                <primary_expression column="41"
+                                  file="leaky_slots.cpp" idref="269" line="29">
+                                  <id_expression column="17"
+                                    file="leaky_slots.cpp" idref="271"
+                                    line="29" name="type_bus"/>
+                                </primary_expression>
+                                <dereferencing_operator column="17"
+                                  file="leaky_slots.cpp" idref="273"
+                                  line="29" name="&amp;"/>
+                                <id_expression column="26"
+                                  file="leaky_slots.cpp" idref="275"
+                                  line="29" name="write"/>
+                                <arguments column="26"
+                                  file="leaky_slots.cpp" idref="277" line="29">
+                                  <arguments_list column="31"
+                                    file="leaky_slots.cpp" idref="279" line="29">
+                                    <primary_expression column="31"
+                                    file="leaky_slots.cpp" idref="283" line="29">
+                                    <constant column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="285" line="29" value="0"/>
+                                    </primary_expression>
+                                  </arguments_list>
+                                </arguments>
+                              </postfix_expression>
+                            </block_statement>
+                          </block>
+                          <block column="15" file="leaky_slots.cpp"
+                            idref="287" line="30">
+                            <block_statement column="15"
+                              file="leaky_slots.cpp" idref="289" line="30">
+                              <if_statement column="15"
+                                file="leaky_slots.cpp" idref="291" line="30">
+                                <eq_node column="29"
+                                  file="leaky_slots.cpp" idref="299" line="30">
+                                  <primary_expression column="23"
+                                    file="leaky_slots.cpp" idref="295" line="30">
+                                    <id_expression column="24"
+                                    file="leaky_slots.cpp" idref="297"
+                                    line="30" name="slot"/>
+                                  </primary_expression>
+                                  <primary_expression column="29"
+                                    file="leaky_slots.cpp" idref="303" line="30">
+                                    <constant column="29"
+                                    file="leaky_slots.cpp" idref="305"
+                                    line="30" value="1"/>
+                                  </primary_expression>
+                                </eq_node>
+                                <block column="33"
+                                  file="leaky_slots.cpp" idref="307" line="30">
+                                  <block_statement column="35"
+                                    file="leaky_slots.cpp" idref="309" line="31">
+                                    <postfix_expression column="35"
+                                    file="leaky_slots.cpp" idref="311" line="31">
+                                    <primary_expression column="35"
+                                    file="leaky_slots.cpp"
+                                    idref="313" line="31">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="315" line="31" name="data_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="317" line="31" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="319" line="31" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="321" line="31">
+                                    <arguments_list column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="323" line="31">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="327" line="31">
+                                    <id_expression column="32"
+                                    file="leaky_slots.cpp"
+                                    idref="329" line="31" name="low_in_b"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                  </block_statement>
+                                  <block_statement column="41"
+                                    file="leaky_slots.cpp" idref="331" line="32">
+                                    <postfix_expression column="41"
+                                    file="leaky_slots.cpp" idref="333" line="32">
+                                    <primary_expression column="41"
+                                    file="leaky_slots.cpp"
+                                    idref="335" line="32">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="337" line="32" name="type_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="339" line="32" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="341" line="32" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="343" line="32">
+                                    <arguments_list column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="345" line="32">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="349" line="32">
+                                    <constant column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="351" line="32" value="0"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                  </block_statement>
+                                </block>
+                                <block column="15"
+                                  file="leaky_slots.cpp" idref="353" line="33">
+                                  <block_statement column="15"
+                                    file="leaky_slots.cpp" idref="355" line="33">
+                                    <if_statement column="15"
+                                    file="leaky_slots.cpp" idref="357" line="33">
+                                    <eq_node column="29"
+                                    file="leaky_slots.cpp"
+                                    idref="365" line="33">
+                                    <primary_expression column="23"
+                                    file="leaky_slots.cpp"
+                                    idref="361" line="33">
+                                    <id_expression column="24"
+                                    file="leaky_slots.cpp"
+                                    idref="363" line="33" name="slot"/>
+                                    </primary_expression>
+                                    <primary_expression column="29"
+                                    file="leaky_slots.cpp"
+                                    idref="369" line="33">
+                                    <constant column="29"
+                                    file="leaky_slots.cpp"
+                                    idref="371" line="33" value="2"/>
+                                    </primary_expression>
+                                    </eq_node>
+                                    <block column="33"
+                                    file="leaky_slots.cpp"
+                                    idref="373" line="33">
+                                    <block_statement column="35"
+                                    file="leaky_slots.cpp"
+                                    idref="375" line="34">
+                                    <postfix_expression
+                                    column="35"
+                                    file="leaky_slots.cpp"
+                                    idref="377" line="34">
+                                    <primary_expression
+                                    column="35"
+                                    file="leaky_slots.cpp"
+                                    idref="379" line="34">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="381" line="34" name="data_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="383" line="34" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="385" line="34" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="387" line="34">
+                                    <arguments_list
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="389" line="34">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="393" line="34">
+                                    <id_expression
+                                    column="32"
+                                    file="leaky_slots.cpp"
+                                    idref="395"
+                                    line="34" name="high_in_a"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                    </block_statement>
+                                    <block_statement column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="397" line="35">
+                                    <postfix_expression
+                                    column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="399" line="35">
+                                    <primary_expression
+                                    column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="401" line="35">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="403" line="35" name="type_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="405" line="35" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="407" line="35" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="409" line="35">
+                                    <arguments_list
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="411" line="35">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="415" line="35">
+                                    <constant column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="417"
+                                    line="35" value="1"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                    </block_statement>
+                                    </block>
+                                    <block column="15"
+                                    file="leaky_slots.cpp"
+                                    idref="419" line="36">
+                                    <block_statement column="20"
+                                    file="leaky_slots.cpp"
+                                    idref="421" line="37">
+                                    <postfix_expression
+                                    column="20"
+                                    file="leaky_slots.cpp"
+                                    idref="423" line="37">
+                                    <primary_expression
+                                    column="20"
+                                    file="leaky_slots.cpp"
+                                    idref="425" line="37">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="427" line="37" name="data_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="429" line="37" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="431" line="37" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="433" line="37">
+                                    <arguments_list
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="435" line="37">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="439" line="37">
+                                    <id_expression
+                                    column="32"
+                                    file="leaky_slots.cpp"
+                                    idref="441"
+                                    line="37" name="high_in_b"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                    </block_statement>
+                                    <block_statement column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="443" line="38">
+                                    <postfix_expression
+                                    column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="445" line="38">
+                                    <primary_expression
+                                    column="42"
+                                    file="leaky_slots.cpp"
+                                    idref="447" line="38">
+                                    <id_expression column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="449" line="38" name="type_bus"/>
+                                    </primary_expression>
+                                    <dereferencing_operator
+                                    column="17"
+                                    file="leaky_slots.cpp"
+                                    idref="451" line="38" name="&amp;"/>
+                                    <id_expression column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="453" line="38" name="write"/>
+                                    <arguments column="26"
+                                    file="leaky_slots.cpp"
+                                    idref="455" line="38">
+                                    <arguments_list
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="457" line="38">
+                                    <primary_expression
+                                    column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="461" line="38">
+                                    <constant column="31"
+                                    file="leaky_slots.cpp"
+                                    idref="463"
+                                    line="38" value="0"/>
+                                    </primary_expression>
+                                    </arguments_list>
+                                    </arguments>
+                                    </postfix_expression>
+                                    </block_statement>
+                                    </block>
+                                    </if_statement>
+                                  </block_statement>
+                                </block>
+                              </if_statement>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="13"
+                        file="leaky_slots.cpp" idref="465" line="40">
+                        <assignment column="18" file="leaky_slots.cpp"
+                          idref="475" line="40">
+                          <primary_expression column="13"
+                            file="leaky_slots.cpp" idref="469" line="40">
+                            <id_expression column="13"
+                              file="leaky_slots.cpp" idref="471"
+                              line="40" name="slot"/>
+                          </primary_expression>
+                          <assignment_operator column="13"
+                            file="leaky_slots.cpp" idref="473" line="40"/>
+                          <mod_node column="31" file="leaky_slots.cpp"
+                            idref="495" line="40">
+                            <primary_expression column="18"
+                              file="leaky_slots.cpp" idref="479" line="40">
+                              <add_node column="26"
+                                file="leaky_slots.cpp" idref="487" line="40">
+                                <primary_expression column="20"
+                                  file="leaky_slots.cpp" idref="483" line="40">
+                                  <id_expression column="21"
+                                    file="leaky_slots.cpp" idref="485"
+                                    line="40" name="slot"/>
+                                </primary_expression>
+                                <primary_expression column="26"
+                                  file="leaky_slots.cpp" idref="491" line="40">
+                                  <constant column="26"
+                                    file="leaky_slots.cpp" idref="493"
+                                    line="40" value="1"/>
+                                </primary_expression>
+                              </add_node>
+                            </primary_expression>
+                            <primary_expression column="31"
+                              file="leaky_slots.cpp" idref="499" line="40">
+                              <constant column="31"
+                                file="leaky_slots.cpp" idref="501"
+                                line="40" value="4"/>
+                            </primary_expression>
+                          </mod_node>
+                        </assignment>
+                      </block_statement>
+                      <block_statement column="34"
+                        file="leaky_slots.cpp" idref="503" line="41">
+                        <systemCRoutine column="34"
+                          file="leaky_slots.cpp" idref="507" line="41" name="wait">
+                          <arguments column="13" file="leaky_slots.cpp"
+                            idref="509" line="41">
+                            <arguments_list column="17"
+                              file="leaky_slots.cpp" idref="511" line="41">
+                              <primary_expression column="17"
+                                file="leaky_slots.cpp" idref="515" line="41">
+                                <constant column="17"
+                                  file="leaky_slots.cpp" idref="517"
+                                  line="41" value="2"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="leaky_slots.cpp" idref="521" line="41">
+                                <constant column="19"
+                                  file="leaky_slots.cpp" idref="523"
+                                  line="41" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="leaky_slots.cpp"
+            idref="525" line="45">
+            <function_definition column="5" file="leaky_slots.cpp"
+              idref="527" line="45">
+              <declaration_specifiers column="5" file="leaky_slots.cpp"
+                idref="529" line="45">
+                <builtin_type_specifier column="5"
+                  file="leaky_slots.cpp" idref="531" length="0"
+                  line="45" name="void" sc_dt="false"/>
+              </declaration_specifiers>
+              <function_declarator column="5" file="leaky_slots.cpp"
+                idref="533" line="45">
+                <qualified_id column="5" file="leaky_slots.cpp"
+                  idref="535" line="45" name="consumer"/>
+              </function_declarator>
+              <block column="19" file="leaky_slots.cpp" idref="537" line="45">
+                <block_statement column="21" file="leaky_slots.cpp"
+                  idref="539" line="46">
+                  <systemCRoutine column="21" file="leaky_slots.cpp"
+                    idref="543" line="46" name="wait">
+                    <arguments column="9" file="leaky_slots.cpp"
+                      idref="545" line="46">
+                      <arguments_list column="13" file="leaky_slots.cpp"
+                        idref="547" line="46">
+                        <primary_expression column="13"
+                          file="leaky_slots.cpp" idref="551" line="46">
+                          <constant column="13" file="leaky_slots.cpp"
+                            idref="553" line="46" value="1"/>
+                        </primary_expression>
+                        <primary_expression column="15"
+                          file="leaky_slots.cpp" idref="557" line="46">
+                          <constant column="15" file="leaky_slots.cpp"
+                            idref="559" line="46" value="SC_MS"/>
+                        </primary_expression>
+                      </arguments_list>
+                    </arguments>
+                  </systemCRoutine>
+                </block_statement>
+                <block_statement column="23" file="leaky_slots.cpp"
+                  idref="561" line="47">
+                  <while_statement column="23" file="leaky_slots.cpp"
+                    idref="563" line="47">
+                    <primary_expression column="15"
+                      file="leaky_slots.cpp" idref="567" line="47">
+                      <constant column="15" file="leaky_slots.cpp"
+                        idref="569" line="47" value="true"/>
+                    </primary_expression>
+                    <block column="20" file="leaky_slots.cpp"
+                      idref="571" line="47">
+                      <block_statement column="22"
+                        file="leaky_slots.cpp" idref="573" line="48">
+                        <declaration column="22" file="leaky_slots.cpp"
+                          idref="575" line="48">
+                          <init_declarator_list column="22"
+                            file="leaky_slots.cpp" idref="577" line="48">
+                            <declaration_specifiers column="22"
+                              file="leaky_slots.cpp" idref="579" line="48">
+                              <builtin_type_specifier column="22"
+                                file="leaky_slots.cpp" idref="581"
+                                length="0" line="48" name="int" sc_dt="false"/>
+                            </declaration_specifiers>
+                            <init_declarator column="13"
+                              file="leaky_slots.cpp" idref="583" line="48">
+                              <declarator column="13"
+                                file="leaky_slots.cpp" idref="585" line="48">
+                                <qualified_id column="13"
+                                  file="leaky_slots.cpp" idref="587"
+                                  line="48" name="d"/>
+                              </declarator>
+                              <initializer column="19"
+                                file="leaky_slots.cpp" idref="589" line="48">
+                                <postfix_expression column="19"
+                                  file="leaky_slots.cpp" idref="591" line="48">
+                                  <primary_expression column="19"
+                                    file="leaky_slots.cpp" idref="593" line="48">
+                                    <id_expression column="21"
+                                    file="leaky_slots.cpp" idref="595"
+                                    line="48" name="data_bus"/>
+                                  </primary_expression>
+                                  <dereferencing_operator column="21"
+                                    file="leaky_slots.cpp" idref="597"
+                                    line="48" name="&amp;"/>
+                                  <id_expression column="30"
+                                    file="leaky_slots.cpp" idref="599"
+                                    line="48" name="read"/>
+                                  <arguments column="30"
+                                    file="leaky_slots.cpp" idref="601" line="48"/>
+                                </postfix_expression>
+                              </initializer>
+                            </init_declarator>
+                          </init_declarator_list>
+                        </declaration>
+                      </block_statement>
+                      <block_statement column="36"
+                        file="leaky_slots.cpp" idref="603" line="50">
+                        <if_statement column="36" file="leaky_slots.cpp"
+                          idref="605" line="50">
+                          <eq_node column="33" file="leaky_slots.cpp"
+                            idref="619" line="50">
+                            <postfix_expression column="16"
+                              file="leaky_slots.cpp" idref="607" line="50">
+                              <primary_expression column="16"
+                                file="leaky_slots.cpp" idref="609" line="50">
+                                <id_expression column="17"
+                                  file="leaky_slots.cpp" idref="611"
+                                  line="50" name="type_bus"/>
+                              </primary_expression>
+                              <dereferencing_operator column="17"
+                                file="leaky_slots.cpp" idref="613"
+                                line="50" name="&amp;"/>
+                              <id_expression column="26"
+                                file="leaky_slots.cpp" idref="615"
+                                line="50" name="read"/>
+                              <arguments column="26"
+                                file="leaky_slots.cpp" idref="617" line="50"/>
+                            </postfix_expression>
+                            <primary_expression column="33"
+                              file="leaky_slots.cpp" idref="623" line="50">
+                              <constant column="33"
+                                file="leaky_slots.cpp" idref="625"
+                                line="50" value="0"/>
+                            </primary_expression>
+                          </eq_node>
+                          <block column="37" file="leaky_slots.cpp"
+                            idref="627" line="51">
+                            <block_statement column="37"
+                              file="leaky_slots.cpp" idref="629" line="51">
+                              <assignment column="25"
+                                file="leaky_slots.cpp" idref="639" line="51">
+                                <primary_expression column="37"
+                                  file="leaky_slots.cpp" idref="633" line="51">
+                                  <id_expression column="17"
+                                    file="leaky_slots.cpp" idref="635"
+                                    line="51" name="low_out"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="leaky_slots.cpp" idref="637" line="51"/>
+                                <primary_expression column="25"
+                                  file="leaky_slots.cpp" idref="643" line="51">
+                                  <id_expression column="27"
+                                    file="leaky_slots.cpp" idref="645"
+                                    line="51" name="d"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                          <block column="13" file="leaky_slots.cpp"
+                            idref="647" line="53">
+                            <block_statement column="13"
+                              file="leaky_slots.cpp" idref="649" line="53">
+                              <assignment column="26"
+                                file="leaky_slots.cpp" idref="659" line="53">
+                                <primary_expression column="13"
+                                  file="leaky_slots.cpp" idref="653" line="53">
+                                  <id_expression column="17"
+                                    file="leaky_slots.cpp" idref="655"
+                                    line="53" name="high_out"/>
+                                </primary_expression>
+                                <assignment_operator column="17"
+                                  file="leaky_slots.cpp" idref="657" line="53"/>
+                                <primary_expression column="26"
+                                  file="leaky_slots.cpp" idref="663" line="53">
+                                  <id_expression column="28"
+                                    file="leaky_slots.cpp" idref="665"
+                                    line="53" name="d"/>
+                                </primary_expression>
+                              </assignment>
+                            </block_statement>
+                          </block>
+                        </if_statement>
+                      </block_statement>
+                      <block_statement column="29"
+                        file="leaky_slots.cpp" idref="667" line="54">
+                        <systemCRoutine column="29"
+                          file="leaky_slots.cpp" idref="671" line="54" name="wait">
+                          <arguments column="13" file="leaky_slots.cpp"
+                            idref="673" line="54">
+                            <arguments_list column="17"
+                              file="leaky_slots.cpp" idref="675" line="54">
+                              <primary_expression column="17"
+                                file="leaky_slots.cpp" idref="679" line="54">
+                                <constant column="17"
+                                  file="leaky_slots.cpp" idref="681"
+                                  line="54" value="4"/>
+                              </primary_expression>
+                              <primary_expression column="19"
+                                file="leaky_slots.cpp" idref="685" line="54">
+                                <constant column="19"
+                                  file="leaky_slots.cpp" idref="687"
+                                  line="54" value="SC_MS"/>
+                              </primary_expression>
+                            </arguments_list>
+                          </arguments>
+                        </systemCRoutine>
+                      </block_statement>
+                    </block>
+                  </while_statement>
+                </block_statement>
+              </block>
+            </function_definition>
+          </member_declaration>
+          <member_declaration column="5" file="leaky_slots.cpp"
+            idref="689" line="58"/>
+          <member_declaration column="5" file="leaky_slots.cpp"
+            idref="691" line="58">
+            <ctor_definition column="5" file="leaky_slots.cpp"
+              idref="693" line="58">
+              <qualified_id column="12" file="leaky_slots.cpp"
+                idref="695" line="58" name="leaky_slots"/>
+              <parameter_list column="24" file="leaky_slots.cpp"
+                idref="697" line="58">
+                <parameter_declaration column="24"
+                  file="leaky_slots.cpp" idref="699" line="58">
+                  <declaration_specifiers column="24"
+                    file="leaky_slots.cpp" idref="701" line="58">
+                    <builtin_type_specifier column="24"
+                      file="leaky_slots.cpp" idref="703" length="0"
+                      line="58" name="sc_module_name" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <declarator column="24" file="leaky_slots.cpp"
+                    idref="705" line="58">
+                    <qualified_id column="24" file="leaky_slots.cpp"
+                      idref="707" line="58" name="name"/>
+                  </declarator>
+                </parameter_declaration>
+              </parameter_list>
+              <ctor_initializer column="24" file="leaky_slots.cpp"
+                idref="709" line="58">
+                <superclass_init column="24" file="leaky_slots.cpp"
+                  idref="711" line="58">
+                  <declaration_specifiers column="24"
+                    file="leaky_slots.cpp" idref="713" line="58">
+                    <builtin_type_specifier column="24"
+                      file="leaky_slots.cpp" idref="715" length="0"
+                      line="58" name="sc_module" sc_dt="true"/>
+                  </declaration_specifiers>
+                  <arguments_list column="24" file="leaky_slots.cpp"
+                    idref="717" line="58">
+                    <primary_expression column="24"
+                      file="leaky_slots.cpp" idref="719" line="58">
+                      <id_expression column="24" file="leaky_slots.cpp"
+                        idref="721" line="58" name="name"/>
+                    </primary_expression>
+                  </arguments_list>
+                </superclass_init>
+              </ctor_initializer>
+              <block column="24" file="leaky_slots.cpp" idref="723" line="58">
+                <sc_thread_block column="26" file="leaky_slots.cpp"
+                  idref="725" line="59">
+                  <sc_thread column="26" file="leaky_slots.cpp"
+                    idref="727" line="59" name="producer"/>
+                </sc_thread_block>
+                <sc_thread_block column="28" file="leaky_slots.cpp"
+                  idref="729" line="60">
+                  <sc_thread column="28" file="leaky_slots.cpp"
+                    idref="731" line="60" name="consumer"/>
+                </sc_thread_block>
+              </block>
+            </ctor_definition>
+          </member_declaration>
+        </class_specifier>
+      </declaration_specifiers>
+    </declaration>
+  </external_declaration>
+  <external_declaration column="2" file="leaky_slots.cpp" idref="733" line="64">
+    <sc_main_declaration column="2" file="leaky_slots.cpp" idref="735" line="64">
+      <declaration_specifiers column="1" file="leaky_slots.cpp"
+        idref="737" line="64">
+        <builtin_type_specifier column="1" file="leaky_slots.cpp"
+          idref="739" length="0" line="64" name="int" sc_dt="false"/>
+      </declaration_specifiers>
+      <function_declarator column="5" file="leaky_slots.cpp" idref="741" line="64">
+        <qualified_id column="5" file="leaky_slots.cpp" idref="743"
+          line="64" name="sc_main"/>
+        <parameter_list column="12" file="leaky_slots.cpp" idref="745" line="64">
+          <parameter_declaration column="12" file="leaky_slots.cpp"
+            idref="747" line="64">
+            <declaration_specifiers column="12" file="leaky_slots.cpp"
+              idref="749" line="64">
+              <builtin_type_specifier column="12" file="leaky_slots.cpp"
+                idref="751" length="0" line="64" name="int" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="13" file="leaky_slots.cpp" idref="753" line="64">
+              <qualified_id column="13" file="leaky_slots.cpp"
+                idref="755" line="64" name="argc"/>
+            </declarator>
+          </parameter_declaration>
+          <parameter_declaration column="21" file="leaky_slots.cpp"
+            idref="757" line="64">
+            <declaration_specifiers column="21" file="leaky_slots.cpp"
+              idref="759" line="64">
+              <builtin_type_specifier column="21" file="leaky_slots.cpp"
+                idref="761" length="0" line="64" name="char" sc_dt="false"/>
+            </declaration_specifiers>
+            <declarator column="23" file="leaky_slots.cpp" idref="763" line="64">
+              <ptr_operator column="23" file="leaky_slots.cpp"
+                idref="765" line="64" name="*"/>
+              <declarator column="27" file="leaky_slots.cpp" idref="767" line="64">
+                <qualified_id column="27" file="leaky_slots.cpp"
+                  idref="769" line="64" name="argv"/>
+                <declarator_suffixes arrayCounter="1" column="29"
+                  file="leaky_slots.cpp" idref="771" line="64"/>
+              </declarator>
+            </declarator>
+          </parameter_declaration>
+        </parameter_list>
+      </function_declarator>
+      <block column="35" file="leaky_slots.cpp" idref="773" line="64">
+        <block_statement column="37" file="leaky_slots.cpp" idref="775" line="65">
+          <declaration column="37" file="leaky_slots.cpp" idref="777" line="65">
+            <init_declarator_list column="37" file="leaky_slots.cpp"
+              idref="779" line="65">
+              <declaration_specifiers column="37" file="leaky_slots.cpp"
+                idref="781" line="65">
+                <qualified_type column="37" file="leaky_slots.cpp"
+                  idref="783" line="65">
+                  <qualified_id column="37" file="leaky_slots.cpp"
+                    idref="785" line="65" name="leaky_slots"/>
+                </qualified_type>
+              </declaration_specifiers>
+              <init_declarator column="5" file="leaky_slots.cpp"
+                idref="787" line="65">
+                <declarator column="5" file="leaky_slots.cpp"
+                  idref="789" line="65">
+                  <qualified_id column="5" file="leaky_slots.cpp"
+                    idref="791" line="65" name="ms"/>
+                </declarator>
+                <arguments_list column="19" file="leaky_slots.cpp"
+                  idref="793" line="65">
+                  <primary_expression column="19" file="leaky_slots.cpp"
+                    idref="797" line="65">
+                    <constant column="19" file="leaky_slots.cpp"
+                      idref="799" line="65" value="&quot;ms&quot;"/>
+                  </primary_expression>
+                </arguments_list>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="25" file="leaky_slots.cpp" idref="801" line="66">
+          <declaration column="25" file="leaky_slots.cpp" idref="803" line="66">
+            <init_declarator_list column="25" file="leaky_slots.cpp"
+              idref="805" line="66">
+              <declaration_specifiers column="25" file="leaky_slots.cpp"
+                idref="807" line="66">
+                <builtin_type_specifier column="25"
+                  file="leaky_slots.cpp" idref="809" length="0"
+                  line="66" name="sc_signal" sc_dt="true">
+                  <declaration_specifiers column="14"
+                    file="leaky_slots.cpp" idref="811" line="66">
+                    <builtin_type_specifier column="14"
+                      file="leaky_slots.cpp" idref="813" length="0"
+                      line="66" name="int" sc_dt="false"/>
+                  </declaration_specifiers>
+                </builtin_type_specifier>
+              </declaration_specifiers>
+              <init_declarator column="18" file="leaky_slots.cpp"
+                idref="815" line="66">
+                <declarator column="18" file="leaky_slots.cpp"
+                  idref="817" line="66">
+                  <qualified_id column="18" file="leaky_slots.cpp"
+                    idref="819" line="66" name="d_bus"/>
+                </declarator>
+              </init_declarator>
+              <init_declarator column="25" file="leaky_slots.cpp"
+                idref="821" line="66">
+                <declarator column="25" file="leaky_slots.cpp"
+                  idref="823" line="66">
+                  <qualified_id column="25" file="leaky_slots.cpp"
+                    idref="825" line="66" name="t_bus"/>
+                </declarator>
+              </init_declarator>
+            </init_declarator_list>
+          </declaration>
+        </block_statement>
+        <block_statement column="32" file="leaky_slots.cpp" idref="827" line="67">
+          <postfix_expression column="32" file="leaky_slots.cpp"
+            idref="829" line="67">
+            <primary_expression column="32" file="leaky_slots.cpp"
+              idref="831" line="67">
+              <id_expression column="5" file="leaky_slots.cpp"
+                idref="833" line="67" name="ms"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="leaky_slots.cpp"
+              idref="835" line="67" name="&amp;"/>
+            <id_expression column="8" file="leaky_slots.cpp" idref="837"
+              line="67" name="data_bus"/>
+            <arguments column="8" file="leaky_slots.cpp" idref="839" line="67">
+              <arguments_list column="16" file="leaky_slots.cpp"
+                idref="841" line="67">
+                <primary_expression column="16" file="leaky_slots.cpp"
+                  idref="845" line="67">
+                  <id_expression column="17" file="leaky_slots.cpp"
+                    idref="847" line="67" name="d_bus"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="leaky_slots.cpp" idref="849" line="68">
+          <postfix_expression column="23" file="leaky_slots.cpp"
+            idref="851" line="68">
+            <primary_expression column="23" file="leaky_slots.cpp"
+              idref="853" line="68">
+              <id_expression column="5" file="leaky_slots.cpp"
+                idref="855" line="68" name="ms"/>
+            </primary_expression>
+            <dereferencing_operator column="5" file="leaky_slots.cpp"
+              idref="857" line="68" name="&amp;"/>
+            <id_expression column="8" file="leaky_slots.cpp" idref="859"
+              line="68" name="type_bus"/>
+            <arguments column="8" file="leaky_slots.cpp" idref="861" line="68">
+              <arguments_list column="16" file="leaky_slots.cpp"
+                idref="863" line="68">
+                <primary_expression column="16" file="leaky_slots.cpp"
+                  idref="867" line="68">
+                  <id_expression column="17" file="leaky_slots.cpp"
+                    idref="869" line="68" name="t_bus"/>
+                </primary_expression>
+              </arguments_list>
+            </arguments>
+          </postfix_expression>
+        </block_statement>
+        <block_statement column="23" file="leaky_slots.cpp" idref="871" line="69">
+          <systemCRoutine column="23" file="leaky_slots.cpp" idref="873"
+            line="69" name="sc_start">
+            <arguments column="5" file="leaky_slots.cpp" idref="875" line="69"/>
+          </systemCRoutine>
+        </block_statement>
+        <block_statement column="15" file="leaky_slots.cpp" idref="877" line="70">
+          <return_statement column="15" file="leaky_slots.cpp"
+            idref="879" line="70">
+            <primary_expression column="5" file="leaky_slots.cpp"
+              idref="883" line="70">
+              <constant column="5" file="leaky_slots.cpp" idref="885"
+                line="70" value="0"/>
+            </primary_expression>
+          </return_statement>
+        </block_statement>
+      </block>
+    </sc_main_declaration>
+  </external_declaration>
+</INTERNAL>

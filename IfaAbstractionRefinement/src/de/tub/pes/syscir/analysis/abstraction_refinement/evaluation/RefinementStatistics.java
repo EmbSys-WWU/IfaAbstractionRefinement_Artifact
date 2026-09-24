@@ -25,10 +25,14 @@ public class RefinementStatistics implements RefinementLog {
     public int maxIFStateCount = 0;
     public int expressionEvaluationCount = 0;
     public Boolean policyCompliance = null;
+    public boolean abstractionInsufficient = false;
 
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
+        if (this.abstractionInsufficient) {
+            out.append("Abstraction insufficient; ");
+        }
         if (this.policyCompliance != null) {
             out.append(this.policyCompliance ? "Compliant; " : "Non-Compliant; ");
         }
@@ -47,6 +51,11 @@ public class RefinementStatistics implements RefinementLog {
 
     @Override
     public void insufficientTracking(InsufficientValueTrackingException exception) {}
+
+    @Override
+    public void abstractionInsufficient(InsufficientValueTrackingException exception, boolean refinementEnabled) {
+        this.abstractionInsufficient = true;
+    }
 
     @Override
     public void unknownControlCondition(Expression condition, AbstractedValue value) {}

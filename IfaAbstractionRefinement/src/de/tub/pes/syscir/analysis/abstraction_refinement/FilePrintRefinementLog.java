@@ -75,6 +75,11 @@ public class FilePrintRefinementLog implements RefinementLog, AutoCloseable {
     }
 
     @Override
+    public void abstractionInsufficient(InsufficientValueTrackingException exception, boolean refinementEnabled) {
+        this.delegate.abstractionInsufficient(exception, refinementEnabled);
+    }
+
+    @Override
     public void unknownControlCondition(Expression condition, AbstractedValue value) {
         this.delegate.unknownControlCondition(condition, value);
     }

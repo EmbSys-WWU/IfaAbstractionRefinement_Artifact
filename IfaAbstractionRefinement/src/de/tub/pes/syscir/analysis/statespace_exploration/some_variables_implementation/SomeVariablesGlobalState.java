@@ -6,6 +6,7 @@ import de.tub.pes.syscir.analysis.statespace_exploration.EventBlocker;
 import de.tub.pes.syscir.analysis.statespace_exploration.EventBlocker.Event;
 import de.tub.pes.syscir.analysis.statespace_exploration.GlobalState;
 import de.tub.pes.syscir.analysis.statespace_exploration.TimedBlocker;
+import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.ArrayInstance;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.ExpressionCrawler;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.GlobalVariable;
 import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.VariableHolder;
@@ -17,6 +18,7 @@ import de.tub.pes.syscir.sc_model.SCConnectionInterface;
 import de.tub.pes.syscir.sc_model.SCPortInstance;
 import de.tub.pes.syscir.sc_model.SCSystem;
 import de.tub.pes.syscir.sc_model.SCVariable;
+import de.tub.pes.syscir.sc_model.variables.SCArray;
 import de.tub.pes.syscir.sc_model.variables.SCClassInstance;
 import de.tub.pes.syscir.sc_model.variables.SCEvent;
 import de.tub.pes.syscir.sc_model.variables.SCKnownType;
@@ -84,7 +86,7 @@ public class SomeVariablesGlobalState extends GlobalState implements VariableHol
         }
     }
     
-    // currently only sets up events and ports
+    // currently only sets up events, ports, signals and arrays
     public static VariableMap<GlobalVariable<?, ?>> initialVariableValues(SCSystem scSystem, AbstractedLogic logic) {
         VariableMap<GlobalVariable<?, ?>> values = new VariableMap<>();
         for (SCClassInstance instance : scSystem.getInstances()) {
@@ -99,6 +101,9 @@ public class SomeVariablesGlobalState extends GlobalState implements VariableHol
                     String initString = variable.getInitializationString();
                     initString = initString.substring(" = ".length());
                     values.map().put(var, logic.value(scSystem.getInstanceByName(initString)));
+                } else if (variable instanceof SCArray array) {
+                    GlobalVariable<?, SCArray> var = new GlobalVariable<>(WrapperUtil.wrap(instance), array);
+                    values.map().put(var, logic.value(new ArrayInstance(var)));
                 }
             }
             for (SCConnectionInterface connection : scSystem.getPortSocketInstances()) {

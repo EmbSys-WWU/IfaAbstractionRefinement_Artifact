@@ -2,6 +2,7 @@ package de.tub.pes.syscir.analysis.abstraction_refinement;
 
 import de.tomatengames.util.function.LongToLongFunction;
 import de.tub.pes.syscir.analysis.abstraction_refinement.Sources.SourcesType;
+import de.tub.pes.syscir.analysis.statespace_exploration.standard_implementations.ExpressionCrawler.InsufficientValueTrackingException;
 import de.tub.pes.syscir.engine.Engine;
 import de.tub.pes.syscir.sc_model.SCSystem;
 import java.io.IOException;
@@ -184,6 +185,14 @@ public record RefinementConfig(RefinementLog log, SCSystem scSystem, SourcesType
      * Run the process as configured.
      */
     public void run() {
+        try {
+            runUnguarded();
+        } catch (InsufficientValueTrackingException e) {
+            this.log.abstractionInsufficient(e, this.refinementEnabled);
+        }
+    }
+
+    private void runUnguarded() {
         if (!this.refinementEnabled) {
             if (this.policy == null) {
                 new CustomAbstractedExploration(this, this.initialAbstraction).run();

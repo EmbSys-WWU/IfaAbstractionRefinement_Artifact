@@ -423,7 +423,7 @@ public abstract class ExpressionCrawler {
             return returnFromFunction(currentState, localState, null, comingFrom);
         }
         
-        // Constants
+        // Atomic Expressions
         if (nextExpression instanceof ConstantExpression ex) {
             return handleConstantExpression(currentState, localState, ex, comingFrom, c -> parseConstant(c.getValue()));
         } else if (nextExpression instanceof EndlineExpression ex) {
@@ -438,7 +438,7 @@ public abstract class ExpressionCrawler {
         } else if (nextExpression instanceof SCPortSCSocketExpression ex) {
             return handleConstantExpression(currentState, localState, ex, comingFrom,
                     SCPortSCSocketExpression::getSCPortSCSocket);
-        } else if (nextExpression instanceof SCVariableExpression ex) {
+        } else if (nextExpression instanceof SCVariableExpression ex && !(ex instanceof ArrayAccessExpression)) {
             return handleConstantExpression(currentState, localState, ex, comingFrom, SCVariableExpression::getVar);
         } else if (nextExpression instanceof TimeUnitExpression ex) {
             return handleConstantExpression(currentState, localState, ex, comingFrom, TimeUnitExpression::getTimeUnit);
