@@ -42,13 +42,15 @@ public class PrintRefinementLog extends StreamRefinementLog {
 
     @Override
     public void abstractionInsufficient(InsufficientValueTrackingException exception, boolean refinementEnabled) {
-        String expression = exception.getMessage().strip();
+        String what = exception.getMessage() == null
+                ? "continue, as a required value is unknown (" + exception.getValue() + ")"
+                : "evaluate '" + exception.getMessage().strip() + "'";
         if (refinementEnabled) {
-            this.out.println("Failure: the abstraction is insufficient to evaluate '" + expression
-                    + "', and exploration refinement could not make the required value known.");
+            this.out.println("Failure: the abstraction is insufficient to " + what
+                    + ", and exploration refinement could not make the required value known.");
         } else {
-            this.out.println("Failure: the abstraction is insufficient to evaluate '" + expression
-                    + "'. Enable exploration refinement (-s and/or -d) or extend the initial abstraction.");
+            this.out.println("Failure: the abstraction is insufficient to " + what
+                    + ". Enable exploration refinement (-s and/or -d) or extend the initial abstraction.");
         }
     }
 
