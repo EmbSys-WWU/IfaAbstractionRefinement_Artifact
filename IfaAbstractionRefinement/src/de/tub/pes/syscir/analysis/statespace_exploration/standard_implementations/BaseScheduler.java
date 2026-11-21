@@ -272,9 +272,12 @@ public abstract class BaseScheduler extends ExpressionCrawler implements Schedul
                     if (transition.transitionInformation().equals(oldInformation)) {
                         continue;
                     }
+                    // composing may modify the stored information and return it, so whether the newcomer added
+                    // anything can only be told against a copy taken before
+                    TransitionInformation oldSnapshot = oldInformation == null ? null : oldInformation.clone();
                     TransitionInformation newInformation = seenTransitions.merge(state,
                             transition.transitionInformation(), TransitionInformation::compose);
-                    if (newInformation.equals(oldInformation)) {
+                    if (newInformation.equals(oldSnapshot)) {
                         continue;
                     }
 

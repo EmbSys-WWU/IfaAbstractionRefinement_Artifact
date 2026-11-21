@@ -178,14 +178,19 @@ public abstract class BaseProcess extends ExpressionCrawler implements AnalyzedP
                     if (transition.transitionInformation().equals(oldInformation)) {
                         continue;
                     }
+                    // composing may modify the stored information and return it, so whether the newcomer added
+                    // anything can only be told against a copy taken before
+                    TransitionInformation oldSnapshot = oldInformation == null ? null : oldInformation.clone();
                     TransitionInformation newInformation =
                             seenTransitions.merge(transition.resultingState().unlockedClone(),
                                     transition.transitionInformation().clone(), TransitionInformation::compose);
-                    if (newInformation.equals(oldInformation)) {
+                    if (newInformation.equals(oldSnapshot)) {
                         continue;
                     }
 
-                    transitionsToHandle.merge(transition.resultingState().unlockedClone(), newInformation,
+                    // a copy: the stored information is composed into when the state is reached again, and the steps
+                    // taken from this state must not see that
+                    transitionsToHandle.merge(transition.resultingState().unlockedClone(), newInformation.clone(),
                             TransitionInformation::compose);
                 }
             } else {
